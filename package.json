@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "devDependencies": {
+    "@vuepress/plugin-active-header-links": "^1.5.1",
+    "@vuepress/plugin-back-to-top": "^1.5.1",
+    "@vuepress/plugin-last-updated": "^1.5.1",
     "vuepress": "^1.5.0",
     "webpack": "^4.43.0",
     "webpack-dev-server": "^3.11.0"
@@ -10,5 +13,8 @@
   "scripts": {
     "dev": "vuepress dev zhengcheng-doc",
     "build": "vuepress build zhengcheng-doc"
+  },
+  "dependencies": {
+    "yarn": "^1.22.4"
   }
 }
