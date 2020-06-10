@@ -29,7 +29,9 @@ module.exports = {
                 collapsable: false,
                 children: [
                     './guide/',
-                    './guide/getting-started'
+                    './guide/getting-started',
+                    './guide/async',
+                    './guide/aliyun'
                 ]
             },
             {
