@@ -33,13 +33,15 @@ module.exports = {
                     './guide/db',
                     './guide/feign',
                     './guide/async',
-                    './guide/aliyun'
+                    './guide/aliyun',
+                    './guide/log'
                 ]
             },
             {
                 title: '综合话题',
                 collapsable: false,
                 children: [
+                    './digging-deeper/plugin',
                     './digging-deeper/feign'
                 ]
             },
