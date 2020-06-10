@@ -30,8 +30,17 @@ module.exports = {
                 children: [
                     './guide/',
                     './guide/getting-started',
+                    './guide/db',
+                    './guide/feign',
                     './guide/async',
                     './guide/aliyun'
+                ]
+            },
+            {
+                title: '综合话题',
+                collapsable: false,
+                children: [
+                    './digging-deeper/feign'
                 ]
             },
             {
