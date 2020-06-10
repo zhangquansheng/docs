@@ -14,26 +14,30 @@
 ### 基本格式
 
 **必须使用参数化信息的方式:**
-```
+
+```java
 logger.debug("Processing trade with id:[{}] and symbol : [{}] ", id, symbol);
 ```
 
 **对于debug日志，必须判断是否为debug级别后，才进行使用:**
-```
+
+```java
 if (logger.isDebugEnabled()) {
     logger.debug("Processing trade with id: " +id + " symbol: " + symbol);
 }
 ```
 
 **不要进行字符串拼接，那样会产生很多String对象，占用空间，影响性能。反例(不要这么做):**
-```
+
+```java
 logger.debug("Processing trade with id: " + id + " symbol: " + symbol);
 ```
 
 ### 使用[]进行参数变量隔离
 
 **如有参数变量，应该写成如下写法:**
-```
+
+```java
 logger.debug("Processing trade with id:[{}] and symbol : [{}] ", id, symbol);
 ```
 
@@ -42,18 +46,20 @@ logger.debug("Processing trade with id:[{}] and symbol : [{}] ", id, symbol);
 ### 不同级别的使用
 
 #### ERROR
+
 影响到程序正常运行、当前请求正常运行的异常情况:
 - 第三方对接的异常(包括第三方返回错误码)
 - 所有影响功能使用的异常，包括：SQLException和除了**业务异常**之外的所有异常(RuntimeException和Exception)
 
 
 如果有Throwable信息，需要记录完成的堆栈信息:
-```
+
+```java
 log.error("获取用户[{}]的用户信息时出错",userName,e);
 ```
-**禁止使用 e.printStackTrace() 打印异常信息**
-::: warning
-```
+
+::: warning **禁止使用 e.printStackTrace() 打印异常信息**
+```java
     try {
         ....
     } catch (Exception e) {
@@ -61,9 +67,9 @@ log.error("获取用户[{}]的用户信息时出错",userName,e);
     }
 ```
 :::
-正确的方式：
-::: tip
-```
+
+::: tip 正确的方式：
+```java
     try {
         ....
     } catch (Exception e) {
@@ -75,8 +81,8 @@ log.error("获取用户[{}]的用户信息时出错",userName,e);
 
 **如果进行了抛出异常操作，请不要记录error日志，由最终处理方进行处理：**
 
-反例(不要这么做)：
-::: warning
+
+::: warning 反例(不要这么做)：
 ```
 try{
     ....
@@ -87,7 +93,6 @@ try{
 }
 ```
 :::
-
 
 
 #### WARN
@@ -119,7 +124,7 @@ try{
 - 如果在生产情况下需要开启DEBUG，需要使用开关进行管理，不能一直开启
 
 如果代码中出现以下代码，可以进行优化:
-```
+```java
 //1. 获取用户基本薪资
 
 //2. 获取用户休假情况
@@ -128,7 +133,7 @@ try{
 ```
 优化后的代码:
 
-```
+```java
 logger.debug("开始获取员工[{}] [{}]年基本薪资",employee,year);
 
 logger.debug("获取员工[{}] [{}]年的基本薪资为[{}]",employee,year,basicSalary);
