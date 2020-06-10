@@ -58,7 +58,7 @@ logger.debug("Processing trade with id:[{}] and symbol : [{}] ", id, symbol);
 log.error("获取用户[{}]的用户信息时出错",userName,e);
 ```
 
-::: warning **禁止使用 e.printStackTrace() 打印异常信息**
+::: warning 禁止使用 e.printStackTrace() 打印异常信息
 ```java
     try {
         ....
