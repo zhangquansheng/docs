@@ -30,6 +30,7 @@ module.exports = {
                 children: [
                     './guide/',
                     './guide/getting-started',
+                    './guide/web-core',
                     './guide/db',
                     './guide/feign',
                     './guide/async',
