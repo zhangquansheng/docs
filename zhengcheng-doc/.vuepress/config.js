@@ -38,7 +38,9 @@ module.exports = {
                     './guide/log',
                     './guide/zookeeper',
                     './guide/aliyun',
-                    './guide/tencentcloud'
+                    './guide/tencentcloud',
+                    './guide/socketio',
+                    './guide/sso'
                 ]
             },
             {

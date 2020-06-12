@@ -64,6 +64,17 @@ zc-zk-spring-boot-starter | Zookeeper通用组件
 ```
 :::
 
+## 三方包
+
+`zhengcheng` 引入了很多优秀的三方包，在此一并表示感谢。
+
+- Java工具类库[hutool](https://hutool.cn/docs/#/)
+- [MyBatis-Plus](https://mp.baomidou.com/)为简化开发而生
+- [XXL-JOB](http://www.xuxueli.com/xxl-job/)分布式任务调度平台
+- [Apollo配置中心](https://github.com/ctripcorp/apollo)
+- [面向云原生微服务的高可用流控防护组件Sentinel](https://github.com/alibaba/Sentinel)
+- [netty-socketio](https://github.com/mrniko/netty-socketio)
+
 ## 添砖加瓦
 
 ### 提供bug反馈或建议
