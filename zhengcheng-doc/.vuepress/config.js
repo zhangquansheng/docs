@@ -35,9 +35,10 @@ module.exports = {
                     './guide/db',
                     './guide/feign',
                     './guide/async',
-                    './guide/aliyun',
+                    './guide/log',
                     './guide/zookeeper',
-                    './guide/log'
+                    './guide/aliyun',
+                    './guide/tencentcloud'
                 ]
             },
             {
