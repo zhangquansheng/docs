@@ -4,6 +4,11 @@
 
 基于SpringCloud做微服务架构分布式系统时，OAuth2.0作为认证的业内标准，Spring Security OAuth2也提供了全套的解决方案来支持在Spring Cloud/Spring Boot环境下使用OAuth2.0，提供了开箱即用的组件。
 
+::: warning 特别提示：
+The Spring Security OAuth project is deprecated. The latest OAuth 2.0 support is provided by Spring Security. See the OAuth 2.0 Migration Guide for further details.
+
+[官方文档](https://projects.spring.io/spring-security-oauth/docs/oauth2.html)
+:::
 
 ## **安装**
 
@@ -96,7 +101,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 }
 ```
 
--- ResourceServerConfig  资源服务配置，授权服务也是一个资源服务
+- ResourceServerConfig  资源服务配置，授权服务也是一个资源服务
 
 ```java
 /**
@@ -154,7 +159,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 }
 ```
 
-- SecurityConfig
+- Security配置
 
 ```java
 /**
@@ -217,8 +222,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 }
 ```
 
-- 登录成功
+- 属性配置
+
+```properties
+security.oauth2.resource-id = zc-user
+security.oauth2.resource.user-info-uri = http://127.0.0.1:8770/user
+security.oauth2.resource.prefer-token-info = false
+security.basic.enabled = false
 ```
+
+## 用户端
+
+### 授权登录，获取accessToken
+```http request
+http://127.0.0.1:8770/oauth/token?username=admin&password=admin&grant_type=password
+```
+
+- 登录成功
+```json
 {
 	"code": 200,
 	"data": {
@@ -230,8 +251,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	"message": "登录成功"
 }
 ```
+
 - 登录失败
-```
+```json
 {
 	"code": 400,
 	"data": null,
@@ -240,7 +262,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 ```
 
 - token过期
-```
+```json
 {
     "code": 401,
     "data": "Invalid access token: 4cb1ffab-5f4e-4b35-a059-28cd859ad4521",
@@ -248,9 +270,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 }
 ```
 
-- 获取当前用户信息
+### 获取当前用户信息
+```http request
 http://127.0.0.1:8770/currentUser?access_token=d1d88d80-329e-4db0-8133-00799ec883c7
 ```
+
+```json
 {
 	"code": 200,
 	"data": {

@@ -27,7 +27,7 @@
 
 ## [v4.6.0] 2020.06.04
 - 去掉`zc-redis-spring-boot-starter`中`j2cache`,如果需要用，则maven添加:
-```
+```xml
     <dependency>
         <groupId>net.oschina.j2cache</groupId>
         <artifactId>j2cache-spring-boot2-starter</artifactId>
@@ -85,7 +85,7 @@
 - 接口签名校验，例如微信支付接口的签名校验 `SignAuthInterceptor`
 - 去掉 `WebAutoConfiguration` 上 `@EnableApolloConfig`的配置，交给开发者自主选择
 - 去掉 `apollo` 配置中心依赖包，交给开发者自主选择
-```
+```xml
         <dependency>
             <groupId>com.ctrip.framework.apollo</groupId>
             <artifactId>apollo-client</artifactId>
@@ -96,14 +96,14 @@
         </dependency>
 ```
 - 去掉 `VI` 依赖包，交给开发者自主选择
-```
+```xml
         <dependency>
             <groupId>com.ctrip.framework</groupId>
             <artifactId>cornerstone</artifactId>
         </dependency>
 ```
 - 去掉 `eureka-client`，交给开发者自主选择(`@EnableEurekaClient`)
-```
+```xml
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
@@ -120,7 +120,7 @@
 - `SpringBoot` 升级到 `2.1.11.RELEASE`
 - `fastjson` 升级 `1.2.68`,`SpringBoot` 使用默认的 `jackson`，`fastjson`总是有安全的漏洞，需要升级，所以重要的地方舍弃使用。
 - `SpringBoot` `jackson` 的配置如下:
-```
+```yaml
 spring:
     jackson:
        #参数意义：
