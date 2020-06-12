@@ -21,7 +21,7 @@ SpringBoot2.x 默认采用Lettuce客户端来连接Redis服务端的
 
 Lettuce：高级Redis客户端，用于线程安全同步，异步和响应使用，支持集群，Sentinel，管道和编码器
 
-属性配置
+- 属性配置
 ```yaml
 spring:
   redis:
@@ -107,4 +107,33 @@ bloomFilter.contains(new SomeObject("field1Value", "field8Value"));
 
 
 参考[redisson官方文档](https://github.com/redisson/redisson/wiki/6.-%E5%88%86%E5%B8%83%E5%BC%8F%E5%AF%B9%E8%B1%A1#68-%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8bloom-filter)
+
+## Redisson 分布式锁
+
+`zhengcheng` 定义了DistributedLock接口用于分布式锁，除了这里的Redisson RLock 实现外，还有[ZK的分布式锁实现](zookeeper.md#分布式锁)。
+
+- 属性配置
+```properties
+redisson.lock.enable = true
+```
+
+- Recipes
+
+```java
+    @Autowired
+    private DistributedLock lock;
+
+
+    if ( lock.acquire(maxWait, waitUnit) ) 
+    {
+        try 
+        {
+            // do some work inside of the critical section here
+        }
+        finally
+        {
+            lock.release();
+        }
+    }
+```
 

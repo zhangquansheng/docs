@@ -36,6 +36,7 @@ module.exports = {
                     './guide/feign',
                     './guide/async',
                     './guide/aliyun',
+                    './guide/zookeeper',
                     './guide/log'
                 ]
             },
