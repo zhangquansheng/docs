@@ -5,7 +5,7 @@ sidebarDepth: 3
 
 # 阿里云通用组件
 
-## **简介**（Introduction）
+## 简介
 
 `阿里云对象存储 OSS`，`内容安全`，`消息队列 RocketMQ 版`，`阿里云短信服务 SMS`,`日志服务`
 

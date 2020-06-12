@@ -31,6 +31,7 @@ module.exports = {
                     './guide/',
                     './guide/getting-started',
                     './guide/web-core',
+                    './guide/cache',
                     './guide/db',
                     './guide/feign',
                     './guide/async',
