@@ -52,7 +52,10 @@ module.exports = {
                     './digging-deeper/feign',
                     './digging-deeper/bigkey',
                     './digging-deeper/zk-lock',
-                    './digging-deeper/sign-auth'
+                    './digging-deeper/sign-auth',
+                    './digging-deeper/mdc',
+                    './digging-deeper/cache2',
+                    './digging-deeper/distributed-lock'
                 ]
             },
             {
