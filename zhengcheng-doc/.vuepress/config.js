@@ -49,7 +49,10 @@ module.exports = {
                 children: [
                     './digging-deeper/plugin',
                     './digging-deeper/cat',
-                    './digging-deeper/feign'
+                    './digging-deeper/feign',
+                    './digging-deeper/bigkey',
+                    './digging-deeper/zk-lock',
+                    './digging-deeper/sign-auth'
                 ]
             },
             {
