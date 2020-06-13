@@ -48,6 +48,7 @@ module.exports = {
                 collapsable: false,
                 children: [
                     './digging-deeper/plugin',
+                    './digging-deeper/cat',
                     './digging-deeper/feign'
                 ]
             },

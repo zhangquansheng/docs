@@ -74,6 +74,11 @@ zc-zk-spring-boot-starter | Zookeeper通用组件
 - [Apollo配置中心](https://github.com/ctripcorp/apollo)
 - [面向云原生微服务的高可用流控防护组件Sentinel](https://github.com/alibaba/Sentinel)
 - [netty-socketio](https://github.com/mrniko/netty-socketio)
+- [红薯 开源中国 J2Cache](https://gitee.com/ld/J2Cache)
+
+## 关于作者
+
+`zhengcheng` 是个人学习作品，如果您觉得还不错，欢迎使用，如有问题，联系作者（微信：`z088600`、邮箱：`952547584@qq.com`），必定竭诚为您解决。
 
 ## 添砖加瓦
 
