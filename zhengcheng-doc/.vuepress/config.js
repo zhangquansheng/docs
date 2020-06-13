@@ -2,6 +2,7 @@ module.exports = {
     port: "80",
     ga: "UA-85414008-1",
     base: "/",
+    dest:'zhengcheng-doc/.vuepress/docs',
     markdown: {
         externalLinks: {
             target: '_blank', rel: 'noopener noreferrer'
