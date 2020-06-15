@@ -36,7 +36,6 @@
     }
 ```
 
-```
 - 去掉`zc-redis-spring-boot-starter`中`j2cache`,如果需要用，则maven添加:
 ```xml
     <dependency>
