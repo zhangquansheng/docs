@@ -54,16 +54,6 @@ zc-zk-spring-boot-starter | Zookeeper通用组件
     </parent>
 ```
 
-::: danger 禁止
-禁止在项目的pom.xml的dependencies中加入以下内容（我们不认为有人会这样做，但如果有，建议去重新学习下`SpringBoot`）
-```xml
-    <parent>
-        <groupId>com.zhengcheng</groupId>
-        <artifactId>zhengcheng-parent</artifactId>
-    </parent>
-```
-:::
-
 ## 三方包
 
 `zhengcheng` 引入了很多优秀的三方包，在此一并表示感谢。

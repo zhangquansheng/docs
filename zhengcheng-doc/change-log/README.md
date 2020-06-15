@@ -2,23 +2,15 @@
 
 ## TODO LIST
 
-- 学习技术文档的编写
-    - https://gitee.com/baomidou/mybatis-plus-doc
-    - https://www.hutool.cn/docs/#/
-    - https://www.vuepress.cn/
-- 简单学习Zookeeper（典型应用场景） 及 Curator
-    - https://blog.csdn.net/u013468915/article/details/80955110
-    - https://blog.csdn.net/u013219624/article/details/83153016
-    - https://cwiki.apache.org/confluence/display/ZOOKEEPER/Index
-    - http://curator.apache.org//
-- 增加zk分布式锁，分布式锁实现方式的性能对比和使用场景整理 ZookeeperLock
 - **kafka 在Springboot2.x 的最佳实战**
 - **redis 在Springboot2.x 的最佳实战**
 - Elasticsearch 深入研究，面试，实战
 - [代码在线生成器](https://gitee.com/zhangquansheng/magic/tree/springboot-code-gen/)
+- 代码生成IDEA的插件
 - SOLID 架构设计 深入学习
-- cache aside pattern / redis 深入总结
 - 如何保证kafka消息不丢失（结合实际业务场景）
+- jackson json序列化 首字母大写 第二个字母需小写
+- mybatis-crud 文档整理
 
 ### 强烈提醒
 - **需要花费很长时间的事情，需要慎重考虑一下在去做**
@@ -26,6 +18,25 @@
 - **延迟满足，坚持**
 
 ## [v4.6.0] 2020.06.04
+- 修复`GlobalResponseBodyAdvice` 统一返回结果后，String的报错的问题
+```json
+{
+    "code": 500,
+    "message": "系统升级中，请稍后重试！",
+    "data": "com.zhengcheng.common.web.Result cannot be cast to java.lang.String",
+    "requestId": "6823280748b049109b0b0f40439c0265"
+}
+```
+- 设置返回数据的类型以及编码 `produces = "application/json;charset=UTF-8"`,示例如下：
+```java
+    @GetMapping(value = "/str", produces = "application/json;charset=UTF-8")
+    public String str(String v) {
+        // 经过压测，在吞吐量为157.3/sec 的情况下，被限流的比例为36.44%，符合预期
+        return "测试";
+    }
+```
+
+```
 - 去掉`zc-redis-spring-boot-starter`中`j2cache`,如果需要用，则maven添加:
 ```xml
     <dependency>

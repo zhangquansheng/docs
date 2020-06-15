@@ -2,7 +2,7 @@
 
 ## **安装**
 
-pom文件引入
+在 Maven 工程中使用
 
 ```xml
   <dependency>
