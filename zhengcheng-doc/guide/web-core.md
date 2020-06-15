@@ -41,7 +41,7 @@ maven
 
 ## GlobalResponseBodyAdvice
 
-通@RestControllerAdvice 注解并实现 `ResponseBodyAdvice` ,对controller的返回值统一加上`Result`；
+通@RestControllerAdvice 注解并实现 `ResponseBodyAdvice` ,对controller的返回值统一加上`Result`；String 类型的需要单独处理。
 
 ```java
 /**
@@ -62,7 +62,11 @@ public class GlobalResponseBodyAdvice implements ResponseBodyAdvice<Object> {
         if (body instanceof Result || body instanceof PageResult) {
             return body;
         }
-        return Result.successData(body);
+        Result result = Result.successData(body);
+        if (body instanceof String) {
+            return JSONUtil.toJsonStr(result);
+        }
+        return result;
     }
 
     @Override
