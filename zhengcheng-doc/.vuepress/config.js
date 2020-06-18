@@ -71,6 +71,13 @@ module.exports = {
                 ]
             },
             {
+                title: 'FAQ',
+                collapsable: false,
+                children: [
+                    './faq/',
+                ]
+            },
+            {
                 title: '更新日志',
                 collapsable: false,
                 children: [
