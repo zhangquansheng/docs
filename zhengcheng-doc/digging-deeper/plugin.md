@@ -2,6 +2,10 @@
 
 > 推荐几款效率可以翻倍的IDEA插件,撸码利器
 
+## EasyCode
+
+[EasyCode](https://gitee.com/makejava/EasyCode): **代码神器，个人迄今为止最喜欢的插件，上手以后太爽啦。。。**
+
 ## Codota
 
 [Codota](https://plugins.jetbrains.com/plugin/7638-codota): AI code completions for Java

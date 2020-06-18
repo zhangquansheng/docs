@@ -2,7 +2,7 @@ module.exports = {
     port: "80",
     ga: "UA-85414008-1",
     base: "/",
-    dest:'zhengcheng-doc/.vuepress/docs',
+    dest: 'zhengcheng-doc/.vuepress/docs',
     markdown: {
         externalLinks: {
             target: '_blank', rel: 'noopener noreferrer'
@@ -59,6 +59,15 @@ module.exports = {
                     './digging-deeper/mdc',
                     './digging-deeper/cache2',
                     './digging-deeper/distributed-lock'
+                ]
+            },
+            {
+                title: '架构设计',
+                collapsable: false,
+                children: [
+                    './arch-design/mybatis-crud',
+                    './arch-design/ifelse-1',
+                    './arch-design/ifelse-2',
                 ]
             },
             {
