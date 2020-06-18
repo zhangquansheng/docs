@@ -3,21 +3,20 @@
 ## TODO LIST
 
 - **kafka 在Springboot2.x 的最佳实战**
+- 如何保证kafka消息不丢失（结合实际业务场景）
 - **redis 在Springboot2.x 的最佳实战**
 - Elasticsearch 深入研究，面试，实战
-- [代码在线生成器](https://gitee.com/zhangquansheng/magic/tree/springboot-code-gen/)
-- 代码生成IDEA的插件
 - SOLID 架构设计 深入学习
-- 如何保证kafka消息不丢失（结合实际业务场景）
-- jackson json序列化 首字母大写 第二个字母需小写
-- mybatis-crud 文档整理
+
 
 ### 强烈提醒
 - **需要花费很长时间的事情，需要慎重考虑一下在去做**
 - **对未来乐观**
 - **延迟满足，坚持**
 
+
 ## [v4.6.0] 2020.06.04
+- 使用EasyCode，一个字爽 
 - 修复`GlobalResponseBodyAdvice` 统一返回结果后，String的报错的问题
 ```json
 {
