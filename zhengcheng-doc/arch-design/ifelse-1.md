@@ -37,7 +37,7 @@
 
 重构代码思路如下：
 
-## 1. 定义一个注解，用来消除 if/else switch/case
+## 1. 定义一个注解[@Event](https://gitee.com/zhangquansheng/zhengcheng-parent/blob/master/zc-aliyun-spring-boot-starter/src/main/java/com/zhengcheng/aliyun/mq/annotation/Event.java)
 
 ```java
 /**
@@ -54,7 +54,7 @@ public @interface Event {
 }
 ```
 
-### 2. 定义消费事件处理者接口，所有的消费事件需要实现该接口
+### 2. 定义消费事件处理者接口[IConsumerHandler](https://gitee.com/zhangquansheng/zhengcheng-parent/blob/master/zc-aliyun-spring-boot-starter/src/main/java/com/zhengcheng/aliyun/mq/handler/IConsumerHandler.java)，所有的消费事件需要实现该接口
 
 ```java
 /**
@@ -76,7 +76,7 @@ public interface IConsumerHandler {
 }
 ```
 
-## 3. 定义消费工厂，用于根据消息事件生成不同的消费事件实例
+## 3. 定义消费工厂[ConsumerFactory](https://gitee.com/zhangquansheng/zhengcheng-parent/blob/master/zc-aliyun-spring-boot-starter/src/main/java/com/zhengcheng/aliyun/mq/factory/ConsumerFactory.java)，用于根据消息事件生成不同的消费事件实例
 
 ```java
 /**
