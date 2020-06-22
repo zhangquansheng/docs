@@ -16,7 +16,14 @@
 
 
 ## [v4.6.0] 2020.06.04
-- 使用EasyCode，一个字爽 
+- 使用EasyCode，一个字爽
+- 在zc-web-spring-boot-starter剔除zc-auth-client-spring-boot-starter，单独引用；可以网关引入后，不需要在每个服务中单独调用（推荐）。
+```xml
+<dependency>
+    <groupId>com.zhengcheng</groupId>
+    <artifactId>zc-auth-client-spring-boot-starter</artifactId>
+</dependency>
+``` 
 - 修复`GlobalResponseBodyAdvice` 统一返回结果后，String的报错的问题
 ```json
 {
