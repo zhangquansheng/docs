@@ -23,6 +23,8 @@
     - impl 接口实现
     - kafka 消费队列
 - feign 外部接口或第三方平台
+    - dto （DataTransferObject） 数据传输对象，Feign向外传输的对象。
+    - fallback feign回退工厂
 - domain 数据持久层：DAO层，数据源
     - entity DO 此对象与数据库表结构一一对应，通过DAO层向上传输数据源对象
     - enums 枚举
