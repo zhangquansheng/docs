@@ -21,8 +21,8 @@
             - dto（DataTransferObject） 数据传输对象，Service或Facade向外传输的对象。
 - service 业务层：包括业务逻辑层，外部接口或者第三方平台
     - impl 接口实现
-    - feign 外部接口或第三方平台
     - kafka 消费队列
+- feign 外部接口或第三方平台
 - domain 数据持久层：DAO层，数据源
     - entity DO 此对象与数据库表结构一一对应，通过DAO层向上传输数据源对象
     - enums 枚举
