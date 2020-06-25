@@ -4,7 +4,11 @@
 
 ## EasyCode
 
-[EasyCode](https://gitee.com/makejava/EasyCode): **代码神器，个人迄今为止最喜欢的插件，上手以后太爽啦。。。**
+[EasyCode](https://plugins.jetbrains.com/plugin/10954-easy-code): **代码神器，个人迄今为止最喜欢的插件，上手以后太爽啦。。。** 
+
+::: tip 官方文档
+[Gitee](https://gitee.com/makejava/EasyCode)
+:::
 
 ## Codota
 
