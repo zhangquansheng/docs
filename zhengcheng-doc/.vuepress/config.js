@@ -38,6 +38,7 @@ module.exports = {
                     './guide/async',
                     './guide/apollo',
                     './guide/log',
+                    './guide/kafka',
                     './guide/zookeeper',
                     './guide/aliyun',
                     './guide/tencentcloud',
