@@ -59,7 +59,8 @@ module.exports = {
                     './digging-deeper/sign-auth',
                     './digging-deeper/mdc',
                     './digging-deeper/cache2',
-                    './digging-deeper/distributed-lock'
+                    './digging-deeper/distributed-lock',
+                    './digging-deeper/aliyun-db'
                 ]
             },
             {
