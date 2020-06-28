@@ -39,6 +39,7 @@ module.exports = {
                     './guide/apollo',
                     './guide/log',
                     './guide/kafka',
+                    './guide/spring-kafka',
                     './guide/zookeeper',
                     './guide/aliyun',
                     './guide/tencentcloud',
