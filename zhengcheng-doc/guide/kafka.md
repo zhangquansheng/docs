@@ -143,6 +143,11 @@ MQ 超高性能的消息处理能力可以承接流量脉冲而不被击垮，�
 
 ## HA机制
 
+## 性能
+
+[对Apache Kafka进行基准测试：每秒200万次写入（在三台便宜的机器上）](https://engineering.linkedin.com/kafka/benchmarking-apache-kafka-2-million-writes-second-three-cheap-machines)
+
+
 ## 参考地址
 
 - [kafka 官方文档](http://kafka.apache.org/intro)
