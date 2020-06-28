@@ -21,6 +21,10 @@ sidebarDepth: 3
 - **Consumer** : 消息消费者，向 kafka broker 读取消息的客户端。
 - **Consumer Group** : 每个 Consumer 属于一个特定的 **Consumer Group**（可为每个 Consumer 指定 group name，若不指定 group name 则属于默认的 group）
 
+::: tip Kafka的记录（消息）
+每条记录都包含 一个 key, 一个 value, 一个 timestamp.
+:::
+
 ### kafka 拓扑结构
 
 ![topic](/img/kafka/kafka.png)
@@ -74,22 +78,47 @@ Producer 将数据发布到指定的主题。你可以简单地为负载均衡�
 
 **Consumer**使用group name 标记自己, 并且发布到**Topic**的每条记录都会传递到每个订阅**Consumer Group**中的一个 Consumer 实例。
 
-If all the consumer instances have the same consumer group, then the records will effectively be load balanced over the consumer instances.
+如果所有的 Consumer 实例拥有相同的**Consumer Group**，那么记录会均衡的分配到 Consumer 实例中。
 
-If all the consumer instances have different consumer groups, then each record will be broadcast to all the consumer processes.
+如果所有的 Consumer 实例拥有不同的**Consumer Group**，那么每天记录都会广播到所有的 Consumer进程中。
 
-![topic](/img/kafka/log_consumer.png)
+![topic](/img/kafka/consumer-groups.png)
 
-A two server Kafka cluster hosting four partitions (P0-P3) with two consumer groups. Consumer group A has two consumer instances and group B has four.
+如上图所示：一个Kafka集群拥有两台服务器、4个**Partition(P0-P3)**、2个**Consumer Group**，**Consumer Group A**有2个消费实例，**Consumer Group A**有4个消费实例，
 
-More commonly, however, we have found that topics have a small number of consumer groups, one for each "logical subscriber". Each group is composed of many consumer instances for scalability and fault tolerance. This is nothing more than publish-subscribe semantics where the subscriber is a cluster of consumers instead of a single process.
+::: tip 总结
+同一 **Topic** 的一条消息只能被同一个 **Consumer Group** 内的一个 Consumer 消费，但多个 **Consumer Group** 可同时消费这一消息。
+:::
 
-The way consumption is implemented in Kafka is by dividing up the partitions in the log over the consumer instances so that each instance is the exclusive consumer of a "fair share" of partitions at any point in time. This process of maintaining membership in the group is handled by the Kafka protocol dynamically. If new instances join the group they will take over some partitions from other members of the group; if an instance dies, its partitions will be distributed to the remaining instances.
 
-Kafka only provides a total order over records within a partition, not between different partitions in a topic. Per-partition ordering combined with the ability to partition data by key is sufficient for most applications. However, if you require a total order over records this can be achieved with a topic that has only one partition, though this will mean only one consumer process per consumer group.
+在Kafka中，Consumer Rebalance 算法如下：
+```html
+1. 将目标 topic 下的所有 partition 排序，存于PT
+2. 对某 **Consumer Group** 下所有 Consumer 排序，存于 CG，第 i 个consumer 记为 Ci
+3. N = size(PT)/size(CG)，向上取整
+4. 解除 Ci 对原来分配的 partition 的消费权（i从0开始）
+5. 将第 i*N 到 (i+1)*N-1 个 partition 分配给 Ci
+```
 
+Consumer rebalance 的控制策略是由每一个 Consumer 通过 Zookeeper 完成的。具体的控制方式如下：
+```html
+1. 在 /consumers/[consumer-group]/ 下注册id
+2. 设置对 /consumers/[consumer-group] 的watcher
+3. 设置对 /brokers/ids 的watcher
+4. zk 下设置 watcher 的路径节点更改，触发 Consumer rebalance
+```
+　
+::: tip 羊群效应理论
+任何broker或者consumer的增减都会触发所有的consumer的rebalance
+::: 
+
+
+Kafka 仅仅提供 一个**Partition** 内的记录顺序，而不能提供在同一 **Topic**下不同 **Partition**的顺序。当你需要同一 **Topic**的记录是顺序的，则可以使用一个**Partition**的**Topic**来实现：
+- 发送消息到只有一个**Partition**的**Topic**
+- 发送消息指定**Partition**
+- 发送消息的**KEY相同**（消息KEY相同，那么消息提交的到**Partition**是相同的）
 
 ## 参考地址
 
-[kafka 官方文档](http://kafka.apache.org/intro)
-[kafka 设计解析（一）：kafka 背景及架构介绍](https://www.infoq.cn/article/kafka-analysis-part-1)
+- [kafka 官方文档](http://kafka.apache.org/intro)
+- [kafka 设计解析（一）：kafka 背景及架构介绍](https://www.infoq.cn/article/kafka-analysis-part-1)
