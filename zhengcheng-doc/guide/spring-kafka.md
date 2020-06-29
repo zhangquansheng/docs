@@ -1,7 +1,7 @@
 # spring-kafka
 
 ::: tip 特别提示
-本文基于 `spring-kafka 2.5.3` 并结合在`SpringBoot2.0`的实际开发过程中的最佳实践，非常详细的介绍，请参考[官方文档](https://spring.io/projects/spring-kafka)
+本文基于 `spring-kafka 2.2.12` 并结合在`SpringBoot2.1.13`的实际开发过程中的最佳实践，非常详细的介绍，请参考[官方文档](https://spring.io/projects/spring-kafka)
 :::
 
 ## 安装
@@ -38,3 +38,7 @@ spring.kafka.listener.ack-mode=manual_immediate
 
 ## KafkaTemplate 发送消息及结果回调
 
+Spring’s KafkaTemplate 是自动配置的，
+
+
+### KafkaTemplate异步发送消息
