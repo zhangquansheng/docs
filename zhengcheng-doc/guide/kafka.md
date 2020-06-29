@@ -42,6 +42,12 @@ Producer 使用 push 模式将消息发布到 broker，Consumer 使用 pull 模�
 
 ### Topics and Logs
 
+::: tip (阿里云)Topic的取值：
+- 只能包含字母、数字、下划线（_）和短划线（-）
+- 长度限制为3~64字符
+- Topic名称一旦创建，将无法修改
+:::
+
 kafka 中的 Topic 始终是多用户的；也就是说，一个主题可以有零个，一个或多个消费者来订阅或写入该 Topic 的数据。
 
 对于每个 Topic ，Kafka集群 都会维护一个分区日志，如下所示：
@@ -69,6 +75,8 @@ Kafka 中的**Topic**是逻辑概念，而**Partition**是物理概念，对用�
 这样 Producer 可以将数据发送给多个**Broker**上的多个**Partition**，**Consumer**也可以**并行**从多个**Broker**上的不同**Partition**上读数据，实现了水平扩展。
 
 :::
+
+
 
 ### Producers
 

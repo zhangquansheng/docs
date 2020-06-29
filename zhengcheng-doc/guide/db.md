@@ -4,7 +4,7 @@
 基于[MybatisPlus](https://mp.baomidou.com/)，数据库基于Mysql5.6以上
 :::
 
-## **安装**
+## 安装
 
 在 Maven 工程中使用
 
