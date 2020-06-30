@@ -87,7 +87,7 @@ kafkaTemplate.sendDefault(JSONUtil.toJsonStr(dictItemMessageDTO));
 
 ### KafkaTemplate 同步发送消息
 
-KafkaTemplate 异步发送消息大大的提升了生产者的并发能力，但某些场景下我们需要明确知道此次发送消息是否成功，那么在 `Future` 模式中，我们采取异步执行事件，等到需要返回值得时候我们再调用get方法获取future的返回值。
+KafkaTemplate 异步发送消息大大的提升了生产者的并发能力，但某些场景下我们需要明确知道此次发送消息是否成功，参考 [Future] 模式
 
 ```java
 kafkaTemplate.send("zc_magic_topic_dict", JSONUtil.toJsonStr(dictItemMessageDTO)).get();
