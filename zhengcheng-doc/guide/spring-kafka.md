@@ -25,20 +25,39 @@ spring.kafka.bootstrap-servers=127.0.0.1:9092
 spring.kafka.consumer.group-id=magic
 spring.kafka.consumer.enable-auto-commit=false
 spring.kafka.consumer.key-deserializer=org.apache.kafka.common.serialization.StringDeserializer
-spring.kafka.consumer.value-deserializer=org.springframework.kafka.support.serializer.JsonDeserializer
+spring.kafka.consumer.value-deserializer=org.apache.kafka.common.serialization.StringDeserializer
 spring.kafka.consumer.properties.spring.json.trusted.packages=*
 spring.kafka.consumer.max-poll-records=150
 spring.kafka.producer.retries=2
 spring.kafka.producer.key-serializer=org.apache.kafka.common.serialization.StringSerializer
-spring.kafka.producer.value-serializer=org.springframework.kafka.support.serializer.JsonSerializer
+spring.kafka.producer.value-serializer=org.apache.kafka.common.serialization.StringDeserializer
 spring.kafka.listener.ack-mode=manual_immediate
 ```
 
 > 更多设置请参考[KafkaProperties](https://github.com/spring-projects/spring-boot/blob/v2.3.1.RELEASE/spring-boot-project/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/kafka/KafkaProperties.java)
 
+在 `zhengcheng` 项目中，推荐统一使用 `org.apache.kafka.common.serialization.StringDeserializer`对key/value进行序列化；
+
 ## KafkaTemplate 发送消息及结果回调
 
 Spring’s KafkaTemplate 是自动配置的，
 
+```java
+ListenableFuture<SendResult<K, V>> send(String topic, V data);
+ListenableFuture<SendResult<K, V>> send(String topic, K key, V data);
+ListenableFuture<SendResult<K, V>> send(String topic, Integer partition, K key, V data);
+ListenableFuture<SendResult<K, V>> send(String topic, Integer partition, Long timestamp, K key, V data);
+ListenableFuture<SendResult<K, V>> send(ProducerRecord<K, V> record);
+ListenableFuture<SendResult<K, V>> send(Message<?> message);
+ListenableFuture<SendResult<K, V>> sendDefault(V data);
+ListenableFuture<SendResult<K, V>> sendDefault(K key, V data);
+ListenableFuture<SendResult<K, V>> sendDefault(Integer partition, K key, V data);
+ListenableFuture<SendResult<K, V>> sendDefault(Integer partition, Long timestamp, K key, V data);
+```
 
 ### KafkaTemplate异步发送消息
+
+```java
+    @Autowired
+    private KafkaTemplate<String, String> kafkaTemplate;
+```
