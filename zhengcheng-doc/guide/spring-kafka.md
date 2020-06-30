@@ -40,8 +40,7 @@ spring.kafka.listener.ack-mode=manual_immediate
 
 ## KafkaTemplate 发送消息及结果回调
 
-Spring’s KafkaTemplate 是自动配置的，
-
+Spring’s KafkaTemplate 是自动配置的，有关发送的接口如下:
 ```java
 ListenableFuture<SendResult<K, V>> send(String topic, V data);
 ListenableFuture<SendResult<K, V>> send(String topic, K key, V data);
