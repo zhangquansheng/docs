@@ -54,9 +54,33 @@ ListenableFuture<SendResult<K, V>> sendDefault(Integer partition, K key, V data)
 ListenableFuture<SendResult<K, V>> sendDefault(Integer partition, Long timestamp, K key, V data);
 ```
 
-### KafkaTemplate异步发送消息
+参数 | 解释
+---|---
+topic | Topic的名字
+partition | 分区的id，其实就是第几个分区，id从0开始。表示指定发送到该分区中
+timestamp | 时间戳，一般默认当前时间戳
+key | 消息的键
+data | 消息的数据
+ProducerRecord | 消息对应的封装类，包含上述字段
+Message | Spring自带的Message封装类，包含消息及消息头
+
+### KafkaTemplate 异步发送消息
+
+KafkaTemplate 发送消息是采取异步方式发送，如下：
 
 ```java
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
+
+    kafkaTemplate.send("zc_magic_topic_dict", JSONUtil.toJsonStr(dictItemMessageDTO));
+```
+
+如果设置了默认主题，可以稍微简化 send() 方法，通过设置 `spring.kafka.template.default-topic` 属性，将默认主题设置为 `zc_magic_topic_dict`：
+```properties
+spring.kafka.template.default-topic=zc_magic_topic_dict
+```
+
+然后可以调用 sendDefault() 而不是 send()
+```java
+kafkaTemplate.sendDefault(JSONUtil.toJsonStr(dictItemMessageDTO));
 ```
