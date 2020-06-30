@@ -95,3 +95,27 @@ kafkaTemplate.send("zc_magic_topic_dict", JSONUtil.toJsonStr(dictItemMessageDTO)
 
 ### 消息结果回调
 
+一般来说我们都会去获取 KafkaTemplate 发送消息的结果去判断消息是否发送成功，如果消息发送失败，则会重新发送或者执行对应的业务逻辑，参考代码如下：
+
+```java
+ ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send("zc_magic_topic_dict", JSONUtil.toJsonStr(dictItemMessageDTO));
+    future.addCallback(new ListenableFutureCallback<SendResult<String, String>>() {
+        @Override
+        public void onFailure(@NonNull Throwable throwable) {
+            log.error("sent message=[{}] failed!", msg, throwable);
+            // 消息发送失败的逻辑
+        }
+ 
+        @Override
+        public void onSuccess(SendResult<String, String> result) {
+            log.info("sent message=[{}] with offset=[{}] success!", msg, result.getRecordMetadata().offset());
+        }
+    });
+    try {
+        // 因为是异步发送，所以我们等待，最多10s
+        future.get(10, TimeUnit.SECONDS);
+    } catch (InterruptedException | ExecutionException | TimeoutException e) {
+        log.error("waiting for kafka send finish failed!", e);
+        // 消息发送超时的逻辑
+}
+```
