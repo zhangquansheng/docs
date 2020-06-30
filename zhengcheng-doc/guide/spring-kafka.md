@@ -69,10 +69,10 @@ Message | Spring自带的Message封装类，包含消息及消息头
 KafkaTemplate 发送消息是采取异步方式发送，如下：
 
 ```java
-    @Autowired
-    private KafkaTemplate<String, String> kafkaTemplate;
+@Autowired
+private KafkaTemplate<String, String> kafkaTemplate;
 
-    kafkaTemplate.send("zc_magic_topic_dict", JSONUtil.toJsonStr(dictItemMessageDTO));
+kafkaTemplate.send("zc_magic_topic_dict", JSONUtil.toJsonStr(dictItemMessageDTO));
 ```
 
 如果设置了默认主题，可以稍微简化 send() 方法，通过设置 `spring.kafka.template.default-topic` 属性，将默认主题设置为 `zc_magic_topic_dict`：
