@@ -107,6 +107,42 @@ public interface Contract {
 解析后的效果如下：
 ![feign-contract](/img/spring-cloud-feign/feign-contract.png)
 
+Feign 默认的协议规范:
+![feign-default-contract](/img/spring-cloud-feign/feign-default-contract.png)
+[官方文档](https://github.com/OpenFeign/feign#interface-annotations)
+
+
+在Spring Boot(Cloud)中，Feign 默认使用的契约是 SpringMvcContract, 因此它可以使用 SpringMvc 的注解。
+
+如果让它使用 Feign 自带的注解进行工作，需要自定义 Feign 的配置：
+```java
+/**
+ * 该类为Feign的配置类
+ * <p>
+ * 注意：该类可以不写 @Configuration 注解；如果加了 @Configuration 注解，那么该类不能放在主应用程序上下文 @ComponentScan 所扫描的包中，否则会使项目中默认的 Feign 配置类发生变化
+ *
+ * @author :    zhangquansheng
+ * @date :    2020/7/9 18:40
+ */
+public class FeignConfiguration {
+
+    /**
+     * 将契约改为feign原生的默认契约。这样就可以使用feign自带的注解了。
+     *
+     * @return 默认的feign契约
+     */
+    @Bean
+    public Contract feignContract() {
+        return new feign.Contract.Default();
+    }
+}
+```
+
+::: warning 禁止使用原生Feign注解调用feign接口
+1. 书写不方便，极容易出错
+2. Spring Cloud 官方文档中推荐使用SpringMvc，以便项目框架的版本升级            
+:::
+ 
 
 ### 3. 基于 RequestBean，动态生成Request
 
