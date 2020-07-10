@@ -604,7 +604,7 @@ feign.client.config.default.readTimeout=10000
 
 ```
 
-从源码可以看到，feign使用okhttp时，超时时间优先根据client的时间来设置
+从源码可以看到，feign使用okhttp时，超时时间优先根据client的时间来设置。
 
 #### 2）okhttp 执行层
 
