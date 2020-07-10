@@ -70,7 +70,7 @@ public class ReflectiveFeign extends Feign {
 }
 ```
 
-解析后的效果如下：
+**项目启动时**的效果如下：
 ![feign-proxy](/img/spring-cloud-feign/feign-proxy.png)
 
 
@@ -95,7 +95,7 @@ public interface Contract {
 }   
 ```
 
-解析后的效果如下：
+**项目启动时**的效果如下：
 ![feign-contract](/img/spring-cloud-feign/feign-contract.png)
 
 Feign 默认的协议规范: [官方文档](https://github.com/OpenFeign/feign#interface-annotations)
@@ -130,7 +130,7 @@ public class FeignConfiguration {
 
 ::: warning 禁止使用原生Feign注解调用feign接口
 1. 书写不方便，极容易出错
-2. Spring Cloud 官方文档中推荐使用SpringMvc，以便项目框架的版本升级            
+2. Spring Cloud [官方文档](https://cloud.spring.io/spring-cloud-static/spring-cloud-openfeign/3.0.0.M1/reference/html/#spring-cloud-feign-overriding-defaults)中默认使用 `SpringMvcContract`            
 :::
  
 
@@ -174,7 +174,7 @@ Object executeAndDecode(RequestTemplate template, Options options) throws Throwa
 }
 ```
 
-运行时数据结构如下：
+**程序运行时**数据结构如下：
 ![feign-request-response.png](/img/spring-cloud-feign/feign-request-response.png)
 
 
@@ -224,7 +224,7 @@ Feign 内置了一个重试器，当HTTP请求出现IO异常时，Feign会有一
 |  maxPeriod	|  当请求连续失败时，重试的时间间隔将按照：long interval = (long) (period * Math.pow(1.5, attempt - 1)); 计算，按照等比例方式延长，但是最大间隔时间为  maxPeriod, 设置此值能够避免 重试次数过多的情况下执行周期太长	|  1000ms | 
 |  maxAttempts	|  最大重试次数	|  5 | 
 
-**使用微服务(Spring Cloud)d一般情况下，都是 ribbon 的超时时间（<）hystrix的超时时间（因为涉及到ribbon的重试机制）因为ribbon的重试机制和Feign的重试机制有冲突，所以源码中默认关闭Feign的重试机制** 
+**使用微服务(Spring Cloud)一般情况下，都是 ribbon 的超时时间（<）hystrix的超时时间（因为涉及到ribbon的重试机制）因为ribbon的重试机制和Feign的重试机制有冲突，所以源码中默认关闭Feign的重试机制** 
 
 
 ## 实现原理
