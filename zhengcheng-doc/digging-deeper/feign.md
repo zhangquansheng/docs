@@ -839,3 +839,28 @@ hystrix:
 ```
 
 ### 何时会出现 `Hystrix circuit short-circuited and is OPEN`
+
+首先，Hystrix 的隔离策略有两种：分别是线程隔离和信号量隔离
+
+- 线程池隔离: 使用该方式，HystrixCommand 将在单独的线程上执行，并发请求受到线程池中的线程数量的限制。
+- 信号量隔离：使用该方式，HystrixCommand 将在调用线程上执行，开销相对较小，并发请求受到信号量个数的限制。
+
+Hystrix 中默认并且推荐使用线程隔离，因为这种方式有一个除网络超时以外的额外保护层。
+
+那么在默认的情况（线程隔离）下，何种情况下回出现`Hystrix circuit short-circuited and is OPEN`？
+- 当配置的`hystrix.threadpool.default.coreSize`、`hystrix.threadpool.default.maxQueueSize` 的大小（如果不配置，默认都是10）不满足接口并发的请求的情况下；
+- 服务提供者不可用，是否开启熔断器主要由依赖调用的错误比率决定的，依赖调用的错误比率=请求失败数/请求总数(默认50%)。还有一个参数，用于设置在一个滚动窗口中，打开断路器的最少请求数（默认20）。
+```yaml
+# 当在配置时间窗口内达到此数量的失败后，进行短路。默认20个
+hystrix.command.default.circuitBreaker.requestVolumeThreshold = 20
+# 短路多久以后开始尝试是否恢复，默认5s
+hystrix.command.default.circuitBreaker.sleepWindowInMilliseconds = 5000
+# 出错百分比阈值，当达到此阈值后，开始短路。默认50%
+hystrix.command.default.circuitBreaker.errorThresholdPercentage
+```
+
+[参数说明](https://github.com/Netflix/Hystrix/wiki/Configuration)
+
+下面通过使用 Hystrix Dashboard 可视化监控数据来体验一下效果：
+![hystrix-sso.png](/img/spring-cloud-feign/hystrix-sso.png)
+
