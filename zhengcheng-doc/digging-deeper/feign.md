@@ -801,4 +801,40 @@ Http1.1 协议下 `Connection:keep-Alive` 的时长为900秒（15分钟），这
     }
 //...
 ```
-使用 okhttp3.ConnectionPool即可（不推荐直接关闭 `Connection:close`）
+使用 okhttp3.ConnectionPool即可（不推荐直接关闭 `Connection:close`，开启Keep-Alive功能可使客户端到服务器端的连接持续有效,当出现对服务器的后继请求时,Keep-Alive功能避免了建立或者重新建立连接。）
+
+### hystrix线程池如何合理配置
+
+**下面就是我们线上大量系统优化后的生产经验总结：**
+
+假设你的服务A，每秒钟会接收30个请求，同时会向服务B发起30个请求，然后每个请求的响应时长经验值大概在200ms，那么你的hystrix线程池需要多少个线程呢？
+
+**计算公式是：30（每秒请求数量） * 0.2（每个请求的处理秒数） + 4（给点缓冲buffer） = 10（线程数量）**
+
+必须设置合理的参数，避免高峰期，频繁的hystrix线程卡死
+
+> 如果hystix超时时间设置为500ms，那么1s中可以处理2个线程，所以如果需要让一个服务器达到100的并发，那么核心线程数需要配置到50才能达到处理每秒100的请求；
+
+参考配置如下：
+```yaml
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
+    sso:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3000
+  threadpool:
+    default:
+      coreSize: 100
+      maxQueueSize: 1000
+    sso:
+      coreSize: 10
+      maxQueueSize: 100
+```
+
