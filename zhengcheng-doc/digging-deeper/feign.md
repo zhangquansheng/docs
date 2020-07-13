@@ -6,27 +6,6 @@ sidebarDepth: 3
 
 [[toc]]
 
-以`根据学生ID获取用户信息` 为例：
-
-```java
-/**
- * 公共服务
- *
- * @author :    quansheng.zhang
- * @date :    2020/3/2 11:07
- */
-@FeignClient(name = "sso", url = "https://t-sso.gaodun.com", fallbackFactory = SsoFeignClientFallbackFactory.class)
-public interface SsoFeignClient {
-    /**
-     * 根据学生ID获取用户信息
-     *
-     * @param userId 学生 ID
-     * @return 用户信息
-     */
-    @GetMapping(value = "/getbaseuserinfo/{userid}", headers = {"x-origin=gaodun.com"})
-    BaseUserInfoResponse getBaseUserInfo(@PathVariable("userid") String userId);
-}
-```
 
 ## 设计原理
 
@@ -405,11 +384,144 @@ public ConnectionPool() {
 
 ### 整合 Feign
 
+1. 添加依赖
+```xml
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-openfeign</artifactId>
+    </dependency>
+```
+
+2. 启用Feign
+
+启用类上添加注解`@EnableFeignClients`客户端允许开启使用Feign调用，扫描`@FeignClient`标注的FeignClient接口
+
+```java
+@SpringBootApplication
+@EnableFeignClients
+public class FeignApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(FeignApplication.class,args);
+    }
+}
+```
+
+3. 创建一个Feign接口，并添加`@FeignClient`注解。
+```java
+@FeignClient(name = "sso", url = "https://t-sso.gaodun.com", fallbackFactory = SsoFeignClientFallbackFactory.class)
+public interface SsoFeignClient {
+    /**
+     * 学生 ID 获取用户信息
+     *
+     * @param userId 学生 ID
+     * @return 用户信息
+     */
+    @GetMapping(value = "/getbaseuserinfo/{userid}", headers = {"x-origin=gaodun.com"})
+    BaseUserInfoResponse getBaseUserInfo(@PathVariable("userid") String userId);
+}
+```
+
 ### 自定义Feign配置
+
+Feign 支持使用属性自定义，这种方式比使用Java代码配置的方式更加方便。
+
+1. 配置指定名称的Feign Client
+```yaml
+feign:
+  client:
+    config:
+      sso:
+        # 相当于Request.Options
+        connectTimeout: 5000
+        # 相当于Request.Options
+        readTimeout: 5000
+        # 配置Feign的日志级别，相当于代码配置方式中的Logger
+        loggerLevel: FULL
+        # Feign 的错误解码器，相当于代码配置方式中的ErrorDecoder
+        errorDecoder: com.example.SimpleErrorDecoder
+        # 配置重试，相当于代码配置方式中的Retryer
+        retryer: com.example.SimpleRetryer
+        # 配置拦截器，相当于代码配置方式中的RequestInterceptor
+        requestInterceptors:
+         - com.example.FooRequestInterceptor
+         - com.example.BarRequestInterceptor
+        decode404: false
+``` 
+
+2. 通用配置
+
+如果想配置所有的Feign Client，只需要做如下配置即可：
+
+```yaml
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+```
+
+::: tip 温馨提示
+属性配置的方式比Java代码配置的方式优先级更高，如果你想让Java代码配置方式优先级更高，可使用这个属性：feign.client.default-to-properties=false。
+:::
 
 ### 使用Feign构造多参数请求
 
+以GET已经POST方法请求为例，其他的方法（例如DELETE、PUT等）的请求原理相同。
+
+- GET 请求多参数的 URL
+```java
+    @GetMapping(value = "/get", headers = {"x-origin=gaodun.com"})
+    User get(@RequestParam("id") Long id,@RequestParam("username") String username);
+```
+
+- POST 请求包含多个参数
+```java
+    @PostMapping(value = "/post", headers = {"x-origin=gaodun.com"})
+    User post(@RequestBody User user);
+```
+
 ### 使用Feign上传文件
+
+在实际应用中，我们可能会使用 Feign上传文件，Feign 官方提供了子项目 [feign-form](https://github.com/OpenFeign/feign-form)，
+其中实现了上传所需的 Encoder。下面是使用 Feign上传文件的主要步骤：
+1. 为应用添加 feign-form 相关依赖
+```xml
+<dependencies>
+  <dependency>
+    <groupId>io.github.openfeign.form</groupId>
+    <artifactId>feign-form</artifactId>
+    <version>3.8.0</version>
+  </dependency>
+  <dependency>
+    <groupId>io.github.openfeign.form</groupId>
+    <artifactId>feign-form-spring</artifactId>
+    <version>3.8.0</version>
+  </dependency>
+</dependencies>
+```
+
+2. 可以将表单编码器与Spring MultipartFile和@FeignClient一起使用
+```java
+@FeignClient(
+    name = "file-upload-service",
+    configuration = FileUploadServiceClient.MultipartSupportConfig.class
+)
+public interface FileUploadServiceClient extends IFileUploadServiceClient {
+    
+  @RequestMapping(value = "/upload", consumes = MULTIPART_FORM_DATA_VALUE) 
+  String upload(@RequestBody MultipartFile file);
+
+  public class MultipartSupportConfig {
+    @Autowired
+    private ObjectFactory<HttpMessageConverters> messageConverters;
+    @Bean
+    public Encoder feignFormEncoder () {
+      return new SpringFormEncoder(new SpringEncoder(messageConverters));
+    }
+  }
+}
+```
 
 ### Feign 对继承的支持
 
@@ -510,6 +622,8 @@ logging:
     com.zhengcheng.magic.feign.SsoFeignClient: DEBUG # 将Feign接口的日志级别设置为DEBUG，因为Feign的Logger.Level只对DEBUG作出响应
 ```
 
+#### 日志自定义扩展
+
 与外部HTTP接口交互时需要记录一些请求和响应日志来排查问题，虽然Feign支持但它的日志是Debug级别，并不符合我们在生产中使用INFO级别日志要求。
 
 1. 实现FeignLoggerFactory工厂接口,InfoFeignLoggerFactory 是FeignConfig静态内部类
@@ -567,3 +681,124 @@ public class FeignOkHttpConfig {
 ```
 
 ## 常见问题
+
+### feign 启用Hystrix，Hystrix线程池隔离支持日志链路跟踪
+
+```java
+public class MdcHystrixConcurrencyStrategy extends HystrixConcurrencyStrategy {
+
+    @Override
+    public <T> Callable<T> wrapCallable(Callable<T> callable) {
+        return new MdcAwareCallable(callable, MDC.getCopyOfContextMap());
+    }
+
+    private class MdcAwareCallable<T> implements Callable<T> {
+
+        private final Callable<T> delegate;
+
+        private final Map<String, String> contextMap;
+
+        public MdcAwareCallable(Callable<T> callable, Map<String, String> contextMap) {
+            this.delegate = callable;
+            this.contextMap = contextMap != null ? contextMap : new HashMap<>();
+        }
+
+        @Override
+        public T call() throws Exception {
+            try {
+                MDC.setContextMap(contextMap);
+                return delegate.call();
+            } finally {
+                MDC.clear();
+            }
+        }
+    }
+}
+```
+
+```java
+@Slf4j
+@Configuration
+@ConditionalOnClass({Feign.class})
+@AutoConfigureBefore(FeignAutoConfiguration.class)
+public class FeignOkHttpConfig {
+    
+    //...
+    public FeignOkHttpConfig() {
+        try {
+            HystrixConcurrencyStrategy mdcTarget = new MdcHystrixConcurrencyStrategy();
+            HystrixConcurrencyStrategy strategy = HystrixPlugins.getInstance().getConcurrencyStrategy();
+            if (strategy instanceof MdcHystrixConcurrencyStrategy) {
+                return;
+            }
+            HystrixCommandExecutionHook commandExecutionHook = HystrixPlugins
+                    .getInstance().getCommandExecutionHook();
+            HystrixEventNotifier eventNotifier = HystrixPlugins.getInstance()
+                    .getEventNotifier();
+            HystrixMetricsPublisher metricsPublisher = HystrixPlugins.getInstance()
+                    .getMetricsPublisher();
+            HystrixPropertiesStrategy propertiesStrategy = HystrixPlugins.getInstance()
+                    .getPropertiesStrategy();
+
+            HystrixPlugins.reset();
+            HystrixPlugins.getInstance().registerConcurrencyStrategy(mdcTarget);
+            HystrixPlugins.getInstance()
+                    .registerCommandExecutionHook(commandExecutionHook);
+            HystrixPlugins.getInstance().registerEventNotifier(eventNotifier);
+            HystrixPlugins.getInstance().registerMetricsPublisher(metricsPublisher);
+            HystrixPlugins.getInstance().registerPropertiesStrategy(propertiesStrategy);
+        } catch (Exception e) {
+            log.error("Failed to register Hystrix Concurrency Strategy", e);
+        }
+    }
+}
+```
+
+### Feign 使用OkHttp3
+
+在Feign中使用OkHttp作为网络请求框架，配置如下：
+```properties
+feign.httpclient.enabled = false
+feign.okhttp.enabled = true
+feign.hystrix.enabled = true  
+```
+
+### Feign 长连接导致的异常
+
+当使用 Feign 使用OkHttp3，默认配置如下：
+```java
+// org.springframework.cloud.openfeign.FeignAutoConfiguration.java 
+//...
+	@Bean
+    @ConditionalOnMissingBean(ConnectionPool.class)
+    public ConnectionPool httpClientConnectionPool(FeignHttpClientProperties httpClientProperties,
+                                                   OkHttpClientConnectionPoolFactory connectionPoolFactory) {
+        Integer maxTotalConnections = httpClientProperties.getMaxConnections();
+        Long timeToLive = httpClientProperties.getTimeToLive();
+        TimeUnit ttlUnit = httpClientProperties.getTimeToLiveUnit();
+        return connectionPoolFactory.create(maxTotalConnections, timeToLive, ttlUnit);
+    }
+//...
+```
+Http1.1 协议下 `Connection:keep-Alive` 的时长为900秒（15分钟），这样容易出现`java.io.IOException : unexpected end of steam on `错误，解决方式如下：
+```java
+//...
+    @Value("${feign.okhttp3.connect-timeout.milliseconds}")
+    private Long connectTimeout;
+    @Value("${feign.okhttp3.read-timeout.milliseconds}")
+    private Long readTimeout;
+    @Value("${feign.okhttp3.write-timeout.milliseconds}")
+    private Long writeTimeout;
+
+    @Bean
+    public okhttp3.OkHttpClient okHttpClient() {
+        return new okhttp3.OkHttpClient.Builder()
+                .connectTimeout(connectTimeout, TimeUnit.MILLISECONDS)
+                .readTimeout(readTimeout, TimeUnit.MILLISECONDS)
+                .writeTimeout(writeTimeout, TimeUnit.MILLISECONDS)
+                .connectionPool(new okhttp3.ConnectionPool())
+                .build();
+    }
+//...
+```
+使用 okhttp3.ConnectionPool即可（不推荐直接关闭 `Connection:close`）
