@@ -465,4 +465,105 @@ feign.compression.request.min-request-size 用于设置请求的最小阈值，�
 
 ### Feign 的日志
 
+Feign对日志的处理非常灵活，可为每个Feign客户端指定日志记录策略，每个Feign客户端都会创建一个logger。
+默认情况下，logger的名称是Feign接口的完整类名。需要注意的是，Feign的日志打印只会对DEBUG级别作出响应。
+我们可为每个Feign客户端配置各自的Logger.Level对象，告诉Feign记录那些日志。
+
+Logger.Level的值有以下选择：
+- NONE：不记录任何日志（默认值）
+- BASIC：仅记录请求方法、URL、响应状态代码以及执行时间
+- HEADERS：记录BASIC级别的基础上，记录请求和响应的header
+- FULL：记录请求和响应的header，body和元数据
+
+下面为前面编写的`SsoFeignClient`添加日志打印，将它的日志级别设置为FULL。
+
+1. 编写Feign配置类：
+```java
+@Configuration
+public class FeignLogConfiguration {
+    @Bean
+    Logger.Level feignLoggerLevel() {
+        return Logger.Level.FULL;
+    }
+}
+``` 
+
+2. 修改 Feign 的接口，指定配置类:
+```java
+@FeignClient(name = "sso", url = "https://t-sso.gaodun.com", fallbackFactory = SsoFeignClientFallbackFactory.class, configuration = FeignLogConfiguration.class)
+public interface SsoFeignClient {
+    /**
+     * 学生 ID 获取用户信息
+     *
+     * @param userId 学生 ID
+     * @return 用户信息
+     */
+    @GetMapping(value = "/getbaseuserinfo/{userid}", headers = {"x-origin=gaodun.com"})
+    BaseUserInfoResponse getBaseUserInfo(@PathVariable("userid") String userId);
+}
+```
+
+3. 在 `application.yml`中添加一下内容，指定Feign接口的日志级别为DEBUG:
+```yaml
+logging:
+  level:
+    com.zhengcheng.magic.feign.SsoFeignClient: DEBUG # 将Feign接口的日志级别设置为DEBUG，因为Feign的Logger.Level只对DEBUG作出响应
+```
+
+与外部HTTP接口交互时需要记录一些请求和响应日志来排查问题，虽然Feign支持但它的日志是Debug级别，并不符合我们在生产中使用INFO级别日志要求。
+
+1. 实现FeignLoggerFactory工厂接口,InfoFeignLoggerFactory 是FeignConfig静态内部类
+```java
+public class InfoFeignLoggerFactory implements FeignLoggerFactory {
+    @Override
+    public Logger create(Class<?> type) {
+        return new InfoFeignLogger(LoggerFactory.getLogger(type));
+    }
+}
+```
+
+2. 继承feign.Logger实现info级别日志输出，InfoFeignLogger使用slf4j日志工具
+```java
+public class InfoFeignLogger extends feign.Logger {
+
+    // 建议使用slf4j这样项目在更换日志框架也不用修改源代码了，扩展性更强
+    private final org.slf4j.Logger logger;
+
+    public InfoFeignLogger(org.slf4j.Logger logger) {
+        this.logger = logger;
+    }
+
+    @Override
+    protected void log(String configKey, String format, Object... args) {
+        if (logger.isInfoEnabled()) {
+            logger.info(String.format(methodTag(configKey) + format, args));
+        }
+    }
+}
+```
+
+3. 日志工厂InfoFeignLoggerFactory注册到spring 容器中
+```java
+@Slf4j
+@Configuration
+@ConditionalOnClass({Feign.class})
+@AutoConfigureBefore(FeignAutoConfiguration.class)
+public class FeignOkHttpConfig {
+  //...
+    /**
+     * Feign 日志级别
+     */
+    @Bean
+    Logger.Level feignLoggerLevel() {
+        return Logger.Level.FULL;
+    }
+
+    @Bean
+    FeignLoggerFactory infoFeignLoggerFactory() {
+        return new InfoFeignLoggerFactory();
+    }
+//...
+}
+```
+
 ## 常见问题
