@@ -838,3 +838,4 @@ hystrix:
       maxQueueSize: 100
 ```
 
+### 何时会出现 `Hystrix circuit short-circuited and is OPEN`
