@@ -11,10 +11,20 @@ module.exports = {
     title: "新征程",
     description: "简化开发 效率至上",
     lastUpdated: "上次更新",
-    plugins: ['@vuepress/back-to-top', ['@vuepress/active-header-links', {
-        sidebarLinkSelector: '.sidebar-link',
-        headerAnchorSelector: '.header-anchor'
-    }]
+    plugins: [
+        '@vuepress/back-to-top',
+        ['@vuepress/last-updated', {
+            transformer: (timestamp, lang) => {
+                // 不要忘了安装 moment (npm install moment)
+                const moment = require('moment')
+                moment.locale(lang)
+                return moment(timestamp).fromNow()
+            }
+        }],
+        ['@vuepress/active-header-links', {
+            sidebarLinkSelector: '.sidebar-link',
+            headerAnchorSelector: '.header-anchor'
+        }]
     ],
     themeConfig: {
         activeHeaderLinks: false,

@@ -3,7 +3,7 @@ sidebarDepth: 3
 ---
 
 
-# Kafka
+# kafka
 
 ## 简介
 
