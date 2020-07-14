@@ -856,7 +856,7 @@ hystrix.command.default.circuitBreaker.requestVolumeThreshold = 20
 # 短路多久以后开始尝试是否恢复，默认5s
 hystrix.command.default.circuitBreaker.sleepWindowInMilliseconds = 5000
 # 出错百分比阈值，当达到此阈值后，开始短路。默认50%
-hystrix.command.default.circuitBreaker.errorThresholdPercentage
+hystrix.command.default.circuitBreaker.errorThresholdPercentage = 50
 ```
 
 [参数说明](https://github.com/Netflix/Hystrix/wiki/Configuration)
