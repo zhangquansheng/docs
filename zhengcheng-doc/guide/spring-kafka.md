@@ -68,5 +68,10 @@ public void sendToKafka2(final MyOutputData data) {
 
 当使用`@KafkaListener`注解来接收消息时，spring-kafka为我们做了什么？下面通过阅读源码的方式来剖析整个过程。
 
-类的的加载顺序如下：
-`KafkaAutoConfiguration` -> `KafkaAnnotationDrivenConfiguration` -> `@EnableKafka` -> `KafkaBootstrapConfiguration` -> (`KafkaListenerAnnotationBeanPostProcessor`,`KafkaListenerEndpointRegistry`)
+类的的主要加载顺序如下：
+`KafkaAutoConfiguration` -> `KafkaAnnotationDrivenConfiguration` -> (`ConcurrentKafkaListenerContainerFactory`,`@EnableKafka`) -> `KafkaBootstrapConfiguration` -> (`KafkaListenerAnnotationBeanPostProcessor`,`KafkaListenerEndpointRegistry`)
+
+Class | 主要作用
+---|---
+org.springframework.kafka.annotation.KafkaListenerAnnotationBeanPostProcessor | 扫描@KafkaListener注解的方法创建Kafka消息监听容器 `org.springframework.kafka.config.KafkaListenerContainerFactory`
+org.springframework.kafka.config.KafkaListenerEndpointRegistry | 为已注册的`KafkaListenerEndpoint `创建`MessageListenerContainer`,并管理消息监听器的生命周期，特别是在生命周期内应用程序上下文。与手动创建的`MessageListenerContainer`相反，消息监听器由`registry`管理而不是应用程序上下文中的bean或`@Autowired`的对象。如果需要访问特定的消息监听器容器，请使用{@link #getListenerContainer(String)}
