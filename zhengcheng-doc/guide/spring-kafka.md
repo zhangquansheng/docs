@@ -68,4 +68,5 @@ public void sendToKafka2(final MyOutputData data) {
 
 当使用`@KafkaListener`注解来接收消息时，spring-kafka为我们做了什么？下面通过阅读源码的方式来剖析整个过程。
 
-`@EnableKafka` -> `KafkaBootstrapConfiguration` -> (`KafkaListenerAnnotationBeanPostProcessor`,`KafkaListenerEndpointRegistry`)
+类的的加载顺序如下：
+`KafkaAutoConfiguration` -> `KafkaAnnotationDrivenConfiguration` -> `@EnableKafka` -> `KafkaBootstrapConfiguration` -> (`KafkaListenerAnnotationBeanPostProcessor`,`KafkaListenerEndpointRegistry`)
