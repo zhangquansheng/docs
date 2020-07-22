@@ -433,7 +433,7 @@ protected void pollAndInvoke() {
 			checkPaused();
 			this.polling.set(true);
 
-            // pollTimeout默认为5秒，可以通过spring.kafka.listener.poll-timeout配置修改
+            // pollTimeout默认为5秒，可以通过spring.kafka.listener.poll-timeout配置修改;
 			ConsumerRecords<K, V> records = this.consumer.poll(this.pollTimeout);
             
             // 如果存在冲突，那么丢弃轮询的记录，容器会停止（乐观锁）
@@ -460,6 +460,7 @@ protected void pollAndInvoke() {
 				invokeListener(records);
 			}
 			else {
+                // spring.kafka.listener.idle-event-interval= ＃发布空闲消费者事件（未收到数据）之间的时间。
 				checkIdle();
 			}
 		}
