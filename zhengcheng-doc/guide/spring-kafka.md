@@ -330,6 +330,8 @@ public void registerListenerContainer(KafkaListenerEndpoint endpoint, KafkaListe
 
 调用`AbstractMessageListenerContainer`的`start`方法,该方法调用`KafkaMessageListenerContainer`的`doStart()`方法；`doStart()`初始化`container`，创建`ListenerConsumer`；`ListenerConsumer`间接实现了`Runnable`接口。
 ```java
+// org.springframework.kafka.listener.KafkaMessageListenerContainer.java
+
 	@Override
 	protected void doStart() {
 		if (isRunning()) {
@@ -367,6 +369,8 @@ public void registerListenerContainer(KafkaListenerEndpoint endpoint, KafkaListe
 
 `run()`方法去循环调用`consumer.poll`拉取消息，封装成`ConsumerRecords`对象。
 ```java
+// org.springframework.kafka.listener.KafkaMessageListenerContainer.ListenerConsumer
+
         @Override
 		public void run() {
 			this.consumerThread = Thread.currentThread();
@@ -417,6 +421,8 @@ public void registerListenerContainer(KafkaListenerEndpoint endpoint, KafkaListe
 ```
 
 ````java
+// org.springframework.kafka.listener.KafkaMessageListenerContainer.ListenerConsumer
+
 protected void pollAndInvoke() {
             // 是否自动提交
 			if (!this.autoCommit && !this.isRecordAck) {
