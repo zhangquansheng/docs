@@ -449,6 +449,8 @@ protected void pollAndInvoke() {
 			}
 			this.lastPoll = System.currentTimeMillis();
 			checkResumed();
+            
+            // 打印日志
 			debugRecords(records);
 			if (records != null && records.count() > 0) {
 				if (this.containerProperties.getIdleEventInterval() != null) {
@@ -462,3 +464,9 @@ protected void pollAndInvoke() {
 			}
 		}
 ````
+
+```shell script
+2020-07-22 21:11:49,779 [magicCRAck-0-C-1] DEBUG  [o.s.k.l.KafkaMessageListenerContainer$ListenerConsumer] KafkaMessageListenerContainer.java:787 - Received: 0 records
+2020-07-22 21:11:54,781 [magicCRAck-0-C-1] DEBUG  [o.s.k.l.KafkaMessageListenerContainer$ListenerConsumer] KafkaMessageListenerContainer.java:787 - Received: 0 records
+2020-07-22 21:11:59,782 [magicCRAck-0-C-1] DEBUG  [o.s.k.l.KafkaMessageListenerContainer$ListenerConsumer] KafkaMessageListenerContainer.java:787 - Received: 0 records
+```
