@@ -556,3 +556,75 @@ spring.kafka.listener.ack-mode=manual_immediate
 ::: tip 如何选择
 **为了保证消息消费不丢失**，我们会使用非自动提交，并设置`spring.kafka.listener.ack-mode=manual_immediate`的方式。
 :::
+
+## 接收消息
+
+使用`@KafkaListener`注解来接收消息,以下示例显示了如何使用它：
+```java
+   /**
+     * @param record ConsumerRecord类里面包含分区信息、消息头、消息体等内容
+     * @param ack    Ack机制
+     */
+    @KafkaListener(id = "magicCRAck", topics = KafkaTopic.TOPIC_MY)
+    public void listen(ConsumerRecord<String, String> record,
+                       Acknowledgment ack) {
+
+        log.info("ConsumerRecord: [{}]", record);
+
+        // spring.kafka.listener.ack-mode=manual_immediate
+        ack.acknowledge();
+    }
+```
+要求配置`@EnableKafka`注解，以及一个用于配置底层的侦听器容器工厂`ConcurrentMessageListenerContainer`。默认情况下，会使用名称为`kafkaListenerContainerFactory`的bean。
+
+### 批处理
+
+可以配置`@KafkaListener`底层的侦听器容器工厂`ConcurrentMessageListenerContainer`来设置batchListener属性。以下示例显示了如何执行此操作：
+````java
+@Configuration
+public class KafkaConfig {
+
+    @Primary
+    @Bean
+    @ConfigurationProperties("spring.kafka")
+    public KafkaProperties kafkaProperties() {
+        return new KafkaProperties();
+    }
+
+    @Bean
+    public KafkaListenerContainerFactory batchFactory(@Autowired @Qualifier("consumerFactory") ConsumerFactory consumerFactory) {
+        ConcurrentKafkaListenerContainerFactory factory = new ConcurrentKafkaListenerContainerFactory();
+        factory.setConsumerFactory(consumerFactory);
+        factory.setConcurrency(1);
+        factory.setBatchListener(true); // <<<<<<<<<<<<<<<<<<<<<<<<<
+        factory.getContainerProperties().setAckMode(ContainerProperties.AckMode.MANUAL_IMMEDIATE);
+        return factory;
+    }
+
+    @Primary
+    @Bean
+    public ConsumerFactory consumerFactory(@Autowired @Qualifier("kafkaProperties") KafkaProperties kafkaProperties) {
+        return new DefaultKafkaConsumerFactory(kafkaProperties.buildConsumerProperties());
+    }
+
+}
+````
+
+以下示例显示了如何批量接收消息列表：
+```java
+    /**
+     * @param records ConsumerRecord类里面包含分区信息、消息头、消息体等内容
+     * @param ack     Ack机制
+     */
+    @KafkaListener(id = "magicCRAck", topics = KafkaTopic.TOPIC_MY, containerFactory = "batchFactory")
+    public void listen(List<ConsumerRecord<String, String>> records,
+                       Acknowledgment ack) {
+
+        log.info("ConsumerRecord: [{}]", records);
+
+        // spring.kafka.listener.ack-mode=manual_immediate
+        ack.acknowledge();
+    }
+```
+当接收ConsumerRecord<?, ?>对象列表，要求它必须是方法上定义的唯一参数（除了使用可选的Acknowledgment，当使用手动提交和Consumer<?, ?>参数时，该参数除外）。
+
