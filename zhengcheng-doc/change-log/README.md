@@ -2,9 +2,6 @@
 
 ## TODO LIST
 
-- **kafka 在Springboot2.x 的最佳实战**
-- 如何保证kafka消息不丢失（结合实际业务场景）
-- **redis 在Springboot2.x 的最佳实战**
 - Elasticsearch 深入研究，面试，实战
 - SOLID 架构设计 深入学习
 
@@ -16,8 +13,11 @@
 
 
 ## [v4.6.0] 2020.06.04
-- 使用EasyCode，一个字爽
-- 在zc-web-spring-boot-starter剔除zc-auth-client-spring-boot-starter，单独引用；可以网关引入后，不需要在每个服务中单独调用（推荐）。
+- **使用EasyCode，一个字爽**
+- 去掉全局返回值的封装，为feign的继承做准备
+- 增加`com.zhengcheng.common.message.BaseMessage`，消息可以继承此类，其中消息ID作用为防止重复消费
+- 去掉`FeignAutoConfiguration`中关于auth的配置，后续在网关处理用户登录授权，并传递用户信息的问题
+- 在`zc-web-spring-boot-starter`剔除`zc-auth-client-spring-boot-starter`，单独引用；可以网关引入后，不需要在每个服务中单独调用（推荐）。
 ```xml
 <dependency>
     <groupId>com.zhengcheng</groupId>
