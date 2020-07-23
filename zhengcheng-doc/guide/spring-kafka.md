@@ -554,5 +554,5 @@ spring.kafka.listener.ack-mode=manual_immediate
 ```
 
 ::: tip 如何选择
-**为了保证消息消费不丢失**，我们会使用非自动提交，并设置`spring.kafka.listener.ack-mode=manual_immediate`的方式，具体还需要根据实际业务来定。
+**为了保证消息消费不丢失**，我们会使用非自动提交，并设置`spring.kafka.listener.ack-mode=manual_immediate`的方式。
 :::
