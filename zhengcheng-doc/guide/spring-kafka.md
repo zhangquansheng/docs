@@ -471,3 +471,71 @@ protected void pollAndInvoke() {
 2020-07-22 21:11:54,781 [magicCRAck-0-C-1] DEBUG  [o.s.k.l.KafkaMessageListenerContainer$ListenerConsumer] KafkaMessageListenerContainer.java:787 - Received: 0 records
 2020-07-22 21:11:59,782 [magicCRAck-0-C-1] DEBUG  [o.s.k.l.KafkaMessageListenerContainer$ListenerConsumer] KafkaMessageListenerContainer.java:787 - Received: 0 records
 ```
+
+## Commit Offset
+
+```properties
+# 默认自动提交，设为false，需要设置ack-mode
+spring.kafka.consumer.enable-auto-commit=false
+# 手动调用Acknowledgment.acknowledge()后立即提交
+spring.kafka.listener.ack-mode=manual_immediate
+```
+
+```java
+// org.springframework.kafka.listener.AckMode
+
+   /**
+	 * The offset commit behavior enumeration.
+	 */
+	public enum AckMode {
+
+		/**
+		 * Commit after each record is processed by the listener. 处理完一条记录后提交
+		 */
+		RECORD,
+
+		/**
+		 * Commit whatever has already been processed before the next poll. 处理完poll的一批数据后提交（默认设置）
+		 */
+		BATCH,
+
+		/**
+		 * Commit pending updates after
+		 * {@link ContainerProperties#setAckTime(long) ackTime} has elapsed.  处理完poll的一批数据后并且距离上次提交超过了设置的ackTime
+		 */
+		TIME,
+
+		/**
+		 * Commit pending updates after
+		 * {@link ContainerProperties#setAckCount(int) ackCount} has been
+		 * exceeded.   处理完poll的一批数据后并且距离上次提交处理的记录数超过了设置的ackCount
+		 */
+		COUNT,
+
+		/**
+		 * Commit pending updates after
+		 * {@link ContainerProperties#setAckCount(int) ackCount} has been
+		 * exceeded or after {@link ContainerProperties#setAckTime(long)
+		 * ackTime} has elapsed.  TIME和COUNT中任意一条满足即提交.
+		 */
+		COUNT_TIME,
+
+		/**
+		 * User takes responsibility for acks using an
+		 * {@link AcknowledgingMessageListener}.  手动调用Acknowledgment.acknowledge()后，并且处理完poll的这批数据后提交
+		 */
+		MANUAL,
+
+		/**
+		 * User takes responsibility for acks using an
+		 * {@link AcknowledgingMessageListener}. The consumer
+		 * immediately processes the commit.  手动调用Acknowledgment.acknowledge()后立即提交
+		 */
+		MANUAL_IMMEDIATE,
+
+	}
+```
+
+::: tip 如何选择
+**为了保证消息消费不丢失**，我们会使用非自动提交，并设置`spring.kafka.listener.ack-mode=manual_immediate`的方式，具体还需要根据实际业务来定。
+:::
