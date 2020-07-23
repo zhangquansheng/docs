@@ -70,6 +70,22 @@ public void sendToKafka2(final MyOutputData data) {
 }
 ```
 
+生产者的配置如下：
+```properties
+# 参考 org.springframework.boot.autoconfigure.kafka.KafkaProperties.java Producer的说明
+
+#procedure要求leader在考虑完成请求之前收到的确认数，用于控制发送记录在服务端的持久化，其值可以为如下：
+#acks = 0 如果设置为零，则生产者将不会等待来自服务器的任何确认，该记录将立即添加到套接字缓冲区并视为已发送。在这种情况下，无法保证服务器已收到记录，并且重试配置将不会生效（因为客户端通常不会知道任何故障），为每条记录返回的偏移量始终设置为-1。
+#acks = 1 这意味着leader会将记录写入其本地日志，但无需等待所有副本服务器的完全确认即可做出回应，在这种情况下，如果leader在确认记录后立即失败，但在将数据复制到所有的副本服务器之前，则记录将会丢失。
+#acks = all 这意味着leader将等待完整的同步副本集以确认记录，这保证了只要至少一个同步副本服务器仍然存活，记录就不会丢失，这是最强有力的保证，这相当于acks = -1的设置。
+#可以设置的值为：all, -1, 0, 1
+spring.kafka.producer.acks=1
+
+#如果该值大于零时，表示启用重试失败的发送次数
+spring.kafka.producer.retries=2
+```
+
+
 ## 接收消息过程分析
 
 当使用`@KafkaListener`注解来接收消息时，spring-kafka为我们做了什么？下面通过阅读源码的方式来剖析整个过程。
@@ -474,6 +490,7 @@ protected void pollAndInvoke() {
 
 ## Commit Offset
 
+消息提交的配置如下：
 ```properties
 # 默认自动提交，设为false，需要设置ack-mode
 spring.kafka.consumer.enable-auto-commit=false

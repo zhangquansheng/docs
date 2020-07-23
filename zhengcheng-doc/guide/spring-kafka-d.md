@@ -252,3 +252,18 @@ org.springframework.kafka.config.KafkaListenerEndpointRegistry | 为已注册的
 
 `KafkaAutoConfiguration` -> `KafkaAnnotationDrivenConfiguration` -> (`ConcurrentKafkaListenerContainerFactory`,`@EnableKafka`) -> `KafkaBootstrapConfiguration` -> (`KafkaListenerAnnotationBeanPostProcessor`,`KafkaListenerEndpointRegistry`)
 
+```properties
+#当Kafka中没有初始偏移量或者服务器上不存在当前偏移量时该怎么办，默认值为latest，表示自动将偏移重置为最新的偏移量
+#可选的值为latest, earliest, none
+spring.kafka.consumer.auto-offset-reset=latest
+#一次调用poll()操作时返回的最大记录数，默认值为500
+spring.kafka.consumer.max-poll-records = 150
+# 默认自动提交，设为false，需要设置ack-mode
+spring.kafka.consumer.enable-auto-commit=false
+
+# 手动调用Acknowledgment.acknowledge()后立即提交
+spring.kafka.listener.ack-mode=manual_immediate
+#在侦听器容器中运行的线程数
+spring.kafka.listener.concurrency = 1;
+```
+
