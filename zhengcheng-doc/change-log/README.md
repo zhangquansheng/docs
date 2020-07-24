@@ -2,7 +2,8 @@
 
 ## TODO LIST
 
-- kafka 常见问题解析
+- kafka 深入理解机制和常见问题解析
+- ZK的运行机制的深入理解
 - Elasticsearch 深入研究，面试，实战
 - SOLID 架构设计 深入学习
 
