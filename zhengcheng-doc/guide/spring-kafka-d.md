@@ -263,7 +263,12 @@ spring.kafka.consumer.enable-auto-commit=false
 
 # 手动调用Acknowledgment.acknowledge()后立即提交
 spring.kafka.listener.ack-mode=manual_immediate
-#在侦听器容器中运行的线程数
+#在侦听器容器中运行的线程数,最大为 topic 的分区数
 spring.kafka.listener.concurrency = 1;
 ```
 
+## 顺序消息
+
+在大多使用场景下，数据处理的顺序都很重要。大部分消息队列本来就是排序的，并且能保证数据会按照特定的顺序来处理。Kafka 保证一个 Partition 内的消息的有序性。
+
+### 如何保证单 Partition 有序
