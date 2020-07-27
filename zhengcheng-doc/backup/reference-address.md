@@ -12,5 +12,8 @@
 - [ZAB](https://distributedalgorithm.wordpress.com/2015/06/20/architecture-of-zab-zookeeper-atomic-broadcast-protocol/#comments)
 - [中文ZAB](https://zhuanlan.zhihu.com/p/51848759)
 
+- [B+树](https://www.cs.usfca.edu/~galles/visualization/BPlusTree.html)
+- [面试ZK](https://github.com/Snailclimb/JavaGuide/blob/master/docs/system-design/framework/ZooKeeper.md)
+
 - [curator笔记-分布式锁的实现与原理](https://www.jianshu.com/p/6618471f6e75?tdsourcetag=s_pcqq_aiomsg)
 - [Curator](http://curator.apache.org/)

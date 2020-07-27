@@ -10,7 +10,7 @@
 - `e` -- leader的epoch。epoch是由普通节点变为leader时，生成的一个整数。它应该大于任何先前leader的epoch；
 - `c` -- 一个由leader生成的序数，从0开始，向上增加。它和epoch一起被用作对不断到来的Client(s)状态改变/事务进行排序；
 - `F.history` -- `follower`的`history`队列。用于确保到达事务，按照它们到达的先后顺序被提交；
-- `outstanding transactions` -- `F.history`中序号小于当前COMMIT序号的事务集合。
+- `outstanding transactions` -- `F.history`中序号小于当前`COMMIT`序号的事务集合。
 
 ## ZAB要求
 1. 复制保证
@@ -26,4 +26,18 @@
 
 ZooKeeper使用一种`二阶段提交协议`的变体，复制事务到`follower(s)`。当`leader`接收到来自某个客户端的状态更新时，它用序数`c`(32位)和leader epoch `e`(32位)生成一个事务(`Zxid`)，并将其发送给所有`follower(s)`。
 
-`follower`接收后，会将`transactions`添加到它的`F.history`队列中，并向`leader`回送`ACK`。
+`follower`接收后，会将`transactions`添加到它的`F.history`队列中，并向`leader`回送`ACK`。当leader收到过半的的ACK时，它就会发出事务`COMMIT`。接收到提交的`follower(s)`就会`COMMIT`该事务，除非`c`值大于它`F.history`队列里的所用序号。这时，它会先等待接收先前事务(`outstanding transaction(s)`)的提交操作，然后再执行该提交。
+
+一旦leader崩溃，节点间会执行一个**崩溃恢复协议**，以确保以下两点：
+- 恢复正常服务之前，节点间对共同状态的一致性达成共识；
+- 找出一个新`leader`来广播状态更新。一个节点要行使`leader`角色，必须获得过半的节点支持。现实中，由于存在节点的崩溃、恢复往复；一段时间里，可能出现多位leader的更迭，甚至是同一节点多次成为leader的情形。
+
+节点的生命周期：每个节点要么一次执行这个协议的一个完整循环；要么循环被突然中断，回到Phase 0, 再开始一个新的循环。
+
+1. Phase 0 -- leader选举
+2. Phase 1 -- 发现
+3. Phase 2 -- 同步
+4. Phase 3 -- 广播
+
+> 注：Phase 1 和 Phase 2，对于确保所有节点上状态的一致性很重要，特别是在节点从崩溃恢复时。
+
