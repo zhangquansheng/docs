@@ -9,6 +9,7 @@
 
 - [ZooKeeper wiki](https://cwiki.apache.org/confluence/display/ZooKeeper/Index) 
 - [Curator](http://curator.apache.org)
+- [ZAB](https://distributedalgorithm.wordpress.com/2015/06/20/architecture-of-zab-zookeeper-atomic-broadcast-protocol/#comments)
 
 - [curator笔记-分布式锁的实现与原理](https://www.jianshu.com/p/6618471f6e75?tdsourcetag=s_pcqq_aiomsg)
 - [Curator](http://curator.apache.org/)
