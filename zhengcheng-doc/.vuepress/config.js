@@ -59,6 +59,7 @@ module.exports = {
                 title: '综合话题',
                 collapsable: false,
                 children: [
+                    './digging-deeper/zab',
                     './digging-deeper/kafka',
                     './digging-deeper/spring-kafka',
                     './digging-deeper/plugin',
