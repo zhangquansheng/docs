@@ -34,10 +34,10 @@ ZooKeeper使用一种`二阶段提交协议`的变体，复制事务到`follower
 
 节点的生命周期：每个节点要么一次执行这个协议的一个完整循环；要么循环被突然中断，回到Phase 0, 再开始一个新的循环。
 
-1. Phase 0 -- leader选举
-2. Phase 1 -- 发现
-3. Phase 2 -- 同步
-4. Phase 3 -- 广播
+- Phase 0 -- leader选举
+- Phase 1 -- 发现
+- Phase 2 -- 同步
+- Phase 3 -- 广播
 
 ::: tip 注:
 Phase 1 和 Phase 2，对于确保所有节点上状态的一致性很重要，特别是在节点从崩溃恢复时。
