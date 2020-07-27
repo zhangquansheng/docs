@@ -428,7 +428,4 @@ public interface LockInternalsDriver extends LockInternalsSorter
 性能 |低| 高
 可靠性 |高 | 低
 
-## 参考资料
-- [curator笔记-分布式锁的实现与原理](https://www.jianshu.com/p/6618471f6e75?tdsourcetag=s_pcqq_aiomsg)
-- [Curator](http://curator.apache.org/)
 

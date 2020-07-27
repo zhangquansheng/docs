@@ -2,7 +2,7 @@
 sidebarDepth: 3
 ---
 
-# spring-kafka
+# spring-kafka的使用和原理
 
 ::: tip 提示
 本文基于 `spring-kafka 2.2.12` (`SpringBoot2.1.13`)， 非常详细的介绍请参考[官方文档](https://spring.io/projects/spring-kafka)
