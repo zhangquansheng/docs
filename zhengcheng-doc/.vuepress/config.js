@@ -56,6 +56,14 @@ module.exports = {
                 ]
             },
             {
+                title: 'Kafka',
+                collapsable: false,
+                children: [
+                    './kafka/kafka',
+                    './kafka/spring-kafka',
+                ]
+            },
+            {
                 title: 'ZooKeeper',
                 collapsable: false,
                 children: [
@@ -67,8 +75,6 @@ module.exports = {
                 title: '综合话题',
                 collapsable: false,
                 children: [
-                    './digging-deeper/kafka',
-                    './digging-deeper/spring-kafka',
                     './digging-deeper/plugin',
                     './digging-deeper/oom',
                     './digging-deeper/cat',
