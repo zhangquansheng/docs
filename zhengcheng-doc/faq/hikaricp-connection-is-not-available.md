@@ -85,7 +85,6 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
     show-sql: true
-
 ```
 
 导致以上问题的可能原因有：

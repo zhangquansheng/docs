@@ -19,3 +19,4 @@
 - [Curator](http://curator.apache.org/)
 
 - [HikariCP 数据库连接池大小](https://github.com/brettwooldridge/HikariCP/wiki/About-Pool-Sizing)
+- [HikariCP连接池监控](https://github.com/brettwooldridge/HikariCP/wiki/MBean-(JMX)-Monitoring-and-Management)
