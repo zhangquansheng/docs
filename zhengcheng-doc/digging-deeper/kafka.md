@@ -90,7 +90,7 @@ Producer 将数据发布到指定的主题。你可以简单地为负载均衡�
 
 如果所有的 Consumer 实例拥有不同的**Consumer Group**，那么每天记录都会广播到所有的 Consumer进程中。
 
-![topic](/img/kafka/consumer-groups.png)
+![consumer-groups](/img/kafka/consumer-groups.png)
 
 如上图所示：一个Kafka集群拥有两台服务器、4个**Partition(P0-P3)**、2个**Consumer Group**，**Consumer Group A**有2个消费实例，**Consumer Group A**有4个消费实例，
 
