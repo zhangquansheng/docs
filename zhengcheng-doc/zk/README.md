@@ -1,4 +1,6 @@
-# 简介
+# ZooKeeper
+
+## 简介
 
 ZooKeeper is a centralized service for maintaining configuration information, naming, providing distributed synchronization, and providing group services.
 
@@ -6,11 +8,10 @@ ZooKeeper is a centralized service for maintaining configuration information, na
 
 我个人觉得在使用`ZooKeeper`的时候，最好是使用 集群版的`ZooKeeper`而不是单机版的。官网给出的架构图就描述的是一个集群版的`ZooKeeper`。通常 3 台服务器就可以构成一个`ZooKeeper`集群了。
 
-**为什么最好使用奇数台服务器构成 ZooKeeper 集群？**
-
-所谓的zookeeper容错是指，当宕掉几个zookeeper服务器之后，剩下的个数必须大于宕掉的个数的话整个zookeeper才依然可用。假如我们的集群中有n台zookeeper服务器，那么也就是剩下的服务数必须大于n/2。先说一下结论，2n和2n-1的容忍度是一样的，都是n-1，大家可以先自己仔细想一想，这应该是一个很简单的数学问题了。 比如假如我们有3台，那么最大允许宕掉1台zookeeper服务器，如果我们有4台的的时候也同样只允许宕掉1台。 假如我们有5台，那么最大允许宕掉2台zookeeper服务器，如果我们有6台的的时候也同样只允许宕掉2台。
-
-综上，何必增加那一个不必要的zookeeper呢？
+::: tip 为什么最好使用奇数台服务器构成 ZooKeeper 集群？
+所谓的zookeeper容错是指，当宕掉几个`ZooKeeper`服务器之后，剩下的个数必须大于宕掉的个数的话整个`ZooKeeper`才依然可用。假如我们的集群中有n台`ZooKeeper`服务器，那么也就是剩下的服务数必须大于n/2。先说一下结论，2n和2n-1的容忍度是一样的，都是n-1，大家可以先自己仔细想一想，这应该是一个很简单的数学问题了。
+比如假如我们有3台，那么最大允许宕掉1台`ZooKeeper`服务器，如果我们有4台的的时候也同样只允许宕掉1台。 假如我们有5台，那么最大允许宕掉2台`ZooKeeper`服务器，如果我们有6台的的时候也同样只允许宕掉2台。
+::: 
 
 ## 语义保证
 
@@ -47,4 +48,11 @@ Watch 有如下特点
 ## 领导选举算法
 
 `FastLeaderElection`选举算法是标准的`Fast Paxos`算法实现，可解决`LeaderElection`选举算法收敛速度慢的问题。
+
+## 重要概念总结
+
+- `ZooKeeper` 本身就是一个分布式程序（只要半数以上节点存活，ZooKeeper 就能正常服务）。
+- `ZooKeeper` 将数据保存在内存中，这也就保证了 **高吞吐量和低延迟**（但是内存限制了能够存储的容量不太大，此限制也是保持znode中存储的数据量较小的进一步原因）。
+- `ZooKeeper` 是高性能的。 在“读”多于“写”的应用程序中尤其地高性能，因为“写”会导致所有的服务器间同步状态。（“读”多于“写”是协调服务的典型场景。）
+- `ZooKeeper` 底层其实只提供了两个功能：①管理（存储、读取）用户程序提交的数据；②为用户程序提供数据节点监听服务。
 
