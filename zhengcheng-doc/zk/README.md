@@ -1,9 +1,16 @@
-# ZooKeeper
+# 简介
 
 ZooKeeper is a centralized service for maintaining configuration information, naming, providing distributed synchronization, and providing group services.
 
 它是一个针对大型分布式系统的可靠协调系统，提供的功能包括：配置维护、名字服务、分布式同步、组服务等
 
+我个人觉得在使用`ZooKeeper`的时候，最好是使用 集群版的`ZooKeeper`而不是单机版的。官网给出的架构图就描述的是一个集群版的`ZooKeeper`。通常 3 台服务器就可以构成一个`ZooKeeper`集群了。
+
+**为什么最好使用奇数台服务器构成 ZooKeeper 集群？**
+
+所谓的zookeeper容错是指，当宕掉几个zookeeper服务器之后，剩下的个数必须大于宕掉的个数的话整个zookeeper才依然可用。假如我们的集群中有n台zookeeper服务器，那么也就是剩下的服务数必须大于n/2。先说一下结论，2n和2n-1的容忍度是一样的，都是n-1，大家可以先自己仔细想一想，这应该是一个很简单的数学问题了。 比如假如我们有3台，那么最大允许宕掉1台zookeeper服务器，如果我们有4台的的时候也同样只允许宕掉1台。 假如我们有5台，那么最大允许宕掉2台zookeeper服务器，如果我们有6台的的时候也同样只允许宕掉2台。
+
+综上，何必增加那一个不必要的zookeeper呢？
 
 ## 语义保证
 
@@ -11,6 +18,7 @@ Zookeeper 简单高效，同时提供如下语义保证，从而使得我们可�
 
 - **顺序性**　客户端发起的更新会按发送顺序被应用到 Zookeeper 上
 - **原子性** 更新操作要么成功要么失败，不会出现中间状态
+- **单一系统镜像**　一个客户端无论连接到哪一个服务器都能看到完全一样的系统镜像（即完全一样的树形结构）。注：根据上文《Zookeeper架构及FastLeaderElection机制》介绍的`ZAB`协议，写操作并不保证更新被所有的`Follower`立即确认，因此通过部分`Follower`读取数据并不能保证读到最新的数据，而部分 Follwer 及 Leader 可读到最新数据。如果一定要保证单一系统镜像，可在读操作前使用`sync`方法。
 - **可靠性**　一个更新操作一旦被接受即不会意外丢失，除非被其它更新操作覆盖
 - **最终一致性**　写操作最终（而非立即）会对客户端可见
 
@@ -29,12 +37,12 @@ Watch 有如下特点
 
 在`Zookeeper`中，`node`的`ACL`是没有继承关系的，是独立控制的。
 
-`Zookeeper`定义了如下5种权限:
-- **CREATE(c)**: 创建权限，可以在在当前node下创建child node
-- **DELETE(d)**: 删除权限，可以删除当前的node
-- **READ(r)**: 读权限，可以获取当前node的数据，可以list当前node所有的child nodes
-- **WRITE(w)**: 写权限，可以向当前node写数据
-- **ADMIN(a)**: 管理权限，可以设置当前node的permission
+`Zookeeper`定义了如下5种`permission`:
+- **CREATE(c)**: 创建权限，可以在在当前`node`下创建`child node`
+- **DELETE(d)**: 删除权限，可以删除当前的`node`
+- **READ(r)**: 读权限，可以获取当前`node`的数据，可以`list`当前`node`所有的`child nodes`
+- **WRITE(w)**: 写权限，可以向当前`node`写数据
+- **ADMIN(a)**: 管理权限，可以设置当前`node`的`permission`
 
 ## 领导选举算法
 
