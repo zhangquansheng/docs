@@ -56,6 +56,13 @@ module.exports = {
                 ]
             },
             {
+                title: 'Spring Cloud',
+                collapsable: false,
+                children: [
+                    './spring-cloud/feign'
+                ]
+            },
+            {
                 title: 'Kafka',
                 collapsable: false,
                 children: [
@@ -79,7 +86,6 @@ module.exports = {
                     './digging-deeper/plugin',
                     './digging-deeper/oom',
                     './digging-deeper/cat',
-                    './digging-deeper/feign',
                     './digging-deeper/bigkey',
                     './digging-deeper/sign-auth',
                     './digging-deeper/mdc',
