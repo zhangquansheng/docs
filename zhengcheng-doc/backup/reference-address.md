@@ -17,3 +17,5 @@
 
 - [curator笔记-分布式锁的实现与原理](https://www.jianshu.com/p/6618471f6e75?tdsourcetag=s_pcqq_aiomsg)
 - [Curator](http://curator.apache.org/)
+
+- [HikariCP 数据库连接池大小](https://github.com/brettwooldridge/HikariCP/wiki/About-Pool-Sizing)
