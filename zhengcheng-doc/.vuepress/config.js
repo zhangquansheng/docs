@@ -108,6 +108,7 @@ module.exports = {
                 collapsable: false,
                 children: [
                     './faq/',
+                    './faq/hikaricp-connection-is-not-available.md',
                 ]
             },
             {
