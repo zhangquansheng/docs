@@ -56,10 +56,17 @@ module.exports = {
                 ]
             },
             {
+                title: 'ZooKeeper',
+                collapsable: false,
+                children: [
+                    './zk/zab',
+                    './zk/lock'
+                ]
+            },
+            {
                 title: '综合话题',
                 collapsable: false,
                 children: [
-                    './digging-deeper/zab',
                     './digging-deeper/kafka',
                     './digging-deeper/spring-kafka',
                     './digging-deeper/plugin',
@@ -67,7 +74,6 @@ module.exports = {
                     './digging-deeper/cat',
                     './digging-deeper/feign',
                     './digging-deeper/bigkey',
-                    './digging-deeper/zk-lock',
                     './digging-deeper/sign-auth',
                     './digging-deeper/mdc',
                     './digging-deeper/cache2',

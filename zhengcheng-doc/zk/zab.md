@@ -28,7 +28,7 @@ ZooKeeper使用一种`二阶段提交协议`的变体，复制事务到`follower
 
 `follower`接收后，会将`transactions`添加到它的`F.history`队列中，并向`leader`回送`ACK`。当leader收到过半的的ACK时，它就会发出事务`COMMIT`。接收到提交的`follower(s)`就会`COMMIT`该事务，除非`c`值大于它`F.history`队列里的所用序号。这时，它会先等待接收先前事务(`outstanding transaction(s)`)的提交操作，然后再执行该提交。
 
-[!ZAB协议](/img/zk/zabp.png)
+![ZAB协议](/img/zk/zabp.png)
 
 一旦leader崩溃，节点间会执行一个**崩溃恢复协议**，以确保以下两点：
 - 恢复正常服务之前，节点间对共同状态的一致性达成共识；
