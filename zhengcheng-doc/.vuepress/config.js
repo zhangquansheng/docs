@@ -67,6 +67,7 @@ module.exports = {
                 title: 'ZooKeeper',
                 collapsable: false,
                 children: [
+                    './zk/',
                     './zk/zab',
                     './zk/lock'
                 ]

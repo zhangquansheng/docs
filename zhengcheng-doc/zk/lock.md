@@ -2,7 +2,7 @@
 sidebarDepth: 3
 ---
 
-# Curator的ZK分布式锁实现原理
+# Curator 的ZK分布式锁实现原理
 
 [[toc]]
 
