@@ -32,6 +32,7 @@ module.exports = {
             {text: '首页', link: '/'},
             {text: '指南', link: '/guide/'},
             {text: '变更日志', link: '/change-log/'},
+            {text: 'github', link: 'https://github.com/zhangquansheng/zhengcheng-parent'},
             {text: 'gitee', link: 'https://gitee.com/zhangquansheng/zhengcheng-parent'},
         ],
         sidebar: [
