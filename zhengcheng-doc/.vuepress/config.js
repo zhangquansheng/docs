@@ -52,7 +52,8 @@ module.exports = {
                     './guide/aliyun',
                     './guide/tencentcloud',
                     './guide/socketio',
-                    './guide/sso'
+                    './guide/sso',
+                    './guide/nacos-eureka'
                 ]
             },
             {

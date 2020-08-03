@@ -29,7 +29,6 @@ zc-auth-client-spring-boot-starter | 认证客户端通用组件
 zc-feign-spring-boot-starter | 远程通信通用组件
 zc-db-spring-boot-starter | Mysql数据库通用组件
 zc-cache-spring-boot-starter | 缓存通用组件
-zc-sentinel-spring-boot-starter | 服务降级、熔断和限流通用组件
 zc-job-spring-boot-starter | XXL-JOB定时任务通用组件
 zc-swagger-spring-boot-starter | swagger通用组件
 zc-sharding-jdbc-spring-boot-starter | 分库分表通用组件
@@ -50,7 +49,7 @@ zc-zk-spring-boot-starter | Zookeeper通用组件
     <parent>
         <groupId>com.zhengcheng</groupId>
         <artifactId>zhengcheng-parent</artifactId>
-        <version>4.6.0</version>
+        <version>4.7.0</version>
     </parent>
 ```
 
@@ -58,6 +57,7 @@ zc-zk-spring-boot-starter | Zookeeper通用组件
 
 `zhengcheng` 引入了很多优秀的三方包，在此一并表示感谢。
 
+- [SpringCloud Alibaba](https://spring.io/projects/spring-cloud-alibaba)
 - Java工具类库[hutool](https://hutool.cn/docs/#/)
 - [MyBatis-Plus](https://mp.baomidou.com/)为简化开发而生
 - [XXL-JOB](http://www.xuxueli.com/xxl-job/)分布式任务调度平台
