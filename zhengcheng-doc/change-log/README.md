@@ -16,6 +16,7 @@
 ## [v4.7.0] 2020.08.01
 - `Alibaba Nacos` 替换 `Eureka` 注册中心
 - 引入 `spring cloud alibaba` 依赖
+- commons-beanutils 升级到1.9.4，解决在Apache Commons Beanutils 1.9.2中，添加了一个特殊的BeanIntrospector类，该类允许抑制攻击者通过所有Java对象上可用的class属性访问类加载器的能力。但是，默认情况下，我们没有使用PropertyUtilsBean的特性。
 
 ## [v4.6.0] 2020.06.04
 - **使用EasyCode，一个字爽**
