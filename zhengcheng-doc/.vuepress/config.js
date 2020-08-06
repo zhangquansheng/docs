@@ -44,6 +44,7 @@ module.exports = {
                     './guide/getting-started',
                     './guide/web-core',
                     './guide/cache',
+                    './guide/Spring-Data-Redis',
                     './guide/db',
                     './guide/feign',
                     './guide/async',
