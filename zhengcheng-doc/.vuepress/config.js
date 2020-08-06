@@ -119,6 +119,7 @@ module.exports = {
                 children: [
                     './interview/',
                     './interview/ConcurrentHashMap',
+                    './interview/Synchronized',
                     './interview/ThreadLocal',
                     './interview/redis',
                     './interview/MySQL'
