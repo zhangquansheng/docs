@@ -93,7 +93,7 @@ module.exports = {
                     './digging-deeper/mdc',
                     './digging-deeper/cache2',
                     './digging-deeper/distributed-lock',
-                    './digging-deeper/aliyun-db'
+                    './digging-deeper/aliyun-db',
                 ]
             },
             {
@@ -111,6 +111,14 @@ module.exports = {
                 children: [
                     './faq/',
                     './faq/hikaricp-connection-is-not-available.md',
+                ]
+            },
+            {
+                title: '突击面试',
+                collapsable: false,
+                children: [
+                    './interview/',
+                    './interview/redis'
                 ]
             },
             {
