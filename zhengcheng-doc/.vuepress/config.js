@@ -118,6 +118,7 @@ module.exports = {
                 collapsable: false,
                 children: [
                     './interview/',
+                    './interview/ConcurrentHashMap',
                     './interview/redis',
                     './interview/MySQL'
                 ]
