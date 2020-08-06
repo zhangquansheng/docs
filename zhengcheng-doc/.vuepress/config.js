@@ -118,7 +118,8 @@ module.exports = {
                 collapsable: false,
                 children: [
                     './interview/',
-                    './interview/redis'
+                    './interview/redis',
+                    './interview/MySQL'
                 ]
             },
             {
