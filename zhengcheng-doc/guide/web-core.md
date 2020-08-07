@@ -28,7 +28,7 @@ maven
 
 ## ~~GlobalResponseBodyAdvice~~
 
-::: warning 弃用提示
+::: danger 警告
 从 `4.6.0` 开始去掉全局返回值的封装，为feign的继承做准备
 :::
 

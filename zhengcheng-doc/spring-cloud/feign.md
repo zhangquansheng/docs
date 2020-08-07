@@ -107,7 +107,8 @@ public class FeignConfiguration {
 }
 ```
 
-::: warning 禁止使用原生Feign注解调用feign接口
+::: warning 注意
+禁止使用原生Feign注解调用feign接口
 1. 书写不方便，极容易出错
 2. Spring Cloud [官方文档](https://cloud.spring.io/spring-cloud-static/spring-cloud-openfeign/3.0.0.M1/reference/html/#spring-cloud-feign-overriding-defaults)中默认使用 `SpringMvcContract`            
 :::

@@ -81,8 +81,8 @@ public class MarryFeignClientFallbackFactory implements FallbackFactory<MarryFei
 ```
 
 
-::: warning 禁止
-使用原生Feign注解调用feign接口
+::: warning 注意
+禁止使用原生Feign注解调用feign接口
 ```java
     @RequestLine(value = "GET /activities/match")
     Result<List<Long>> match();
@@ -90,8 +90,8 @@ public class MarryFeignClientFallbackFactory implements FallbackFactory<MarryFei
 :::
 
 
-::: warning 禁止
-使用非工厂模式的fallback
+::: warning 注意
+禁止使用非工厂模式的fallback
 ```java
 @FeignClient(name = "MARRY", fallbackFactory = MarryFeignClientFallback.class)
 ```

@@ -4,7 +4,7 @@
 
 基于SpringCloud做微服务架构分布式系统时，OAuth2.0作为认证的业内标准，Spring Security OAuth2也提供了全套的解决方案来支持在Spring Cloud/Spring Boot环境下使用OAuth2.0，提供了开箱即用的组件。
 
-::: warning 特别提示：
+::: warning 注意
 The Spring Security OAuth project is deprecated. The latest OAuth 2.0 support is provided by Spring Security. See the OAuth 2.0 Migration Guide for further details.
 
 [官方文档](https://projects.spring.io/spring-security-oauth/docs/oauth2.html)
