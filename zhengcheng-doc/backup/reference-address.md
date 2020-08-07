@@ -21,4 +21,6 @@
 - [HikariCP 数据库连接池大小](https://github.com/brettwooldridge/HikariCP/wiki/About-Pool-Sizing)
 - [HikariCP连接池监控](https://github.com/brettwooldridge/HikariCP/wiki/MBean-(JMX)-Monitoring-and-Management)
 
+- [emoji-cheat-sheet](https://www.webfx.com/tools/emoji-cheat-sheet/)
+
 java8 快速实现List转map 、分组、过滤等操作 总结
