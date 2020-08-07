@@ -123,7 +123,8 @@ module.exports = {
                     './interview/Synchronized',
                     './interview/ThreadLocal',
                     './interview/redis',
-                    './interview/MySQL'
+                    './interview/MySQL',
+                    './interview/kafka'
                 ]
             },
             {

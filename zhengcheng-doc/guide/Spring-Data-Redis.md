@@ -4,4 +4,6 @@
 
 [官方文档](https://docs.spring.io/spring-data/redis/docs/2.3.2.RELEASE/reference/html/#tx) 
 
-内容待补充
+::: tip 提示
+学习中，内容待补充
+:::
