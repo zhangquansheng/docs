@@ -24,22 +24,15 @@ maven
 
 ## ExceptionControllerAdvice
 
-在该类中，定义多个方法，不同的方法处理不同的异常，例如`BizException`的方法、`SQLException`的方法... ；@ExceptionHandler 注解用来指明异常的处理类型。
+通过 `@RestControllerAdvice` + `@ExceptionHandler` 的方式统一异常处理
 
-`ExceptionControllerAdvice`类对 @RequestMapping注解的方法起作用，其中：
+## ~~GlobalResponseBodyAdvice~~
 
-- 注解有@ControllerAdvice的类， 需要在具体方法上同时添加@ExceptionHandler和@ResponseBody注解；
-- 注解有@RestControllerAdvice的类，只需要在具体方法上添加@ExceptionHandler注解。
+::: warning 弃用提示
+从 `4.6.0` 开始去掉全局返回值的封装，为feign的继承做准备
+:::
 
-
-其他使用场景：
-
-- 全局数据绑定
-- 全局数据预处理
-
-## GlobalResponseBodyAdvice
-
-通@RestControllerAdvice 注解并实现 `ResponseBodyAdvice` ,对controller的返回值统一加上`Result`；String 类型的需要单独处理。
+通 `@RestControllerAdvice` 注解并实现 `ResponseBodyAdvice` ,对`controller`的返回值统一加上`Result`, `String` 类型的需要单独处理。
 
 ```java
 /**
@@ -169,11 +162,11 @@ public class ControllerLogAspect {
 }
 ```
 
-## RequestLimitAspect
+## ~~RequestLimitAspect~~
 
 限流技术在平台中也是异常重要的一个措施，尤其是对网关的调用。我知道的有以下几种比较好实现方式：
 
-- 阿里开源限流神器Sentinel
+- **阿里开源限流神器Sentinel**
 - 可以采用令牌桶的方法，实现方式是Guava RateLimiter，简单有效，在结合统一配置中心(apollo)，可以动态调整限流阈值。
 
 以上是一些成熟的方案，但是实现它需要额外的服务器，在资源有限的情况下，我们考虑使用redis lua脚本的方式来实现接口限流，虽然此种方式缺点很明显，不能动态调整限流的阈值，也没有管理和监控页面，在不久的将来可能会被成熟的方案替换，但是以下代码的实现思路还是非常不错的。
