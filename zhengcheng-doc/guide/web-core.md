@@ -2,26 +2,24 @@
 sidebarDepth: 3
 ---
 
-
-# WEB模块
+# WEB核心模块
 
 `zc-web-spring-boot-starter` 是 `zhengcheng` 框架核心通用组件，聚合了以下的组件：
 
 - [Mysql数据库通用组件](./db.md)
-- 缓存通用组件
-- 多线程通用组件
+- [缓存通用组件](./cache.md)
+- [多线程通用组件](./async.md)
 - [远程通信通用组件](./feign.md)
-- 认证客户端通用组件
 - swagger通用组件
 
 ## 安装
 
 maven
 ```xml
-      <dependency>
-            <groupId>com.zhengcheng</groupId>
-            <artifactId>zc-web-spring-boot-starter</artifactId>
-      </dependency>
+  <dependency>
+        <groupId>com.zhengcheng</groupId>
+        <artifactId>zc-web-spring-boot-starter</artifactId>
+  </dependency>
 ```
 
 ## ExceptionControllerAdvice
