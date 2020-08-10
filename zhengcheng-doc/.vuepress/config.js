@@ -119,6 +119,7 @@ module.exports = {
                 collapsable: false,
                 children: [
                     './interview/',
+                    './interview/concurrent',
                     './interview/ConcurrentHashMap',
                     './interview/Synchronized',
                     './interview/ThreadLocal',
