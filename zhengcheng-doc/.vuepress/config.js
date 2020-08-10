@@ -121,7 +121,6 @@ module.exports = {
                     './interview/',
                     './interview/concurrent',
                     './interview/ConcurrentHashMap',
-                    './interview/Synchronized',
                     './interview/ThreadLocal',
                     './interview/redis',
                     './interview/MySQL',
