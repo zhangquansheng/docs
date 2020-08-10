@@ -120,7 +120,6 @@ module.exports = {
                 children: [
                     './interview/',
                     './interview/concurrent',
-                    './interview/ConcurrentHashMap',
                     './interview/ThreadLocal',
                     './interview/redis',
                     './interview/MySQL',
