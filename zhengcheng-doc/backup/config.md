@@ -1,3 +1,6 @@
+'./guide/Spring-Data-Redis',
+
+
 {
     title: '突击面试',
     collapsable: false,
