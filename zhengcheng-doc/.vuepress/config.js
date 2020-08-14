@@ -56,6 +56,12 @@ module.exports = {
                     './guide/sso',
                     './guide/nacos-eureka'
                 ]
+            }, {
+                title: 'Java 8 新特性',
+                collapsable: false,
+                children: [
+                    './java8-new-features/java8-streams'
+                ]
             },
             {
                 title: 'Spring Cloud',
