@@ -241,3 +241,19 @@ curator.max-retries = 3
 ## 总结
 
 - 如果后期用户需要切换分布式锁的实现，只需要调整依赖的bean的注入即可
+
+## 常见问题
+
+### 使用Redisson分布式锁时，出现 unlock 异常
+
+异常信息如下：
+```shell script
+attempt to unlock lock, not locked by current thread by node id: 84ed3ba0-f34c-4ffd-afbf-882e775f6cd
+```
+
+解决办法: 在解锁之前，判断当前key对应的锁**是否已被锁定并且是否被当前线程保持**，代码如下：
+```java
+    if (lock.isLocked() && lock.isHeldByCurrentThread()) {
+        lock.unlock();
+    }
+```
