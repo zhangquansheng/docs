@@ -2,7 +2,6 @@
 
 ## TODO LIST
 
-- 编写《像Dubbo式的使用Feign文档》- 代码已经完成
 - kafka 深入理解机制和常见问题解析
 - JDK1.8 steam的相关示例总结
 - redis 的相关示例总结
@@ -16,6 +15,8 @@
 - **延迟满足，坚持**
 
 ## [v4.7.0] 2020.08.01
+
+- 以Dubbo暴露服务的方式使用Feign
 - `Alibaba Nacos` 替换 `Eureka` 注册中心
 - 引入 `spring cloud alibaba` 依赖
 - commons-beanutils 升级到1.9.4，解决在Apache Commons Beanutils 1.9.2中，添加了一个特殊的BeanIntrospector类，该类允许抑制攻击者通过所有Java对象上可用的class属性访问类加载器的能力。但是，默认情况下，我们没有使用PropertyUtilsBean的特性。

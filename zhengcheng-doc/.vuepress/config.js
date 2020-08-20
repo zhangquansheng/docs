@@ -67,7 +67,8 @@ module.exports = {
                 title: 'Spring Cloud',
                 collapsable: false,
                 children: [
-                    './spring-cloud/feign'
+                    './spring-cloud/feign',
+                    './spring-cloud/feign-dubbo'
                 ]
             },
             {
