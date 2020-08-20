@@ -2,7 +2,11 @@
 
 [Gitee Samples](https://gitee.com/zhangquansheng/magic/tree/feign/)
 
--  像调用本地方法一样执行远程调用
+我们在Spring Cloud中使用Feign, 可以做到使用HTTP请求远程服务时能与调用本地方法一样的编码体验，开发者完全感知不到这是远程方法，更感知不到这是个HTTP请求。
+
+但是在日常的工作中，我们发现有以下几个问题：
+- 不能像使用`dubbo-api`那样直接调用接口，而是需要使用者编写各种的`FeignClient`去对接不同的接口；
+- `provider`无法确定哪些接口被`customer`，无法在做修改接口时做出准确的评估；
 
 ## 服务端
 
