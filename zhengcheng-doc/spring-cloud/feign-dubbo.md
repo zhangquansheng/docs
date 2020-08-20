@@ -1,5 +1,7 @@
 # 以Dubbo暴露服务的方式使用Feign
 
+[Gitee Samples](https://gitee.com/zhangquansheng/magic/tree/feign/)
+
 -  像调用本地方法一样执行远程调用
 
 ## 服务端
