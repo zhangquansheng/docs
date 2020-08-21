@@ -1,5 +1,4 @@
-# 以Dubbo暴露服务的方式使用Feign
-
+# 以Dubbo暴露服务的方式使用Feign（Feign 继承）
 
 在使用Feign在日常的工作中，有以下几个问题：
 - 不能像使用`dubbo-api`那样直接调用接口，而是需要`customer`编写各种的`FeignClient`去对接；
