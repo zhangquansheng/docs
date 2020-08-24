@@ -2,6 +2,9 @@
 
 ## TODO LIST
 
+- Feign 代码配置/属性配置的优先级？
+- OKHttpClient connectInterceptor 与 callServeInterceptor的区别
+- 全局打印日志，异常的情况下，无法打印的问题修复
 - kafka 深入理解机制和常见问题解析
 - JDK1.8 steam的相关示例总结
 - redis 的相关示例总结
