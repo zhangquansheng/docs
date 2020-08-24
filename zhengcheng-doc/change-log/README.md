@@ -4,7 +4,6 @@
 
 - Feign 代码配置/属性配置的优先级？
 - OKHttpClient connectInterceptor 与 callServeInterceptor的区别
-- 全局打印日志，异常的情况下，无法打印的问题修复
 - kafka 深入理解机制和常见问题解析
 - JDK1.8 steam的相关示例总结
 - redis 的相关示例总结
@@ -19,6 +18,7 @@
 
 ## [v4.7.0] 2020.08.01
 
+- 修复全局Controller打印日志在异常的情况下无法打印的问题
 - 以Dubbo暴露服务的方式使用Feign
 - `Alibaba Nacos` 替换 `Eureka` 注册中心
 - 引入 `spring cloud alibaba` 依赖
