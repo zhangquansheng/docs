@@ -6,6 +6,8 @@
 
 ## TODO LIST
 
+- 理解spring 的bean加载过程
+- 理解动态代理，了解二次动态代理
 - Feign 代码配置/属性配置的优先级？
 - OKHttpClient connectInterceptor 与 callServeInterceptor的区别
 - kafka 深入理解机制和常见问题解析
