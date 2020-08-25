@@ -79,3 +79,53 @@ kafkaTemplate.send("zc_magic_topic_dict", JSONUtil.toJsonStr(dictItemMessageDTO)
         // 消息发送超时的逻辑
     }
 ```
+
+### 消息MDC 切面
+
+```java
+/**
+ * {@org.springframework.kafka.annotation.KafkaListener} 切面增强类
+ *
+ * @author :    zhangquansheng
+ * @date :    2020/8/25 13:52
+ */
+@Slf4j
+@Aspect
+@Component
+public class KafkaListenerAspect {
+
+    /**
+     * 定义拦截规则：
+     * 有@KafkaListener注解的方法。
+     */
+    @Pointcut("@annotation(org.springframework.kafka.annotation.KafkaListener)")
+    public void kafkaListenerMethodPointcut() {
+    }
+
+    @Around("kafkaListenerMethodPointcut()")
+    public Object around(ProceedingJoinPoint pjp) throws Throwable {
+        Object[] args = pjp.getArgs();
+        // 只有当第一个参数为 ConsumerRecord<String, String> record 时，才打印日志
+        if (this.isConsumerRecord(args)) {
+            ConsumerRecord record = (ConsumerRecord) args[0];
+            if (record.value() instanceof String) {
+                BaseMessageDTO baseMessage = JSONUtil.toBean((String) record.value(), BaseMessageDTO.class);
+                if (Objects.nonNull(baseMessage)) {
+                    MDC.put(TraceIdInterceptor.TRACE_ID, baseMessage.getDataId());
+                }
+                log.info("{}.{} ConsumerRecord: [{}]", pjp.getSignature().getDeclaringType().getSimpleName(), pjp.getSignature().getName(), record);
+            }
+        }
+
+        Object retObj = pjp.proceed();
+
+        MDC.remove(TraceIdInterceptor.TRACE_ID);
+        return retObj;
+    }
+
+    private boolean isConsumerRecord(Object[] args) {
+        return Objects.nonNull(args) && args.length > 0 && args[0] instanceof ConsumerRecord;
+    }
+
+}
+```
