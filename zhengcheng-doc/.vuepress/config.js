@@ -56,7 +56,15 @@ module.exports = {
                     './guide/sso',
                     './guide/nacos-eureka'
                 ]
-            }, {
+            },
+            {
+                title: '重点知识点',
+                collapsable: false,
+                children: [
+                    './important/proxy'
+                ]
+            },
+            {
                 title: 'Java 8 新特性',
                 collapsable: false,
                 children: [
