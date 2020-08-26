@@ -466,6 +466,7 @@ feign:
 属性配置的方式比Java代码配置的方式优先级更高，如果你想让Java代码配置方式优先级更高，可使用这个属性：feign.client.default-to-properties=false。
 :::
 
+
 ### 使用Feign构造多参数请求
 
 以GET已经POST方法请求为例，其他的方法（例如DELETE、PUT等）的请求原理相同。
@@ -865,3 +866,6 @@ hystrix.command.default.circuitBreaker.errorThresholdPercentage = 50
 下面通过使用 Hystrix Dashboard 可视化监控数据来体验一下效果：
 ![hystrix-sso.png](/img/spring-cloud-feign/hystrix-sso.png)
 
+## 参考文档
+
+- [Spring Cloud OpenFeign](https://docs.spring.io/spring-cloud-openfeign/docs/2.2.4.RELEASE/reference/html/#spring-cloud-feign)
