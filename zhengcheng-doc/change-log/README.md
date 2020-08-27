@@ -6,7 +6,7 @@
 
 ## TODO LIST
 
-- 理解spring 的bean加载过程
+- 理解spring 的bean加载过程 深入源码 这是架构的基础
 - 理解动态代理，了解二次动态代理
 - Feign 代码配置/属性配置的优先级？
 - OKHttpClient connectInterceptor 与 callServeInterceptor的区别
