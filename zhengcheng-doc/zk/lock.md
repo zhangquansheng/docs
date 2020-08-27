@@ -421,11 +421,7 @@ public interface LockInternalsDriver extends LockInternalsSorter
 ```
 借助于这个类，我们可以尝试实现自己的锁机制
 
-## 与Redisson分布式锁的比较
 
- - | ZooKeeper  | Redisson
----|---|---
-性能 |低| 高
-可靠性 |高 | 低
+
 
 
