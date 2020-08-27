@@ -61,7 +61,8 @@ module.exports = {
                 title: '重点知识点',
                 collapsable: false,
                 children: [
-                    './important/proxy'
+                    './important/proxy',
+                    './important/SpringBean'
                 ]
             },
             {
