@@ -8,6 +8,24 @@ module.exports = {
             target: '_blank', rel: 'noopener noreferrer'
         }
     },
+    head: [
+        ['meta', {
+            name: 'keywords',
+            content: '征程,zhengcheng,新征程,新征程PLUS,新征程plus,Springboot,SpringCloud'
+        }, {
+            name: 'baidu-site-verification',
+            content: '5oKnqi1avz'
+        }],
+        ['script', {}, `
+            var _hmt = _hmt || [];
+            (function() {
+              var hm = document.createElement("script");
+              hm.src = "https://hm.baidu.com/hm.js?3ea82649baaaaf57c9ad42bcf4e2385a";
+              var s = document.getElementsByTagName("script")[0]; 
+              s.parentNode.insertBefore(hm, s);
+            })();
+        `]
+    ],
     title: "新征程",
     description: "简化开发 效率至上",
     lastUpdated: "上次更新",
