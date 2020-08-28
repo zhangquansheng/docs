@@ -10,6 +10,10 @@
 [Gitee](https://gitee.com/makejava/EasyCode)
 :::
 
+## RestfulToolkit
+
+[RestfulToolkit](https://plugins.jetbrains.com/plugin/10292-restfultoolkit/)
+
 ## Codota
 
 [Codota](https://plugins.jetbrains.com/plugin/7638-codota): AI code completions for Java
