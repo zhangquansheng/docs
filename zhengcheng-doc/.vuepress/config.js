@@ -11,7 +11,7 @@ module.exports = {
     head: [
         ['meta', {
             name: 'keywords',
-            content: '征程,zhengcheng,新征程,新征程PLUS,新征程plus,Springboot,SpringCloud'
+            content: '新征程框架,新征程,zhengcheng.plus'
         }, {
             name: 'baidu-site-verification',
             content: '5oKnqi1avz'
@@ -26,7 +26,7 @@ module.exports = {
             })();
         `]
     ],
-    title: "新征程",
+    title: "新征程框架",
     description: "简化开发 效率至上",
     lastUpdated: "上次更新",
     plugins: [
