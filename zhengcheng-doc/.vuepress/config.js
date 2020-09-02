@@ -88,6 +88,14 @@ module.exports = {
                 ]
             },
             {
+                title: 'Spring框架文档',
+                collapsable: false,
+                children: [
+                    './spring/',
+                    './spring/beans'
+                ]
+            },
+            {
                 title: 'Spring Cloud',
                 collapsable: false,
                 children: [
