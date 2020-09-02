@@ -77,7 +77,7 @@ module.exports = {
                 collapsable: false,
                 children: [
                     './important/proxy',
-                    './important/SpringBean'
+                    './important/springBeanLifeCycle'
                 ]
             },
             {
@@ -141,7 +141,8 @@ module.exports = {
                 collapsable: false,
                 children: [
                     './faq/',
-                    './faq/hikaricp-connection-is-not-available.md',
+                    './faq/hikaricp-connection-is-not-available',
+                    './faq/hikaricp-config',
                 ]
             },
             {
