@@ -2,11 +2,11 @@
 sidebarDepth: 3
 ---
 
-# 1. IoC容器
+# IoC容器
 
 [[toc]]
 
-## Spring IoC容器和Bean简介
+## 1. Spring IoC容器和Bean简介
 
 ### 什么是 IoC
 
@@ -32,6 +32,13 @@ sidebarDepth: 3
 
 ### IoC 容器
 
-- **org.springframework.beans.BeanFactory**:
-- **org.springframework.context.ApplicationContext**:
+- **org.springframework.beans.BeanFactory**: 是`Spring`里面最低层的接口，提供了最简单的容器的功能，只提供了实例化对象和拿对象的功能；
+- **org.springframework.context.ApplicationContext**: 应用上下文，继承BeanFactory接口，它是Spring的一各更高级的容器，提供了更多的有用的功能；
+   - 与Spring的AOP功能轻松集成
+   - 消息资源处理（用于国际化）
+   - 活动发布
+   - 应用层特定的上下文，例如WebApplicationContext 用于Web应用程序中的。
+   
+ 
+## 2. Bean 总览
 
