@@ -76,8 +76,7 @@ module.exports = {
                 title: '重点知识点',
                 collapsable: false,
                 children: [
-                    './important/proxy',
-                    './important/springBeanLifeCycle'
+                    './important/proxy'
                 ]
             },
             {
@@ -92,7 +91,7 @@ module.exports = {
                 collapsable: false,
                 children: [
                     './spring/',
-                    './spring/beans'
+                    './spring/bean-life-cycle'
                 ]
             },
             {
