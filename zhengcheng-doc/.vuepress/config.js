@@ -88,7 +88,7 @@ module.exports = {
                 ]
             },
             {
-                title: 'Spring框架文档',
+                title: 'Spring',
                 collapsable: false,
                 children: [
                     './spring/',
