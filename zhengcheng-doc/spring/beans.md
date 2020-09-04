@@ -60,3 +60,15 @@ Lazy initialization mode | [Lazy-initialized Beans](https://docs.spring.io/sprin
 Initialization method | [Initialization Callbacks](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-factory-lifecycle-initializingbean)
 Destruction method | [Destruction Callbacks](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-factory-lifecycle-disposablebean)
 
+### Bean 命名
+
+每个bean具有一个或多个标识符。这些标识符在**Bean的容器内必须唯一**。
+
+::: tip Bean命名约定
+bean名称推荐小驼峰的命名约定。
+:::
+
+### bean 实例化
+
+
+
