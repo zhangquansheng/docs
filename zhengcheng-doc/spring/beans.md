@@ -82,10 +82,8 @@ Bean定义实质上是**创建一个或多个对象的方法**。
 
 找出特定bean的实际运行时类型的推荐方法是BeanFactory.getType调用指定的bean名称。这考虑了上述所有情况，并返回了BeanFactory.getBean要针对相同bean名称返回的对象的类型。
 
-::: tip 特别提示 
-	在`Spring`文档中，`“factory bean”`是指在`Spring`容器中配置并通过实例或静态工厂方法创建对象的bean。
-	相反， `FactoryBean`（注意大写）是指特定于`Spring`的`FactoryBean`实现类。
-:::
+在Spring文档中，“factory bean”是指在`Spring`容器中配置并通过实例或静态工厂方法创建对象的bean。相反， FactoryBean`（注意大写）是指特定于Spring的FactoryBean实现类。
+
 
 
 
