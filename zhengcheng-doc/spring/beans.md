@@ -42,3 +42,5 @@ sidebarDepth: 3
  
 ## 2. Bean 总览
 
+在**容器**内，这些bean定义表示为`org.springframework.beans.factory.config.BeanDefinition`对象，这些对象包含（除其他信息外）以下元数据：
+
