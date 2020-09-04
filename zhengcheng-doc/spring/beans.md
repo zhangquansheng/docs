@@ -30,6 +30,10 @@ sidebarDepth: 3
 
 `IoC` 最常见以及最合理的**实现方式**叫做**依赖注入**（Dependency Injection，简称 `DI`）并且，老马（Martin Fowler）在一篇文章中提到将`IoC`改名为`DI`，[原文地址](https://martinfowler.com/articles/injection.html)。
 
+`DI`的主要两种方式，分别为：
+- 基于构造函数的依赖注入
+- 基于Setter的依赖注入
+
 ### IoC 容器
 
 - **org.springframework.beans.BeanFactory**: 是`Spring`里面最低层的接口，提供了最简单的容器的功能，只提供了实例化对象和拿对象的功能；
@@ -43,4 +47,16 @@ sidebarDepth: 3
 ## 2. Bean 总览
 
 在**容器**内，这些bean定义表示为`org.springframework.beans.factory.config.BeanDefinition`对象，这些对象包含（除其他信息外）以下元数据：
+
+Property | Explained in…​
+---|---
+Class | [Instantiating Beans](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-factory-class)
+Name | [Naming Beans](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-beanname)
+Scope | [Bean Scopes](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-factory-scopes)
+Constructor arguments | [Dependency Injection](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-factory-collaborators)
+Properties | [Dependency Injection](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-factory-collaborators)
+Autowiring mode | [Autowiring Collaborators](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-factory-autowire)
+Lazy initialization mode | [Lazy-initialized Beans](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-factory-lazy-init)
+Initialization method | [Initialization Callbacks](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-factory-lifecycle-initializingbean)
+Destruction method | [Destruction Callbacks](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-factory-lifecycle-disposablebean)
 
