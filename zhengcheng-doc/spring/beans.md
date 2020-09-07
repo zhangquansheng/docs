@@ -33,6 +33,10 @@ websocket |  Scopes a single bean definition to the lifecycle of a WebSocket. On
 
 ### Spring 中的单例 bean 的线程安全问题
 
+TODO
+> 
+    - ThreadLocal 
+    - SimpleDateFormat
 
 ## Bean 生命周期
 
