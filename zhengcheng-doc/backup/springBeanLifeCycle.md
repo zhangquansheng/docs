@@ -6,7 +6,6 @@
 - prototype : 每次请求都会创建一个新的 bean 实例。
 - request : 每一次HTTP请求都会产生一个新的bean，该bean仅在当前HTTP request内有效。
 - session : 每一次HTTP请求都会产生一个新的 bean，该bean仅在当前 HTTP session 内有效。
-- global-session： 全局session作用域，仅仅在基于portlet的web应用中才有意义，Spring5已经没有了。Portlet是能够生成语义代码(例如：HTML)片段的小型Java Web插件。它们基于portlet容器，可以像servlet一样处理HTTP请求。但是，与 servlet 不同，每个 portlet 都有不同的会话
 
 
 详细描述请参考[官方文档](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-factory-scopes)

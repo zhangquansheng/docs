@@ -27,3 +27,19 @@
 - [Gitee Samples](https://gitee.com/zhangquansheng/magic/tree/feign/)
 
 [java-proxy](https://github.com/Snailclimb/JavaGuide/blob/master/docs/java/basic/java-proxy.md)
+
+
+{
+        title: '重点知识点',
+        collapsable: false,
+        children: [
+            './important/proxy'
+        ]
+    },
+    {
+        title: 'Java 8 新特性',
+        collapsable: false,
+        children: [
+            './java8-new-features/java8-streams'
+        ]
+    },

@@ -73,25 +73,12 @@ module.exports = {
                 ]
             },
             {
-                title: '重点知识点',
-                collapsable: false,
-                children: [
-                    './important/proxy'
-                ]
-            },
-            {
-                title: 'Java 8 新特性',
-                collapsable: false,
-                children: [
-                    './java8-new-features/java8-streams'
-                ]
-            },
-            {
                 title: 'Spring',
                 collapsable: false,
                 children: [
                     './spring/',
-                    './spring/bean-life-cycle'
+                    './spring/dependency-injection',
+                    './spring/bean'
                 ]
             },
             {
