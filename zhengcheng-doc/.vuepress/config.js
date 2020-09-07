@@ -78,7 +78,7 @@ module.exports = {
                 children: [
                     './spring/',
                     './spring/dependency-injection',
-                    './spring/bean'
+                    './spring/beans'
                 ]
             },
             {

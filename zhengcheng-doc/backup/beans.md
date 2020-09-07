@@ -86,8 +86,6 @@ Bean定义实质上是**创建一个或多个对象的方法**。
 在Spring文档中，“factory bean”是指在`Spring`容器中配置并通过实例或静态工厂方法创建对象的bean。相反， FactoryBean`（注意大写）是指特定于Spring的FactoryBean实现类。
 
 
-
-
 ## 重点/疑惑的知识点
 
 - 默认情况下，ApplicationContext实现会在初始化过程中积极创建和配置所有 单例 bean
