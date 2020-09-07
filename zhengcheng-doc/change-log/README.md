@@ -31,6 +31,7 @@
 - 引入 `spring cloud alibaba` 依赖
 - commons-beanutils 升级到1.9.4，解决在Apache Commons Beanutils 1.9.2中，添加了一个特殊的BeanIntrospector类，该类允许抑制攻击者通过所有Java对象上可用的class属性访问类加载器的能力。但是，默认情况下，我们没有使用PropertyUtilsBean的特性。
 - mybatis-plus 升级到3.3.2
+- 参考[JavaGuide面试突击版](https://github.com/Snailclimb/JavaGuide)，快速理解相关知识点，并整理成文章。部分技术文章有参考原文，如果有侵权，请联系作者删除。
 
 ## [v4.6.0] 2020.06.04
 - **使用EasyCode，一个字爽**
