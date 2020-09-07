@@ -108,6 +108,13 @@ module.exports = {
                 ]
             },
             {
+                title: '重点知识',
+                collapsable: false,
+                children: [
+                    './important/proxy'
+                ]
+            },
+            {
                 title: '综合话题',
                 collapsable: false,
                 children: [
