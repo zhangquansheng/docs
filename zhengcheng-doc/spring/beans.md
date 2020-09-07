@@ -31,6 +31,9 @@ session | Scopes a single bean definition to the lifecycle of an HTTP Session. O
 application | Scopes a single bean definition to the lifecycle of a ServletContext. Only valid in the context of a web-aware Spring ApplicationContext.
 websocket |  Scopes a single bean definition to the lifecycle of a WebSocket. Only valid in the context of a web-aware Spring ApplicationContext.
 
+### Spring 中的单例 bean 的线程安全问题
+
+
 ## Bean 生命周期
 
 图示：
