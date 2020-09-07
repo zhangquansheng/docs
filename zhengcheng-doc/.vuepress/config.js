@@ -79,7 +79,8 @@ module.exports = {
                     './spring/',
                     './spring/dependency-injection',
                     './spring/beans',
-                    './spring/aop'
+                    './spring/aop',
+                    './spring/transactional'
                 ]
             },
             {
