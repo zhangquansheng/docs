@@ -226,3 +226,32 @@ public interface DisposableBean {
 ```
 
 我们建议您不要使用DisposableBean回调接口，因为它不必要地将代码与Spring耦合。建议使用`@PreDestroy注释`或者在`bean`上使用`destroy method`属性
+
+## FactoryBean
+
+一般情况下，`Spring`通过**反射机制**利用`bean`的`class`属性指定实现类实例化`Bean`，在某些情况下，实例化`Bean`过程比较复杂，如果按照传统的方式，则需要在`bean`中提供大量的配置信息。配置方式的灵活性是受限的，这时采用编码的方式可能会得到一个简单的方案。
+
+`Spring`为此提供了一个`org.springframework.bean.factory.FactoryBean`的工厂类接口，用户可以通过实现该接口定制`实例化Bean`的逻辑。`FactoryBean`接口对于Spring框架来说占用重要的地位，Spring自身就提供了50多个FactoryBean的实现。
+
+它们隐藏了实例化一些复杂`Bean`的细节，给上层应用带来了便利。从`Spring3.0`开始，`FactoryBean`开始支持泛型，即接口声明改为`FactoryBean<T>`的形式。
+
+源码如下：
+```java
+public interface FactoryBean<T> {
+
+	@Nullable
+	T getObject() throws Exception;
+
+	@Nullable
+	Class<?> getObjectType();
+
+	default boolean isSingleton() {
+		return true;
+	}
+
+}
+```
+`FactoryBean` 接口提供了三种方法：
+- `Object getObject()`：返回由FactoryBean创建的Bean实例，如果isSingleton()返回true，则该实例会放到Spring容器中单实例缓存池中；
+- `boolean isSingleton()`：返回由FactoryBean创建的Bean实例的作用域是singleton还是prototype；
+- `Class getObjectType()`：返回FactoryBean创建的Bean类型。
