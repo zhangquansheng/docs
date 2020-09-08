@@ -68,7 +68,7 @@ public class Animal {
 ## Spring AOP
 
 `AOP`在`Spring Framework`中用于：
-- 提供**声明式服务**。此类服务最重要的是**声明式事务管理**(`org.springframework.transaction.annotation.Transactional` 注解)。
+- 提供**声明式服务**。此类服务最重要的是[声明式事务管理](/spring/transactional)。
 - 用户可以实现自定义切面，以AOP补充其对OOP的使用。例如[ControllerLogAspect](/guide/web-core#controllerlogaspect)
 
 ### AOP 代理
