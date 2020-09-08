@@ -1,6 +1,12 @@
+---
+sidebarDepth: 3
+---
+
 # Spring Transactional
 
 [官方文档](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/data-access.html#transaction)
+
+[[toc]]
 
 事务：逻辑上的一组操作，**要么都执行，要么都不执行**。
 
@@ -159,18 +165,27 @@ public enum Propagation {
 }
 ```
 
-#### PROPAGATION_REQUIRED
-![tx_prop_required](/img/spring/tx_prop_required.png)
+#### PROPAGATION_REQUIRED (默认)
 
 如果当前存在事务，则加入该事务；如果当前没有事务，则创建一个新的事务。也就是说：
 
-- 如果外部方法没有开启事务的话，Propagation.REQUIRED修饰的内部方法会新开启自己的事务，且开启的事务相互独立，互不干扰。
-- 如果外部方法开启事务并且被 Propagation.REQUIRED的话，所有Propagation.REQUIRED修饰的内部方法和外部方法均属于同一事务 ，只要一个方法回滚，整个事务均回滚。
+- 如果`外部方法`没有开启事务的话，那么`Propagation.REQUIRED`修饰的`内部方法`会新开启自己的事务，且开启的事务相互独立，互不干扰。
+- 如果`外部方法`开启事务并且被`Propagation.REQUIRED`的话，那么所有`Propagation.REQUIRED`修饰的`内部方法`和`外部方法`均属于`同一事务` ，只要一个方法回滚，整个事务均回滚。
+
+![tx_prop_required](/img/spring/tx_prop_required.png)
 
 #### PROPAGATION_REQUIRES_NEW
+
+**创建一个新的事务**，如果当前存在事务，则把当前事务挂起。也就是说不管`外部方法`是否开启事务，`Propagation.REQUIRES_NEW`修饰的`内部方法`会新开启自己的事务，且开启的事务相互独立，互不干扰。
+
 ![tx_prop_requires_new](/img/spring/tx_prop_requires_new.png)
 
 #### PROPAGATION_NESTED
+
+如果当前存在事务，则创建一个事务作为当前事务的嵌套事务来运行；如果当前没有事务，则该取值等价于TransactionDefinition.PROPAGATION_REQUIRED。也就是说：
+
+- 在外部方法未开启事务的情况下Propagation.NESTED和Propagation.REQUIRED作用相同，修饰的内部方法都会新开启自己的事务，且开启的事务相互独立，互不干扰。
+- 如果外部方法开启事务的话，Propagation.NESTED修饰的内部方法属于外部事务的子事务，外部主事务回滚的话，子事务也会回滚，而内部子事务可以单独回滚而不影响外部主事务和其他子事务。
 
 `PROPAGATION_NESTED` uses a single physical transaction with multiple savepoints that it can roll back to. Such partial rollbacks let an inner transaction scope trigger a rollback for its scope, with the outer transaction being able to continue the physical transaction despite some operations having been rolled back. This setting is typically mapped onto JDBC savepoints, so it works only with JDBC resource transactions. See Spring’s `DataSourceTransactionManager`.
 
