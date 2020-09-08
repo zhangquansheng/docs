@@ -62,3 +62,17 @@ rollbackFor | Array of Class objects, which must be derived from Throwable. | Op
 rollbackForClassName | Array of class names. The classes must be derived from Throwable. | Optional array of names of exception classes that must cause rollback.
 noRollbackFor | Array of Class objects, which must be derived from Throwable. | Optional array of exception classes that must not cause rollback.
 noRollbackForClassName | Array of String class names, which must be derived from Throwable. | Optional array of names of exception classes that must not cause rollback.
+
+
+### Spring 中事务传播
+
+#### PROPAGATION_REQUIRED
+![tx_prop_required](/img/spring/tx_prop_required.png)
+
+#### PROPAGATION_REQUIRES_NEW
+![tx_prop_requires_new](/img/spring/tx_prop_requires_new.png)
+
+#### PROPAGATION_NESTED
+
+`PROPAGATION_NESTED` uses a single physical transaction with multiple savepoints that it can roll back to. Such partial rollbacks let an inner transaction scope trigger a rollback for its scope, with the outer transaction being able to continue the physical transaction despite some operations having been rolled back. This setting is typically mapped onto JDBC savepoints, so it works only with JDBC resource transactions. See Spring’s `DataSourceTransactionManager`.
+
