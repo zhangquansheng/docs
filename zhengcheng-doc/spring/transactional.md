@@ -29,7 +29,7 @@ sidebarDepth: 3
 下图显示了在事务代理上调用方法的概念图：
 ![tx](/img/spring/tx.png)
 
-### @Transactional 注解的属性信息
+## @Transactional 注解的属性信息
 
 ```java
 // org.springframework.transaction.annotation.Transactional.java
@@ -77,7 +77,7 @@ noRollbackFor | Array of Class objects, which must be derived from Throwable. | 
 noRollbackForClassName | Array of String class names, which must be derived from Throwable. | Optional array of names of exception classes that must not cause rollback.
 
 
-### Spring 中事务传播
+## Spring 中事务传播
 
 事务传播行为是为了解决业务层方法之间互相调用的事务问题。
 
@@ -165,7 +165,7 @@ public enum Propagation {
 }
 ```
 
-#### PROPAGATION_REQUIRED (默认)
+### PROPAGATION_REQUIRED (默认)
 
 如果当前存在事务，则加入该事务；如果当前没有事务，则创建一个新的事务。也就是说：
 
@@ -174,13 +174,13 @@ public enum Propagation {
 
 ![tx_prop_required](/img/spring/tx_prop_required.png)
 
-#### PROPAGATION_REQUIRES_NEW
+### PROPAGATION_REQUIRES_NEW
 
 **创建一个新的事务**，如果当前存在事务，则把当前事务挂起。也就是说不管`外部方法`是否开启事务，`Propagation.REQUIRES_NEW`修饰的`内部方法`会新开启自己的事务，且开启的事务相互独立，互不干扰。
 
 ![tx_prop_requires_new](/img/spring/tx_prop_requires_new.png)
 
-#### PROPAGATION_NESTED
+### PROPAGATION_NESTED
 
 如果当前存在事务，则创建一个事务作为当前事务的嵌套事务来运行；如果当前没有事务，则该取值等价于TransactionDefinition.PROPAGATION_REQUIRED。也就是说：
 
@@ -188,4 +188,42 @@ public enum Propagation {
 - 如果外部方法开启事务的话，Propagation.NESTED修饰的内部方法属于外部事务的子事务，外部主事务回滚的话，子事务也会回滚，而内部子事务可以单独回滚而不影响外部主事务和其他子事务。
 
 `PROPAGATION_NESTED` uses a single physical transaction with multiple savepoints that it can roll back to. Such partial rollbacks let an inner transaction scope trigger a rollback for its scope, with the outer transaction being able to continue the physical transaction despite some operations having been rolled back. This setting is typically mapped onto JDBC savepoints, so it works only with JDBC resource transactions. See Spring’s `DataSourceTransactionManager`.
+
+- TransactionDefinition.PROPAGATION_SUPPORTS: 如果当前存在事务，则加入该事务；如果当前没有事务，则以非事务的方式继续运行。
+- TransactionDefinition.PROPAGATION_NOT_SUPPORTED: 以非事务方式运行，如果当前存在事务，则把当前事务挂起。
+- TransactionDefinition.PROPAGATION_NEVER: 以非事务方式运行，如果当前存在事务，则抛出异常。
+
+## 事务隔离级别
+
+```java
+// org.springframework.transaction.annotation.Isolation.java
+
+public enum Isolation {
+
+	DEFAULT(TransactionDefinition.ISOLATION_DEFAULT),
+
+	READ_UNCOMMITTED(TransactionDefinition.ISOLATION_READ_UNCOMMITTED),
+
+	READ_COMMITTED(TransactionDefinition.ISOLATION_READ_COMMITTED),
+
+	REPEATABLE_READ(TransactionDefinition.ISOLATION_REPEATABLE_READ),
+
+	SERIALIZABLE(TransactionDefinition.ISOLATION_SERIALIZABLE);
+
+
+	private final int value;
+
+
+	Isolation(int value) {
+		this.value = value;
+	}
+
+	public int value() {
+		return this.value;
+	}
+
+}
+```
+
+
 
