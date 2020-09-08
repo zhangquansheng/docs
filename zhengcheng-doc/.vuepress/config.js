@@ -92,6 +92,13 @@ module.exports = {
                 ]
             },
             {
+                title: 'MySQL',
+                collapsable: false,
+                children: [
+                    './mysql/isolation'
+                ]
+            },
+            {
                 title: 'Kafka',
                 collapsable: false,
                 children: [
