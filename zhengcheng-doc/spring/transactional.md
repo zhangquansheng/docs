@@ -26,7 +26,7 @@
 ### @Transactional 注解的属性信息
 
 ```java
-// org.springframework.transaction.annotation
+// org.springframework.transaction.annotation.Transactional.java
 
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
@@ -73,8 +73,99 @@ noRollbackForClassName | Array of String class names, which must be derived from
 
 ### Spring 中事务传播
 
+事务传播行为是为了解决业务层方法之间互相调用的事务问题。
+
+当事务方法被另一个事务方法调用时，必须指定事务应该如何传播。例如：方法可能继续在现有事务中运行，也可能开启一个新事务，并在自己的事务中运行。
+
+在TransactionDefinition定义中包括了如下几个表示传播行为的常量：
+```java
+// org.springframework.transaction.TransactionDefinition.java
+
+public interface TransactionDefinition {
+
+	int PROPAGATION_REQUIRED = 0;
+
+	int PROPAGATION_SUPPORTS = 1;
+
+	int PROPAGATION_MANDATORY = 2;
+
+	int PROPAGATION_REQUIRES_NEW = 3;
+
+	int PROPAGATION_NOT_SUPPORTED = 4;
+
+	int PROPAGATION_NEVER = 5;
+
+	int PROPAGATION_NESTED = 6;
+
+	int ISOLATION_DEFAULT = -1;
+
+	int ISOLATION_READ_UNCOMMITTED = Connection.TRANSACTION_READ_UNCOMMITTED;
+
+	int ISOLATION_READ_COMMITTED = Connection.TRANSACTION_READ_COMMITTED;
+
+	int ISOLATION_REPEATABLE_READ = Connection.TRANSACTION_REPEATABLE_READ;
+
+	int ISOLATION_SERIALIZABLE = Connection.TRANSACTION_SERIALIZABLE;
+
+	int TIMEOUT_DEFAULT = -1;
+
+	int getPropagationBehavior();
+
+	int getIsolationLevel();
+
+	int getTimeout();
+
+	boolean isReadOnly();
+
+	@Nullable
+	String getName();
+
+}
+```
+
+为了方便使用，Spring 会相应地定义了一个枚举类：Propagation
+
+```java
+// org.springframework.transaction.annotation.Propagation.java
+
+public enum Propagation {
+
+	REQUIRED(TransactionDefinition.PROPAGATION_REQUIRED),
+
+	SUPPORTS(TransactionDefinition.PROPAGATION_SUPPORTS),
+
+	MANDATORY(TransactionDefinition.PROPAGATION_MANDATORY),
+
+	REQUIRES_NEW(TransactionDefinition.PROPAGATION_REQUIRES_NEW),
+
+	NOT_SUPPORTED(TransactionDefinition.PROPAGATION_NOT_SUPPORTED),
+
+	NEVER(TransactionDefinition.PROPAGATION_NEVER),
+
+	NESTED(TransactionDefinition.PROPAGATION_NESTED);
+
+
+	private final int value;
+
+
+	Propagation(int value) {
+		this.value = value;
+	}
+
+	public int value() {
+		return this.value;
+	}
+
+}
+```
+
 #### PROPAGATION_REQUIRED
 ![tx_prop_required](/img/spring/tx_prop_required.png)
+
+如果当前存在事务，则加入该事务；如果当前没有事务，则创建一个新的事务。也就是说：
+
+- 如果外部方法没有开启事务的话，Propagation.REQUIRED修饰的内部方法会新开启自己的事务，且开启的事务相互独立，互不干扰。
+- 如果外部方法开启事务并且被 Propagation.REQUIRED的话，所有Propagation.REQUIRED修饰的内部方法和外部方法均属于同一事务 ，只要一个方法回滚，整个事务均回滚。
 
 #### PROPAGATION_REQUIRES_NEW
 ![tx_prop_requires_new](/img/spring/tx_prop_requires_new.png)
