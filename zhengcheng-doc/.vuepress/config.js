@@ -80,7 +80,7 @@ module.exports = {
                     './spring/dependency-injection',
                     './spring/beans',
                     './spring/aop',
-                    './spring/transactional'
+                    './spring/transaction-management'
                 ]
             },
             {
@@ -89,13 +89,6 @@ module.exports = {
                 children: [
                     './spring-cloud/feign',
                     './spring-cloud/feign-dubbo'
-                ]
-            },
-            {
-                title: 'MySQL',
-                collapsable: false,
-                children: [
-                    './mysql/isolation'
                 ]
             },
             {
