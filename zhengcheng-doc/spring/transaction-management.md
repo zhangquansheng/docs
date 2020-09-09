@@ -40,7 +40,7 @@ sidebarDepth: 3
 
 - 脏读
 
-操作顺序 | 事务A | 事务B
+序号 | 事务A | 事务B
 ---|---|---
 1 | Begin | 
 2 |  | Begin
@@ -48,24 +48,29 @@ sidebarDepth: 3
 4 |  | update account set balance = 200 where id=1;
 5 | select balance from account where id=1;(结果为200) | 
 
+脏读重点在于`A事务`读取`B事务`尚未提交的`更改数据(UPDATE)`并在这个数据的基础上进行操作，这时候如果`事务B`回滚，那么`事务A`读到的数据是不被承认的。
+
 - 幻读
 
-操作顺序 | 事务A | 事务B
+序号 | 事务A | 事务B
 ---|---|---
 1 | Begin | 
 2 |  | Begin
-3 | select * from account_transfer_record where account_id=1; (结果为空) | 
+3 | select count(*) from account_transfer_record where account_id=1; (结果为0) | 
 4 |  | insert into account_transfer_record(id,account_id,amount) values(1,1,100);
 5 |  | commit
-6 | select * from account_transfer_record where account_id=1; (结果不为空) | 
+6 | select count(*) from account_transfer_record where account_id=1; (结果为1) | 
+
+幻读重点在于`A事务`读取`B事务`提交的`新增数据(INSERT),`会引发幻读问题。幻读一般发生在计算统计数据的`事务`中。
 
 
-## Spring框架的声明式事务实现
+`MySQL` `Innodb存储引擎`的默认支持的隔离级别是`REPEATABLE-READ（可重读）`。可以通过`SELECT @@tx_isolation;`命令来查看，`MySQL 8.0` 该命令改为`SELECT @@transaction_isolation;`
 
-下图显示了在事务代理上调用方法的概念图：
-![tx](/img/spring/tx.png)
+::: tip 延伸阅读
+MySQL Innodb存储引擎如何避免幻读的？
+:::
 
-## @Transactional 注解的属性信息
+## @Transactional
 
 ```java
 // org.springframework.transaction.annotation.Transactional.java
@@ -100,6 +105,7 @@ public @interface Transactional {
 
 }
 ```
+
 Property|Type|Description
 ---|---|---
 value | String | Optional qualifier that specifies the transaction manager to be used.
@@ -459,6 +465,12 @@ insertOrder();
 insertOrder 尽管有@Transactional 注解，但它被内部方法 insert 调用，事务被忽略，出现异常事务不会发生回滚。
 
 上面的两个问题@Transactional 注解只应用到 public 方法和自调用问题，是由于使用 Spring AOP 代理造成的。为解决这两个问题，使用 AspectJ 取代 Spring AOP 代理。
+
+## Spring框架的声明式事务实现
+
+下图显示了在事务代理上调用方法的概念图：
+![tx](/img/spring/tx.png)
+
 
 ## 参考文档
 
