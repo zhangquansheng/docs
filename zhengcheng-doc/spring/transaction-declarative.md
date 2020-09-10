@@ -1,6 +1,13 @@
+---
+sidebarDepth: 3
+---
+
 # Spring框架的声明式事务实现
 
-使用事务非常简单，首先使用注解`@EnableTransactionManagement`开启事务支持后，然后添加注解`@Transactional`便可。为了提供更深入的理解，本文介绍了在与事务相关的问题的上下文中，`Spring`框架的声明式事务基础结构的内部工作方式。
+[[toc]]
+
+
+在`Spring`中使用事务非常简单，首先使用注解`@EnableTransactionManagement`开启事务支持后，然后添加注解`@Transactional`便可。为了提供更深入的理解，本文介绍了在与事务相关的问题的上下文中，`Spring`框架的声明式事务基础结构的内部工作方式。
 
 Spring Frameworks `TransactionInterceptor`为命令式和响应式编程模型提供事务管理。拦截器通过**检查方法返回类型**来检测所需的事务管理风格。
 
@@ -305,8 +312,11 @@ public class DefaultAopProxyFactory implements AopProxyFactory, Serializable {
 
 解决办法就是避免同一类中自调用或者使用`AspectJ`取代`Spring AOP`代理。
 
-## @Transactional 使用总结
+## @Transactional 使用
 
+[官方文档](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/data-access.html#transaction-declarative-annotations)
+ 
+使用总结：
 - `@Transactional` 注解只有作用到 `public` 方法上事务才生效，不推荐在接口上使用；
 - 避免同一个类中调用 `@Transactional` 注解的方法，这样会导致事务失效；
 - 正确的设置 `@Transactional` 的 `rollbackFor` 和 `propagation` 属性，否则事务可能会回滚失败；
