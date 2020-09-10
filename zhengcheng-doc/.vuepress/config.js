@@ -80,7 +80,7 @@ module.exports = {
                     './spring/dependency-injection',
                     './spring/beans',
                     './spring/aop',
-                    './spring/transaction-management'
+                    './spring/transaction-declarative'
                 ]
             },
             {
