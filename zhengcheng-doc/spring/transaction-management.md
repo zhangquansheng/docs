@@ -108,27 +108,25 @@ public @interface Transactional {
 
 Property|Type|Description
 ---|---|---
-value | String | Optional qualifier that specifies the transaction manager to be used.
-propagation | enum: Propagation | Optional propagation setting.
-isolation | enum: Isolation | Optional isolation level. Applies only to propagation values of REQUIRED or REQUIRES_NEW.
-timeout | int (in seconds of granularity) | Optional transaction timeout. Applies only to propagation values of REQUIRED or REQUIRES_NEW.
-readOnly | boolean | Read-write versus read-only transaction. Only applicable to values of REQUIRED or REQUIRES_NEW.
+value | String | 当在配置文件中有多个 TransactionManager , 可以用该属性指定选择哪个事务管理器。
+propagation | enum: Propagation | 事务的传播行为，默认值为 REQUIRED。
+isolation | enum: Isolation | 事务的隔离级别. Applies only to propagation values of REQUIRED or REQUIRES_NEW.
+timeout | int (in seconds of granularity) | 事务的超时时间，单位秒，默认值为-1。如果超过该时间限制但事务还没有完成，则自动回滚事务。
+readOnly | boolean | 指定事务是否为只读事务. Only applicable to values of REQUIRED or REQUIRES_NEW.
 rollbackFor | Array of Class objects, which must be derived from Throwable. | Optional array of exception classes that must cause rollback.
 rollbackForClassName | Array of class names. The classes must be derived from Throwable. | Optional array of names of exception classes that must cause rollback.
 noRollbackFor | Array of Class objects, which must be derived from Throwable. | Optional array of exception classes that must not cause rollback.
 noRollbackForClassName | Array of String class names, which must be derived from Throwable. | Optional array of names of exception classes that must not cause rollback.
 
-
-## Spring 中事务传播
+### PROPAGATION
 
 事务传播行为是为了解决业务层方法之间互相调用的事务问题。
 
 当事务方法被另一个事务方法调用时，必须指定事务应该如何传播。例如：方法可能继续在现有事务中运行，也可能开启一个新事务，并在自己的事务中运行。
 
-在TransactionDefinition定义中包括了如下几个表示传播行为的常量：
+在`TransactionDefinition`定义中包括了如下几个表示传播行为的常量：
 ```java
 // org.springframework.transaction.TransactionDefinition.java
-
 public interface TransactionDefinition {
 
 	int PROPAGATION_REQUIRED = 0;
@@ -144,34 +142,13 @@ public interface TransactionDefinition {
 	int PROPAGATION_NEVER = 5;
 
 	int PROPAGATION_NESTED = 6;
-
-	int ISOLATION_DEFAULT = -1;
-
-	int ISOLATION_READ_UNCOMMITTED = Connection.TRANSACTION_READ_UNCOMMITTED;
-
-	int ISOLATION_READ_COMMITTED = Connection.TRANSACTION_READ_COMMITTED;
-
-	int ISOLATION_REPEATABLE_READ = Connection.TRANSACTION_REPEATABLE_READ;
-
-	int ISOLATION_SERIALIZABLE = Connection.TRANSACTION_SERIALIZABLE;
-
-	int TIMEOUT_DEFAULT = -1;
-
-	int getPropagationBehavior();
-
-	int getIsolationLevel();
-
-	int getTimeout();
-
-	boolean isReadOnly();
-
-	@Nullable
-	String getName();
+    
+    //...
 
 }
 ```
 
-为了方便使用，Spring 会相应地定义了一个枚举类：Propagation
+为了方便使用，`Spring`相应地定义了一个枚举类：`Propagation`
 
 ```java
 // org.springframework.transaction.annotation.Propagation.java
@@ -207,7 +184,7 @@ public enum Propagation {
 }
 ```
 
-### PROPAGATION_REQUIRED (默认)
+- PROPAGATION_REQUIRED (默认)
 
 如果当前存在事务，则加入该事务；如果当前没有事务，则创建一个新的事务。也就是说：
 
@@ -216,13 +193,13 @@ public enum Propagation {
 
 ![tx_prop_required](/img/spring/tx_prop_required.png)
 
-### PROPAGATION_REQUIRES_NEW
+- PROPAGATION_REQUIRES_NEW
 
 **创建一个新的事务**，如果当前存在事务，则把当前事务挂起。也就是说不管`外部方法`是否开启事务，`Propagation.REQUIRES_NEW`修饰的`内部方法`会新开启自己的事务，且开启的事务相互独立，互不干扰。
 
 ![tx_prop_requires_new](/img/spring/tx_prop_requires_new.png)
 
-### PROPAGATION_NESTED
+PROPAGATION_NESTED
 
 如果当前存在事务，则创建一个事务作为当前事务的嵌套事务来运行；如果当前没有事务，则该取值等价于TransactionDefinition.PROPAGATION_REQUIRED。也就是说：
 
