@@ -1,6 +1,8 @@
 # Spring框架的声明式事务实现
 
-仅告诉您使用注释对类进行@Transactional注释，添加@EnableTransactionManagement到配置中并希望您了解其全部工作原理是不够的 。为了提供更深入的理解，本节介绍了在与事务相关的问题的上下文中，Spring框架的声明式事务基础结构的内部工作方式。
+使用事务非常简单，首先使用注解`@EnableTransactionManagement`开启事务支持后，然后添加注解`@Transactional`便可。为了提供更深入的理解，本文介绍了在与事务相关的问题的上下文中，`Spring`框架的声明式事务基础结构的内部工作方式。
+
+Spring Frameworks `TransactionInterceptor`为命令式和响应式编程模型提供事务管理。拦截器通过**检查方法返回类型**来检测所需的事务管理风格。
 
 命令式事务需要使用`PlatformTransactionManager`，而响应式事务则使用`ReactiveTransactionManager`实现。
 
