@@ -1,12 +1,5 @@
----
-sidebarDepth: 3
----
+# MySQL事务
 
-# Transaction Management
-
-[[toc]]
-
-## 事务
 
 数据库**事务**是访问并可能操作各种数据项的一个数据库操作序列，这些操作**要么全部执行,要么全部不执行**，是一个不可分割的工作单位。
 
@@ -28,7 +21,7 @@ sidebarDepth: 3
 并且，`回滚日志`会先于`数据`持久化到磁盘上。这样就保证了即使遇到数据库突然宕机等情况，当用户再次启动数据库的时候，数据库还能够通过查询`回滚日志`来回滚将之前未完成的`事务`。
 :::
 
-### MySQL事务的四个隔离级别
+## MySQL事务的四个隔离级别
 
 | 序号  | 英文名   | 中文名  |  并发问题 |
 | ------------ | ------------ | ------------ | ------------ |
@@ -69,8 +62,3 @@ sidebarDepth: 3
 ::: tip 延伸思考
 MySQL Innodb存储引擎如何避免幻读的？
 :::
-
-## 参考文档
-
-- [Spring Framework Documentation](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/data-access.html#transaction-declarative)
-

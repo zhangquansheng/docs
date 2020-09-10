@@ -112,7 +112,8 @@ module.exports = {
                 title: '重点知识',
                 collapsable: false,
                 children: [
-                    './important/proxy'
+                    './important/proxy',
+                    './important/mysql-transaction'
                 ]
             },
             {
