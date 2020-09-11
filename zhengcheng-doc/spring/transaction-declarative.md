@@ -130,37 +130,37 @@ public enum Propagation {
 }
 ```
 
-- TransactionDefinition.PROPAGATION_REQUIRED (默认)
+1. TransactionDefinition.PROPAGATION_REQUIRED (默认)
 
 如果当前存在事务，则加入该事务；如果当前没有事务，则创建一个新的事务。也就是说：
 
-    - 如果`外部方法`没有开启事务的话，那么`Propagation.REQUIRED`修饰的`内部方法`会新开启自己的事务，且开启的事务相互独立，互不干扰。
-    - 如果`外部方法`开启事务并且被`Propagation.REQUIRED`的话，那么所有`Propagation.REQUIRED`修饰的`内部方法`和`外部方法`均属于`同一事务` ，只要一个方法回滚，整个事务均回滚。
+   - 如果`外部方法`没有开启事务的话，那么`Propagation.REQUIRED`修饰的`内部方法`会新开启自己的事务，且开启的事务相互独立，互不干扰。
+   - 如果`外部方法`开启事务并且被`Propagation.REQUIRED`的话，那么所有`Propagation.REQUIRED`修饰的`内部方法`和`外部方法`均属于`同一事务` ，只要一个方法回滚，整个事务均回滚。
 
 ![tx_prop_required](/img/spring/tx_prop_required.png)
 
-- TransactionDefinition.PROPAGATION_REQUIRES_NEW
+2. TransactionDefinition.PROPAGATION_REQUIRES_NEW
 
 **创建一个新的事务**，如果当前存在事务，则把当前事务挂起。也就是说不管`外部方法`是否开启事务，`Propagation.REQUIRES_NEW`修饰的`内部方法`会新开启自己的事务，且开启的事务相互独立，互不干扰。
 
 ![tx_prop_requires_new](/img/spring/tx_prop_requires_new.png)
 
-- TransactionDefinition.PROPAGATION_NESTED
+3. TransactionDefinition.PROPAGATION_NESTED
 
-如果当前存在事务，则创建一个事务作为当前事务的嵌套事务来运行；如果当前没有事务，则该取值等价于TransactionDefinition.PROPAGATION_REQUIRED。也就是说：
+如果当前存在事务，则创建一个事务作为当前事务的嵌套事务来运行；如果当前没有事务，则该取值等价于`TransactionDefinition.PROPAGATION_REQUIRED`。也就是说：
 
-    - 在外部方法未开启事务的情况下Propagation.NESTED和Propagation.REQUIRED作用相同，修饰的内部方法都会新开启自己的事务，且开启的事务相互独立，互不干扰。
-    - 如果外部方法开启事务的话，Propagation.NESTED修饰的内部方法属于外部事务的子事务，外部主事务回滚的话，子事务也会回滚，而内部子事务可以单独回滚而不影响外部主事务和其他子事务。
+   - 在外部方法未开启事务的情况下`Propagation.NESTED`和`Propagation.REQUIRED`作用相同，修饰的内部方法都会新开启自己的事务，且开启的事务相互独立，互不干扰。
+   - 如果外部方法开启事务的话，`Propagation.NESTED`修饰的内部方法属于外部事务的子事务，外部主事务回滚的话，子事务也会回滚，而内部子事务可以单独回滚而不影响外部主事务和其他子事务。
 
-- TransactionDefinition.PROPAGATION_SUPPORTS
+4. TransactionDefinition.PROPAGATION_SUPPORTS
 
 如果当前存在事务，则加入该事务；如果当前没有事务，则以非事务的方式继续运行。
     
-- TransactionDefinition.PROPAGATION_NOT_SUPPORTED
+5. TransactionDefinition.PROPAGATION_NOT_SUPPORTED
 
 以非事务方式运行，如果当前存在事务，则把当前事务挂起。
 
-- TransactionDefinition.PROPAGATION_NEVER
+6. TransactionDefinition.PROPAGATION_NEVER
 
 以非事务方式运行，如果当前存在事务，则抛出异常。
 
@@ -194,23 +194,23 @@ public enum Isolation {
 }
 ```
 
-- TransactionDefinition.ISOLATION_DEFAULT 
+1. TransactionDefinition.ISOLATION_DEFAULT 
 
 使用后端数据库默认的隔离级别，MySQL 默认采用的 REPEATABLE_READ 隔离级别 Oracle 默认采用的 READ_COMMITTED 隔离级别.
 
-- TransactionDefinition.ISOLATION_READ_UNCOMMITTED
+2. TransactionDefinition.ISOLATION_READ_UNCOMMITTED
 
 最低的隔离级别，使用这个隔离级别很少，因为它允许读取尚未提交的数据变更，可能会导致脏读、幻读或不可重复读
 
-- TransactionDefinition.ISOLATION_READ_COMMITTED
+3. TransactionDefinition.ISOLATION_READ_COMMITTED
 
 允许读取并发事务已经提交的数据，可以阻止脏读，但是幻读或不可重复读仍有可能发生
 
-- TransactionDefinition.ISOLATION_REPEATABLE_READ
+4. TransactionDefinition.ISOLATION_REPEATABLE_READ
 
 对同一字段的多次读取结果都是一致的，除非数据是被本身事务自己所修改，可以阻止脏读和不可重复读，但幻读仍有可能发生。
 
-- TransactionDefinition.ISOLATION_SERIALIZABLE
+5. TransactionDefinition.ISOLATION_SERIALIZABLE
 
 最高的隔离级别，完全服从 ACID 的隔离级别。所有的事务依次逐个执行，这样事务之间就完全不可能产生干扰，也就是说，该级别可以防止脏读、不可重复读以及幻读。但是这将严重影响程序的性能。通常情况下也不会用到该级别。
 
@@ -223,7 +223,7 @@ public enum Isolation {
 对于只有读取数据查询的事务，可以指定事务类型为`readonly`，即只读事务。只读事务不涉及数据的修改，数据库会提供一些优化手段，适合用在有多条数据库查询操作的方法中。
 
 ::: tip 延伸思考
-为什么我一个数据查询操作还要启用事务支持呢？
+为什么一个数据查询操作还要启用事务支持呢？
 :::
 
 ### 事务回滚规则
@@ -242,6 +242,10 @@ public enum Isolation {
 - **方法：** 推荐将注解使用于方法上，不过需要注意的是：该注解只能应用到 `public` 方法上，否则不生效。
 - **类：** 如果这个注解使用在类上的话，表明该注解对该类中所有的 public 方法都生效。
 - **接口：** 不推荐在接口上使用。
+
+::: tip 延伸思考
+为什么不推荐在接口上使用`@Transactional`注解？
+:::
 
 `@Transactional`注解应用到 `public` 方法，才能进行事务管理。源码如下：
 ```java
