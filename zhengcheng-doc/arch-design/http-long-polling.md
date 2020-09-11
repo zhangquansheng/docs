@@ -1,4 +1,4 @@
-# Http Long Polling
+# Http Long Polling（HTTP长轮询）
 
 前面提到了Apollo客户端和服务端保持了一个长连接，从而能第一时间获得配置更新的推送。
 
