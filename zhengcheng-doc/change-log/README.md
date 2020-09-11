@@ -7,6 +7,10 @@
 ## TODO LIST
 
 - 深入理解spring，看spring官方文档，然后在整理思路去写spring相关重点知识解析（源码级别的）
+- 把 spring boot 官方文档过一遍
+- Apollo相比于Spring Cloud Config有什么优势？
+- 配置更新推送实现的原理，看源码 `Http Long Polling`
+- redis 哨兵、集群、为什么快等问题
 - 理解spring 的bean加载过程 深入源码 这是架构的基础
 - 理解动态代理，了解二次动态代理
 - 去了解多线程开发的基本知识
