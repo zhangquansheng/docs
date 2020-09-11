@@ -138,6 +138,7 @@ module.exports = {
                     './arch-design/mybatis-crud',
                     './arch-design/ifelse-1',
                     './arch-design/ifelse-2',
+                    './arch-design/http-long-polling'
                 ]
             },
             {
