@@ -245,8 +245,10 @@ public enum Isolation {
 - **接口：** 不推荐在接口上使用。
 
 :point_right:
-::: tip 延伸思考
-为什么不推荐在接口上使用`@Transactional`注解？
+::: tip 为什么不推荐在接口上使用 @Transactional 注解？
+ `Spring`建议不要在接口或者接口方法上使用`@Transactional`注解，因为这只有在使用基于接口的代理时（JDK动态代理）它才会生效。
+ 
+ 如果您使用基于类的代理（`proxy-target-class="true"`）或基于`aspect`的方面（`mode="aspectj"`），则`@Transactional`注解失效。
 :::
 
 `@Transactional`注解应用到 `public` 方法，才能进行事务管理。源码如下：
@@ -326,5 +328,9 @@ public class DefaultAopProxyFactory implements AopProxyFactory, Serializable {
 - `@Transactional` 注解只有作用到 `public` 方法上事务才生效，不推荐在接口上使用；
 - 避免同一个类中调用 `@Transactional` 注解的方法，这样会导致事务失效；
 - 正确的设置 `@Transactional` 的 `rollbackFor` 和 `propagation` 属性，否则事务可能会回滚失败；
+
+## 参考文档
+
+- [Data Access](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/data-access.html)  Transactions, DAO Support, JDBC, O/R Mapping, XML Marshalling.
 
 
