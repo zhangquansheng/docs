@@ -1,6 +1,12 @@
 # Http Long Polling（HTTP长轮询）
 
-前面提到了`Apollo`客户端和服务端保持了一个长连接，从而能第一时间获得配置更新的推送。
+## Servlet 3.0的异步请求处理特性
+
+
+
+## 携程`Apollo`配置中心的场景使用示例
+
+`Apollo`客户端和服务端保持了一个长连接，从而能第一时间获得配置更新的推送。
 
 长连接实际上我们是通过`Http Long Polling`实现的，具体而言：
 
@@ -11,3 +17,8 @@
 3. 客户端在收到服务端请求后会立即重新发起连接，回到第一步
 
 考虑到会有数万客户端向服务端发起长连，在服务端我们使用了`async servlet(Spring DeferredResult)`来服务`Http Long Polling`请求。
+
+## 参考文档
+
+- [Javadoc DeferredResult](https://docs.spring.io/spring-framework/docs/5.2.8.RELEASE/javadoc-api/org/springframework/web/context/request/async/DeferredResult.html)
+- [Spring Web MVC 异步请求](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/web.html#mvc-ann-async)
