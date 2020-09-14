@@ -1,6 +1,8 @@
-# Http Long Polling（HTTP长轮询）
+# Spring Web MVC Asynchronous Requests(异步请求) 和 Http Long Polling（HTTP长轮询）
 
-## Servlet 3.0的异步请求处理特性
+## 异步请求
+
+- `Servlet`异步请求处理的非常简洁的概述：
 
 
 
