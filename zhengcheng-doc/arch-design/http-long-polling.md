@@ -36,6 +36,146 @@
 
 ## 携程`Apollo`配置中心 Http Long Polling 的具体实现
 
+服务端:
+```java
+// com.ctrip.framework.apollo.configservice.controller.NotificationControllerV2.java
+
+@RestController
+@RequestMapping("/notifications/v2")
+public class NotificationControllerV2 implements ReleaseMessageListener {
+    
+    // ...
+
+    @GetMapping
+    public DeferredResult<ResponseEntity<List<ApolloConfigNotification>>> pollNotification(
+            @RequestParam(value = "appId") String appId,
+            @RequestParam(value = "cluster") String cluster,
+            @RequestParam(value = "notifications") String notificationsAsString,
+            @RequestParam(value = "dataCenter", required = false) String dataCenter,
+            @RequestParam(value = "ip", required = false) String clientIp) {
+        List<ApolloConfigNotification> notifications = null;
+
+        try {
+            notifications = gson.fromJson(notificationsAsString, notificationsTypeReference);
+        } catch (Throwable ex) {
+            Tracer.logError(ex);
+        }
+
+        if (CollectionUtils.isEmpty(notifications)) {
+            throw new BadRequestException("Invalid format of notifications: " + notificationsAsString);
+        }
+
+        Map<String, ApolloConfigNotification> filteredNotifications = filterNotifications(appId, notifications);
+
+        if (CollectionUtils.isEmpty(filteredNotifications)) {
+            throw new BadRequestException("Invalid format of notifications: " + notificationsAsString);
+        }
+
+        DeferredResultWrapper deferredResultWrapper = new DeferredResultWrapper(bizConfig.longPollingTimeoutInMilli());
+        Set<String> namespaces = Sets.newHashSetWithExpectedSize(filteredNotifications.size());
+        Map<String, Long> clientSideNotifications = Maps.newHashMapWithExpectedSize(filteredNotifications.size());
+
+        for (Map.Entry<String, ApolloConfigNotification> notificationEntry : filteredNotifications.entrySet()) {
+            String normalizedNamespace = notificationEntry.getKey();
+            ApolloConfigNotification notification = notificationEntry.getValue();
+            namespaces.add(normalizedNamespace);
+            clientSideNotifications.put(normalizedNamespace, notification.getNotificationId());
+            if (!Objects.equals(notification.getNamespaceName(), normalizedNamespace)) {
+                deferredResultWrapper.recordNamespaceNameNormalizedResult(notification.getNamespaceName(), normalizedNamespace);
+            }
+        }
+
+        Multimap<String, String> watchedKeysMap = watchKeysUtil.assembleAllWatchKeys(appId, cluster, namespaces, dataCenter);
+        
+        // ...
+
+        return deferredResultWrapper.getResult();
+    }
+
+}
+```
+
+客户端:
+```java
+com.ctrip.framework.apollo.internals.RemoteConfigLongPollService.java
+
+public class RemoteConfigLongPollService {
+    
+    // ...
+
+    private void doLongPollingRefresh(String appId, String cluster, String dataCenter, String secret) {
+        final Random random = new Random();
+        ServiceDTO lastServiceDto = null;
+        while (!m_longPollingStopped.get() && !Thread.currentThread().isInterrupted()) {
+            if (!m_longPollRateLimiter.tryAcquire(5, TimeUnit.SECONDS)) {
+                //wait at most 5 seconds
+                try {
+                    TimeUnit.SECONDS.sleep(5);
+                } catch (InterruptedException e) {
+                }
+            }
+            Transaction transaction = Tracer.newTransaction("Apollo.ConfigService", "pollNotification");
+            String url = null;
+            try {
+                if (lastServiceDto == null) {
+                    List<ServiceDTO> configServices = getConfigServices();
+                    lastServiceDto = configServices.get(random.nextInt(configServices.size()));
+                }
+
+                url = assembleLongPollRefreshUrl(lastServiceDto.getHomepageUrl(), appId, cluster, dataCenter, m_notifications);
+
+                logger.debug("Long polling from {}", url);
+
+                HttpRequest request = new HttpRequest(url);
+                request.setReadTimeout(LONG_POLLING_READ_TIMEOUT);
+                if (!StringUtils.isBlank(secret)) {
+                    Map<String, String> headers = Signature.buildHttpHeaders(url, appId, secret);
+                    request.setHeaders(headers);
+                }
+
+                transaction.addData("Url", url);
+
+                final HttpResponse<List<ApolloConfigNotification>> response = m_httpUtil.doGet(request, m_responseType);
+
+                logger.debug("Long polling response: {}, url: {}", response.getStatusCode(), url);
+                if (response.getStatusCode() == 200 && response.getBody() != null) {
+                    updateNotifications(response.getBody());
+                    updateRemoteNotifications(response.getBody());
+                    transaction.addData("Result", response.getBody().toString());
+                    notify(lastServiceDto, response.getBody());
+                }
+
+                //try to load balance
+                if (response.getStatusCode() == 304 && random.nextBoolean()) {
+                    lastServiceDto = null;
+                }
+
+                m_longPollFailSchedulePolicyInSecond.success();
+                transaction.addData("StatusCode", response.getStatusCode());
+                transaction.setStatus(Transaction.SUCCESS);
+            } catch (Throwable ex) {
+                lastServiceDto = null;
+                Tracer.logEvent("ApolloConfigException", ExceptionUtil.getDetailMessage(ex));
+                transaction.setStatus(ex);
+                long sleepTimeInSecond = m_longPollFailSchedulePolicyInSecond.fail();
+                logger.warn(
+                        "Long polling failed, will retry in {} seconds. appId: {}, cluster: {}, namespaces: {}, long polling url: {}, reason: {}",
+                        sleepTimeInSecond, appId, cluster, assembleNamespaces(), url, ExceptionUtil.getDetailMessage(ex));
+                try {
+                    TimeUnit.SECONDS.sleep(sleepTimeInSecond);
+                } catch (InterruptedException ie) {
+                    //ignore
+                }
+            } finally {
+                transaction.complete();
+            }
+        }
+    }
+
+    // ...
+}
+```
+
 `Apollo`客户端和服务端保持了一个长连接，从而能第一时间获得配置更新的推送。
 
 长连接实际上我们是通过`Http Long Polling`实现的，具体而言：
