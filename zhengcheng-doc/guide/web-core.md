@@ -24,7 +24,10 @@ maven
 
 ## ExceptionControllerAdvice
 
-通过 `@RestControllerAdvice` + `@ExceptionHandler` 的方式统一异常处理
+通过 `@RestControllerAdvice` + `@ExceptionHandler` 的方式统一异常处理，
+
+- [Spring MVC Exceptions](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/web.html#mvc-ann-exceptionhandler)
+- 有关[@ControllerAdvice](https://docs.spring.io/spring-framework/docs/5.2.8.RELEASE/javadoc-api/org/springframework/web/bind/annotation/ControllerAdvice.html) 更多详细信息，请参见 javadoc。
 
 ## ~~GlobalResponseBodyAdvice~~
 
