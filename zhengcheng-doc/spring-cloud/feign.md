@@ -473,15 +473,25 @@ feign:
 
 - GET 请求多参数的 URL
 ```java
-    @GetMapping(value = "/get", headers = {"x-origin=gaodun.com"})
+    @GetMapping(value = "/get")
     User get(@RequestParam("id") Long id,@RequestParam("username") String username);
 ```
 
 - POST 请求包含多个参数
 ```java
-    @PostMapping(value = "/post", headers = {"x-origin=gaodun.com"})
+    @PostMapping(value = "/post")
     User post(@RequestBody User user);
 ```
+
+- POST `Content-Type=application/x-www-form-urlencoded` 提交表单
+```java
+    @PostMapping(value = "/post", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    void post(MultiValueMap<String, Object> formData);
+```
+
+::: warning 注意
+`application/x-www-form-urlencoded` 提交表单的方式下，不能使用`@RequestBody`，否则会异常：`feign.codec.EncodeException: Could not write request: no suitable HttpMessageConverter found for`
+:::
 
 ### 使用Feign上传文件
 
