@@ -95,7 +95,9 @@ module.exports = {
                 title: 'Redis',
                 collapsable: false,
                 children: [
-                    './redis/'
+                    './redis/',
+                    './redis/data-types',
+                    './redis/big-key'
                 ]
             },
             {
@@ -130,7 +132,6 @@ module.exports = {
                     './digging-deeper/plugin',
                     './digging-deeper/oom',
                     './digging-deeper/cat',
-                    './digging-deeper/bigkey',
                     './digging-deeper/sign-auth',
                     './digging-deeper/mdc',
                     './digging-deeper/cache2',
