@@ -8,8 +8,8 @@
 
 - redis 哨兵、集群、为什么快，常见的数据结构等问题 [https://redis.io/documentation](https://redis.io/documentation)
 - 了解二次动态代理
+- kafka 深入原理的理解
 - 去了解多线程开发的基本知识，并发包java.util.concurrent.*中的基础知识
-
 
 ### 强烈提醒
 

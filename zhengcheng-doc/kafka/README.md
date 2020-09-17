@@ -1,18 +1,11 @@
----
-sidebarDepth: 3
----
-
-
-# kafka
-
-## 简介
+# 概述
 
 ::: tip 特别提示
 本文基于 `kafka 2.5.0` 介绍实际开发中常用的一些概念，非常详细的介绍，请参考[官方文档](http://kafka.apache.org/intro)
 :::
 
 
-### 术语
+## 术语
 
 - **Broker** : kafka 集群包含一个或多个服务器，这种服务器被称为 broker
 - **Topic** : 每条发布到 kafka 集群的消息都有一个类别，这个类别被称为 **Topic**（物理上不同 **Topic** 的消息分开存储，逻辑上一个 **Topic** 的消息虽然保存于一个或多个 **broker** 上，但用户只需指定消息的 **Topic** 即可生产或消费数据，不必关心数据存于何处）
@@ -25,7 +18,7 @@ sidebarDepth: 3
 每条记录都包含 一个 key, 一个 value, 一个 timestamp.
 :::
 
-### kafka 拓扑结构
+## kafka 拓扑结构
 
 ![topic](/img/kafka/kafka.png)
 
@@ -40,7 +33,7 @@ kafka 通过 Zookeeper 管理集群配置，选举 leader，以及在 Consumer G
 
 Producer 使用 push 模式将消息发布到 broker，Consumer 使用 pull 模式从 broker 订阅并消费消息。
 
-### Topics and Logs
+## Topics and Logs
 
 ::: tip (阿里云)Topic的取值：
 - 只能包含字母、数字、下划线（_）和短划线（-）
@@ -78,11 +71,11 @@ Kafka 中的**Topic**是逻辑概念，而**Partition**是物理概念，对用�
 
 
 
-### Producers
+## Producers
 
 Producer 将数据发布到指定的主题。你可以简单地为负载均衡而采取循环方式完成此操作，也可以根据某些规则（例如基于记录的KEY）来完成此操作。
 
-### Consumers
+## Consumers
 
 **Consumer**使用group name 标记自己, 并且发布到**Topic**的每条记录都会传递到每个订阅**Consumer Group**中的一个 Consumer 实例。
 
@@ -125,37 +118,4 @@ Kafka 仅仅提供 一个**Partition** 内的记录顺序，而不能提供在�
 - 发送消息到只有一个**Partition**的**Topic**
 - 发送消息指定**Partition**
 - 发送消息的**KEY相同**（消息KEY相同，那么消息提交的到**Partition**是相同的）
-
-## 应用场景
-
-### 异步解耦
-
-构建应用系统和分析系统的桥梁，并将它们之间的关联解耦，通过上、下游业务系统的松耦合设计，即便下游子系统（如物流、积分等）出现不可用甚至宕机，都不会影响到核心交易系统的正常运转；
-
-
-### 高可扩展性
-
-具有高可扩展性，即当数据量增加时可通过增加节点快速水平扩展。
-
-### 削峰填谷
-    
-MQ 超高性能的消息处理能力可以承接流量脉冲而不被击垮，在确保系统可用性同时，因快速有效的请求响应而提升用户的体验；
-
-确保下游业务在安全水位内平滑稳定的运行，避免超高流量的冲击；
-
-通过削弱填谷可控制下游业务系统的集群规模，从而降低投入成本；
-
-### 顺序消息
-
-在大多使用场景下，数据处理的顺序都很重要。大部分消息队列本来就是排序的，并且能保证数据会按照特定的顺序来处理。Kafka 保证一个 Partition 内的消息的有序性。
-
-## HA机制
-
-::: tip 提示
-学习中，内容待补充
-:::
-
-## 性能
-
-[对Apache Kafka进行基准测试：每秒200万次写入（在三台便宜的机器上）](https://engineering.linkedin.com/kafka/benchmarking-apache-kafka-2-million-writes-second-three-cheap-machines)
 

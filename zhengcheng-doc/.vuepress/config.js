@@ -92,10 +92,17 @@ module.exports = {
                 ]
             },
             {
+                title: 'Redis',
+                collapsable: false,
+                children: [
+                    './redis/'
+                ]
+            },
+            {
                 title: 'Kafka',
                 collapsable: false,
                 children: [
-                    './kafka/kafka',
+                    './kafka/',
                     './kafka/spring-kafka',
                 ]
             },
