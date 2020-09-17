@@ -190,6 +190,109 @@ public class RemoteConfigLongPollService {
 
 考虑到会有数万客户端向服务端发起长连，在服务端我们使用了`async servlet(Spring DeferredResult)`来服务`Http Long Polling`请求。
 
+
+## PC端实时查询用户个人消息 Http Long Polling 的具体实现
+
+定义 `DeferredResult` 封装器
+```java
+public class UserNewMessageDeferredResultWrapper implements Comparable<UserNewMessageDeferredResultWrapper> {
+
+
+    private DeferredResult<UserNewMessageDTO> result;
+
+    public UserNewMessageDeferredResultWrapper(long timeoutInMilli) {
+        result = new DeferredResult<>(timeoutInMilli);
+    }
+
+    public void onTimeout(Runnable timeoutCallback) {
+        result.onTimeout(timeoutCallback);
+    }
+
+    public void onCompletion(Runnable completionCallback) {
+        result.onCompletion(completionCallback);
+    }
+
+    public void setResult(UserNewMessageDTO userNewMessage) {
+        result.setResult(userNewMessage);
+    }
+
+
+    public DeferredResult<UserNewMessageDTO> getResult() {
+        return result;
+    }
+
+    @Override
+    public int compareTo(@NonNull UserNewMessageDeferredResultWrapper deferredResultWrapper) {
+        return Integer.compare(this.hashCode(), deferredResultWrapper.hashCode());
+    }
+}
+```
+
+`Controller`接口定义返回`DeferredResult`,具体实现如下：
+```java
+    // ...
+
+    @ApiOperation("新消息 - HTTP LONG POLLING")
+    @GetMapping("/new")
+    public DeferredResult<UserNewMessageDTO> pollUserNewMessage(
+            @RequestAttribute("userId") Long userId,
+            @RequestParam(value = "newMessageId", required = false) Long newMessageId) {
+        
+        // `DeferredResult` 封装器，设置超时时间
+        UserNewMessageDeferredResultWrapper deferredResultWrapper = new UserNewMessageDeferredResultWrapper(CommonConstants.DEFAULT_LONG_POLLING_TIMEOUT);
+        
+        //查询当前用户的新消息
+        UserNewMessageDTO userNewMessage = this.qaUserMessageServiceFacade.findUserNewMessage(userId);
+        //比较当前新消息是否最新的消息，如果是立即返回，如果不是，则等待， 其中setResult方法是关键
+        if (Objects.nonNull(userNewMessage.getId()) && ObjectUtil.notEqual(userNewMessage.getId(), newMessageId)) {
+            deferredResultWrapper.setResult(userNewMessage);
+        } else {
+            // 没有新消息，进入等待中的状态，保存当前请求的 UserNewMessageDeferredResultWrapper
+            this.qaUserMessageServiceFacade.process(newMessageId, userId, deferredResultWrapper);
+        }
+
+        return deferredResultWrapper.getResult();
+    }
+```
+
+`process` 方法处理逻辑如下：
+```java
+     // ...
+
+    @Override
+    public void process(@Nullable Long newMessageId, Long userId, UserNewMessageDeferredResultWrapper deferredResultWrapper) {
+        String watchedKey = CacheConstants.getUserMessageWatchedKey(userId);
+        
+        // 设置超时后，接口的返回值
+        deferredResultWrapper.onTimeout(() -> deferredResultWrapper.setResult(new UserNewMessageDTO(HttpStatus.NOT_MODIFIED.value(), newMessageId)));
+        
+        // 设置完成后，移除缓存中的deferredResultWrapper
+        deferredResultWrapper.onCompletion(() -> deferredResults.remove(watchedKey, deferredResultWrapper));
+            
+        // 缓存deferredResultWrapper，当有新消息时会根据watchedKey来获取deferredResultWrapper
+        deferredResults.put(watchedKey, deferredResultWrapper);
+    }
+```
+
+用户有新消息的处理逻辑如下：
+```java
+     // ...
+     @Override
+    public void settingResult(@NonNull Long userId, @NonNull UserNewMessageDTO userNewMessage) {
+        String watchedKey = CacheConstants.getUserMessageWatchedKey(userId);
+        if (deferredResults.containsKey(watchedKey)) {
+            // 获取到UserNewMessageDeferredResultWrapper，在调用setResult方法设置值，前面的接口立即返回值
+            List<UserNewMessageDeferredResultWrapper> results = Lists.newArrayList(deferredResults.get(watchedKey));
+            if (CollectionUtil.isNotEmpty(results)) {
+                results.forEach(result -> result.setResult(userNewMessage));
+            }
+        }
+    }
+```
+
+由于我们日常工作中，所有的服务都是集群部署的，那么有可能缓存的`deferredResultWrapper`和处理新消息的线程不在一个服务中，导致无法调用setResult方法设置值。所以当有新消息的情况下，需要使用**广播的方式**通知集群下所有的服务都执行新消息处理逻辑。
+
+
 ## 参考文档
 
 - [Javadoc DeferredResult](https://docs.spring.io/spring-framework/docs/5.2.8.RELEASE/javadoc-api/org/springframework/web/context/request/async/DeferredResult.html)
