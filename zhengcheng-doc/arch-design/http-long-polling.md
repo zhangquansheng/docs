@@ -1,4 +1,6 @@
-# Spring Web MVC Asynchronous Requests(异步请求) 和 Http Long Polling（HTTP长轮询）
+# Http Long Polling
+
+关键词: `HTTP长轮询` `Spring Web MVC Asynchronous Requests(异步请求)` `DeferredResult` `Callable`
 
 ## 异步请求
 
