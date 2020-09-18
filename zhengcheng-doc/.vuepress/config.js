@@ -97,6 +97,7 @@ module.exports = {
                 children: [
                     './redis/',
                     './redis/data-types',
+                    './redis/reactor',
                     './redis/big-key'
                 ]
             },
