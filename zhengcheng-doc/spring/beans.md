@@ -31,12 +31,82 @@ session | Scopes a single bean definition to the lifecycle of an HTTP Session. O
 application | Scopes a single bean definition to the lifecycle of a ServletContext. Only valid in the context of a web-aware Spring ApplicationContext.
 websocket |  Scopes a single bean definition to the lifecycle of a WebSocket. Only valid in the context of a web-aware Spring ApplicationContext.
 
-### Spring 中的单例 bean 的线程安全问题
+### 单例bean源码分析
 
-TODO
-> 
-    - ThreadLocal 
-    - SimpleDateFormat
+注册/获取一个单例的`bean`
+```java
+// org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.java
+
+public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements SingletonBeanRegistry {
+
+    	/** Cache of singleton objects: bean name to bean instance. */
+    	private final Map<String, Object> singletonObjects = new ConcurrentHashMap<>(256);
+        
+        @Override
+        public void registerSingleton(String beanName, Object singletonObject) throws IllegalStateException {
+            Assert.notNull(beanName, "Bean name must not be null");
+            Assert.notNull(singletonObject, "Singleton object must not be null");
+            synchronized (this.singletonObjects) {
+                Object oldObject = this.singletonObjects.get(beanName);
+                if (oldObject != null) {
+                    throw new IllegalStateException("Could not register object [" + singletonObject +
+                            "] under bean name '" + beanName + "': there is already object [" + oldObject + "] bound");
+                }
+                addSingleton(beanName, singletonObject);
+            }
+        }
+    
+        /**
+         * Add the given singleton object to the singleton cache of this factory.
+         * <p>To be called for eager registration of singletons.
+         * @param beanName the name of the bean
+         * @param singletonObject the singleton object
+         */
+        protected void addSingleton(String beanName, Object singletonObject) {
+            synchronized (this.singletonObjects) {
+                this.singletonObjects.put(beanName, singletonObject);
+                this.singletonFactories.remove(beanName);
+                this.earlySingletonObjects.remove(beanName);
+                this.registeredSingletons.add(beanName);
+            }
+        }
+
+        @Override
+        @Nullable
+        public Object getSingleton(String beanName) {
+            return getSingleton(beanName, true);
+        }
+    
+        /**
+         * Return the (raw) singleton object registered under the given name.
+         * <p>Checks already instantiated singletons and also allows for an early
+         * reference to a currently created singleton (resolving a circular reference).
+         * @param beanName the name of the bean to look for
+         * @param allowEarlyReference whether early references should be created or not
+         * @return the registered singleton object, or {@code null} if none found
+         */
+        @Nullable
+        protected Object getSingleton(String beanName, boolean allowEarlyReference) {
+            Object singletonObject = this.singletonObjects.get(beanName);
+            if (singletonObject == null && isSingletonCurrentlyInCreation(beanName)) {
+                synchronized (this.singletonObjects) {
+                    singletonObject = this.earlySingletonObjects.get(beanName);
+                    if (singletonObject == null && allowEarlyReference) {
+                        ObjectFactory<?> singletonFactory = this.singletonFactories.get(beanName);
+                        if (singletonFactory != null) {
+                            singletonObject = singletonFactory.getObject();
+                            this.earlySingletonObjects.put(beanName, singletonObject);
+                            this.singletonFactories.remove(beanName);
+                        }
+                    }
+                }
+            }
+            return singletonObject;
+        }
+
+}
+```
+
 
 ## Bean 生命周期
 
