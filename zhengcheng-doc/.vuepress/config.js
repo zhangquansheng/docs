@@ -122,6 +122,7 @@ module.exports = {
                 title: '重点知识',
                 collapsable: false,
                 children: [
+                    './important/concurrent',
                     './important/proxy',
                     './important/mysql-transaction'
                 ]
