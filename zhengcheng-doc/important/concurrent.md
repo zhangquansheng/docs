@@ -55,6 +55,8 @@ public class SynchronizedTest {
 3. 当修饰代码块时，锁的粒度取决于`()`里面指定的对象，当`synchronized(SynchronizedTest.class)`时，是和`1`一样的类锁，当`synchronized (SynchronizedTest.this)`时，是和`2`一样的实例对象锁。
 4. 代码中没有被`synchronized`修饰的其他方法是不受上诉各种锁的影响的。
 
+**构造方法不能使用`synchronized`关键字修饰，构造方法本身就属于线程安全的，不存在同步的构造方法一说。**
+
 ### synchronized 实现原理
 
 关键字：`锁` `ACC_SYNCHRONIZED` `monitor` `MarkWord` `自旋` `CAS` 
