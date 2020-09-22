@@ -238,6 +238,33 @@ Unsafe 功能有很多，我也不是很懂，以后有时间在详细研究一�
 
 `ThreadLocalMap` 实现中已经考虑了这种情况，在调用 `set()`、`get()`、`remove()` 方法的时候，会清理掉 `key` 为 `null` 的记录。**使用完 `ThreadLocal`方法后,手动调用`remove()`方法**
 
+- `SimpleDateFormat` 是线程不安全的类，一般不要定义为 `static` 变量，如果定义为
+`static`，必须加锁，或者使用 `DateUtils` 工具类。
+正例： 注意线程安全，使用 `DateUtils`。亦推荐如下处理：
+```java
+private static final ThreadLocal<DateFormat> df = new ThreadLocal<DateFormat>() {
+    @Override
+    protected DateFormat initialValue() {
+        return new SimpleDateFormat("yyyy-MM-dd");
+    }
+};
+```
+> 说明： 如果是 `JDK8` 的应用，可以使用 `Instant` 代替 `Date`， `LocalDateTime` 代替 `Calendar`，
+`DateTimeFormatter` 代替 `SimpleDateFormat`，官方给出的解释： `simple beautiful strong immutable
+thread-safe`。
+- 必须回收自定义的 `ThreadLocal` 变量，尤其在线程池场景下，线程经常会被复用，
+如果不清理自定义的 `ThreadLocal` 变量，可能会影响后续业务逻辑和造成内存泄露等问题。
+尽量在代理中使用 `try-finally` 块进行回收。
+正例：
+```java
+  objectThreadLocal.set(userInfo);
+    try {
+    // ...
+    } finally {
+    objectThreadLocal.remove();
+    }
+```
+
 ## 线程池
 
 ### ThreadPoolExecutor 构造函数重要参数分析
