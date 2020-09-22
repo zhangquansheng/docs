@@ -107,7 +107,7 @@ java.lang.StackOverflowError: null
 ```
 启动参数： -Xms1024m -Xmx1024m -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=128m -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -Denv=dev -Deureka.client.register-with-eureka=false -Deureka.client.enabled=false
 
-![IMAGE TEXT](metaspace.png)
+![metaspace](/img/oom/metaspace.png)
 
 运行结果：
 ```
