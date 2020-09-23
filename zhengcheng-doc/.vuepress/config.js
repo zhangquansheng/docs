@@ -128,6 +128,13 @@ module.exports = {
                 ]
             },
             {
+                title: '算法',
+                collapsable: false,
+                children: [
+                    './algorithms/sort',
+                ]
+            },
+            {
                 title: '综合话题',
                 collapsable: false,
                 children: [
