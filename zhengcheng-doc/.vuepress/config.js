@@ -132,6 +132,7 @@ module.exports = {
                 collapsable: false,
                 children: [
                     './algorithms/sort',
+                    './algorithms/binary-tree'
                 ]
             },
             {
