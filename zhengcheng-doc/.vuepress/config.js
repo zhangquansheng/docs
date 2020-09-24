@@ -132,7 +132,8 @@ module.exports = {
                 collapsable: false,
                 children: [
                     './algorithms/sort',
-                    './algorithms/binary-tree'
+                    './algorithms/binary-tree',
+                    './algorithms/balanced-tree'
                 ]
             },
             {
