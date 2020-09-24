@@ -133,7 +133,9 @@ module.exports = {
                 children: [
                     './algorithms/sort',
                     './algorithms/binary-tree',
-                    './algorithms/balanced-tree'
+                    './algorithms/balanced-tree',
+                    './algorithms/sliding-window',
+                    './algorithms/dynamic-programming'
                 ]
             },
             {
