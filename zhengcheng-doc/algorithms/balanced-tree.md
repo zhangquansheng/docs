@@ -2,9 +2,15 @@
 
 ## B-树
 
+[动态演示](https://www.cs.usfca.edu/~galles/visualization/BTree.html)
+
 B树（或B-树、B_树），它是一种**平衡的多叉树**。
 
+
+
 ## B+树
+
+[动态演示](https://www.cs.usfca.edu/~galles/visualization/BPlusTree.html)
 
 B+树是B树的一种变形形式，**B+树上的叶子结点存储关键字以及相应记录的地址**，叶子结点以上各层作为索引（此索引非`MySQL`索引）使用。
 
