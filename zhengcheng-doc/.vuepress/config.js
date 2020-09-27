@@ -135,28 +135,15 @@ module.exports = {
                 ]
             },
             {
-                title: '算法',
-                collapsable: false,
-                children: [
-                    './algorithms/sort',
-                    './algorithms/binary-tree',
-                    './algorithms/balanced-tree',
-                    './algorithms/sliding-window',
-                    './algorithms/dynamic-programming'
-                ]
-            },
-            {
                 title: '综合话题',
                 collapsable: false,
                 children: [
                     './digging-deeper/plugin',
                     './digging-deeper/oom',
-                    './digging-deeper/cat',
                     './digging-deeper/sign-auth',
                     './digging-deeper/mdc',
                     './digging-deeper/cache2',
                     './digging-deeper/distributed-lock',
-                    './digging-deeper/aliyun-db',
                 ]
             },
             {
