@@ -70,10 +70,16 @@ zc-zk-spring-boot-starter | Zookeeper通用组件
 
 `zhengcheng` 是个人学习作品，如果您觉得还不错，欢迎使用，如有问题，联系作者（微信：`z088600`、邮箱：`952547584@qq.com`），必定竭诚为您解决。
 
+### 座右铭
+
+- **不傲娇，要能延迟满足感**
+- **对不确定性保持乐观**
+
 ## 添砖加瓦
 
 ### 提供bug反馈或建议
 
 提交问题反馈请说明正在使用的JDK版本号、`zhengcheng`版本和相关依赖库版本。
 
-- GitHub issue
+- [GitHub issue](https://github.com/zhangquansheng/zhengcheng-parent/issues)
+- [Gitee issue](https://gitee.com/zhangquansheng/zhengcheng-parent/issues)
