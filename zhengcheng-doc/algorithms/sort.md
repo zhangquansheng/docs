@@ -71,7 +71,7 @@
 
 ## 归并排序（Merge Sort）
 
-归并排序是建立在归并操作上的一种有效，稳定的排序算法，该算法是采用**分治法**（Divide and Conquer）的一个非常典型的应用。将已有序的子序列合并，得到完全有序的序列；即先使每个子序列有序，再使子序列段间有序。
+归并排序是建立在归并操作上的一种有效，稳定的排序算法，该算法是采用**分治法**（Divide and Conquer）的一个非常典型的应用。将已有序的子序列合并，得到完全有序的序列；**即先使每个子序列有序，再使子序列段间有序**。
 
 归并排序流程如下：
 1. 申请空间，使其大小为两个已经排序序列之和，该空间用来存放合并后的序列
@@ -81,3 +81,9 @@
 
 归并排序的比较次数小于快速排序的比较次数，移动次数一般多于快速排序的移动次数。速度仅次于快速排序，为稳定排序算法。
 
+## 非比较排序
+
+- 桶排序 (Bucket Sort) [动画演示](https://www.cs.usfca.edu/~galles/visualization/BucketSort.html)
+- 计数排序 (Counting Sort) [动画演示](https://www.cs.usfca.edu/~galles/visualization/CountingSort.html)
+- 基数排序(Radix Sort) [动画演示](https://www.cs.usfca.edu/~galles/visualization/RadixSort.html)
+- 堆排序(Heap Sort)[动画演示](https://www.cs.usfca.edu/~galles/visualization/HeapSort.html)
