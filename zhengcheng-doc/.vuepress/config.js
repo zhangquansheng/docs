@@ -142,7 +142,6 @@ module.exports = {
                     './digging-deeper/oom',
                     './digging-deeper/sign-auth',
                     './digging-deeper/mdc',
-                    './digging-deeper/cache2',
                     './digging-deeper/distributed-lock',
                 ]
             },

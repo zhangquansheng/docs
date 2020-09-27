@@ -4,6 +4,9 @@ sidebarDepth: 3
 
 # Spring框架的声明式事务实现
 
+[Data Access 官方文档](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/data-access.html)  Transactions, DAO Support, JDBC, O/R Mapping, XML Marshalling.
+
+
 [[toc]]
 
 
@@ -328,9 +331,4 @@ public class DefaultAopProxyFactory implements AopProxyFactory, Serializable {
 - `@Transactional` 注解只有作用到 `public` 方法上事务才生效，不推荐在接口上使用；
 - 避免同一个类中调用 `@Transactional` 注解的方法，这样会导致事务失效；
 - 正确的设置 `@Transactional` 的 `rollbackFor` 和 `propagation` 属性，否则事务可能会回滚失败；
-
-## 参考文档
-
-- [Data Access](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/data-access.html)  Transactions, DAO Support, JDBC, O/R Mapping, XML Marshalling.
-
 
