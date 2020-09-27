@@ -92,6 +92,14 @@ module.exports = {
                 ]
             },
             {
+                title: 'MySQL',
+                collapsable: false,
+                children: [
+                    './mysql/b-plus-index',
+                    './mysql/transaction'
+                ]
+            },
+            {
                 title: 'Redis',
                 collapsable: false,
                 children: [
@@ -124,7 +132,6 @@ module.exports = {
                 children: [
                     './important/concurrent',
                     './important/proxy',
-                    './important/mysql-transaction'
                 ]
             },
             {
