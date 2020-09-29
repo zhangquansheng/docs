@@ -1,0 +1,1 @@
+https://www.cnblogs.com/yourbatman/p/13328817.html#%E4%B8%BA%E4%BB%80%E4%B9%88autowired%E4%B8%8D%E8%83%BD%E6%B3%A8%E5%85%A5static%E6%88%90%E5%91%98%E5%B1%9E%E6%80%A7
