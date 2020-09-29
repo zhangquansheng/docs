@@ -9,7 +9,7 @@
 `@Resource`有两个属性是比较重要的，分是`name`和`type`，`Spring`将`@Resource`注解的`name`属性解析为`bean`的名字，而`type`属性则解析为`bean`的类型。
 所以如果使用`name`属性，则使用`byName`的自动注入策略，而使用`type`属性时则使用`byType`自动注入策略。如果既不指定`name`也不指定`type`属性，这时将通过反射机制使用`byName`自动注入策略。
 
-@Resource装配顺序:
+`@Resource`装配顺序:
 1. 如果同时指定了`name`和`type`，则从`Spring`上下文中找到唯一匹配的`bean`进行装配，找不到则抛出异常；
 2. 如果指定了`name`，则从上下文中查找名称（id）匹配的`bean`进行装配，找不到则抛出异常；
 3. 如果指定了`type`，则从上下文中找到类型匹配的唯一`bean`进行装配，找不到或者找到多个，都会抛出异常；
@@ -100,3 +100,5 @@ public @interface Resource {
     String description() default "";
 }
 ```
+
+## CommonAnnotationBeanPostProcessor 源码解析
