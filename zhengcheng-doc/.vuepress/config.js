@@ -80,6 +80,8 @@ module.exports = {
                     './spring/dependency-injection',
                     './spring/beans',
                     './spring/beans-autowired-annotation',
+                    './spring/beans-resource-annotation',
+                    './spring/beans-value-annotations',
                     './spring/aop',
                     './spring/transaction-declarative'
                 ]
