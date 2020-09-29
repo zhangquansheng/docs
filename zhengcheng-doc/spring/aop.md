@@ -76,6 +76,3 @@ public class Animal {
 `Spring AOP`默认将[标准JDK动态代理](/important/proxy)用于`AOP`代理。所以它可以代理任何接口（或一组接口）。
 
 `Spring AOP`也可以使用[CGLIB代理](/important/proxy),默认情况下，如果业务对象未实现接口，则使用`CGLIB`。**由于对接口而不是对类进行编程是一种好习惯(As it is good practice to program to interfaces rather than classes)**，因此业务类通常实现一个或多个业务接口。
-
-
-### Spring AOP 和 AspectJ AOP 的区别
