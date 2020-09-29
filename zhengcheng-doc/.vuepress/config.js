@@ -99,7 +99,8 @@ module.exports = {
                 collapsable: false,
                 children: [
                     './mysql/b-plus-index',
-                    './mysql/transaction'
+                    './mysql/transaction',
+                    './mysql/innodb-deadlocks'
                 ]
             },
             {
