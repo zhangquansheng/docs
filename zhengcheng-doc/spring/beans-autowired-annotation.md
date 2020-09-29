@@ -9,6 +9,23 @@
 
 ## 工作原理
 
+`@Autowired`的源码如下：
+```java
+@Target({ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD, ElementType.ANNOTATION_TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface Autowired {
+
+	/**
+	 * Declares whether the annotated dependency is required.
+	 * <p>Defaults to {@code true}.
+	 */
+	boolean required() default true;
+
+}
+```
+
+查询自动注入的元数据源码如下：
 ```java
 // AutowiredAnnotationBeanPostProcessor.java
 
