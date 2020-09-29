@@ -275,12 +275,12 @@ MyBeanPostProcessor.java:31 - 调用postProcessAfterInitialization() 再次获�
 ::: tip 特别提示	
 在JSR-250中， `@PostConstruct`和`@PreDestroy`注释被认为是`Spring`应用程序中接收生命周期回调的最佳实践。使用这些注释意味着`bean`不耦合到`Spring`特定的接口。有关详细信息，请参见[使用@PostConstruct和@PreDestroy](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/core.html#beans-postconstruct-and-predestroy-annotations)。
 
-如果你不希望使用JSR-250注解，但希望`bean`不耦合到`Spring`特定的接口，考虑`init-method`和`destroy-method`。
+如果你不希望使用`JSR-250`注解，但希望`bean`不耦合到`Spring`特定的接口，考虑`init-method`和`destroy-method`。
 :::
 
 #### 初始化回调
 
-`org.springframework.beans.factory.InitializingBean`容器在bean上设置了所有必需的属性后，该接口可让`bean`执行初始化工作。
+`org.springframework.beans.factory.InitializingBean`容器在`bean`上设置了所有必需的属性后，该接口可让`bean`执行初始化工作。
 ```java
 public interface InitializingBean {
 
@@ -289,7 +289,7 @@ public interface InitializingBean {
 }
 ```
 
-我们建议您不要使用InitializingBean接口，因为它将代码与Spring耦合。
+我们建议您不要使用`InitializingBean`接口，因为它将代码与`Spring`耦合。
 
 #### 销毁回调
 
@@ -302,13 +302,13 @@ public interface DisposableBean {
 }
 ```
 
-我们建议您不要使用DisposableBean回调接口，因为它不必要地将代码与Spring耦合。建议使用`@PreDestroy注释`或者在`bean`上使用`destroy method`属性
+我们建议您不要使用`DisposableBean`回调接口，因为它不必要地将代码与`Spring`耦合。建议使用`@PreDestroy注释`或者在`bean`上使用`destroy method`属性
 
 ## FactoryBean
 
 一般情况下，`Spring`通过**反射机制**利用`bean`的`class`属性指定实现类实例化`Bean`，在某些情况下，实例化`Bean`过程比较复杂，如果按照传统的方式，则需要在`bean`中提供大量的配置信息。配置方式的灵活性是受限的，这时采用编码的方式可能会得到一个简单的方案。
 
-`Spring`为此提供了一个`org.springframework.bean.factory.FactoryBean`的工厂类接口，用户可以通过实现该接口定制`实例化Bean`的逻辑。`FactoryBean`接口对于Spring框架来说占用重要的地位，Spring自身就提供了50多个FactoryBean的实现。
+`Spring`为此提供了一个`org.springframework.bean.factory.FactoryBean`的工厂类接口，用户可以通过实现该接口定制`实例化Bean`的逻辑。`FactoryBean`接口对于`Spring`框架来说占用重要的地位，`Spring`自身就提供了50多个`FactoryBean`的实现。
 
 它们隐藏了实例化一些复杂`Bean`的细节，给上层应用带来了便利。从`Spring3.0`开始，`FactoryBean`开始支持泛型，即接口声明改为`FactoryBean<T>`的形式。
 
@@ -329,6 +329,6 @@ public interface FactoryBean<T> {
 }
 ```
 `FactoryBean` 接口提供了三种方法：
-- `Object getObject()`：返回由FactoryBean创建的Bean实例，如果isSingleton()返回true，则该实例会放到Spring容器中单实例缓存池中；
-- `boolean isSingleton()`：返回由FactoryBean创建的Bean实例的作用域是singleton还是prototype；
-- `Class getObjectType()`：返回FactoryBean创建的Bean类型。
+- `Object getObject()`：返回由`FactoryBean`创建的`Bean`实例，如果`isSingleton()`返回`true`，则该实例会放到`Spring`容器中单实例缓存池中；
+- `boolean isSingleton()`：返回由`FactoryBean`创建的`Bean`实例的作用域是`singleton`还是`prototype`；
+- `Class getObjectType()`：返回`FactoryBean`创建的`Bean`类型。
