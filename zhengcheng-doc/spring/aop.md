@@ -1,10 +1,6 @@
----
-sidebarDepth: 3
----
-
 # AOP 
 
-[[toc]]
+如何正确使用`Spring`进行面向切面编程，请参考[官方文档](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/core.html#aop), 本篇主要讲它的实现原理。
 
 面向切面编程（Aspect-oriented Programming `AOP`）是面向对象编程（Object-oriented Programming `OOP`）的补充，它提供了另一种关于程序结构的思考方式。
 
@@ -70,8 +66,6 @@ public class Animal {
 `AOP`在`Spring Framework`中用于：
 - 提供**声明式服务**。此类服务最重要的是[声明式事务管理](/spring/transactional)。
 - 用户可以实现自定义切面，以AOP补充其对OOP的使用。例如[ControllerLogAspect](/guide/web-core#controllerlogaspect)
-
-### AOP 代理
 
 `Spring AOP`默认将[标准JDK动态代理](/important/proxy)用于`AOP`代理。所以它可以代理任何接口（或一组接口）。
 
