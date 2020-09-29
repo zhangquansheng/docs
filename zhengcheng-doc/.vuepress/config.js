@@ -79,6 +79,7 @@ module.exports = {
                     './spring/',
                     './spring/dependency-injection',
                     './spring/beans',
+                    './spring/beans-autowired-annotation',
                     './spring/aop',
                     './spring/transaction-declarative'
                 ]
