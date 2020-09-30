@@ -98,6 +98,7 @@ module.exports = {
                 title: 'MySQL',
                 collapsable: false,
                 children: [
+                    './mysql',
                     './mysql/b-plus-index',
                     './mysql/transaction'
                 ]
