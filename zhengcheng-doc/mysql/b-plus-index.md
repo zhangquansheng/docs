@@ -4,8 +4,6 @@ sidebarDepth: 3
 
 # B+树索引
 
-[[toc]]
-
 ## 概述
 
 B+树索引的本质就是[B+树](/algorithms/balanced-tree)在数据库中的实现。
