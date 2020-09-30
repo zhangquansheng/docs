@@ -24,38 +24,76 @@
 
 ## MySQL事务的四个隔离级别
 
-| 序号  | 英文名   | 中文名  |  并发问题 |
-| ------------ | ------------ | ------------ | ------------ |
-| 1  |  read_uncommited | 读未提交  | 都有问题 |
-| 2  | read_commited  |  读已提交/不可重复读 | 脏读(Dirty Read)  |
-| 3  | repeatable_read  | 可重复读  | 幻读  |
-| 4  |  serilizable |  序列化读 | 没有问题  |	
+| 序号  | 英文名   | 中文名  |  脏读 | 不可重复读 | 幻读
+| ------------ | ------------ | ------------ | ------------ | ------------ | ------------ |
+| 1  |  read_uncommited | 读未提交  |  :x: | :x: | :x: |
+| 2  | read_commited  |  读已提交 |  :white_check_mark: | :x: | :x: |
+| 3  | repeatable_read  | 可重复读  | :white_check_mark: | :white_check_mark: | :x: |
+| 4  |  serilizable |  序列化读 |  :white_check_mark: | :white_check_mark: | :white_check_mark: |
+
+- :x:  表示当前事务级别未解决了此问题
+- :white_check_mark: 表示当前事务级别已经解决了此问题
 
 
-- 脏读
+### 脏读
+
+**脏读**重点在于`事务A`读取`事务B`尚未提交的**更改数据(UPDATE)**并在这个数据的基础上进行操作，这时候如果`事务B`回滚，那么`事务A`读到的数据是不被承认的。产生的流程如下：
 
 序号 | 事务A | 事务B
 ---|---|---
-1 | Begin | 
-2 |  | Begin
-3 | select balance from account where id=1; (结果为100) | 
+1 | start transaction; | 
+2 |  | start transaction;
+3 | select balance from account where id=1;  (结果为100) | 
 4 |  | update account set balance = 200 where id=1;
-5 | select balance from account where id=1;(结果为200) | 
+5 | select balance from account where id=1;  (结果为200) | 
 
-脏读重点在于`A事务`读取`B事务`尚未提交的`更改数据(UPDATE)`并在这个数据的基础上进行操作，这时候如果`事务B`回滚，那么`事务A`读到的数据是不被承认的。
+### 不可重复读
 
-- 幻读
+**不可重复读**是指在同一个事务内，两次相同的查询返回了不同的结果。
+
+`事务A`第一次读取某一条数据后，`事务B`**更新该数据并提交了事务**，`事务A`再次读取该数据，两次读取便得到了不同的结果。产生的流程如下：
 
 序号 | 事务A | 事务B
 ---|---|---
-1 | Begin | 
-2 |  | Begin
-3 | select count(*) from account_transfer_record where account_id=1; (结果为0) | 
-4 |  | insert into account_transfer_record(id,account_id,amount) values(1,1,100);
-5 |  | commit
-6 | select count(*) from account_transfer_record where account_id=1; (结果为1) | 
+1 | start transaction; |  |
+2 |  | start transaction; |
+3 | select balance from account where id=1;  (结果为100) |  |
+4 |  | update account set balance = 200 where id=1; |
+5 | | commit; |
+6 | select balance from account where id=1;  (结果为200) |  |
 
-幻读重点在于`A事务`读取`B事务`提交的`新增数据(INSERT),`会引发幻读问题。幻读一般发生在计算统计数据的`事务`中。
+不可重复读有一种特殊情况，两个事务更新同一条数据资源，后完成的事务会造成先完成的事务更新丢失，这种情况就是**第二类丢失更新**。产生的流程如下：
+
+序号 | 事务A | 事务B
+---|---|---
+1 | start transaction; |  |
+2 |  | start transaction; |
+3 | select balance from account where id=1;  (结果为100) |  |
+4 | | select balance from account where id=1;  (结果为100)  |
+5 |  | update account set balance = 0 where id=1; （取出100元） |
+6 | | commit; |
+5 | update account set balance = 200 where id=1; （存入100元） | |
+6 | commit; | |
+6 | select balance from account where id=1;  (结果为200，丢失更新) |  |
+
+我们在平时写代码的时候，需要特别注意**第二类丢失更新**的问题，可以使用乐观锁的解决这个问题。
+
+::: tip 延伸思考
+什么是**第一类丢失更新**？MySQL是如何屏蔽了第一类丢失更新问题？
+::: 
+
+### 幻读
+
+**幻读**重点在于`A事务`读取`B事务`提交的**新增数据(INSERT)**,会引发幻读问题。幻读一般发生在计算统计数据的事务中。产生的流程如下：
+
+序号 | 事务A | 事务B
+---|---|---
+1 | start transaction; | 
+2 |  | start transaction;
+3 | select count(*) from account_transfer_record where account_id=1;  (结果为0) | 
+4 |  | insert into account_transfer_record(id,account_id,amount) values(1,1,100); |
+5 |  | commit; |
+6 | select count(*) from account_transfer_record where account_id=1;  (结果为1) | 
 
 
 `MySQL` `Innodb存储引擎`的默认支持的隔离级别是`REPEATABLE-READ（可重读）`。可以通过`SELECT @@tx_isolation;`命令来查看，`MySQL 8.0` 该命令改为`SELECT @@transaction_isolation;`
