@@ -96,7 +96,7 @@
 6 | select count(*) from account_transfer_record where account_id=1;  (结果为1) | 
 
 
-`MySQL Innodb存储引擎`的默认支持的隔离级别是`REPEATABLE-READ（可重读）`。可以通过命令来查看：
+`MySQL Innodb存储引擎`的默认支持的隔离级别是`REPEATABLE-READ（可重读）`。可以通过命令查看数据库事务数据库隔离级别：
 ```sql
 -- `MySQL 8.0` 该命令改为`SELECT @@transaction_isolation;`
 

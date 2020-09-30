@@ -12,5 +12,7 @@ select @@version;
 
 查看数据库事务数据库隔离级别：
 ```sql
-select @@global.tx_isolation;
+-- `MySQL 8.0` 该命令改为`SELECT @@transaction_isolation;`
+
+SELECT @@tx_isolation;
 ```
