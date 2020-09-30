@@ -1,6 +1,7 @@
 ## TODO LIST
 
 - `InnoDB`下死锁产生原因和解决方法
+- `InnoDB` 事务，例如如何插入数据，如何更改数据，如何删除数据等等，书上有很多知识需要挖掘
 - Spring 源码解析
 - redis 哨兵、集群、为什么快，常见的数据结构等问题 [https://redis.io/documentation](https://redis.io/documentation)
 - 反应式编程(reactive programming)的思想,以提高程序的性能,降低响应时间
