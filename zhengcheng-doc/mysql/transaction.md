@@ -96,7 +96,14 @@
 6 | select count(*) from account_transfer_record where account_id=1;  (结果为1) | 
 
 
-`MySQL` `Innodb存储引擎`的默认支持的隔离级别是`REPEATABLE-READ（可重读）`。可以通过`SELECT @@tx_isolation;`命令来查看，`MySQL 8.0` 该命令改为`SELECT @@transaction_isolation;`
+`MySQL Innodb存储引擎`的默认支持的隔离级别是`REPEATABLE-READ（可重读）`。可以通过命令来查看：
+```sql
+-- `MySQL 8.0` 该命令改为`SELECT @@transaction_isolation;`
+
+SELECT @@tx_isolation;
+```
+
+很多公司把`MySQL Innodb存储引擎`的隔离级别设置成`READ-COMMITTED`，是为了防止频繁的出现死锁，所以我们平时在写代码的时候需要注意。
 
 ::: tip 延伸思考
 MySQL Innodb存储引擎如何避免幻读的？
