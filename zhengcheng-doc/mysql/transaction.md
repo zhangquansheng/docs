@@ -121,5 +121,7 @@ SELECT @@tx_isolation;
 很多公司把`MySQL Innodb存储引擎`的隔离级别设置成`READ-COMMITTED`，是为了防止频繁的出现死锁，所以我们平时在写代码的时候需要注意。
 
 ::: tip 延伸思考
-MySQL Innodb存储引擎如何避免幻读的？
+我们知道，`MySQL Innodb`存储引擎默认的事务隔离级别是`RR`，是会出现幻读的，那么它是如何避免幻读的呢？
 :::
+
+
