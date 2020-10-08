@@ -26,13 +26,13 @@ sidebarDepth: 3
 
 ### redo
 
-参数innodb_flush_log_at_trx_commit 用来控制重做日志刷新到磁盘的策略，该参数的默认值为1。可以通过命令查看此参数的设置：
+参数`innodb_flush_log_at_trx_commit`用来控制重做日志刷新到磁盘的策略，该参数的默认值为1。可以通过命令查看此参数的设置：
 ```sql
 select @@innodb_flush_log_at_trx_commit;
 ```
 其中参数值含义如下：
 - 1  表示事务提交时必须调用一次`fsync`操作；
-- 0  表示事务提交时不进行写入`redo`日志操作，这个操作仅在 master thread 中完成，而在 master thread 中每1会进行一次`redo`日志文件的`fsync`操作；
+- 0  表示事务提交时不进行写入`redo`日志操作，这个操作仅在 `master thread` 中完成，而在 `master thread` 中每`1秒`会进行一次`redo`日志文件的`fsync`操作；
 - 2  表示事务提交时把`redo`日志写入磁盘文件对应的文件系统的缓存中，不进行`fsync`操作；
 
 ## 事务隔离级别
