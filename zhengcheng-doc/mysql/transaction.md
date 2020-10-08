@@ -31,9 +31,9 @@ sidebarDepth: 3
 select @@innodb_flush_log_at_trx_commit;
 ```
 其中参数值含义如下：
-- 1  表示事务提交时必须调用一次`fsync`操作（刷到磁盘）；
-- 0  表示事务提交时不进行写入`redo`日志操作，这个操作仅在 master thread 中完成，而在 master thread 中每1会进行一次`redo`日志文件的`fsync`操作（刷到磁盘）；
-- 2  表示事务提交时把`redo`日志写入磁盘文件对应的文件系统的缓存中，不进行`fsync`操作（刷到磁盘）；
+- 1  表示事务提交时必须调用一次`fsync`操作；
+- 0  表示事务提交时不进行写入`redo`日志操作，这个操作仅在 master thread 中完成，而在 master thread 中每1会进行一次`redo`日志文件的`fsync`操作；
+- 2  表示事务提交时把`redo`日志写入磁盘文件对应的文件系统的缓存中，不进行`fsync`操作；
 
 ## 事务隔离级别
 
