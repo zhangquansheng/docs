@@ -24,7 +24,9 @@ sidebarDepth: 3
 
 有人或许认为`redo`是`undo`的逆过程，其实不对的。`redo`和`undo`的作用都可以看做是一种恢复操作，`redo`恢复提交事务修改的页，而`undo`回滚行记录。因此两者记录的内容不同，`redo`通常是物理日志，记录的是页的物理修改操作，`undo`是逻辑日志，根据每行记录进行记录。
 
-### redo
+### Redo Log
+
+[官方文档](https://dev.mysql.com/doc/refman/5.7/en/innodb-redo-log.html)
 
 #### 1. 基本概念 
 
