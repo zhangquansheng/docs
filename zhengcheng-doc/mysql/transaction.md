@@ -26,7 +26,7 @@ sidebarDepth: 3
 
 ### redo
 
-### 1. 基本概念 
+#### 1. 基本概念 
 
 `redo log`包括两部分：一是内存中的日志缓冲(`redo log buffer`)，其易失性的；二是磁盘上的重做日志文件(`redo log file`)，其是持久的。
 
@@ -37,7 +37,6 @@ sidebarDepth: 3
 不使用该标志位意味着将日志进行缓冲，缓冲到了一定容量或者显式调用`fsync()`才会将缓冲中的日志刷到存储设备。如果使用该标志位，则意味着每次都要发起系统调用。
 
 ![fsync](/img/mysql/fsync.png)
-
 
 `InnoDB`存储引擎允许用户手工设置非持久性的情况发生，以此提高数据库的性能。既当事务提交时，日志不写入事务日志文件，而是等待一个时间周期后再执行`fsync`操作。
 由于并非强制在事务提交时进行一次`fsync`操作，显然这可以显著提高数据库的性能，但当数据库发生宕机时，由于部分日志未刷新到磁盘，因此会丢失最后一段时间的事务。
@@ -52,7 +51,7 @@ select @@innodb_flush_log_at_trx_commit;
 - 2  表示事务提交时把`redo`日志写入磁盘文件对应的文件系统的缓存中，不进行`fsync`操作；
 ![innodb_flush_log_at_trx_commit](/img/mysql/innodb_flush_log_at_trx_commit.png)
 
-#### 日志块(log block)
+#### 2. 日志块(log block)
 
 `InnoDB`存储引擎中，`redo log`以块为单位进行存储的，每个块占512字节，这称为`redo log block`。
 
