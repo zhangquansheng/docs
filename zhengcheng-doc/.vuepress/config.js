@@ -100,8 +100,7 @@ module.exports = {
                 children: [
                     './mysql/',
                     './mysql/b-plus-index',
-                    './mysql/transaction',
-                    './mysql/mvcc'
+                    './mysql/transaction'
                 ]
             },
             {
