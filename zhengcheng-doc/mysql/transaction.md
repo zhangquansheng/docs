@@ -34,6 +34,9 @@ sidebarDepth: 3
 之所以要经过一层`os buffer`，是因为`open`日志文件的时候，`open`没有使用**O_DIRECT**标志位，该标志位意味着绕过操作系统层的`os buffer`，`IO`直写到底层存储设备。
 不使用该标志位意味着将日志进行缓冲，缓冲到了一定容量或者显式调用`fsync()`才会将缓冲中的日志刷到存储设备。如果使用该标志位，则意味着每次都要发起系统调用。
 
+![fsync](/img/mysql/fsync.png)
+
+
 `InnoDB`存储引擎允许用户手工设置非持久性的情况发生，以此提高数据库的性能。既当事务提交时，日志不写入事务日志文件，而是等待一个时间周期后再执行`fsync`操作。
 由于并非强制在事务提交时进行一次`fsync`操作，显然这可以显著提高数据库的性能，但当数据库发生宕机时，由于部分日志未刷新到磁盘，因此会丢失最后一段时间的事务。
 
@@ -45,6 +48,7 @@ select @@innodb_flush_log_at_trx_commit;
 - 1  表示事务提交时必须调用一次`fsync`操作；
 - 0  表示事务提交时不进行写入`redo`日志操作，这个操作仅在 `master thread` 中完成，而在 `master thread` 中每`1秒`会进行一次`redo`日志文件的`fsync`操作；
 - 2  表示事务提交时把`redo`日志写入磁盘文件对应的文件系统的缓存中，不进行`fsync`操作；
+![innodb_flush_log_at_trx_commit](/img/mysql/innodb_flush_log_at_trx_commit.png)
 
 ## 事务隔离级别
 

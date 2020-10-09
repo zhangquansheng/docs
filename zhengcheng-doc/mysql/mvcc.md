@@ -1,5 +1,8 @@
 # InnoDB MVCC 机制
 
+详细分析MySQL事务日志(redo log和undo log)
+https://www.cnblogs.com/f-ck-need-u/archive/2018/05/08/9010872.html
+
 https://blog.csdn.net/u012164509/article/details/105294421
 
 https://www.codercto.com/a/88775.html
