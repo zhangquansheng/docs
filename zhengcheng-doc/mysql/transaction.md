@@ -26,6 +26,8 @@ sidebarDepth: 3
 
 ### redo
 
+### 1. 基本概念 
+
 `redo log`包括两部分：一是内存中的日志缓冲(`redo log buffer`)，其易失性的；二是磁盘上的重做日志文件(`redo log file`)，其是持久的。
 
 `InnoDB`是事务的存储引擎，在概念上，其通过**Force Log at Commit**机制实现事务的持久性，即在事务提交（COMMIT）时，必须先将该事务的所有事务日志写入到磁盘上的`redo log file`和`undo log file`中进行持久化，待事务的`COMMIT`操作完成才算完成。
@@ -50,6 +52,10 @@ select @@innodb_flush_log_at_trx_commit;
 - 2  表示事务提交时把`redo`日志写入磁盘文件对应的文件系统的缓存中，不进行`fsync`操作；
 ![innodb_flush_log_at_trx_commit](/img/mysql/innodb_flush_log_at_trx_commit.png)
 
+#### 日志块(log block)
+
+`InnoDB`存储引擎中，`redo log`以块为单位进行存储的，每个块占512字节，这称为`redo log block`。
+
 ## 事务隔离级别
 
 | 序号  | 英文名   | 中文名  |  脏读 | 不可重复读 | 幻读
@@ -61,7 +67,6 @@ select @@innodb_flush_log_at_trx_commit;
 
 - :x:  表示当前事务级别未解决了此问题
 - :white_check_mark: 表示当前事务级别已经解决了此问题
-
 
 ### 脏读
 
