@@ -57,6 +57,50 @@ select @@innodb_flush_log_at_trx_commit;
 
 `InnoDB`存储引擎中，`redo log`以块为单位进行存储的，每个块占512字节，这称为`redo log block`。
 
+#### 3. log group 和 redo log file
+
+`log group` 是逻辑上的概念，并没有一个实际存储的物理文件来表示`log group`信息。`log group`表示的是`redo log group`，一个组内由多个大小完全相同的`redo log file`组成。
+
+#### 4. redo log 格式
+
+由于`InnoDB`存储引擎的存储管理是基于页的，故其`redo log`也是基于页的。
+
+#### LSN 
+
+**LSN**称为日志序列号(Log Sequence Number)。在`InnoDB`存储引擎中，**LSN**占用8个字节，并且单调递增。**LSN**表示的含义有：
+- 重做日志写入的总量，通过LSN开始号码和结束号码可以计算出写入的日志量
+- checkpoint（检查点） 的位置
+- 页的版本                                                            
+      
+### Undo Logs
+
+[官方文档](https://dev.mysql.com/doc/refman/5.7/en/innodb-undo-logs.html)
+
+#### 1. 基本概念
+
+`undo log`有两个作用：提供**回滚**和**MVCC**(多版本并发控制)。                                                               
+
+对数据库进行修改时，`InnoDB`存储引擎不但会产生`redo`，还会产生相对应的`undo`，如果用户执行的事务或语句由于某种原因失败了，又或者用户用一条**ROLLBACK**语句请求回滚，就可以借助该`undo`进行**回滚**。
+
+`undo log` 存放在数据库内部的一个特殊段(segment)中，这个段称为`undo log segment`。
+
+`undo log`和`redo log`记录物理日志不一样，它是**逻辑日志**。`InnoDB`存储引擎回滚时，它实际上做的是与先前相反的工作。对于每个`INSERT`，`InnoDB`存储引擎会完成一个`DELETE`；
+对于每个`DELETE`，`InnoDB`存储引擎会执行一个`INSERT`；对于每个`UPDATE`，`InnoDB`存储引擎会执行一个相反的`UPDATE`。
+
+除了**回滚**操作，`undo`的两一个作用是**MVCC**，即在`InnoDB`存储引擎中**MVCC**的实现是通过`undo`来完成的。当用户读取一行记录时，若该记录已经被其他的事务占用，当前事务可以通过`undo`读取之前的行版本信息，以此实现非锁定读取。
+
+最后也是最重要的一点是，**`undo log`也会产生`redo log`，因为`undo log`也要实现持久性保护**。
+
+#### 2. undo log 的存储方式
+
+`InnoDB`存储引擎对`undo`的管理采用段的方式。`rollback segment`称为**回滚段**，每个回滚段中有1024个`undo log segment`。
+
+### purge 
+
+
+### group commit
+
+
 ## 事务隔离级别
 
 | 序号  | 英文名   | 中文名  |  脏读 | 不可重复读 | 幻读
