@@ -4,6 +4,8 @@ sidebarDepth: 3
 
 # 事务
 
+[官方文档](https://dev.mysql.com/doc/refman/5.7/en/mysql-acid.html)
+
 ## 概述
 
 数据库**事务**是访问并可能操作各种数据项的一个数据库操作序列，这些操作**要么全部执行,要么全部不执行**，是一个不可分割的工作单位。
