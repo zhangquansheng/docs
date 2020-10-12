@@ -99,9 +99,16 @@ select @@innodb_flush_log_at_trx_commit;
 
 ### purge 
 
+`purge` 用于最终完成`delete`和`update`操作。这样设计是因为`InnoDB`存储引擎支持**MVCC**，所以记录不能再事务提交时立即进行处理。这时其他事务可能正在引用这行，故`InnoDB`存储引擎需要保存记录之前的版本。
+而是否可以删除该条记录通过`purge`来进行判断。若该行记录已不被任何事务引用，那么就可以进行真正的`delete`操作。
+
+::: tip 官方解释
+In the InnoDB multi-versioning scheme, a row is not physically removed from the database immediately when you delete it with an SQL statement. InnoDB only physically removes the corresponding row and its index records when it discards the update undo log record written for the deletion. This removal operation is called a purge, and it is quite fast, usually taking the same order of time as the SQL statement that did the deletion.
+:::
 
 ### group commit
 
+组提交(group commit)即一次`fsync`可以刷新确保多个事务日志被写入文件。
 
 ## 事务隔离级别
 
