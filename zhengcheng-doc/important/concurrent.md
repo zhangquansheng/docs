@@ -289,6 +289,8 @@ ThreadPoolExecutor其他常见参数:
 
 ### 线程池原理分析
 
+[Java线程池实现原理及其在美团业务中的实践](https://tech.meituan.com/2020/04/02/java-pooling-pratice-in-meituan.html)
+
 ![thread-pool.png](/img/concurrent/thread-pool.png)
 
  
