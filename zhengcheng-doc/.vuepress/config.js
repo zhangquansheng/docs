@@ -13,6 +13,10 @@ module.exports = {
             name: 'keywords',
             content: '新征程框架,新征程,zhengcheng.plus'
         }],
+        ['meta', {
+            name: 'baidu-site-verification',
+            content: '5oKnqi1avz'
+        }],
         ['script', {}, `
             var _hmt = _hmt || [];
             (function() {

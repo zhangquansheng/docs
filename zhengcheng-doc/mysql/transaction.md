@@ -165,10 +165,10 @@ In the InnoDB multi-versioning scheme, a row is not physically removed from the 
 6 | commit; | |
 6 | select balance from account where id=1;  (结果为200，丢失更新) |  |
 
-我们在平时写代码的时候，需要特别注意**第二类丢失更新**的问题，可以使用乐观锁的解决这个问题。
+我们在平时写代码的时候，需要特别注意**第二类丢失更新**(覆盖丢失/两次更新问题，Second lost update) 的问题，可以使用乐观锁的解决这个问题。
 
-::: tip 延伸思考
-什么是**第一类丢失更新**？MySQL是如何屏蔽了第一类丢失更新问题？
+::: tip 第一类丢失更新(回滚丢失，Lost update) 
+在**没有事务隔离**的情况下，两个事务都同时更新一行数据，但是第二个事务却中途失败退出，导致对数据的两个修改都失效了。SQL92没有定义这种现象，标准定义的所有隔离级别都不允许第一类丢失更新发生。
 ::: 
 
 ### 幻读
