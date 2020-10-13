@@ -104,6 +104,7 @@ module.exports = {
                 children: [
                     './mysql/',
                     './mysql/b-plus-index',
+                    './mysql/locking',
                     './mysql/transaction'
                 ]
             },
