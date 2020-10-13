@@ -43,6 +43,10 @@ X | 不兼容 |  不兼容 |  不兼容 |  不兼容
 
 快照其实是当前行数据之前的历史版本，每行记录可能有多个版本，如图显示，一个行记录可能有不止一个快照数据，一般称这种技术为多版本技术，由此带来的并发控制，称为多版本并发控制(Multi Version Concurrency Control,[MVCC](https://dev.mysql.com/doc/refman/5.7/en/innodb-multi-versioning.html))
 
+::: tip InnoDB MVCC 实现原理
+[InnoDB MVCC 机制，看这篇就够了](https://www.codercto.com/a/88775.html)
+:::
+
 在事务隔离级别**RC**和**RR**下，`Innodb`存储引擎使用非锁定的一致性读。然而，对于快照数据的定义却不相同。在**RC**事务隔离级别下，对于快照数据，非一致性读总是读取被锁定行的最新一份快照数据。而在**RR**事务隔离级别下，对于快照数据，非一致性读总是读取事务开始时的行数据版本。
 
 ### 一致性读定锁
