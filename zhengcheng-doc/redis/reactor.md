@@ -19,6 +19,9 @@ However with Redis 4.0 we started to make Redis more threaded. For now this is l
 
 ::: 
 
-## 参考文档
+
+---
+
+**参考文档**
 - [redis-is-single-threaded-how-can-i-exploit-multiple-cpu--cores](https://redis.io/topics/faq#redis-is-single-threaded-how-can-i-exploit-multiple-cpu--cores)
 - [为什么 Redis 选择单线程模型](https://draveness.me/whys-the-design-redis-single-thread/)
