@@ -168,7 +168,7 @@ module.exports = {
                 title: 'FAQ',
                 collapsable: false,
                 children: [
-                    './faq/',
+                    './faq/jackson-serializable',
                     './faq/hikaricp-connection-is-not-available',
                     './faq/hikaricp-config',
                 ]
