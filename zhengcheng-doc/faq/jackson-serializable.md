@@ -27,6 +27,7 @@
         StringBuilder sb = new StringBuilder(end - offset);
         sb.append(d);
         int i = offset+1;
+        // 在去除前缀`("get"/"is"/"set")`后，顺序遍历字符串，如果当前字母是小写，则把剩下的字符串拼接并返回，否则把转换后的小写字母拼接到字符串并继续遍历
         for (; i < end; ++i) {
             c = basename.charAt(i);
             d = Character.toLowerCase(c);
@@ -39,8 +40,3 @@
         return sb.toString();
     }
 ```
-
-主要逻辑在for循环中，去除set后，首先把第一个字母小写，然后判断第二个字母，如果都是小写，则直接接上并返回，
-**如果第二字母大写，就如我们的这种情况，就把大写改成小写后拼接上，再去找下一个字母，直到找到小写字母为止**。
-
-意思就是为了满足驼峰命名规则，要规范输出。
