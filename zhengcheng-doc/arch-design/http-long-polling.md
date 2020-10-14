@@ -291,10 +291,3 @@ public class UserNewMessageDeferredResultWrapper implements Comparable<UserNewMe
 ```
 
 由于我们日常工作中，所有的服务都是集群部署的，那么有可能缓存的`deferredResultWrapper`和处理新消息的线程不在一个服务中，导致无法调用setResult方法设置值。所以当有新消息的情况下，需要使用**广播的方式**通知集群下所有的服务都执行新消息处理逻辑。
-
-
-## 参考文档
-
-- [Javadoc DeferredResult](https://docs.spring.io/spring-framework/docs/5.2.8.RELEASE/javadoc-api/org/springframework/web/context/request/async/DeferredResult.html)
-- [Spring Web MVC 异步请求](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/web.html#mvc-ann-async)
-- [apollo](https://gitee.com/nobodyiam/apollo)
