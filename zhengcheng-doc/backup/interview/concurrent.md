@@ -209,6 +209,12 @@ CAS，全称Compare And Swap（比较与交换），解决多线程并行情况�
 4. newScheduledThreadPool()
 
 
+## 线程池参考资料
+
+- [Java线程池实现原理及其在美团业务中的实践](https://www.toutiao.com/i6811085336668537352)
+- [基于apollo的可动态配置线程池](https://github.com/yefei14131/dynamic-thread-pool-excutor-apollo)
+
+
 
 
 

@@ -66,8 +66,3 @@ zc.executor.thread-name-prefix=default-executor-
 - 异步方法和调用异步方法的方法不能再同一个类
 - 方法所属的类的对象需要是被Spring容器所管理的，也就是指被@Controller @Service @Repository @Component这些注解的类
 :::
-
-## 参考资料
-
-- [Java线程池实现原理及其在美团业务中的实践](https://www.toutiao.com/i6811085336668537352)
-- [基于apollo的可动态配置线程池](https://github.com/yefei14131/dynamic-thread-pool-excutor-apollo)
