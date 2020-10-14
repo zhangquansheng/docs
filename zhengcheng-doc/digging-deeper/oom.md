@@ -162,6 +162,7 @@ java.lang.OutOfMemoryError: null
 * JVM调优经验
 
 
-#### 参考文档
+---
 
-*  《深入理解Java虚拟机》
+**参考文档**
+- 《深入理解Java虚拟机》

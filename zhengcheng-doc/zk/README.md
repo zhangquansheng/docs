@@ -1,6 +1,4 @@
-# ZooKeeper
-
-## 简介
+# 概述
 
 ZooKeeper is a centralized service for maintaining configuration information, naming, providing distributed synchronization, and providing group services.
 
@@ -49,7 +47,7 @@ Watch 有如下特点
 
 `FastLeaderElection`选举算法是标准的`Fast Paxos`算法实现，可解决`LeaderElection`选举算法收敛速度慢的问题。
 
-## 重要概念总结
+## 小结
 
 - `ZooKeeper` 本身就是一个分布式程序（只要半数以上节点存活，ZooKeeper 就能正常服务）。
 - `ZooKeeper` 将数据保存在内存中，这也就保证了 **高吞吐量和低延迟**（但是内存限制了能够存储的容量不太大，此限制也是保持znode中存储的数据量较小的进一步原因）。
