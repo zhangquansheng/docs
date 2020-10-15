@@ -1,6 +1,6 @@
 # MyBatis-Plus通用组件
 
-::: tip 简介
+::: tip 特别提示
 基于[MybatisPlus](https://mp.baomidou.com/)，数据库基于Mysql5.6以上
 :::
 

@@ -64,6 +64,7 @@ module.exports = {
                     './guide/web-core',
                     './guide/cache',
                     './guide/mybatis-plus',
+                    './guide/tk-mybatis',
                     './guide/feign',
                     './guide/async',
                     './guide/apollo',
