@@ -4,7 +4,7 @@ sidebarDepth: 3
 
 # WEB核心模块
 
-`zc-web-spring-boot-starter` 是 `zhengcheng` 框架核心通用组件，聚合了以下的组件：
+`zc-web-spring-boot-starter` 是 `zhengcheng` 框架核心通用组件，并且还聚合了以下的组件：
 
 - [缓存通用组件](./cache.md)
 - [多线程通用组件](./async.md)
@@ -27,67 +27,6 @@ maven
 
 - [Spring MVC Exceptions](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/web.html#mvc-ann-exceptionhandler)
 - 有关[@ControllerAdvice](https://docs.spring.io/spring-framework/docs/5.2.8.RELEASE/javadoc-api/org/springframework/web/bind/annotation/ControllerAdvice.html) 更多详细信息，请参见 javadoc。
-
-## ~~GlobalResponseBodyAdvice~~
-
-::: danger 警告
-从 `4.6.0` 开始去掉全局返回值的封装，为feign的继承做准备
-:::
-
-通 `@RestControllerAdvice` 注解并实现 `ResponseBodyAdvice` ,对`controller`的返回值统一加上`Result`, `String` 类型的需要单独处理。
-
-```java
-/**
- * com.zhengcheng 下 ResponseBodyAdvice 统一返回结果处理
- *
- * @author :    quansheng.zhang
- * @date :    2019/2/28 21:00
- */
-@RestControllerAdvice(
-        basePackages = {"com.zhengcheng"}
-)
-public class GlobalResponseBodyAdvice implements ResponseBodyAdvice<Object> {
-
-    @Override
-    public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
-                                  Class<? extends HttpMessageConverter<?>> selectedConverterType,
-                                  ServerHttpRequest request, ServerHttpResponse response) {
-        if (body instanceof Result || body instanceof PageResult) {
-            return body;
-        }
-        Result result = Result.successData(body);
-        if (body instanceof String) {
-            return JSONUtil.toJsonStr(result);
-        }
-        return result;
-    }
-
-    @Override
-    public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
-        // 此处可通过returnType.getDeclaringClass()  returnType.getMethod().getName() 过滤不想拦截的类或者方法。
-        return true;
-    }
-}
-```
-
-以前的写法：
-
-```java
-    @GetMapping("/roles")
-    public Result<IPage<Role>> roles(RoleQueryCommand roleQueryCommand) {
-        return Result.successData(roleService.selectPageVo(queryDto));
-    }
-```
-
-::: tip  现在可以这样写：
-```java
-    @GetMapping("/roles")
-    public IPage<Role> roles(RoleQueryCommand roleQueryCommand) {
-        return roleService.selectPageVo(queryDto);
-    }
-```
-::: 
-    
 
 ## ControllerLogAspect
 
@@ -166,369 +105,6 @@ public class ControllerLogAspect {
 }
 ```
 
-## ~~RequestLimitAspect~~
-
-限流技术在平台中也是异常重要的一个措施，尤其是对网关的调用。我知道的有以下几种比较好实现方式：
-
-- **阿里开源限流神器Sentinel**
-- 可以采用令牌桶的方法，实现方式是Guava RateLimiter，简单有效，在结合统一配置中心(apollo)，可以动态调整限流阈值。
-
-以上是一些成熟的方案，但是实现它需要额外的服务器，在资源有限的情况下，我们考虑使用redis lua脚本的方式来实现接口限流，虽然此种方式缺点很明显，不能动态调整限流的阈值，也没有管理和监控页面，在不久的将来可能会被成熟的方案替换，但是以下代码的实现思路还是非常不错的。
-
-### 定义接口限流注解
-
-> 其中name和value互为别名，所以需要使用 AnnotationUtils.findAnnotation 去获取注解，这样 @AliasFor 注解才能发挥作用（原理是AOP）
-
-```java
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-@Documented
-public @interface RequestLimit {
-
-    @AliasFor("name")
-    String value() default "";
-
-    @AliasFor("value")
-    String name() default "";
-
-    /**
-     * 允许访问的最大次数
-     */
-    int count() default Integer.MAX_VALUE;
-
-    /**
-     * 时间段，单位为毫秒，默认值1秒
-     */
-    long time() default 1000;
-}
-```
-
-### 切面通知实现类
-
-> 优先使用注解的name(value)作为限流接口的KEY，如果name为空，则获取当前方法的字符串来作为限流接口的KEY（不建议，导致KEY长度过长）
-
-```java
-@Slf4j
-@Aspect
-@Component
-@DependsOn("redisScript")
-@ConditionalOnClass({DefaultRedisScript.class, StringRedisTemplate.class})
-public class RequestLimitAspect {
-
-    @Autowired
-    private DefaultRedisScript<Boolean> redisScript;
-
-    @Autowired
-    private StringRedisTemplate stringRedisTemplate;
-
-    @Pointcut("@annotation(com.gaodun.storm.vod.common.annotation.RequestLimit)")
-    public void pointcut() {
-    }
-
-    @Before("pointcut()")
-    public void doBefore(JoinPoint joinPoint) {
-        try {
-            // 获取封装了署名信息的对象,在该对象中可以获取到目标方法名,所属类的Class等信息
-            Signature signature = joinPoint.getSignature();
-            //拦截的方法名称
-            String methodName = signature.getName();
-            //拦截的放参数类型
-            Class[] parameterTypes = ((MethodSignature) signature).getMethod().getParameterTypes();
-            Method method = joinPoint.getSignature().getDeclaringType().getMethod(methodName, parameterTypes);
-            // 必须要用AnnotationUtils，才能获取到 name 和 value上@AliasFor(互为别名)的作用
-            // AOP原理
-            RequestLimit requestLimit = AnnotationUtils.findAnnotation(method, RequestLimit.class);
-            if (Objects.isNull(requestLimit)) {
-                return;
-            }
-
-            String name = requestLimit.name();
-            if (StrUtil.isBlank(name)) {
-                // 一个描述此方法的字符串
-                name = method.toGenericString();
-            }
-            String key = CacheConstants.getRequestLimitKey(name);
-            if (log.isDebugEnabled()) {
-                log.debug("限流接口的KEY:[{}]", key);
-            }
-
-            Boolean allow = stringRedisTemplate.execute(
-                    redisScript,
-                    Collections.singletonList(key),
-                    String.valueOf(requestLimit.count()), //limit
-                    String.valueOf(requestLimit.time())); //expire
-
-            if (Objects.equals(Boolean.FALSE, allow)) {
-                throw new BusinessException(StatusCode.REQUEST_EXCEED_LIMIT);
-            }
-        } catch (NoSuchMethodException e) {
-            log.error("{}", e.getMessage(), e);
-        }
-    }
-
-}
-```
-
-### redis之lua脚本
-
-#### lua脚本
-
-```sql
-local key = KEYS[1]
-local value = 1
-local limit = tonumber(ARGV[1])
-local expire = ARGV[2]
-
-if redis.call("SET", key, value, "NX", "PX", expire) then
-    return 1
-else
-    if redis.call("INCR", key) <= limit then
-        return 1
-    end
-    if redis.call("TTL", key) == -1 then
-        redis.call("PEXPIRE", key, expire)
-    end
-end
-return 0
-```
-当你使用阿里云集群版Redis的情况下，执行此脚本会出现：
-
-```java
-Exception:Error in execution; nested exception is io.lettuce.core.RedisCommandExecutionException: ERR bad lua script for redis cluster, all the keys that the script uses should be passed using the KEYS array, and KEYS should not be in expression
-```
-详细见[Lua脚本支持与限制](https://helpcdn.aliyun.com/document_detail/92942.html)
-
-修改lua脚本如下：
-
-```sql
-local value = 1
-local limit = tonumber(ARGV[1])
-local expire = ARGV[2]
-
-if redis.call("SET", KEYS[1], value, "NX", "PX", expire) then
-    return 1
-else
-    if redis.call("INCR", KEYS[1]) <= limit then
-        return 1
-    end
-    if redis.call("TTL", KEYS[1]) == -1 then
-        redis.call("PEXPIRE", KEYS[1], expire)
-    end
-end
-return 0
-```
-
-
-#### 使用DefaultRedisScript加载lua脚本
-
-> 应该在应用上下文中配置一个DefaultRedisScript 的单例，避免在每个脚本执行的时候重复创建脚本的SHA1
-```java
-    @Bean("redisScript")
-    public DefaultRedisScript<Boolean> redisScript() {
-        DefaultRedisScript<Boolean> redisScript = new DefaultRedisScript<>();
-        redisScript.setScriptSource(new ResourceScriptSource(new ClassPathResource("/META-INF/scripts/request_limit.lua")));
-        redisScript.setResultType(Boolean.class);
-        return redisScript;
-    }
-```
-
-### 验证RequestLimit注解是否配置正确
-
-> 通过以上方式，你会发现当我在接口上使用RequestLimit注解时，设置相同的name（你有可能会主动检查，设置不同），那么使用同样name的接口共用了一个KEY，这个不是我们想要的。为了避免这个问题，在项目启动时验证RequestLimit注解是否配置正确，具体实现如下：
-
-```java
-@Slf4j
-@Configuration
-public class RequestLimitConfiguration implements ApplicationContextAware {
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        // 验证RequestLimit注解是否配置正确
-        if (Objects.nonNull(applicationContext)) {
-            Set<String> requestLimitSet = new HashSet<>();
-            String[] beanDefinitionNames = applicationContext.getBeanDefinitionNames();
-            for (String beanDefinitionName : beanDefinitionNames) {
-                Object bean = applicationContext.getBean(beanDefinitionName);
-                Method[] methods = bean.getClass().getDeclaredMethods();
-                for (Method method : methods) {
-                    RequestLimit requestLimit = AnnotationUtils.findAnnotation(method, RequestLimit.class);
-                    if (Objects.isNull(requestLimit)) {
-                        continue;
-                    }
-
-                    String name = requestLimit.name();
-                    if (StrUtil.isBlank(name)) {
-                        continue;
-                    }
-                    if (requestLimitSet.contains(name)) {
-                        throw new RuntimeException("request-limit[" + name + "] naming conflicts.");
-                    } else {
-                        requestLimitSet.add(name);
-                        log.info("Generating unique request-limit operation named: {}", name);
-                    }
-                }
-            }
-        }
-    }
-}
-```
-
-那么配置相同的name，启动项目报错如下：
-
-```java
-	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) [spring-boot-devtools-2.1.2.RELEASE.jar:2.1.2.RELEASE]
-Caused by: java.lang.RuntimeException: request-limit[b] naming conflicts.
-	at com.gaodun.storm.vod.common.config.RequestLimitConfiguration.setApplicationContext(RequestLimitConfiguration.java:47) 
-```
-
-
-### 注解的使用
-
-```java
-    @ApiOperation(value = "分页获取已结束列表")
-    @RequestLimit(name = "f", count = 100) // 接口限量，qps=100，这个参数目前是拍脑袋设置的
-    @GetMapping("/xxx/xxx")
-    public BusinessResponse<Void> finished() {
-        return BusinessResponse.ok();
-    }
-```
-
-### 压测验证
-
-![Image](https://gitee.com/zhangquansheng/zhengcheng-parent/raw/master/doc/image/requestLimit.png)
-
-57.3/157.3 = 36.42% ，符合预期结果。
-
-### 自定义回退方法
-
-> 这个限流是否支持自定义的返回值？当我的业务场景存在不同的接口需要返回不一样的提示
-
-#### 修改注解，增加回退方法的配置
-
-```java
-/**
- * 请求限流
- *
- * @author :    zhangquansheng
- * @date :    2020/5/12 16:11
- */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-@Documented
-public @interface RequestLimit {
-
-    @AliasFor("name")
-    String value() default "";
-
-    @AliasFor("value")
-    String name() default "";
-
-    /**
-     * 允许访问的最大次数
-     */
-    int count() default Integer.MAX_VALUE;
-
-    /**
-     * 时间段，单位为毫秒，默认值1秒
-     */
-    long time() default 1000;
-
-    /**
-     * 限流后降级的方法, 参数和返回值类型必须和原方法一致
-     */
-    String fallback() default "";
-}
-```
-
-#### 修改AOP拦截的实现
-
-```java
-/**
- * 访问接口限流
- *
- * @author :    zhangquansheng
- * @date :    2020/5/12 16:15
- */
-@Slf4j
-@Aspect
-@Component
-@DependsOn("redisScript")
-@ConditionalOnClass({DefaultRedisScript.class, StringRedisTemplate.class})
-public class RequestLimitAspect {
-
-    @Autowired
-    private DefaultRedisScript<Boolean> redisScript;
-
-    @Autowired
-    private StringRedisTemplate stringRedisTemplate;
-
-    @Pointcut("@annotation(com.gaodun.storm.vod.common.annotation.RequestLimit)")
-    public void pointcut() {
-    }
-
-    @Around("pointcut()")
-    public Object doBefore(ProceedingJoinPoint pjp) throws Throwable {
-        Object[] args = pjp.getArgs();
-        // 获取封装了署名信息的对象,在该对象中可以获取到目标方法名,所属类的Class等信息
-        Signature signature = pjp.getSignature();
-        //拦截的方法名称
-        String methodName = signature.getName();
-        //拦截的放参数类型
-        Class[] parameterTypes = ((MethodSignature) signature).getMethod().getParameterTypes();
-        Method method = pjp.getSignature().getDeclaringType().getMethod(methodName, parameterTypes);
-        // 必须要用AnnotationUtils，才能获取到 name 和 value上@AliasFor(互为别名)的作用
-        // AOP原理
-        RequestLimit requestLimit = AnnotationUtils.findAnnotation(method, RequestLimit.class);
-        if (Objects.isNull(requestLimit)) {
-            return pjp.proceed(args);
-        }
-
-        String name = requestLimit.name();
-        if (StrUtil.isBlank(name)) {
-            // 一个描述此方法的字符串
-            name = method.toGenericString();
-        }
-        String key = CacheConstants.getRequestLimitKey(name);
-        if (log.isDebugEnabled()) {
-            log.debug("限流接口的KEY:[{}]", key);
-        }
-
-        Boolean allow = stringRedisTemplate.execute(
-                redisScript,
-                Collections.singletonList(key),
-                String.valueOf(requestLimit.count()), //limit
-                String.valueOf(requestLimit.time())); //expire
-
-        if (Objects.equals(Boolean.FALSE, allow)) {
-            String fallback = requestLimit.fallback();
-            if (StrUtil.isNotBlank(fallback)) {
-                return ReflectUtil.invoke(pjp.getTarget(), fallback, args);
-            }
-            throw new BusinessException(StatusCode.REQUEST_EXCEED_LIMIT);
-        }
-        return pjp.proceed(args);
-    }
-
-}
-```
-
-#### 使用范例
-
-```java
-    @RequestLimit(count = 1, fallback = "liveAppFallback")
-    @ApiOperation(value = "根据ID获取第三方直播应用配置")
-    @GetMapping("/{id}")
-    public BusinessResponse<LiveAppDTO> liveApp(@PathVariable("id") Integer id) {
-        return BusinessResponse.ok(liveAppService.findById(id));
-    }
-
-    private BusinessResponse<LiveAppDTO> liveAppFallback(@PathVariable("id") Integer id) {
-        return BusinessResponse.fallbackResult();
-    }
-```
-
-
-
 ## SignAuthInterceptor
 
 此拦截器作用为**防止参数篡改和重放攻击**
@@ -538,7 +114,6 @@ API重放攻击: 就是把之前窃听到的数据原封不动的重新发送给
 常用的其他业务场景还有：
 - 发送短信接口
 - 支付接口
-
 
 ### 基于timestamp和nonce的方案
 
@@ -552,7 +127,6 @@ API重放攻击: 就是把之前窃听到的数据原封不动的重新发送给
 
 但这种方式的漏洞也是显而易见的，如果在60s之后进行重放攻击，那就没办法了，所以这种方式不能保证请求仅一次有效
 
-
 #### nonce的作用
 
 nonce的意思是仅一次有效的随机字符串，要求每次请求时，该参数要保证不同。我们将每次请求的nonce参数存储到一个“集合”中，每次处理HTTP请求时，首先判断该请求的nonce参数是否在该“集合”中，如果存在则认为是非法请求。
@@ -562,7 +136,6 @@ nonce参数在首次请求时，已经被存储到了服务器上的“集合”
 nonce参数作为数字签名的一部分，是无法篡改的，因为不知道签名秘钥，没有办法生成新的数字签名。
 
 这种方式也有很大的问题，那就是存储nonce参数的“集合”会越来越大。
-
 
 **nonce的一次性可以解决timestamp参数60s(防止重放攻击)的问题，timestamp可以解决nonce参数“集合”越来越大的问题。**
 
@@ -655,14 +228,12 @@ public class SignAuthInterceptor implements HandlerInterceptor {
 
 ### 配置拦截器
 
-
 ```java
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
     @Value("${security.api.key}")
     private String key;
 ```
-
 
 ```java
     registry.addInterceptor(new SignAuthInterceptor(redisTemplate, key))
