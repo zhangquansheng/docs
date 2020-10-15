@@ -46,7 +46,7 @@ zc-zk-spring-boot-starter | Zookeeper通用组件
     <parent>
         <groupId>com.zhengcheng</groupId>
         <artifactId>zhengcheng-parent</artifactId>
-        <version>4.7.0</version>
+        <version>4.8.0</version>
     </parent>
 ```
 
