@@ -6,7 +6,6 @@ sidebarDepth: 3
 
 `zc-web-spring-boot-starter` 是 `zhengcheng` 框架核心通用组件，聚合了以下的组件：
 
-- [Mysql数据库通用组件](./db.md)
 - [缓存通用组件](./cache.md)
 - [多线程通用组件](./async.md)
 - [远程通信通用组件](./feign.md)
@@ -203,7 +202,6 @@ public @interface RequestLimit {
     long time() default 1000;
 }
 ```
-
 
 ### 切面通知实现类
 

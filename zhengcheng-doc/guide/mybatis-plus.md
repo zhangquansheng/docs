@@ -1,4 +1,4 @@
-# Mysql数据库通用组件
+# MyBatis-Plus通用组件
 
 ::: tip 简介
 基于[MybatisPlus](https://mp.baomidou.com/)，数据库基于Mysql5.6以上

@@ -63,7 +63,7 @@ module.exports = {
                     './guide/getting-started',
                     './guide/web-core',
                     './guide/cache',
-                    './guide/db',
+                    './guide/mybatis-plus',
                     './guide/feign',
                     './guide/async',
                     './guide/apollo',
