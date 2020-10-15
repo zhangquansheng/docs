@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## [v4.8.0] 2020.10.15
+
+- 增加`zc-tk-mybatis-spring-boot-starter`，集成[MyBatis 通用 Mapper4](https://github.com/abel533/Mapper)
+- 修改`zc-db-spring-boot-starter`为`zc-mybatis-plus-spring-boot-starter`，在`zc-web-spring-boot-starter`中去掉`zc-db-spring-boot-starter`等默认配置
+
 ## [v4.7.0] 2020.08.01
 
 - 修复全局Controller打印日志在异常的情况下无法打印的问题
