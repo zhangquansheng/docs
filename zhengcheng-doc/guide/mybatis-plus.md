@@ -11,13 +11,8 @@
 ```xml
   <dependency>
         <groupId>com.zhengcheng</groupId>
-        <artifactId>zc-db-spring-boot-starter</artifactId>
+        <artifactId>zc-mybatis-plus-spring-boot-starter</artifactId>
   </dependency>
-```
-
-默认加入Mapper扫码注解，注意你的mapper路径
-```java
-@MapperScan(basePackages = "com.zhengcheng.**.mapper*")
 ```
 
 ## 属性设置
@@ -156,7 +151,6 @@ spring.datasource.jdbc-driver=com.mysql.jdbc.ReplicationDriver
 spring.datasource.url=jdbc:mysql:replication://127.0.0.1:3306,127.0.0.1:3306,127.0.0.1:3306/db?characterEncoding=UTF-8&useSSL=false&autoReconnect=true&allowMasterDownConnections=true&serverTimezone=GMT%2B8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 ```
-
 
 这种情况下 DataSource.getConnection() 获取的连接，实际上是ReplicationConnection，这个连接是虚拟的，和真实的数据库连接是个一对多的关系，所以记得给每一个MySQL都做上相应的机器授权。
 
