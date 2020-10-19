@@ -1,5 +1,8 @@
 ## TODO LIST
 
+- @ConfigurationProperties 实现原理和它的用法
+- RocketMQ 技术内幕 架构设计与实现原理
+
 - `InnoDB`下死锁产生原因和解决方法
 - `InnoDB` 事务，例如如何插入数据，如何更改数据，如何删除数据等等，书上有很多知识需要挖掘
 - Spring 源码解析

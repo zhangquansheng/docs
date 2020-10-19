@@ -141,6 +141,10 @@ aliyun.oss.domain=
 
 ## 消息队列
 
+::: warning 注意
+目前实现的方式已经过时，不久的将来会参考:[https://code.aliyun.com/aliware_rocketmq/rocketmq-demo/tree/master](https://code.aliyun.com/aliware_rocketmq/rocketmq-demo/tree/master)重构
+:::
+
 ### 属性配置
 
 ```properties

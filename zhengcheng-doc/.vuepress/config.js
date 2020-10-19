@@ -128,6 +128,13 @@ module.exports = {
                 ]
             },
             {
+                title: 'RocketMQ',
+                collapsable: false,
+                children: [
+                    './rocketmq/',
+                ]
+            },
+            {
                 title: 'ZooKeeper',
                 collapsable: false,
                 children: [
