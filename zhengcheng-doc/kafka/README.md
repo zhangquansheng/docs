@@ -69,8 +69,6 @@ Kafka 中的**Topic**是逻辑概念，而**Partition**是物理概念，对用�
 
 :::
 
-
-
 ## Producers
 
 Producer 将数据发布到指定的主题。你可以简单地为负载均衡而采取循环方式完成此操作，也可以根据某些规则（例如基于记录的KEY）来完成此操作。
@@ -90,7 +88,6 @@ Producer 将数据发布到指定的主题。你可以简单地为负载均衡�
 ::: tip 总结
 同一 **Topic** 的一条消息只能被同一个 **Consumer Group** 内的一个 Consumer 消费，但多个 **Consumer Group** 可同时消费这一消息。
 :::
-
 
 在Kafka中，Consumer Rebalance 算法如下：
 ```html
@@ -112,7 +109,6 @@ Consumer rebalance 的控制策略是由每一个 Consumer 通过 Zookeeper 完�
 ::: tip 羊群效应理论
 任何broker或者consumer的增减都会触发所有的consumer的rebalance
 ::: 
-
 
 Kafka 仅仅提供 一个**Partition** 内的记录顺序，而不能提供在同一 **Topic**下不同 **Partition**的顺序。当你需要同一 **Topic**的记录是顺序的，则可以使用一个**Partition**的**Topic**来实现：
 - 发送消息到只有一个**Partition**的**Topic**

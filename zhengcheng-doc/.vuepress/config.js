@@ -125,6 +125,7 @@ module.exports = {
                 children: [
                     './kafka/',
                     './kafka/spring-kafka',
+                    './kafka/multiple-kafka-config'
                 ]
             },
             {
