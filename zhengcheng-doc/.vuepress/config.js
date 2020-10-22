@@ -92,6 +92,14 @@ module.exports = {
                 ]
             },
             {
+                title: 'Spring Boot',
+                collapsable: false,
+                children: [
+                    './spring-boot/',
+                    './spring-boot/configuration-properties'
+                ]
+            },
+            {
                 title: 'Spring Cloud',
                 collapsable: false,
                 children: [
