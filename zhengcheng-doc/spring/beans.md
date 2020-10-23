@@ -121,7 +121,7 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 - 如果有和这个Bean的**Spring容器相关的**`BeanPostProcessor`对象，执行`postProcessBeforeInitialization()`方法。
 - 如果Bean实现了`InitializingBean`接口，执行`afterPropertiesSet()`方法。
 - 如果Bean定义包含`init-method`属性，执行指定的方法。
-- 如果有和这个Bean的**Spring容器相关的**`BeanPostProcessor`对象，执行postProcessAfterInitialization()方法。
+- 如果有和这个Bean的**Spring容器相关的**`BeanPostProcessor`对象，执行`postProcessAfterInitialization()`方法。
 - 当要销毁Bean的时候，如果Bean实现了`DisposableBean`接口，执行`destroy()`方法。
 - 当要销毁Bean的时候，如果Bean定义包含`destroy-method`属性，执行指定的方法。
 
@@ -224,6 +224,12 @@ public class BeanConfig {
 ```
 
 #### 3. BeanPostProcessor
+
+::: tips BeanPostProcessor的作用
+    `BeanPostProcessor`（后置处理器）是`Spring IOC`容器给我们提供的一个扩展接口，`Spring IOC`通过`BeanPostProcessor`给了我们一个机会对`Spring`管理的`bean`进行再加工。
+    例如：`ConfigurationPropertiesBindingPostProcessor`可以修改`bean`的属性等。
+:::
+
 ```java
 /**
  * MyBeanPostProcessor
