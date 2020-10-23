@@ -2,6 +2,7 @@
 
 ## [v4.8.0] 2020.10.15
 
+- `BaseMessage` 增加 `timestamp`，为消息幂等使用
 - 增加`zc-tk-mybatis-spring-boot-starter`，集成[MyBatis 通用 Mapper4](https://github.com/abel533/Mapper)
 - 修改`zc-db-spring-boot-starter`为`zc-mybatis-plus-spring-boot-starter`，在`zc-web-spring-boot-starter`中去掉`zc-db-spring-boot-starter`等默认配置
 
