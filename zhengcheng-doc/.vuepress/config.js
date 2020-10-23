@@ -65,6 +65,7 @@ module.exports = {
                     './guide/cache',
                     './guide/mybatis-plus',
                     './guide/tk-mybatis',
+                    './guide/dynamic-datasource',
                     './guide/feign',
                     './guide/async',
                     './guide/apollo',
