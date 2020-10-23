@@ -142,6 +142,7 @@ module.exports = {
                 collapsable: false,
                 children: [
                     './rocketmq/',
+                    './rocketmq/idempotent'
                 ]
             },
             {
