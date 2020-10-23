@@ -2,7 +2,7 @@
 
 ## 使用示例
 
-- 注解在类上使用：
+`@ConfigurationProperties`注解结合`@Component`在类上使用
 ```java
 @Component
 @ConfigurationProperties("rocketmq")
@@ -39,22 +39,21 @@ public class RocketMQProperties {
 }
 ```
 
-- 注解方法上
+`@ConfigurationProperties`注解结合`@Bean`在方法上使用
 ```java
-  @Bean
+    @Bean
     @ConfigurationProperties("rocketmq")
     public RocketMQProperties rocketMQProperties() {
         return new RocketMQProperties();
     }
 ```
 
-没有使用`@Component`相关注解的情况下，可以使用以下的方式
+`@ConfigurationProperties`注解结合`@EnableConfigurationProperties`在类上使用，这个时候不需要使用`@Component`相关注解了
 ```java
 @EnableConfigurationProperties({RocketMQProperties.class})
 ```
 
-
-- 属性配置
+属性
 ```properties
 rocketmq.access-key = 您的access-key
 rocketmq.secret-key = 您的secret-key
@@ -67,12 +66,11 @@ rocketmq.topic = BRAIN_TR_TOOL_FAT
 
 ## 实现原理
 
-您应该应用@EnableConfigurationProperties配置以启用对的支持@ConfigurationProperties
-@EnableConfigurationProperties(CustomProperties.class)
+**首先`@ConfigurationProperties`需要和`@Bean`或者`@Component`等只要能生成`spring bean`的注解结合起来使用**。
 
-`@ConfigurationProperties`需要和`@Bean`或者`@Component`等只要能生成`spring bean`的注解结合起来使用。
 这样当其他类注入`Spring`容器时，在`bean`加载过程中，会调用`AbstractAutowireCapableBeanFactory#applyBeanPostProcessorsBeforeInitialization`，因此会触发`ConfigurationPropertiesBindingPostProcessor#postProcessBeforeInitialization`的调用。
-这就是`@ConfigurationProperties`实现原理的起点。
+
+涉及到的相关实现类和方法如下：
 
 `org.springframework.boot.context.properties.ConfigurationPropertiesBindingPostProcessor.java`
 ```java
