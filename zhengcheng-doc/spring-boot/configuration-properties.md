@@ -70,8 +70,8 @@ The @Value annotation is a core container feature, and it does not provide the s
 
 特征 | @ConfigurationProperties | @Value
 ---|---|---
-宽松的绑定 | Yes | No
-元数据支持 | Yes| No
+[宽松的绑定](https://docs.spring.io/spring-boot/docs/2.1.13.RELEASE/reference/html/boot-features-external-config.html#boot-features-external-config-relaxed-binding) | Yes | No
+[元数据支持](https://docs.spring.io/spring-boot/docs/2.1.13.RELEASE/reference/html/configuration-metadata.html) | Yes| No
 SpEL 表达式 | No | Yes
 
 If you define a set of configuration keys for your own components, we recommend you group them in a POJO annotated with @ConfigurationProperties. You should also be aware that, since @Value does not support relaxed binding, it is not a good candidate if you need to provide the value by using environment variables.
