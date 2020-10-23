@@ -64,6 +64,20 @@ rocketmq.group-id = GID_BRAIN_TR_TOOL_FAT
 rocketmq.topic = BRAIN_TR_TOOL_FAT
 ```
 
+## @ConfigurationProperties vs. @Value
+
+The @Value annotation is a core container feature, and it does not provide the same features as type-safe configuration properties. The following table summarizes the features that are supported by @ConfigurationProperties and @Value:
+
+特征 | @ConfigurationProperties | @Value
+---|---|---
+宽松的绑定 | Yes | No
+元数据支持 | Yes| No
+SpEL 表达式 | No | Yes
+
+If you define a set of configuration keys for your own components, we recommend you group them in a POJO annotated with @ConfigurationProperties. You should also be aware that, since @Value does not support relaxed binding, it is not a good candidate if you need to provide the value by using environment variables.
+
+Finally, while you can write a SpEL expression in @Value, such expressions are not processed from application property files.
+
 ## 实现原理
 
 **首先`@ConfigurationProperties`需要和`@Bean`或者`@Component`等只要能生成`spring bean`的注解结合起来使用**。
