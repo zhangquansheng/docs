@@ -12,3 +12,6 @@
 云数据库KVStore版（redis） | 读写分离 8G | 20000 | ¥768/月 | -
 云数据库KVStore版（redis） | 分片集群架构 8G（8节点） | 80000 | ¥480/月 | 500000
 云数据库 Memcache 版 | 8核64 GB |80000 | ¥3600/月 | 320000
+
+
+- 数据库连接池使用hikari，[hikari和druid比较](https://github.com/brettwooldridge/HikariCP/issues/232)

@@ -225,18 +225,11 @@ public class BeanConfig {
 
 #### 3. BeanPostProcessor
 
-::: tips BeanPostProcessor的作用
-    `BeanPostProcessor`（后置处理器）是`Spring IOC`容器给我们提供的一个扩展接口，`Spring IOC`通过`BeanPostProcessor`给了我们一个机会对`Spring`管理的`bean`进行再加工。
-    例如：`ConfigurationPropertiesBindingPostProcessor`可以修改`bean`的属性等。
+::: tip 作用
+`BeanPostProcessor`（后置处理器）是`Spring IOC`容器提供的一个扩展接口，通过`BeanPostProcessor`对`Spring`管理的`bean`进行再加工，比如可以修改`bean`的属性等。
 :::
 
 ```java
-/**
- * MyBeanPostProcessor
- *
- * @author :    zhangquansheng
- * @date :    2020/9/1 17:44
- */
 @Slf4j
 @Component
 public class MyBeanPostProcessor implements BeanPostProcessor {
@@ -279,9 +272,9 @@ MyBeanPostProcessor.java:31 - 调用postProcessAfterInitialization() 再次获�
 `bean`实现`InitializingBean`和`DisposableBean`接口是为了让**Spring容器**对`bean`的生命周期进行管理，**Spring容器**可以在`afterPropertiesSet()`和`destroy()`方法中执行某些操作。
 
 ::: tip 特别提示	
-在JSR-250中， `@PostConstruct`和`@PreDestroy`注释被认为是`Spring`应用程序中接收生命周期回调的最佳实践。使用这些注释意味着`bean`不耦合到`Spring`特定的接口。有关详细信息，请参见[使用@PostConstruct和@PreDestroy](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/core.html#beans-postconstruct-and-predestroy-annotations)。
+在`JSR-250`中， `@PostConstruct`和`@PreDestroy`注释被认为是`Spring`应用程序中接收生命周期回调的最佳实践。使用这些注释意味着`bean`不耦合到`Spring`特定的接口。有关详细信息，请参见[使用@PostConstruct和@PreDestroy](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/core.html#beans-postconstruct-and-predestroy-annotations)。
 
-如果你不希望使用`JSR-250`注解，但希望`bean`不耦合到`Spring`特定的接口，考虑`init-method`和`destroy-method`。
+如果你不希望使用`JSR-250`注解，并且希望`bean`不耦合到`Spring`特定的接口中，考虑使用`init-method`和`destroy-method`。
 :::
 
 #### 初始化回调
