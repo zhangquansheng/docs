@@ -31,3 +31,43 @@ maven
         return consumerBean;
     }
 ```
+
+## 消费者启动流程
+
+com.aliyun.openservices.shade.com.alibaba.rocketmq.client.impl.consumer.DefaultMQPushConsumerImpl.java
+
+```java
+private void copySubscription() throws MQClientException {
+        try {
+            Map<String, String> sub = this.defaultMQPushConsumer.getSubscription();
+            if (sub != null) {
+                for (final Map.Entry<String, String> entry : sub.entrySet()) {
+                    final String topic = entry.getKey();
+                    final String subString = entry.getValue();
+                    SubscriptionData subscriptionData = FilterAPI.buildSubscriptionData(this.defaultMQPushConsumer.getConsumerGroup(),
+                        topic, subString);
+                    this.rebalanceImpl.getSubscriptionInner().put(topic, subscriptionData);
+                }
+            }
+
+            if (null == this.messageListenerInner) {
+                this.messageListenerInner = this.defaultMQPushConsumer.getMessageListener();
+            }
+
+            switch (this.defaultMQPushConsumer.getMessageModel()) {
+                case BROADCASTING:
+                    break;
+                case CLUSTERING:
+                    final String retryTopic = MixAll.getRetryTopic(this.defaultMQPushConsumer.getConsumerGroup());
+                    SubscriptionData subscriptionData = FilterAPI.buildSubscriptionData(this.defaultMQPushConsumer.getConsumerGroup(),
+                        retryTopic, SubscriptionData.SUB_ALL);
+                    this.rebalanceImpl.getSubscriptionInner().put(retryTopic, subscriptionData);
+                    break;
+                default:
+                    break;
+            }
+        } catch (Exception e) {
+            throw new MQClientException("subscription exception", e);
+        }
+    }
+```
