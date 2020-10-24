@@ -1,7 +1,18 @@
 # RocketMQ 消息消费
 
+[阿里云消息队列（Message Queue）使用示例](https://code.aliyun.com/aliware_rocketmq/rocketmq-demo/tree/master)
+
+maven
+```xml
+    <dependency>
+        <groupId>com.aliyun.openservices</groupId>
+        <artifactId>ons-client</artifactId>
+        <version>1.8.4.Final</version>
+    </dependency>
+```
+
 ```java
- @Autowired
+    @Autowired
     private RocketMQMessageListener rocketMQMessageListener;
 
     @Primary
