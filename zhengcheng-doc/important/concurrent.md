@@ -293,4 +293,8 @@ ThreadPoolExecutor其他常见参数:
 
 ![thread-pool.png](/img/concurrent/thread-pool.png)
 
+## BlockingQueue
+
+阻塞队列
+
  
