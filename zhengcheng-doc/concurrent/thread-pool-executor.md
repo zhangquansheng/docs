@@ -1,4 +1,4 @@
-# ThreadPoolExecutor（线程池）
+# ThreadPoolExecutor 线程池
 
 ## 参数说明
 
