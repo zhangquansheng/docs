@@ -1,6 +1,8 @@
 # IDEA 插件
 
-> 推荐几款效率可以翻倍的IDEA插件,撸码利器
+::: tip 特别提示
+[IntelliJ IDEA 2019.3.5](https://www.jetbrains.com/idea/download/other.html) （2020.x版本下，有些插件会收费）下推荐几款效率可以翻倍的IDEA插件，撸码利器。
+:::
 
 ## EasyCode
 

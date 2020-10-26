@@ -7,6 +7,10 @@
 👉 [magic](https://gitee.com/zhangquansheng/magic)
 :::
 
+## 代码规范
+
+[JAVA 开发手册](/pdf/Java-huashanxinban.pdf)
+
 ## 工程结构
 
 > 参考阿里巴巴开发手册推荐应用分层
