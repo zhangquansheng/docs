@@ -163,7 +163,8 @@ module.exports = {
                     './concurrent/cas',
                     './concurrent/volatile',
                     './concurrent/thread-local',
-                    './concurrent/thread-pool-executor'
+                    './concurrent/thread-pool-executor',
+                    './concurrent/blocking-queue'
                 ]
             },
             {
