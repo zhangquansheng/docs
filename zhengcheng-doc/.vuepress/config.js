@@ -156,11 +156,14 @@ module.exports = {
                 ]
             },
             {
-                title: '重点知识',
+                title: '并发编程',
                 collapsable: false,
                 children: [
-                    './important/concurrent',
-                    './important/proxy',
+                    './concurrent/synchronized',
+                    './concurrent/cas',
+                    './concurrent/volatile',
+                    './concurrent/thread-local',
+                    './concurrent/thread-pool-executor'
                 ]
             },
             {
@@ -169,6 +172,7 @@ module.exports = {
                 children: [
                     './digging-deeper/plugin',
                     './digging-deeper/oom',
+                    './digging-deeper/proxy',
                     './digging-deeper/sign-auth',
                     './digging-deeper/mdc',
                     './digging-deeper/distributed-lock',

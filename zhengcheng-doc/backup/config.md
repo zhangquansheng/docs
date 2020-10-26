@@ -1,6 +1,13 @@
 './guide/Spring-Data-Redis',
 
-
+   {
+                title: '重点知识',
+                collapsable: false,
+                children: [
+                    './important/concurrent',
+                    './important/proxy',
+                ]
+            },
 {
     title: '突击面试',
     collapsable: false,
