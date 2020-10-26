@@ -130,3 +130,33 @@ if (!registerOK) {
 
 mQClientFactory.start();
 ```
+
+## 消息拉取
+
+本节将基于`PUSH`模式来详细分析消息拉取机制。从`MQClientInstance`的启动流程可以看出，`RocketMQ`使用一个单独的线程`PullMessageService`来负责消息的拉取。
+
+### PullMessageService 实现机制
+
+`PullMessageService`继承的是`ServiceThread`（服务线程），通过`run()`方法启动，具体代码如下：
+```java
+    public void run() {
+        log.info(this.getServiceName() + " service started");
+
+        while (!this.isStopped()) {
+            try {
+                PullRequest pullRequest = this.pullRequestQueue.take();
+                this.pullMessage(pullRequest);
+            } catch (InterruptedException ignored) {
+            } catch (Exception e) {
+                log.error("Pull Message Service Run Method exception", e);
+            }
+        }
+
+        log.info(this.getServiceName() + " service end");
+    }
+```
+
+核心要点如下：
+- `while (!this.isStopped())` 这是一种通用的设计技巧，`stopped`声明为`volatile`，每次执行一次业务逻辑检测一下其运行状态，可以通过其他的线程将`stopped`设置为`true`从而停止该线程。
+- 从`pullRequestQueue`（`LinkedBlockingQueue` 无界阻塞队列）中获取一个`PullRequest`消息拉取任务，如果`pullRequestQueue`为空，则线程阻塞，直到有拉取任务被放入。
+- 调用`pullMessage`方法进行消息拉取
