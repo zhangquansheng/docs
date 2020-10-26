@@ -160,3 +160,31 @@ mQClientFactory.start();
 - `while (!this.isStopped())` 这是一种通用的设计技巧，`stopped`声明为`volatile`，每次执行一次业务逻辑检测一下其运行状态，可以通过其他的线程将`stopped`设置为`true`从而停止该线程。
 - 从`pullRequestQueue`（`LinkedBlockingQueue` 无界阻塞队列）中获取一个`PullRequest`消息拉取任务，如果`pullRequestQueue`为空，则线程阻塞，直到有拉取任务被放入。
 - 调用`pullMessage`方法进行消息拉取
+
+来介绍一下`PullRequest`的核心属性：
+```java
+public class PullRequest {
+    private String consumerGroup;
+    private MessageQueue messageQueue;
+    private ProcessQueue processQueue;
+    private long nextOffset;
+    private boolean lockedFirst = false;
+}
+```
+1. consumerGroup : 消费者组。
+2. messageQueue ： 待拉取得消费队列。
+3. processQueue : 消息处理队列，从`Broker`拉取到的消息先存入`ProcessQueue`，然后在提交到消费者消费线程池消费。
+4. nextOffset : 待拉取得`MessageQueue`偏移量。
+5. lockedFirst : 是否被锁定。
+
+```java
+private void pullMessage(final PullRequest pullRequest) {
+    final MQConsumerInner consumer = this.mQClientFactory.selectConsumer(pullRequest.getConsumerGroup());
+    if (consumer != null) {
+        DefaultMQPushConsumerImpl impl = (DefaultMQPushConsumerImpl) consumer;
+        impl.pullMessage(pullRequest);
+    } else {
+        log.warn("No matched consumer for the PullRequest {}, drop it", pullRequest);
+    }
+}
+```
