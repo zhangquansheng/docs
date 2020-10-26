@@ -1,5 +1,23 @@
 # RocketMQ 消息消费
 
+消息消费以组的模式开展，消费者组之间有集群模式与广播方式，消费者服务器与消费者之间的消息传送也有两种方式：PUSH（推模式），PULL(（拉模式）。
+
+RocketMQ 支持局部顺序消息，也就是保证同一个消息队列上的消息顺序消费。不支持消息全局消费，如果要实现某一个主题的全局顺序消息消费，可以将该主题的队列数量设置为1，牺牲高可用性。
+
+RocketMQ 支持两种消息过滤模式：表达式（TAG、SQL92）和类过滤模式。
+
+涉及到的概念如下所述：
+- **消费者组（Consumer Group）**：同一类Consumer的集合，这类Consumer通常消费同一类消息且消费逻辑一致。消费者组使得在消息消费方面，实现负载均衡和容错的目标变得非常容易。要注意的是，消费者组的消费者实例必须订阅完全相同的Topic。RocketMQ 支持两种消息模式：集群消费（Clustering）和广播消费（Broadcasting）。
+- **拉取式消费（Pull Consumer）**：Consumer消费的一种类型，应用通常主动调用Consumer的拉消息方法从Broker服务器拉消息、主动权由应用控制。一旦获取了批量消息，应用就会启动消费过程。
+- **推动式消费（Push Consumer）**：Consumer消费的一种类型，该模式下Broker收到数据后会主动推送给消费端，该消费模式一般实时性较高。
+- **集群消费（Clustering）**：集群消费模式下,相同Consumer Group的每个Consumer实例平均分摊消息。
+- **广播消费（Broadcasting）**：广播消费模式下，相同Consumer Group的每个Consumer实例都接收全量的消息。
+- **普通顺序消息（Normal Ordered Message）**：普通顺序消费模式下，消费者通过同一个消费队列收到的消息是有顺序的，不同消息队列收到的消息则可能是无顺序的。
+- **严格顺序消息（Strictly Ordered Message）**：严格顺序消息模式下，消费者收到的所有消息均是有顺序的。
+- **消息（Message）**：消息系统所传输信息的物理载体，生产和消费数据的最小单位，每条消息必须属于一个主题。RocketMQ中每个消息拥有唯一的Message ID，且可以携带具有业务标识的Key。系统提供了通过Message ID和Key查询消息的功能。
+- **标签（Tag）**：为消息设置的标志，用于同一主题下区分不同类型的消息。来自同一业务单元的消息，可以根据不同业务目的在同一主题下设置不同标签。标签能够有效地保持代码的清晰度和连贯性，并优化RocketMQ提供的查询系统。消费者可以根据Tag实现对不同子主题的不同消费逻辑，实现更好的扩展性。
+
+
 ## 消费者启动流程
 
 消息消费者是如何启动的？来分析下`com.aliyun.openservices.shade.com.alibaba.rocketmq.client.impl.consumer.DefaultMQPushConsumerImpl.java`的`start`方法。
