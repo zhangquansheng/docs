@@ -1,4 +1,18 @@
+---
+sidebarDepth: 3
+---
+
 # RocketMQ 消息消费
+
+重点剖析消息消费的过程中需要解决以下问题：
+- 消息队列负载与重新分布
+- 消息消费模式
+- 消息拉取方式
+- 消息进度反馈
+- 消息过滤
+- 顺序消息
+
+## RocketMQ 消息消费概述
 
 消息消费以组的模式开展，消费者组之间有集群模式与广播方式，消费者服务器与消费者之间的消息传送也有两种方式：`PUSH`（推模式），`PULL`(（拉模式）。
 
@@ -188,3 +202,5 @@ private void pullMessage(final PullRequest pullRequest) {
     }
 }
 ```
+从`pullMessage`方法可以看到，是根据消费者组名从`MQClientInstance`中获取消费者内部实现类`MQConsumerInner`，这里直接强制转换成为`DefaultMQPushConsumerImpl`，也就是`PullMessageService`，该线程只为`PUSH`模式服务。
+（`PULL`模式如何拉取消息呢？`PULL`模式下，`RocketMQ`只需要提供拉取消息`API`即可，具体有应用程序显示调用拉取`API`。）
