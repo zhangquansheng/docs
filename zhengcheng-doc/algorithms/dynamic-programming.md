@@ -4,7 +4,7 @@
 
 下面是「动态规划』问题的思考路径:
 
-![「动态规划」问题思考方向](https://pic.leetcode-cn.com/1f95da43d1bdeebdd1213bb804034ddc5f906dc61451cd63f2b5ab5d0eb33b33-%E3%80%8C%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E3%80%8D%E9%97%AE%E9%A2%98%E6%80%9D%E8%80%83%E6%96%B9%E5%90%91.png)
+![「动态规划」问题思考方向](/img/algorithms/dynamic-programming.png)
 
 ::: tip 提示
 右键「在新便签页打开图片」可查看大图。
