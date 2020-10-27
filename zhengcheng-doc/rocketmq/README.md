@@ -12,7 +12,7 @@
 - 消费者：与 Name Server 集群中的其中一个节点（随机）建立长连接，定期从 Name Server 拉取 Topic 路由信息，并向提供 Topic 服务的 Master Broker、Slave Broker 建立长连接，且定时向 Master Broker、Slave Broker 发送心跳。Consumer 既可以从 Master Broker 订阅消息，也可以从 Slave Broker 订阅消息，订阅规则由 Broker 配置决定。
 
 
-## RocketMQ的设计理念和目标
+## RocketMQ 的设计理念和目标
 
 ### 设计理念
 
