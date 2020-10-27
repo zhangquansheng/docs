@@ -20,7 +20,8 @@
 
 每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？
 
-## 参考
+---
 
+**参考文档**
 - [漫画：什么是动态规划？](https://juejin.im/post/6844903520039075847)
 - [leetcode](https://leetcode-cn.com/problems/longest-palindromic-substring/solution/zhong-xin-kuo-san-dong-tai-gui-hua-by-liweiwei1419/)

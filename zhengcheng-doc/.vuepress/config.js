@@ -169,6 +169,17 @@ module.exports = {
                 ]
             },
             {
+                title: '数据结构与算法',
+                collapsable: false,
+                children: [
+                    './algorithms/sort',
+                    './algorithms/binary-tree',
+                    './algorithms/balanced-tree',
+                    './algorithms/sliding-window',
+                    './algorithms/dynamic-programming'
+                ]
+            },
+            {
                 title: '综合话题',
                 collapsable: false,
                 children: [
