@@ -2,6 +2,7 @@
 
 - 并发编程内容补充 BlockingQueue 阻塞队列的研究，因为需要看RocketMQ的源码
 - RocketMQ 技术内幕 架构设计与实现原理
+- LinkedBlockingQueue 源码分析 基于jdk8
 - `InnoDB`下死锁产生原因和解决方法
 - `InnoDB` 事务，例如如何插入数据，如何更改数据，如何删除数据等等，书上有很多知识需要挖掘
 - redis 哨兵、集群、为什么快，常见的数据结构等问题 [https://redis.io/documentation](https://redis.io/documentation)
