@@ -1,1 +1,8 @@
-# ScheduledExecutorService 预定（延时、定时）任务
+# ScheduledExecutorService 延迟任务
+
+
+---
+
+参考文档
+****
+- [ScheduledExecutorService](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ScheduledExecutorService.html)
