@@ -80,7 +80,7 @@ module.exports = {
             },
             {
                 title: 'Spring',
-                collapsable: false,
+                collapsable: true,
                 children: [
                     './spring/',
                     './spring/dependency-injection',
@@ -94,7 +94,7 @@ module.exports = {
             },
             {
                 title: 'Spring Boot',
-                collapsable: false,
+                collapsable: true,
                 children: [
                     './spring-boot/',
                     './spring-boot/configuration-properties'
@@ -102,7 +102,7 @@ module.exports = {
             },
             {
                 title: 'Spring Cloud',
-                collapsable: false,
+                collapsable: true,
                 children: [
                     './spring-cloud/feign',
                     './spring-cloud/feign-dubbo'
@@ -110,7 +110,7 @@ module.exports = {
             },
             {
                 title: 'MySQL',
-                collapsable: false,
+                collapsable: true,
                 children: [
                     './mysql/',
                     './mysql/b-plus-index',
@@ -121,7 +121,7 @@ module.exports = {
             },
             {
                 title: 'Redis',
-                collapsable: false,
+                collapsable: true,
                 children: [
                     './redis/',
                     './redis/data-types',
@@ -131,7 +131,7 @@ module.exports = {
             },
             {
                 title: 'Kafka',
-                collapsable: false,
+                collapsable: true,
                 children: [
                     './kafka/',
                     './kafka/spring-kafka',
@@ -149,7 +149,7 @@ module.exports = {
             },
             {
                 title: 'ZooKeeper',
-                collapsable: false,
+                collapsable: true,
                 children: [
                     './zk/',
                     './zk/zab',
@@ -164,13 +164,14 @@ module.exports = {
                     './concurrent/cas',
                     './concurrent/volatile',
                     './concurrent/thread-local',
+                    './concurrent/scheduled-executor-service',
                     './concurrent/thread-pool-executor',
                     './concurrent/blocking-queue'
                 ]
             },
             {
                 title: '数据结构与算法',
-                collapsable: false,
+                collapsable: true,
                 children: [
                     './algorithms/sort',
                     './algorithms/binary-tree',
@@ -181,7 +182,7 @@ module.exports = {
             },
             {
                 title: '综合话题',
-                collapsable: false,
+                collapsable: true,
                 children: [
                     './digging-deeper/plugin',
                     './digging-deeper/oom',
@@ -193,7 +194,7 @@ module.exports = {
             },
             {
                 title: '架构设计',
-                collapsable: false,
+                collapsable: true,
                 children: [
                     './arch-design/mybatis-crud',
                     './arch-design/ifelse-1',

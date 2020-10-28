@@ -2,7 +2,7 @@
 
 ## 参数说明
 
-`ThreadPoolExecutor`提供了四个构造方法
+`ThreadPoolExecutor` 提供了四个构造方法
 ![thread-pool-executor-constructor](/img/concurrent/thread-pool-executor-constructor.webp)
 
 这里以最后一个构造方法（参数最多的那个），对其参数进行解释：
