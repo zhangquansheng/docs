@@ -211,6 +211,7 @@ java.lang.Exception: Apparent connection leak detected
   将这些方法注释为@Transactional或在一次调用事务服务方法中包含所有逻辑似乎可以解决此问题。
 - 使用Mybatis似乎也可以解决此问题。
 
-## 参考
+---
 
-- [issues](https://github.com/brettwooldridge/HikariCP/issues)
+**参考文档**
+- [HikariCP issues](https://github.com/brettwooldridge/HikariCP/issues)
