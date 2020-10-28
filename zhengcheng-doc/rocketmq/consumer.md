@@ -204,3 +204,9 @@ private void pullMessage(final PullRequest pullRequest) {
 ```
 从`pullMessage`方法可以看到，是根据消费者组名从`MQClientInstance`中获取消费者内部实现类`MQConsumerInner`，这里直接强制转换成为`DefaultMQPushConsumerImpl`，也就是`PullMessageService`，该线程只为`PUSH`模式服务。
 （`PULL`模式如何拉取消息呢？`PULL`模式下，`RocketMQ`只需要提供拉取消息`API`即可，具体有应用程序显示调用拉取`API`。）
+
+## ProcessQueue 实现机制
+
+`PullRequest.ProcessQueue` 是 `PullRequest.MessageQueue`在消费端的重现、快照。`PullMessageService`从消息服务器**默认每次拉取32条消息**，按照消息的队列偏移量顺序存放在`PullRequest.ProcessQueue`中，
+`PullMessageService`然后将消息提交到消费者消费线程池，消息成功消费后从`PullRequest.ProcessQueue`中移除。`PullRequest.ProcessQueue`的类图如下：
+![ProcessQueue](/img/rocketmq/ProcessQueue.png)
