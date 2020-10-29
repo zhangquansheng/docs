@@ -246,7 +246,7 @@ public class SignAuthInterceptor implements HandlerInterceptor {
 
 #### 使用Pre-request Script脚本实现签名功能
 
-![Image Text](https://gitee.com/zhangquansheng/zhengcheng-parent/raw/master/doc/image/sign_postman.png)
+![sign_postman](/img/web-core/sign_postman.png)
 
 输入`Pre-request Script`，请复制粘贴下面提供的`Java Script`代码到文本框当中
 
@@ -310,11 +310,11 @@ function createUuid() {
 
 ```
 #### 设置环境变量/全局变量
-![Image Text](https://gitee.com/zhangquansheng/zhengcheng-parent/raw/master/doc/image/variable_postman.png)
+![variable_postman](/img/web-core/variable_postman.png)
 
 #### 对中文参数进行转码
 选中需要进行转码的参数，然后点击鼠标右键选中 EncodeURLComponent
-![Image Text](https://gitee.com/zhangquansheng/zhengcheng-parent/raw/master/doc/image/url_postman.png)
+![url_postman](/img/web-core/url_postman.png)
 
 ## TraceIdInterceptor
 

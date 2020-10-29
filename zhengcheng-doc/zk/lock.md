@@ -18,7 +18,7 @@ sidebarDepth: 3
 
 先看下Curator的几种锁的实现
 
-![Curator的几种锁](https://gitee.com/zhangquansheng/zhengcheng-parent/raw/master/doc/image/curator.png)
+![Curator的几种锁](/img/zk/curator.png)
 
 - InterProcessMutex：分布式可重入排它锁
 - InterProcessSemaphoreMutex：分布式排它锁
@@ -29,7 +29,7 @@ sidebarDepth: 3
 
 ### 加锁流程图
 
-![加锁流程图](https://gitee.com/zhangquansheng/zhengcheng-parent/raw/master/doc/image/zk-lock.jpg)
+![加锁流程图](/img/zk/zk-lock.jpg)
 
 ::: tip 加锁思路：
 1. 首先在ZooKeeper中创建一个/key持久化节点，再在同样的路径下创建一个节点，节点名字由uuid + 递增序列组成

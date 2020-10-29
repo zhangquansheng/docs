@@ -25,7 +25,7 @@ string 类型控制在 10KB 以内，hash、list、set、zset 元素个数不要
 
 下图简要说明是怎么设计实现的：
 
-![Image Text](https://gitee.com/zhangquansheng/zhengcheng-parent/raw/master/doc/image/bucket.png)
+![bucket](/img/redis/bucket.png)
 
 1.  定义每个key为一个桶，那么这个桶 `bucket`=学生ID模除`5000`
 2.  为了快速查询所有桶，把桶的序号存储在 `zc:m:b` key的set集合中
