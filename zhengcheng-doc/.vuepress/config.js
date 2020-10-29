@@ -80,7 +80,7 @@ module.exports = {
             },
             {
                 title: 'Spring',
-                collapsable: true,
+                collapsable: false,
                 children: [
                     './spring/',
                     './spring/dependency-injection',
@@ -94,7 +94,7 @@ module.exports = {
             },
             {
                 title: 'Spring Boot',
-                collapsable: true,
+                collapsable: false,
                 children: [
                     './spring-boot/',
                     './spring-boot/configuration-properties'
@@ -102,7 +102,7 @@ module.exports = {
             },
             {
                 title: 'Spring Cloud',
-                collapsable: true,
+                collapsable: false,
                 children: [
                     './spring-cloud/feign',
                     './spring-cloud/feign-dubbo'
@@ -110,7 +110,7 @@ module.exports = {
             },
             {
                 title: 'MySQL',
-                collapsable: true,
+                collapsable: false,
                 children: [
                     './mysql/',
                     './mysql/b-plus-index',
@@ -121,7 +121,7 @@ module.exports = {
             },
             {
                 title: 'Redis',
-                collapsable: true,
+                collapsable: false,
                 children: [
                     './redis/',
                     './redis/data-types',
@@ -131,7 +131,7 @@ module.exports = {
             },
             {
                 title: 'Kafka',
-                collapsable: true,
+                collapsable: false,
                 children: [
                     './kafka/',
                     './kafka/spring-kafka',
@@ -149,7 +149,7 @@ module.exports = {
             },
             {
                 title: 'ZooKeeper',
-                collapsable: true,
+                collapsable: false,
                 children: [
                     './zk/',
                     './zk/zab',
@@ -171,7 +171,7 @@ module.exports = {
             },
             {
                 title: '数据结构与算法',
-                collapsable: true,
+                collapsable: false,
                 children: [
                     './algorithms/sort',
                     './algorithms/binary-tree',
@@ -182,7 +182,7 @@ module.exports = {
             },
             {
                 title: '综合话题',
-                collapsable: true,
+                collapsable: false,
                 children: [
                     './digging-deeper/plugin',
                     './digging-deeper/oom',
@@ -194,7 +194,7 @@ module.exports = {
             },
             {
                 title: '架构设计',
-                collapsable: true,
+                collapsable: false,
                 children: [
                     './arch-design/mybatis-crud',
                     './arch-design/ifelse-1',
