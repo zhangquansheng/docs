@@ -20,7 +20,7 @@ maven
 ```properties
 server.port=${port:8080}
 
-# 注意数据库URL中链接的配置参数 
+# 注意数据库URL中链接的配置参数（这里使用了主从配置方式） 
 spring.datasource.url=jdbc:mysql:replication://127.0.0.1:3306,127.0.0.1:3306/magic?characterEncoding=UTF-8&useSSL=false&autoReconnect=true&allowMasterDownConnections=true&serverTimezone=GMT%2B8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 spring.datasource.type=com.zaxxer.hikari.HikariDataSource
