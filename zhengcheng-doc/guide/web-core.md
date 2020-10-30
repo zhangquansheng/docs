@@ -16,6 +16,34 @@ maven
   </dependency>
 ```
 
+## 属性配置
+```properties
+server.port=${port:8080}
+
+# 注意数据库URL中链接的配置参数 
+spring.datasource.url=jdbc:mysql:replication://127.0.0.1:3306,127.0.0.1:3306/magic?characterEncoding=UTF-8&useSSL=false&autoReconnect=true&allowMasterDownConnections=true&serverTimezone=GMT%2B8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.type=com.zaxxer.hikari.HikariDataSource
+spring.datasource.hikari.username=root
+spring.datasource.hikari.password=root
+spring.datasource.hikari.minimum-idle=2
+spring.datasource.hikari.maximum-pool-size=10
+spring.datasource.hikari.idle-timeout=60000
+spring.datasource.hikari.max-lifetime=600000
+spring.datasource.hikari.connection-timeout=30000
+spring.datasource.hikari.connection-test-query=SELECT 1
+spring.datasource.hikari.auto-commit=true
+
+spring.swagger.enable = true
+spring.swagger.title = magic
+spring.swagger.description = zhengcheng-parent magic
+spring.swagger.license = Apache License, Version 2.0
+spring.swagger.license-url = https://www.apache.org/licenses/LICENSE-2.0.html
+spring.swagger.base-package = com.zhengcheng.magic.controller
+spring.swagger.base-path = /**
+spring.swagger.exclude-path = /error, /ops/**
+```
+
 ## ExceptionControllerAdvice
 
 通过 `@RestControllerAdvice` + `@ExceptionHandler` 的方式统一异常处理，
