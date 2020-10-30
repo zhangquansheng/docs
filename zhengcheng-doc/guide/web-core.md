@@ -8,7 +8,6 @@ sidebarDepth: 3
 
 ## 安装
 
-maven
 ```xml
   <dependency>
         <groupId>com.zhengcheng</groupId>
