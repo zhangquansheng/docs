@@ -27,7 +27,7 @@
 zc-web-core-spring-boot-starter | WEB服务核心模块通用组件
 zc-feign-spring-boot-starter | 远程通信（Feign）通用组件
 zc-mybatis-plus-spring-boot-starter | MyBatis-Plus 通用组件
-zc-cache-spring-boot-starter | 缓存通（redis @EnableCaching caffeine）用组件
+zc-cache-spring-boot-starter | 缓存（Redis @EnableCaching caffeine）通用组件
 zc-xx-job-spring-boot-starter | XXL-JOB 定时任务通用组件
 zc-swagger-spring-boot-starter | swagger2.8.0 通用组件
 
