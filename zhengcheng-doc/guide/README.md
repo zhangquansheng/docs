@@ -2,13 +2,34 @@
 
 `zhengcheng`是一个基于**SpringBoot**的框架支持项目，只需简单配置，即可快速接入各种通用组件，从而节省大量时间,让我们在开发业务时能够专注于业务的编写而不必过多的关注框架的配置，并且可以促进团队合作，降低维护成本，减少低级BUG，有助于代码审查。
 
-## **环境准备**
+## 环境准备
 
 - `JDK 1.8 or later`
 - [Maven 3.2+](https://maven.apache.org/download.cgi)
 - [SpringBoot 2.1.13.RELEASE](https://spring.io/projects/spring-boot)
 - [SpringCloud Greenwich.SR4](https://cloud.spring.io/spring-cloud-static/Greenwich.SR4/single/spring-cloud.html)
 
+## 安装
+
+把项目中的`pom.xml`的 parent 中替换以下内容:
+```xml
+    <parent>
+        <groupId>com.zhengcheng</groupId>
+        <artifactId>zhengcheng-parent</artifactId>
+        <version>4.8.0</version>
+    </parent>
+```
+
+## 通用组件
+
+ name | description
+---|---
+zc-web-core-spring-boot-starter | WEB服务核心模块通用组件
+zc-feign-spring-boot-starter | 远程通信（Feign）通用组件
+zc-mybatis-plus-spring-boot-starter | MyBatis-Plus 通用组件
+zc-cache-spring-boot-starter | 缓存通（redis @EnableCaching caffeine）用组件
+zc-xx-job-spring-boot-starter | XXL-JOB 定时任务通用组件
+zc-swagger-spring-boot-starter | swagger2.8.0 通用组件
 
 ## 三方包
 
