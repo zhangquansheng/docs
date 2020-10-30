@@ -1,7 +1,3 @@
----
-sidebarDepth: 3
----
-
 # 核心模块
 
 `zc-web-core-spring-boot-starter` 是 `zhengcheng` 框架Web服务核心通用组件。
@@ -43,194 +39,27 @@ spring.swagger.base-path = /**
 spring.swagger.exclude-path = /error, /ops/**
 ```
 
-## ExceptionControllerAdvice
+## 功能
 
-通过 `@RestControllerAdvice` + `@ExceptionHandler` 的方式统一异常处理，
+在`zhengcheng`的`SpringBoot`中，只需要引入此包即可，它包含了以下组件
+- zc-mybatis-plus-spring-boot-starter
+- zc-cache-spring-boot-starter
+- zc-feign-spring-boot-starter
+- zc-swagger-spring-boot-starter
 
+
+核心组件通过 `@RestControllerAdvice` + `@ExceptionHandler` 的方式实现了**全局统一异常处理**，参考文档如下：
+- [ExceptionControllerAdvice 源码](https://gitee.com/zhangquansheng/zhengcheng-parent/blob/master/zc-web-core-spring-boot-starter/src/main/java/com/zhengcheng/core/web/advice/ExceptionControllerAdvice.java)
 - [Spring MVC Exceptions](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/web.html#mvc-ann-exceptionhandler)
-- 有关[@ControllerAdvice](https://docs.spring.io/spring-framework/docs/5.2.8.RELEASE/javadoc-api/org/springframework/web/bind/annotation/ControllerAdvice.html) 更多详细信息，请参见 javadoc。
+- [有关 @ControllerAdvice  更多详细信息，请参见 javadoc。](https://docs.spring.io/spring-framework/docs/5.2.8.RELEASE/javadoc-api/org/springframework/web/bind/annotation/ControllerAdvice.html)
 
-## ControllerLogAspect
 
-在现实的项目中我们经常会遇到系统出现异常或者问题, 为了方便定位问题，需要知道controller 调用的入参和traceId（链路ID）
-
-这里使用的是Spring AOP结合注解对Controller进行切面打印日志
-
-```java
-@Slf4j
-@Aspect
-@ConditionalOnClass({ObjectMapper.class})
-@Component
-public class ControllerLogAspect {
-
-    @Autowired
-    private ObjectMapper objectMapper;
-
-    /**
-     * 定义拦截规则：
-     * 有@RequestMapping注解的方法。
-     */
-    @Pointcut("@within(org.springframework.web.bind.annotation.RequestMapping)")
-    public void controllerMethodPointcut() {
-    }
-
-    @Around("controllerMethodPointcut()")
-    public Object around(ProceedingJoinPoint pjp) throws Throwable {
-        String pjpMethodInfo = this.getMethodInfo(pjp);
-        log.info("{} | {}", pjpMethodInfo, this.getRequestInfo(pjp));
-        long beginTime = System.currentTimeMillis();
-        Object retObj = pjp.proceed();
-        long costMs = System.currentTimeMillis() - beginTime;
-        log.info("{} | {} | cost:{}ms", pjpMethodInfo, objectMapper.writeValueAsString(retObj), costMs);
-        return retObj;
-    }
-
-    private String getMethodInfo(JoinPoint point) {
-        StrBuilder sb = StrBuilder.create();
-        String className = point.getSignature().getDeclaringType().getSimpleName();
-        String methodName = point.getSignature().getName();
-        sb.append(className).append(".").append(methodName);
-        return sb.toString();
-    }
-
-    private String getRequestInfo(JoinPoint point) {
-        StrBuilder sb = StrBuilder.create();
-        try {
-            HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
-            String xGatewayUid = request.getHeader(CommonConstants.GATEWAY_UID_HEADER);
-            String method = request.getMethod();
-            sb.append("method:[").append(method).append("] | ");
-            sb.append("requestPath:[").append(request.getRequestURI()).append("] | ");
-            sb.append("X-GATEWAY-UID:[").append(Objects.isNull(xGatewayUid) ? "" : xGatewayUid).append("] | ");
-            if (Method.POST.toString().equalsIgnoreCase(method)) {
-                Object[] args = point.getArgs();
-                if (args.length > 0) {
-                    sb.append("args:");
-                    for (Object arg : args) {
-                        if (arg instanceof Serializable && !(arg instanceof MultipartFile)) {
-                            sb.append(objectMapper.writeValueAsString(arg)).append(",");
-                        }
-                    }
-                }
-                Map<String, String[]> parameterMap = request.getParameterMap();
-                if (parameterMap != null && parameterMap.size() > 0) {
-                    sb.append("param:").append(objectMapper.writeValueAsString(parameterMap));
-                }
-            } else {
-                sb.append("queryString:").append(request.getQueryString());
-            }
-        } catch (Exception e) {
-            sb.append("Exception:").append(e.getMessage());
-        }
-        return sb.toString();
-    }
-}
-```
-
-## TraceIdInterceptor
-
-### 链路日志拦截器
-
-```java
-/**
- * 路径拦截器
- *
- * @author :    zhangquansheng
- * @date :    2020/3/24 13:55
- */
-@Slf4j
-public class TraceIdInterceptor implements HandlerInterceptor {
-
-    private String applicationName;
-
-    public TraceIdInterceptor(String applicationName) {
-        this.applicationName = applicationName;
-    }
-
-    @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
-        if (HttpMethod.OPTIONS.toString().equalsIgnoreCase(request.getMethod())) {
-            return true;
-        }
-
-        String uri = request.getRequestURI();
-        String xForwardedForHeader = request.getHeader("X-Forwarded-For");
-        String remoteIp = request.getRemoteAddr();
-        String traceId = request.getHeader(CommonConstants.TRACE_ID);
-        if (StrUtil.isBlankOrUndefined(traceId)) {
-            traceId = IdUtil.fastSimpleUUID();
-            request.setAttribute(CommonConstants.TRACE_ID, traceId);
-        }
-        MDC.put(CommonConstants.TRACE_ID, traceId);
-        log.info("applicationName:[{}], clientIp:[{}], X-Forwarded-For:[{}]", applicationName, remoteIp, xForwardedForHeader);
-        return true;
-    }
-
-    @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object o, Exception e) throws Exception {
-        MDC.clear();
-    }
-
-}
-```
+在现实的项目中我们经常会遇到系统出现异常或者问题, 为了方便定位问题，需要知道`Controller`调用的入参和`traceId`（链路ID）
+核心组件使用的是**Spring AOP**结合注解对`Controller`进行切面打印日志以及使用`Interceptor`结合`MDC`实现**链路日志**，参考文档如下：
+- [TraceIdInterceptor 链路日志拦截器](https://gitee.com/zhangquansheng/zhengcheng-parent/blob/master/zc-web-core-spring-boot-starter/src/main/java/com/zhengcheng/core/web/interceptor/TraceIdInterceptor.java)
+- [ControllerLogAspect](https://gitee.com/zhangquansheng/zhengcheng-parent/blob/master/zc-web-core-spring-boot-starter/src/main/java/com/zhengcheng/core/web/aspect/ControllerLogAspect.java)
 
 ::: tip 特别提示
-**X-ZHENGCHENG-TRACE-ID** 是我们约定的traceId 的key，在HTTP request header中传递
+**X-ZHENGCHENG-TRACE-ID** 是`zhengcheng`约定的`traceId` 的`key`，在`HTTP request header`中传递。
 :::
-
-### 配置
-
-`zhengcheng` 在项目的 `WebMvcConfigurer` 配置实现中默认增加路径拦截器：
-
-```java
-// com.zhengcheng.web.WebAutoConfiguration 
-/**
- * Web模块自动配置
- *
- * @author :    quansheng.zhang
- * @date :    2019/1/26 7:59
- */
-@Slf4j
-@EnableWebMvc
-@Configuration
-@ComponentScan({
-        "com.zhengcheng.web.advice",
-        "com.zhengcheng.web.aspect"})
-public class WebAutoConfiguration implements WebMvcConfigurer {
-
-    @Value("${spring.application.name:appName}")
-    private String name;
-
-    public WebAutoConfiguration() {
-        if (log.isDebugEnabled()) {
-            log.debug("Web模块自动配置成功");
-        }
-    }
-
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // 解决静态资源无法访问
-        registry.addResourceHandler("/**")
-                .addResourceLocations("classpath:/static/");
-        // 解决swagger无法访问
-        registry.addResourceHandler("/swagger-ui.html")
-                .addResourceLocations("classpath:/META-INF/resources/");
-        // 解决swagger的js文件无法访问
-        registry.addResourceHandler("/webjars/**")
-                .addResourceLocations("classpath:/META-INF/resources/webjars/");
-    }
-
-    //添加拦截
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new TraceIdInterceptor(name))//路径拦截器
-                .addPathPatterns("/**")  //拦截的请求路径
-                .excludePathPatterns("/static/*")// 忽略静态文件
-                .excludePathPatterns("/")
-                .excludePathPatterns("/csrf")
-                .excludePathPatterns("/error")
-                .excludePathPatterns(SwaggerConstants.PATTERNS);
-    }
-}
-```
 
