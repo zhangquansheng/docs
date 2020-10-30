@@ -68,13 +68,9 @@ module.exports = {
                     './guide/feign',
                     './guide/async',
                     './guide/apollo',
-                    './guide/log',
-                    './guide/zc-zk',
-                    './guide/aliyun',
-                    './guide/tencentcloud',
                     './guide/socketio',
-                    './guide/sso',
-                    './guide/nacos-eureka'
+                    './guide/nacos-eureka',
+                    './guide/log'
                 ]
             },
             {
@@ -160,11 +156,9 @@ module.exports = {
                 collapsable: false,
                 children: [
                     './concurrent/synchronized',
-                    './concurrent/cas',
                     './concurrent/volatile',
+                    './concurrent/cas',
                     './concurrent/thread-local',
-                    './concurrent/scheduled-executor-service',
-                    './concurrent/thread-pool-executor',
                     './concurrent/blocking-queue'
                 ]
             },
