@@ -2,7 +2,7 @@
 
 ## 配置
 
-在核心模块`zc-web-core-spring-boot-starter`中，已经配置了`@EnableAsync`，让需要配置多个线程池用于不同的任务时，示例代码如下：
+在核心模块`zc-web-core-spring-boot-starter`中，已经配置了`@EnableAsync`，如果需要配置多个线程池用于不同的任务时，示例代码如下：
 ```java
 /**
  * 线程池配置
@@ -21,8 +21,7 @@ public class ExecutorConfig {
     
 }
 ```
-其中[ExecutorMdcTaskBuilder](https://gitee.com/zhangquansheng/zhengcheng-parent/blob/master/zc-common-spring-boot-starter/src/main/java/com/zhengcheng/common/async/builder/ExecutorMdcTaskBuilder.java)为since4.3.0，作用是ThreadPoolTaskExecutor建造者，打印MDC的线程池任务建造者
-
+其中[ExecutorMdcTaskBuilder](https://gitee.com/zhangquansheng/zhengcheng-parent/blob/master/zc-common-spring-boot-starter/src/main/java/com/zhengcheng/common/async/builder/ExecutorMdcTaskBuilder.java)为`since4.3.0`，作用：`ThreadPoolTaskExecutor`建造者，**打印MDC路径**的线程池任务的建造者。
 
 属性配置
 ```properties
@@ -65,3 +64,5 @@ zc.executor.thread-name-prefix=default-executor-
 - 异步方法和调用异步方法的方法不能再同一个类
 - 方法所属的类的对象需要是被Spring容器所管理的，也就是指被`@Controller` `@Service` `@Repository` `@Component`这些注解的类
 :::
+
+### ExecutorService
