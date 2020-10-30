@@ -27,7 +27,7 @@ mybatis-plus.type-enums-package = com.zhengcheng.user.enums
 
 > 更多设置请参考[MybatisPlus官方文档](https://mp.baomidou.com/)
 
-**要求Mapper接口的包路径满足以下条件（否则不能自动扫描到Mapper）**：
+要求`Mapper`接口的包路径满足以下条件（**否则不能自动扫描到Mapper**）：
 ```java
 @MapperScan(basePackages = "com.zhengcheng.**.mapper*")
 ```

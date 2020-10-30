@@ -1,6 +1,6 @@
 # Feign
 
-## **安装**
+## 安装
 
 在 Maven 工程中使用
 
@@ -11,98 +11,9 @@
   </dependency>
 ```
 
-自动配置如下（**注意FeignClient路径**）：
-```java
-package com.zhengcheng.feign;
+## 配置
 
-import cn.hutool.core.util.IdUtil;
-import cn.hutool.core.util.StrUtil;
-import com.netflix.hystrix.strategy.HystrixPlugins;
-import com.netflix.hystrix.strategy.concurrency.HystrixConcurrencyStrategy;
-import com.netflix.hystrix.strategy.eventnotifier.HystrixEventNotifier;
-import com.netflix.hystrix.strategy.executionhook.HystrixCommandExecutionHook;
-import com.netflix.hystrix.strategy.metrics.HystrixMetricsPublisher;
-import com.netflix.hystrix.strategy.properties.HystrixPropertiesStrategy;
-import com.zhengcheng.common.constant.CommonConstants;
-import com.zhengcheng.feign.strategy.MdcHystrixConcurrencyStrategy;
-import feign.Logger;
-import feign.RequestInterceptor;
-import feign.RequestTemplate;
-import lombok.extern.slf4j.Slf4j;
-import org.slf4j.MDC;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.cloud.openfeign.EnableFeignClients;
-import org.springframework.cloud.openfeign.FeignLoggerFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
-/**
- * Feign 统一配置
- *
- * @author :    quansheng.zhang
- * @date :    2019/7/28 21:31
- */
-@Slf4j
-@EnableFeignClients("com.zhengcheng.**.feign.**")
-@ConditionalOnClass(RequestInterceptor.class)
-@Configuration
-public class FeignAutoConfiguration implements RequestInterceptor {
-
-    /**
-     * Feign 日志级别
-     */
-    @Bean
-    Logger.Level feignLoggerLevel() {
-        return Logger.Level.FULL;
-    }
-
-    /**
-     * 自定义INFO日志
-     */
-    @Bean
-    FeignLoggerFactory infoFeignLoggerFactory() {
-        return new InfoFeignLoggerFactory();
-    }
-
-    @Override
-    public void apply(RequestTemplate requestTemplate) {
-        String traceId = MDC.get(CommonConstants.TRACE_ID);
-        if (StrUtil.isEmptyOrUndefined(traceId)) {
-            // 一些接口的调用需要实现幂等，比如消息发送，如果使用requestId就可以方便服务方实现幂等
-            requestTemplate.header(CommonConstants.TRACE_ID, IdUtil.fastSimpleUUID());
-        } else {
-            requestTemplate.header(CommonConstants.TRACE_ID, traceId);
-        }
-    }
-
-    public FeignAutoConfiguration() {
-        try {
-            HystrixConcurrencyStrategy mdcTarget = new MdcHystrixConcurrencyStrategy();
-            HystrixConcurrencyStrategy strategy = HystrixPlugins.getInstance().getConcurrencyStrategy();
-            if (strategy instanceof MdcHystrixConcurrencyStrategy) {
-                return;
-            }
-            HystrixCommandExecutionHook commandExecutionHook = HystrixPlugins.getInstance().getCommandExecutionHook();
-            HystrixEventNotifier eventNotifier = HystrixPlugins.getInstance().getEventNotifier();
-            HystrixMetricsPublisher metricsPublisher = HystrixPlugins.getInstance().getMetricsPublisher();
-            HystrixPropertiesStrategy propertiesStrategy = HystrixPlugins.getInstance().getPropertiesStrategy();
-            HystrixPlugins.reset();
-            HystrixPlugins.getInstance().registerConcurrencyStrategy(mdcTarget);
-            HystrixPlugins.getInstance().registerCommandExecutionHook(commandExecutionHook);
-            HystrixPlugins.getInstance().registerEventNotifier(eventNotifier);
-            HystrixPlugins.getInstance().registerMetricsPublisher(metricsPublisher);
-            HystrixPlugins.getInstance().registerPropertiesStrategy(propertiesStrategy);
-        } catch (Exception e) {
-            log.error("Failed to register Hystrix Concurrency Strategy", e);
-        }
-    }
-}
-```
-
-## 属性配置
-
-启用okhttp3的配置
-
+启用`okhttp3`的属性配置
 ```properties
 feign.httpclient.enabled = false
 feign.okhttp.enabled = true
@@ -113,15 +24,19 @@ feign.okhttp3.write-timeout.milliseconds = 60000
 
 > 更多设置请参考[Feign官方文档]
 
-- 推荐设置 feign.hystrix.enabled=true , 打开feign的熔断
-- 自动配置修改了Feign的日志输出为**INFO**级别
-- 增加了开启hystrix以后，对Feign的分布式链路日志追踪的配置
+- 推荐设置 `feign.hystrix.enabled = true` , 打开`Feign`的熔断
+- 自动配置修改了`Feign`的日志输出为**INFO**级别
+- 增加了开启`hystrix`以后，对`Feign`的分布式链路日志追踪的配置
 
+要求`Feign`接口的包路径满足以下条件（**否则不能自动扫描到FeignClient**）：
+```java
+@EnableFeignClients("com.zhengcheng.**.feign.**")
+```
 
 ## 最佳实践
 
 ::: tip 特别说明
- feign 的请求使用SpringMvc的注解，并且要求必须有回退且使用工厂模式
+ feign 的请求使用`SpringMvc`的注解，并且要求必须有回退且使用工厂模式
 :::
 
 ### FeignClient
@@ -163,7 +78,6 @@ public class MarryFeignClientFallbackFactory implements FallbackFactory<MarryFei
 }
 ```
 
-
 ::: warning 注意
 禁止使用原生Feign注解调用feign接口
 ```java
@@ -172,7 +86,6 @@ public class MarryFeignClientFallbackFactory implements FallbackFactory<MarryFei
 ```
 :::
 
-
 ::: warning 注意
 禁止使用非工厂模式的fallback
 ```java
@@ -180,10 +93,9 @@ public class MarryFeignClientFallbackFactory implements FallbackFactory<MarryFei
 ```
 :::
 
-
 ## Feign OAuth2
 
-> 在使用`spring-security-oauth2` 的情况下，服务之间传递当前登录用户信息需要手动配置Feign OAuth2 拦截器
+> 在使用 `spring-security-oauth2` 的情况下，服务之间传递当前登录用户信息需要手动配置 Feign OAuth2 拦截器
 
 ```java
 public class FeignInterceptorConfig {
