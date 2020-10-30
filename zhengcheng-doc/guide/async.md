@@ -1,7 +1,8 @@
 # 异步线程池
 
-## 初始化
+## 配置
 
+在核心模块`zc-web-core-spring-boot-starter`中，已经配置了`@EnableAsync`，让需要配置多个线程池用于不同的任务时，示例代码如下：
 ```java
 /**
  * 线程池配置
@@ -9,7 +10,6 @@
  * @author :    quansheng.zhang
  * @date :    2019/7/28 21:31
  */
-@EnableAsync
 @Configuration
 public class ExecutorConfig {
 
@@ -24,8 +24,7 @@ public class ExecutorConfig {
 其中[ExecutorMdcTaskBuilder](https://gitee.com/zhangquansheng/zhengcheng-parent/blob/master/zc-common-spring-boot-starter/src/main/java/com/zhengcheng/common/async/builder/ExecutorMdcTaskBuilder.java)为since4.3.0，作用是ThreadPoolTaskExecutor建造者，打印MDC的线程池任务建造者
 
 
-## 属性配置
-
+属性配置
 ```properties
 # 核心线程数：线程池创建时候初始化的线程数
 zc.executor.core-pool-size=10
@@ -44,7 +43,7 @@ zc.executor.thread-name-prefix=default-executor-
 
 ## 使用
 
-#### @Async
+### @Async
 
 ```java
     @Async("kafkaTaskExecutor")
@@ -64,5 +63,5 @@ zc.executor.thread-name-prefix=default-executor-
 ::: tip 特别提示
 @Async使用注意事项
 - 异步方法和调用异步方法的方法不能再同一个类
-- 方法所属的类的对象需要是被Spring容器所管理的，也就是指被@Controller @Service @Repository @Component这些注解的类
+- 方法所属的类的对象需要是被Spring容器所管理的，也就是指被`@Controller` `@Service` `@Repository` `@Component`这些注解的类
 :::
