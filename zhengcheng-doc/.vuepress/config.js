@@ -151,17 +151,19 @@ module.exports = {
                     './zk/lock'
                 ]
             },
-            // {
-            //     title: '并发编程',
-            //     collapsable: false,
-            //     children: [
-            //         './concurrent/synchronized',
-            //         './concurrent/volatile',
-            //         './concurrent/cas',
-            //         './concurrent/thread-local',
-            //         './concurrent/blocking-queue'
-            //     ]
-            // },
+            {
+                title: '并发编程',
+                collapsable: false,
+                children: [
+                    './concurrent/j.U.C'
+
+                    //         './concurrent/synchronized',
+                    //         './concurrent/volatile',
+                    //         './concurrent/cas',
+                    //         './concurrent/thread-local',
+                    //         './concurrent/blocking-queue'
+                ]
+            },
             // {
             //     title: '数据结构与算法',
             //     collapsable: false,
