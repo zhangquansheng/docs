@@ -152,11 +152,14 @@ module.exports = {
                 ]
             },
             {
-                title: '并发编程',
+                title: 'j.U.C',
                 collapsable: false,
                 children: [
-                    './concurrent/j.U.C'
-
+                    './concurrent/collections',
+                    './concurrent/executor',
+                    './concurrent/atomic',
+                    './concurrent/locks',
+                    './concurrent/tools'
                     //         './concurrent/synchronized',
                     //         './concurrent/volatile',
                     //         './concurrent/cas',
