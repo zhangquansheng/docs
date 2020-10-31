@@ -138,8 +138,8 @@ module.exports = {
                 collapsable: false,
                 children: [
                     './rocketmq/',
-                    './rocketmq/consumer',
-                    './rocketmq/idempotent'
+                    './rocketmq/consumer'
+                    // ,'./rocketmq/idempotent'
                 ]
             },
             {
@@ -151,28 +151,28 @@ module.exports = {
                     './zk/lock'
                 ]
             },
-            {
-                title: '并发编程',
-                collapsable: false,
-                children: [
-                    './concurrent/synchronized',
-                    './concurrent/volatile',
-                    './concurrent/cas',
-                    './concurrent/thread-local',
-                    './concurrent/blocking-queue'
-                ]
-            },
-            {
-                title: '数据结构与算法',
-                collapsable: false,
-                children: [
-                    './algorithms/sort',
-                    './algorithms/binary-tree',
-                    './algorithms/balanced-tree',
-                    './algorithms/sliding-window',
-                    './algorithms/dynamic-programming'
-                ]
-            },
+            // {
+            //     title: '并发编程',
+            //     collapsable: false,
+            //     children: [
+            //         './concurrent/synchronized',
+            //         './concurrent/volatile',
+            //         './concurrent/cas',
+            //         './concurrent/thread-local',
+            //         './concurrent/blocking-queue'
+            //     ]
+            // },
+            // {
+            //     title: '数据结构与算法',
+            //     collapsable: false,
+            //     children: [
+            //         './algorithms/sort',
+            //         './algorithms/binary-tree',
+            //         './algorithms/balanced-tree',
+            //         './algorithms/sliding-window',
+            //         './algorithms/dynamic-programming'
+            //     ]
+            // },
             {
                 title: '综合话题',
                 collapsable: false,
