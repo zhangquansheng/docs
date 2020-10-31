@@ -61,8 +61,8 @@ spring.swagger.exclude-path = /error, /ops/**
 
 ---
 
-在现实的项目中我们经常会遇到系统出现异常或者问题, 为了方便定位问题，需要知道`Controller`调用的入参和`traceId`（链路ID）
-核心组件使用的是**Spring AOP**结合注解对`Controller`进行切面打印日志以及使用`Interceptor`结合`MDC`实现**链路日志**，参考文档如下：
+在现实的项目中我们经常会遇到系统出现异常或者问题, 为了方便定位问题，需要知道`Controller`调用入参和`traceId`（链路ID），
+核心组件使用的是**Spring AOP**对`Controller`进行切面打印日志以及使用`Interceptor`结合`MDC`实现**链路日志**，参考文档如下：
 - [TraceIdInterceptor 链路日志拦截器源码](https://gitee.com/zhangquansheng/zhengcheng-parent/blob/master/zc-web-core-spring-boot-starter/src/main/java/com/zhengcheng/core/web/interceptor/TraceIdInterceptor.java)
 - [ControllerLogAspect 源码](https://gitee.com/zhangquansheng/zhengcheng-parent/blob/master/zc-web-core-spring-boot-starter/src/main/java/com/zhengcheng/core/web/aspect/ControllerLogAspect.java)
 

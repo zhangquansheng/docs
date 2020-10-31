@@ -20,6 +20,14 @@ feign.okhttp.enabled = true
 feign.okhttp3.read-timeout.milliseconds = 3000
 feign.okhttp3.connect-timeout.milliseconds = 3000
 feign.okhttp3.write-timeout.milliseconds = 60000
+
+# hystrix 配置
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds=10000
+hystrix.threadpool.default.coreSize=100
+hystrix.threadpool.default.maxQueueSize=1000
+hystrix.threadpool.sso.coreSize=10
+hystrix.threadpool.sso.maxQueueSize=100
+hystrix.command.sso.execution.isolation.thread.timeoutInMilliseconds=3000
 ```
 
 > 更多设置请参考[Feign官方文档]
