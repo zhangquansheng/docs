@@ -51,21 +51,15 @@ module.exports = {
             {text: '首页', link: '/'},
             {text: '指南', link: '/guide/'},
             {
-                text: '菜单4',
+                text: '好站',
                 items: [
-                    {
-                        text: '菜单4-1',
-                        items: [
-                            {text: '菜单4-1-1', link: '/ers1'},
-                            {text: '菜单4-1-2', link: '/ers2'},
-                        ]
-                    },
-                    {text: '菜单4-2', link: '/ers2'},
+                    {text: '百度啦啦啦啦啦啦', link: 'https://www.baidu.com/'},
+                    {text: '百度啦啦啦啦啦啦', link: 'https://www.baidu.com/'}
                 ]
             },
             {text: '更新日志', link: '/change-log/'},
-            {text: 'github', link: 'https://github.com/zhangquansheng/zhengcheng-parent'},
-            {text: 'gitee', link: 'https://gitee.com/zhangquansheng/zhengcheng-parent'},
+            {text: 'GitHub', link: 'https://github.com/zhangquansheng/zhengcheng-parent'},
+            {text: 'Gitee', link: 'https://gitee.com/zhangquansheng/zhengcheng-parent'},
         ],
         sidebar: [
             {
