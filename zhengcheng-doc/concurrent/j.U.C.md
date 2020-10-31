@@ -1,3 +1,7 @@
+---
+sidebarDepth: 3
+---
+
 # j.U.C 概览
 
 ![j.U.C](/img/concurrent/j.U.C.png)
