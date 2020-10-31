@@ -103,6 +103,35 @@ public class MarryFeignClientFallbackFactory implements FallbackFactory<MarryFei
 ```
 :::
 
+## Feign @QueryMap support
+
+`OpenFeign`的`@QueryMap`注解支持将`POJO`用作`GET`参数映射。但是，默认的`OpenFeign`的`QueryMap`注解与`Spring`不兼容，因为它缺少`value`属性。
+
+`Spring Cloud OpenFeign` 提供了等效的`@SpringQueryMap`注解，用于注释`POJO`或`Map`参数作为查询参数映射。
+
+例如，`Params`该类定义参数`param1`和p`aram2`：
+```java
+// Params.java
+public class Params {
+    private String param1;
+    private String param2;
+
+    // [Getters and setters omitted for brevity]
+}
+```
+以下`Feign`客户端`Params`通过使用`@SpringQueryMap`注解使用该类：
+```java
+@FeignClient("demo")
+public interface DemoTemplate {
+
+    @GetMapping(path = "/demo")
+    String demoEndpoint(@SpringQueryMap Params params);
+}
+```
+
+如果需要对生成的查询参数映射进行更多控制，则可以实现一个自定义`QueryMapEncoder` bean。
+
+
 ## Feign OAuth2
 
 > 在使用 `spring-security-oauth2` 的情况下，服务之间传递当前登录用户信息需要手动配置 Feign OAuth2 拦截器

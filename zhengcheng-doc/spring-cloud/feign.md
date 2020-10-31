@@ -4,8 +4,6 @@ sidebarDepth: 3
 
 # 使用 Feign 实现声明式 REST 调用
 
-[Spring Cloud OpenFeign 官方文档](https://docs.spring.io/spring-cloud-openfeign/docs/2.2.4.RELEASE/reference/html/#spring-cloud-feign)
-
 [[toc]]
 
 ## 设计原理
@@ -876,3 +874,8 @@ hystrix.command.default.circuitBreaker.errorThresholdPercentage = 50
 
 下面通过使用 Hystrix Dashboard 可视化监控数据来体验一下效果：
 ![hystrix-sso.png](/img/spring-cloud-feign/hystrix-sso.png)
+
+---
+
+**参考文档**
+[Spring Cloud OpenFeign 官方文档](https://docs.spring.io/spring-cloud-openfeign/docs/2.2.4.RELEASE/reference/html/#spring-cloud-feign)
