@@ -53,6 +53,7 @@ module.exports = {
             {
                 text: '好站',
                 items: [
+                    {text: 'Spring Framework Documentation', link: 'https://docs.spring.io/spring-framework/docs/current/reference/html/index.html'},
                     {text: 'MyBatis-Plus', link: 'http://mybatis.plus/'},
                     {text: 'MVN REPOSITORY', link: 'https://mvnrepository.com/'},
                     {text: 'Algorithms', link: 'https://www.cs.usfca.edu/~galles/visualization/Algorithms.html'},
