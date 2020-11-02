@@ -53,8 +53,11 @@ module.exports = {
             {
                 text: '好站',
                 items: [
-                    {text: '百度啦啦啦啦啦啦', link: 'https://www.baidu.com/'},
-                    {text: '百度啦啦啦啦啦啦', link: 'https://www.baidu.com/'}
+                    {text: 'MyBatis-Plus', link: 'http://mybatis.plus/'},
+                    {text: 'MVN REPOSITORY', link: 'https://mvnrepository.com/'},
+                    {text: 'Algorithms', link: 'https://www.cs.usfca.edu/~galles/visualization/Algorithms.html'},
+                    {text: 'Hutool', link: 'https://www.hutool.cn/'},
+                    {text: '力扣（LeetCode）', link: 'https://leetcode-cn.com/'}
                 ]
             },
             {text: '更新日志', link: '/change-log/'},
