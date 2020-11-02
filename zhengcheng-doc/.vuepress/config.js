@@ -53,7 +53,10 @@ module.exports = {
             {
                 text: '好站',
                 items: [
-                    {text: 'Spring Framework Documentation', link: 'https://docs.spring.io/spring-framework/docs/current/reference/html/index.html'},
+                    {
+                        text: 'Spring Framework Documentation',
+                        link: 'https://docs.spring.io/spring-framework/docs/current/reference/html/index.html'
+                    },
                     {text: 'MyBatis-Plus', link: 'http://mybatis.plus/'},
                     {text: 'MVN REPOSITORY', link: 'https://mvnrepository.com/'},
                     {text: 'Algorithms', link: 'https://www.cs.usfca.edu/~galles/visualization/Algorithms.html'},
@@ -163,14 +166,16 @@ module.exports = {
                 ]
             },
             {
-                title: 'j.U.C',
+                title: '并发编程',
                 collapsable: false,
                 children: [
-                    './concurrent/collections',
-                    './concurrent/executor',
-                    './concurrent/atomic',
-                    './concurrent/locks',
-                    './concurrent/tools'
+                    // './concurrent/collections',
+                    // './concurrent/executor',
+                    // './concurrent/atomic',
+                    // './concurrent/locks',
+                    // './concurrent/tools',
+                    './concurrent/j.U.C',
+                    './concurrent/blocking-queue'
                     //         './concurrent/synchronized',
                     //         './concurrent/volatile',
                     //         './concurrent/cas',
