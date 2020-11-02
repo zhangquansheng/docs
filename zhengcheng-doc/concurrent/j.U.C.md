@@ -11,7 +11,7 @@ sidebarDepth: 3
 ### Queue
 
 - ConcurrentLinkedQueue
-- [BlockingQueue](/concurrent/blocking-queue)
+- BlockingQueue
 
 	- ArrayBlockingQueue
 	- DelayQueue

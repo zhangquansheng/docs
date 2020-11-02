@@ -304,3 +304,7 @@ function createUuid() {
 #### 对中文参数进行转码
 选中需要进行转码的参数，然后点击鼠标右键选中 EncodeURLComponent
 ![url_postman](/img/web-core/url_postman.png)
+
+
+
+[BlockingQueue](/concurrent/blocking-queue)
