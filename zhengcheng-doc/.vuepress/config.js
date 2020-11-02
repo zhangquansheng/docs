@@ -169,18 +169,12 @@ module.exports = {
                 title: '并发编程',
                 collapsable: false,
                 children: [
-                    // './concurrent/collections',
-                    // './concurrent/executor',
-                    // './concurrent/atomic',
-                    // './concurrent/locks',
-                    // './concurrent/tools',
                     './concurrent/j.U.C',
                     './concurrent/blocking-queue'
                     //         './concurrent/synchronized',
                     //         './concurrent/volatile',
                     //         './concurrent/cas',
-                    //         './concurrent/thread-local',
-                    //         './concurrent/blocking-queue'
+                    //         './concurrent/thread-local'
                 ]
             },
             // {
