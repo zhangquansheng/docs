@@ -57,6 +57,14 @@ module.exports = {
                         text: 'Spring Framework Documentation',
                         link: 'https://docs.spring.io/spring-framework/docs/current/reference/html/index.html'
                     },
+                    {
+                        text: 'Spring Boot',
+                        link: 'https://spring.io/projects/spring-boot'
+                    },
+                    {
+                        text: 'Spring Cloud',
+                        link: 'https://spring.io/projects/spring-cloud'
+                    },
                     {text: 'MyBatis-Plus', link: 'http://mybatis.plus/'},
                     {text: 'MVN REPOSITORY', link: 'https://mvnrepository.com/'},
                     {text: 'Algorithms', link: 'https://www.cs.usfca.edu/~galles/visualization/Algorithms.html'},
@@ -114,7 +122,8 @@ module.exports = {
                 collapsable: false,
                 children: [
                     './spring-cloud/feign',
-                    './spring-cloud/feign-dubbo'
+                    './spring-cloud/feign-dubbo',
+                    './spring-cloud/ribbon'
                 ]
             },
             {
