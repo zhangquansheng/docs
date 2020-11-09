@@ -11,10 +11,10 @@
   </dependency>
 ```
 
-## 配置
+## 属性配置
 
-启用`okhttp3`的属性配置
 ```properties
+# 启用 okhttp3 的属性配置
 feign.httpclient.enabled = false
 feign.okhttp.enabled = true
 feign.okhttp3.read-timeout = 3000
