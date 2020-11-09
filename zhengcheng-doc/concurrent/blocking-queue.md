@@ -20,7 +20,6 @@
 
 ### 实际应用
 
-
 作为`ThreadPoolExecutor`的等待线程池TODO
 ```java
   ExecutorService executorService = new ThreadPoolExecutor(2, 5, 100, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(2000), new ThreadFactory() {
