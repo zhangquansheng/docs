@@ -17,15 +17,20 @@
 ```properties
 feign.httpclient.enabled = false
 feign.okhttp.enabled = true
-feign.okhttp3.read-timeout.milliseconds = 3000
-feign.okhttp3.connect-timeout.milliseconds = 3000
-feign.okhttp3.write-timeout.milliseconds = 60000
+feign.okhttp3.read-timeout = 3000
+feign.okhttp3.connect-timeout = 5000
+feign.okhttp3.write-timeout = 60000
 
 # hystrix 配置
-hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds=10000
+hystrix.command.default.execution.timeout.enabled = true
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds = 10000
 hystrix.threadpool.default.coreSize=100
 hystrix.threadpool.default.maxQueueSize=1000
 
+# spring cloud 下 ribbon 的配置
+ribbon.connect-timeout = 3000
+ribbon.read-timeout = 5000
+ 
 # sso 是 feign 的 name
 hystrix.threadpool.sso.coreSize=10
 hystrix.threadpool.sso.maxQueueSize=100

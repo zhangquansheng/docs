@@ -774,6 +774,21 @@ feign.okhttp.enabled = true
 feign.hystrix.enabled = true  
 ```
 
+### Spring Cloud 之 Feign、Ribbon 设置超时时间
+
+Spring Cloud 下使用`Feign`调用接口分两层，`Ribbon`的调用和`Hystrix`的调用，超时时间配置如下：
+```properties
+hystrix.command.default.execution.timeout.enabled = true
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds = 10000
+
+ribbon.read-timeout = 5000
+ribbon.connect-timeout = 5000
+```
+
+一般情况下 都是**Ribbon**的超时时间（<）`Hystrix`的超时时间（涉及到`Ribbon`的重试机制，且**因为`Ribbon`的重试机制和`Feign`的重试机制有冲突，所以源码中默认关闭`Feign`的重试机制。**）。
+
+**如果不配置`Ribbon`的重试次数，默认会重试一次。并且`GET`方式请求无论是连接异常还是读取异常，都会进行重试。非`GET`方式请求，只有连接异常时，才会进行重试。**
+
 ### Feign 长连接导致的异常
 
 当使用 Feign 使用OkHttp3，默认配置如下：
