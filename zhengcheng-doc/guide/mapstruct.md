@@ -10,4 +10,6 @@
 ---
 
 **参考文档**
+
+- [官方文档](https://mapstruct.org/documentation/stable/reference/html/)
 - [https://mapstruct.org/](https://mapstruct.org/)
