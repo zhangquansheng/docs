@@ -89,6 +89,7 @@ module.exports = {
                     './guide/cache',
                     './guide/feign',
                     './guide/async',
+                    './guide/mapstruct',
                     './guide/apollo',
                     './guide/socketio',
                     './guide/nacos-eureka',
