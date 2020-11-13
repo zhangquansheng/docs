@@ -29,10 +29,6 @@ spring.redis.lettuce.pool.max-idle = 8
 spring.redis.lettuce.pool.min-idle = 0
 ```
 
-::: tip 提示
-   如何使用Redis，详细见 [RedisTemplate 官方文档](https://docs.spring.io/spring-data/data-redis/docs/current/reference/html/#redis:template)
-::: 
-
 ## 使用
 
 ### mGet 批量获取值
@@ -113,10 +109,17 @@ List<YourObject> list = this.redisTemplate.executePipelined(new RedisCallback<Yo
 
 ## CacheManager
 
-`zhengcheng` 中`@EnableCaching`默认是使用 `CacheType.SIMPLE`，具体如何使用，请查看 [Caching 官方文档](https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-caching)
+`zhengcheng` 中`@EnableCaching`默认是使用 `CacheType.SIMPLE`。
 
 如果要开启`caffeine` ，需要增加属性配置，具体如下：
 ```properties
 spring.cache.type = caffeine
 spring.cache.caffeine.spec = initialCapacity=10,maximumSize=200,expireAfterWrite=3s
 ```
+
+---
+
+**参考文档**
+
+- [RedisTemplate 官方文档](https://docs.spring.io/spring-data/data-redis/docs/current/reference/html/#redis:template)
+- [Caching 官方文档](https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-caching)
