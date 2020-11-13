@@ -35,7 +35,7 @@ spring.redis.lettuce.pool.min-idle = 0
 
 ## 使用
 
-### 利用 mGet 批量获取值
+### mGet 批量获取值
 
 ```java
 List<String> keys = new ArrayList<>();
@@ -44,7 +44,7 @@ List<YourObject> list = this.redisTemplate.opsForValue().multiGet(keys);
 ```
 注意：如果对应的key没有值，则`YourObject`为`NULL`；也就是说，`list`不可能是`NULL`，但是`YourObject`可能为`NULL`。
 
-### 利用 PipeLine
+### PipeLine
 ```java
 List<YourObject> list = this.redisTemplate.executePipelined(new RedisCallback<YourObject>() {
     @Override
