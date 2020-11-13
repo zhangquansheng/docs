@@ -17,6 +17,7 @@
 `SpringBoot2.x`默认采用`Lettuce`客户端来连接`Redis`服务端的。
 
 ## 属性配置
+
 ```properties
 spring.redis.database = 0
 spring.redis.host = 127.0.0.1
@@ -31,6 +32,84 @@ spring.redis.lettuce.pool.min-idle = 0
 ::: tip 提示
    如何使用Redis，详细见 [RedisTemplate 官方文档](https://docs.spring.io/spring-data/data-redis/docs/current/reference/html/#redis:template)
 ::: 
+
+## 使用
+
+### 利用 mGet 批量获取值
+
+```java
+List<String> keys = new ArrayList<>();
+//初始keys
+List<YourObject> list = this.redisTemplate.opsForValue().multiGet(keys);
+```
+注意：如果对应的key没有值，则`YourObject`为`NULL`；也就是说，`list`不可能是`NULL`，但是`YourObject`可能为`NULL`。
+
+### 利用 PipeLine
+```java
+List<YourObject> list = this.redisTemplate.executePipelined(new RedisCallback<YourObject>() {
+    @Override
+    public YourObject doInRedis(RedisConnection connection) throws DataAccessException {
+        StringRedisConnection conn = (StringRedisConnection)connection;
+        for (String key : keys) {
+            conn.get(key);
+        }
+        return null;
+    }
+```
+
+它们底层都是用到`execute`方法，`multiGet`是一条命令直接传给`Redis`，而`executePipelined`实际上是一条或多条命令，但是**共用一个连接**。
+
+### execute 方法
+```java
+/**
+	 * Executes the given action object within a connection that can be exposed or not. Additionally, the connection can
+	 * be pipelined. Note the results of the pipeline are discarded (making it suitable for write-only scenarios).
+	 * 
+	 * @param <T> return type
+	 * @param action callback object to execute
+	 * @param exposeConnection whether to enforce exposure of the native Redis Connection to callback code
+	 * @param pipeline whether to pipeline or not the connection for the execution
+	 * @return object returned by the action
+	 */
+	public <T> T execute(RedisCallback<T> action, boolean exposeConnection, boolean pipeline) {
+		Assert.isTrue(initialized, "template not initialized; call afterPropertiesSet() before using it");
+		Assert.notNull(action, "Callback object must not be null");
+
+		RedisConnectionFactory factory = getConnectionFactory();
+		RedisConnection conn = null;
+		try {
+
+			if (enableTransactionSupport) {
+				// only bind resources in case of potential transaction synchronization
+				conn = RedisConnectionUtils.bindConnection(factory, enableTransactionSupport);
+			} else {
+				conn = RedisConnectionUtils.getConnection(factory);
+			}
+
+			boolean existingConnection = TransactionSynchronizationManager.hasResource(factory);
+
+			RedisConnection connToUse = preProcessConnection(conn, existingConnection);
+
+			boolean pipelineStatus = connToUse.isPipelined();
+			if (pipeline && !pipelineStatus) {
+				connToUse.openPipeline();
+			}
+
+			RedisConnection connToExpose = (exposeConnection ? connToUse : createRedisConnectionProxy(connToUse));
+			T result = action.doInRedis(connToExpose);
+
+			// close pipeline
+			if (pipeline && !pipelineStatus) {
+				connToUse.closePipeline();
+			}
+
+			// TODO: any other connection processing?
+			return postProcessResult(result, connToUse, existingConnection);
+		} finally {
+			RedisConnectionUtils.releaseConnection(conn, factory);
+		}
+	}
+```
 
 ## CacheManager
 
