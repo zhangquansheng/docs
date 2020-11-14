@@ -93,7 +93,8 @@ module.exports = {
                     './guide/apollo',
                     './guide/socketio',
                     './guide/nacos-eureka',
-                    './guide/log'
+                    './guide/log',
+                    './guide/java8-new-features'
                 ]
             },
             {
