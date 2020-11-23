@@ -174,7 +174,7 @@ System.out.println("平均数 : " + stats.getAverage());
       System.out.println("空字符串的数量为: " + count);
 ```
 
-### 去重 、 List转map
+### 常用汇总
 
 - Person.java
 ```java
@@ -184,6 +184,11 @@ public class Person {
     private String name;
     private String sex;
 }
+```
+
+- 取出某一列
+```java
+List<Integer> ids = persons.stream().map(Person::getId).collect(Collectors.toList());
 ```
 
 - 根据 name 去重
