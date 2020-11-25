@@ -254,6 +254,16 @@ public enum AgeEnum implements IEnum<Integer> {
 })
 ```
 
+`int` 转换成 `enum`  目前还无法实现，请忽略之，然后自己赋值（注意要判断空）。
+```java
+@Mappings({
+        @Mapping(target = "age", source = "age", ignore = true)
+})
+```
+
+## Mapstruct 中使用 BigDecimal  Date LocalDateTime 
+
+
 
 ---
 
