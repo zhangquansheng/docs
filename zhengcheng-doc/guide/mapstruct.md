@@ -254,16 +254,42 @@ public enum AgeEnum implements IEnum<Integer> {
 })
 ```
 
-`int` 转换成 `enum`  目前还无法实现，请忽略之，然后自己赋值（注意要判断空）。
+`int` 转换成 `enum`  使用[Expressions](https://mapstruct.org/documentation/stable/reference/html/#expressions) 实现：
 ```java
 @Mappings({
-        @Mapping(target = "age", source = "age", ignore = true)
+        @Mapping(target = "type", expression = "java(com.zhangmen.game.domain.enums.CourseCswareTypeEnum.getByValue(courseCswareCommand.getType()))"),
 })
 ```
 
-## Mapstruct 中使用 BigDecimal  Date LocalDateTime 
+## Mapstruct 中使用 BigDecimal Date LocalDateTime 
 
+数据类型转换 [Implicit type conversions](https://mapstruct.org/documentation/stable/reference/html/#implicit-type-conversions)
 
+Example 31. Conversion from int to String
+```java
+@Mapper
+public interface CarMapper {
+
+    @Mapping(source = "price", numberFormat = "$#.00")
+    CarDto carToCarDto(Car car);
+
+    @IterableMapping(numberFormat = "$#.00")
+    List<String> prices(List<Integer> prices);
+}
+```
+
+Example 33. Conversion from Date to String
+```java
+@Mapper
+public interface CarMapper {
+
+    @Mapping(source = "manufacturingDate", dateFormat = "dd.MM.yyyy")
+    CarDto carToCarDto(Car car);
+
+    @IterableMapping(dateFormat = "dd.MM.yyyy")
+    List<String> stringListToDateList(List<Date> dates);
+}
+```
 
 ---
 
