@@ -2,6 +2,7 @@
 
 ## [v4.8.0] 2020.10.15
 
+- （重点）提高效率：引入`MapStruct` `Orika`等`Bean`映射工具
 - `BaseMessage` 增加 `timestamp`，为消息幂等使用
 - 增加`zc-tk-mybatis-spring-boot-starter`，集成[MyBatis 通用 Mapper4](https://github.com/abel533/Mapper)
 - 修改`zc-db-spring-boot-starter`为`zc-mybatis-plus-spring-boot-starter`，在`zc-web-spring-boot-starter`中去掉`zc-db-spring-boot-starter`等默认配置
@@ -9,7 +10,7 @@
 ## [v4.7.0] 2020.08.01
 
 - 修复全局Controller打印日志在异常的情况下无法打印的问题
-- 以Dubbo暴露服务的方式使用Feign
+- 以`Dubbo`暴露服务的方式使用`Feign`
 - `Alibaba Nacos` 替换 `Eureka` 注册中心
 - 引入 `spring cloud alibaba` 依赖
 - commons-beanutils 升级到1.9.4，解决在Apache Commons Beanutils 1.9.2中，添加了一个特殊的BeanIntrospector类，该类允许抑制攻击者通过所有Java对象上可用的class属性访问类加载器的能力。但是，默认情况下，我们没有使用PropertyUtilsBean的特性。
