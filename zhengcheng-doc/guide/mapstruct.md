@@ -168,6 +168,93 @@ public interface CustomerMapper {
 }
 ```
 
+## Mapstruct 中使用 lombok @Builder 丢失父类属性问题
+
+(推荐)项目中使用`MybatisPlus`的情况下，所有的`Entity`的父类代码如下（其中`Model`是一个开源的`MybatisPlus`,数据库Entity需要继承该`Model`才可以使用基础的`CRUD`）：
+```java
+/**
+ * The class Base entity.
+ *
+ * @author :    quansheng.zhang
+ * @date :    2019/2/28 21:00
+ */
+@Data
+@EqualsAndHashCode(callSuper = false)
+public class BaseEntity<T extends Model<?>> extends Model<T> {
+    private static final long serialVersionUID = -2237290464565384433L;
+    /**
+     * 主键ID
+     */
+    @TableId(type = IdType.AUTO)
+    private Integer id;
+    /**
+     * 创建人
+     */
+    @TableField(fill = FieldFill.INSERT)
+    private Integer createdUser;
+    /**
+     * 记录创建时间，默认当前时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createdTime;
+    /**
+     * 更新人
+     */
+    @TableField(fill = FieldFill.INSERT)
+    private Integer updatedUser;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updatedTime;
+    /**
+     * 是否删除
+     */
+    @TableField(value = "deleted", fill = FieldFill.INSERT)
+    private boolean deleted;
+
+    @Override
+    protected Serializable pkVal() {
+        return this.id;
+    }
+}
+```
+我们知道，lombok 的 `@Builder`注解无法对父类属性进行赋值（@SuperBuilder还是实验阶段），所以`Mapstruct`无法对`Entity`父类的属性赋值。
+
+**可以使用`builder = @Builder(disableBuilder = true)`来关闭`mapstruct`使用`builder`解决此问题**。
+```java
+@Mapper(componentModel = "spring", builder = @Builder(disableBuilder = true))
+public interface EntityAssembler {
+
+}
+```
+
+## Mapstruct 中使用 MybatisPlus 通用枚举赋值
+
+枚举属性，实现 IEnum 接口如下：
+```java
+public enum AgeEnum implements IEnum<Integer> {
+    ONE(1, "一岁"),
+    TWO(2, "二岁"),
+    THREE(3, "三岁");
+    
+    private int value;
+    private String desc;
+    
+    @Override
+    public Integer getValue() {
+        return this.value;
+    }
+}
+```
+
+`enum` 转换成 `int`
+```java
+@Mappings({
+        @Mapping(target = "age", source = "age.value")
+})
+```
+
+
 ---
 
 **参考文档**
