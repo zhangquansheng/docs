@@ -17,6 +17,25 @@
 注解作用在方法上
 ```java
 /**
+ * 事件监听 - 方法
+ *
+ * @author :    zhangquansheng
+ * @date :    2020/4/15 16:09
+ */
+@Target({ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+@Inherited
+public @interface RocketmqListener {
+
+    String[] tags() default {};
+}
+```
+
+## 消费者工厂[ConsumerFactory](https://gitee.com/zhangquansheng/zhengcheng-parent/blob/master/zc-aliyun-spring-boot-starter/src/main/java/com/zhengcheng/aliyun/mq/factory/ConsumerFactory.java)
+
+增加 `initConsumerHandlerMethodRepository` 用于初始化`RocketmqListener`注解的方法，然后根据当前`bean`那么和方法名，动态生成对应的`class`（这里就是简化类的数量的核心逻辑）
+```java
+/**
  * 消费者工厂
  *
  * @author :    quansheng.zhang
@@ -113,44 +132,9 @@ public class ConsumerFactory implements ApplicationContextAware {
 }
 ```
 
-## 消费者工厂[ConsumerFactory](https://gitee.com/zhangquansheng/zhengcheng-parent/blob/master/zc-aliyun-spring-boot-starter/src/main/java/com/zhengcheng/aliyun/mq/factory/ConsumerFactory.java)
-
-增加
-initConsumerHandlerMethodRepository 用于初始化 RocketmqListener 注解的方法，然后根据当前bean那么和方法名，动态生成对应的class（这里就是简化类的数量的核心逻辑）
-
-```java
-/**
- * 方法 消费者处理
- *
- * @author :    zhangquansheng
- * @date :    2020/4/15 16:31
- */
-@Slf4j
-public class MethodConsumerHandler implements IConsumerHandler {
- 
-    private final Object target;
-    private final Method method;
- 
-    public MethodConsumerHandler(Object target, Method method) {
-        this.target = target;
-        this.method = method;
-    }
- 
-    @Override
-    public Action execute(String body) {
-        try {
-            return (Action) method.invoke(target, new Object[]{body});
-        } catch (Exception e) {
-            log.error("method:[{}],body:[{}],execute exception:[{}]", method, body, e.getMessage(), e);
-            return Action.ReconsumeLater;
-        }
-    }
-}
-```
-
 ## 方法 消费者处理[MethodConsumerHandler](https://gitee.com/zhangquansheng/zhengcheng-parent/blob/master/zc-aliyun-spring-boot-starter/src/main/java/com/zhengcheng/aliyun/mq/handler/impl/MethodConsumerHandler.java)
 
-方法消费者处理者，实现 IConsumerHandler ，通过反射找到对应的方法
+方法消费者处理者，实现`IConsumerHandler`，通过反射找到对应的方法
 
 ```java
 /**
@@ -183,5 +167,5 @@ public class MethodConsumerHandler implements IConsumerHandler {
 ```
 
 ::: tip 总结
-通过以上的注解，可以大量的减少类的个数，推荐使用此注解。
+通过以上的注解，可以大量的减少类的数量，推荐使用此注解。
 :::
