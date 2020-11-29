@@ -117,9 +117,27 @@ spring.cache.type = caffeine
 spring.cache.caffeine.spec = initialCapacity=10,maximumSize=200,expireAfterWrite=3s
 ```
 
+## redisson
+
+maven
+```xml
+<dependency>
+    <groupId>org.redisson</groupId>
+    <artifactId>redisson-spring-boot-starter</artifactId>
+</dependency>
+```
+
+
+
+
 ---
 
 **参考文档**
 
+- [redisson Quick start](https://github.com/redisson/redisson#quick-start)
+- [redisson Documentation](https://github.com/redisson/redisson/wiki/Table-of-Content)
+- [redisson Code examples](https://github.com/redisson/redisson-examples)
+- [redisson](https://github.com/redisson/redisson/)
+- [redisson-spring-boot-starter](https://github.com/redisson/redisson/tree/master/redisson-spring-boot-starter)
 - [RedisTemplate 官方文档](https://docs.spring.io/spring-data/data-redis/docs/current/reference/html/#redis:template)
 - [Caching 官方文档](https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-caching)
