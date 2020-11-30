@@ -119,16 +119,46 @@ spring.cache.caffeine.spec = initialCapacity=10,maximumSize=200,expireAfterWrite
 
 ## redisson
 
-maven
+Add `redisson-spring-boot-starter` dependency into your project:
 ```xml
 <dependency>
     <groupId>org.redisson</groupId>
     <artifactId>redisson-spring-boot-starter</artifactId>
 </dependency>
 ```
+Downgrade `redisson-spring-data module` if necessary to support required Spring Boot version:
 
+|redisson-spring-data<br/>module name|Spring Boot<br/>version|
+|----------------------------|-------------------|
+|redisson-spring-data-16     |1.3.x              |
+|redisson-spring-data-17     |1.4.x              |
+|redisson-spring-data-18     |1.5.x              |
+|redisson-spring-data-20     |2.0.x              |
+|redisson-spring-data-21     |2.1.x              |
+|redisson-spring-data-22     |2.2.x              |
+|redisson-spring-data-23     |2.3.x              |
 
+目前`Spring Boot version 2.1.x`对应的`redisson-spring-boot-starter`最高版本是`3.11.5`
 
+###  Reentrant Lock （可重入锁）
+
+```java
+    String lockName = StrUtil.format("zmbiz-brain-record-b-update-question-{}", question.getId());
+    // 可重入锁（Reentrant Lock）
+    RLock lock = redissonClient.getLock(lockName);
+    try {
+          // 获取锁
+          if (lock.tryLock(5, 3, TimeUnit.SECONDS)) {
+              
+                // TODO Something
+          }
+      } catch (Exception e) {
+          // 释放锁
+          if (lock.isLocked() && lock.isHeldByCurrentThread()) {
+              lock.unlock();
+          }
+      }
+```
 
 ---
 
