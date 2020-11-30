@@ -119,7 +119,7 @@ spring.cache.caffeine.spec = initialCapacity=10,maximumSize=200,expireAfterWrite
 
 ## redisson
 
-- 1. Add `redisson-spring-boot-starter` dependency into your project:
+- **1. Add `redisson-spring-boot-starter` dependency into your project:**
 ```xml
 <dependency>
     <groupId>org.redisson</groupId>
@@ -141,7 +141,7 @@ Downgrade `redisson-spring-data module` if necessary to support required Spring 
 
 目前`Spring Boot version 2.1.x`对应的`redisson-spring-boot-starter`最高版本是`3.11.5`
 
-- Add settings into application.settings file
+- **2. Add settings into application.settings file**
 
 Common spring boot settings or Redisson settings could be used.
 ```yaml
@@ -201,7 +201,7 @@ spring:
       transportMode: "NIO"
 ```
 
-- Use Redisson through spring bean with RedissonClient interface or RedisTemplate/ReactiveRedisTemplate objects
+- **3. Use Redisson through spring bean with RedissonClient interface or RedisTemplate/ReactiveRedisTemplate objects**
 
 ###  Reentrant Lock （可重入锁）
 
