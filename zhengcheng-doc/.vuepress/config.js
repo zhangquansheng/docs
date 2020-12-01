@@ -66,6 +66,7 @@ module.exports = {
                         link: 'https://spring.io/projects/spring-cloud'
                     },
                     {text: 'MyBatis-Plus', link: 'http://mybatis.plus/'},
+                    {text: 'ShardingSphere', link: 'https://shardingsphere.apache.org/document/current/cn/overview/'},
                     {text: 'MVN REPOSITORY', link: 'https://mvnrepository.com/'},
                     {text: 'Algorithms', link: 'https://www.cs.usfca.edu/~galles/visualization/Algorithms.html'},
                     {text: 'Hutool', link: 'https://www.hutool.cn/'},
@@ -200,6 +201,13 @@ module.exports = {
             //         './algorithms/dynamic-programming'
             //     ]
             // },
+            {
+                title: 'Apache ShardingSphere',
+                collapsable: false,
+                children: [
+                    './shardingsphere/'
+                ]
+            },
             {
                 title: '综合话题',
                 collapsable: false,
