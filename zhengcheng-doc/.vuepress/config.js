@@ -62,6 +62,11 @@ module.exports = {
                         link: 'https://spring.io/projects/spring-boot'
                     },
                     {
+                        text: 'Spring Boot Reference Guide',
+                        link: 'https://docs.spring.io/spring-boot/docs/2.1.9.RELEASE/reference/html/'
+                    },
+
+                    {
                         text: 'Spring Cloud',
                         link: 'https://spring.io/projects/spring-cloud'
                     },
