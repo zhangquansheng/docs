@@ -58,17 +58,12 @@ module.exports = {
                         link: 'https://docs.spring.io/spring-framework/docs/current/reference/html/index.html'
                     },
                     {
-                        text: 'Spring Boot',
-                        link: 'https://spring.io/projects/spring-boot'
+                        text: 'Spring Boot 2.1.18.RELEASE',
+                        link: 'https://docs.spring.io/spring-boot/docs/2.1.18.RELEASE/reference/html/'
                     },
                     {
-                        text: 'Spring Boot Reference Guide',
-                        link: 'https://docs.spring.io/spring-boot/docs/2.1.9.RELEASE/reference/html/'
-                    },
-
-                    {
-                        text: 'Spring Cloud',
-                        link: 'https://spring.io/projects/spring-cloud'
+                        text: 'Spring Cloud Greenwich.SR5',
+                        link: 'https://cloud.spring.io/spring-cloud-static/Greenwich.SR5/single/spring-cloud.html'
                     },
                     {text: 'MyBatis-Plus', link: 'http://mybatis.plus/'},
                     {text: 'ShardingSphere', link: 'https://shardingsphere.apache.org/document/current/cn/overview/'},
