@@ -219,16 +219,11 @@ module.exports = {
                     './digging-deeper/sign-auth',
                     './digging-deeper/mdc',
                     './digging-deeper/distributed-lock',
-                ]
-            },
-            {
-                title: '架构设计',
-                collapsable: false,
-                children: [
-                    './arch-design/mybatis-crud',
-                    './arch-design/ifelse-1',
-                    './arch-design/ifelse-2',
-                    './arch-design/http-long-polling'
+                    './digging-deeper/message-idempotent',
+                    './digging-deeper/mybatis-crud',
+                    './digging-deeper/ifelse-1',
+                    './digging-deeper/ifelse-2',
+                    './digging-deeper/http-long-polling'
                 ]
             },
             {
