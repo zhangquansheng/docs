@@ -8,9 +8,29 @@ Exactly-Once 是指发送到消息系统的消息只能被消费端处理且仅�
 
 ## 基于消息幂等表的非事务方案
 
+```java
+    //setnx, 成功就可以消费
+    Boolean execute = redisTemplate.execute((RedisCallback<Boolean>)
+            redisConnection ->
+                    redisConnection.set(dedupKey.getBytes(),
+                            (CONSUME_STATUS_CONSUMING).getBytes(),
+                            Expiration.milliseconds(dedupProcessingExpireMilliSeconds),
+                            RedisStringCommands.SetOption.SET_IF_ABSENT));
 
+    if (execute == null) {
+        return false;
+    }
+
+    return execute;
+```
+
+// 标记消费过
+```java
+redisTemplate.opsForValue().set(dedupKey, CONSUME_STATUS_CONSUMED, dedupRecordReserveMinutes, TimeUnit.MINUTES);
+```
 
 ---
 **参考文档**
 
+- [SETNX](http://redisdoc.com/string/setnx.html)
 - [RocketMQ消息幂等的通用解决方案](https://mp.weixin.qq.com/s/X25Jw-sz3XItVrXRS6IQdg)
