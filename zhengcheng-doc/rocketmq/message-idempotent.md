@@ -2,7 +2,7 @@
 
 ## Exactly Once
 
-::: tips Exactly Once的解释：
+::: tip Exactly Once的解释：
 Exactly-Once 是指发送到消息系统的消息只能被消费端处理且仅处理一次，即使生产端重试消息发送导致某消息重复投递，该消息在消费端也只被消费一次。
 :::
 
@@ -42,14 +42,13 @@ public class RocketMQMessageListener implements MessageListener {
     public Action consume(Message message, ConsumeContext context) {
         String body = new String(message.getBody());
         log.info("Receive tag:{} ,body:{} ,message: {},", message.getTag(), body, message);
-        UserGameEvent userGameEvent = JSONUtil.toBean(body, UserGameEvent.class);
-        if (Objects.isNull(userGameEvent) ||
-                CollectionUtil.isEmpty(userGameEvent.getUserGameRecordEvents())) {
+        XXEvent xxEvent = JSONUtil.toBean(body, XXEvent.class);
+        if (Objects.isNull(xxEvent)) {
             return Action.CommitMessage;
         }
 
         // 插入去重表（消费中），带过期时间的
-        String dedupKey = userGameEvent.getDataId();
+        String dedupKey = xxEvent.getDataId();
         Boolean execute = redisTemplate.execute((RedisCallback<Boolean>)
                 redisConnection ->
                         redisConnection.set(dedupKey.getBytes(),
@@ -60,7 +59,7 @@ public class RocketMQMessageListener implements MessageListener {
             // 没有消费过
             try {
                 // 业务代码（只有这块是你的业务）
-                xxService.handleUserGameEvent(userGameEvent);
+                xxService.handleEvent(xxEvent);
 
                 // 更新消息表状态为成功
                 redisTemplate.opsForValue().set(dedupKey, CONSUME_STATUS_CONSUMED, dedupRecordReserveMinutes, TimeUnit.MINUTES);
