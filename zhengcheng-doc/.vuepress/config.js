@@ -164,8 +164,8 @@ module.exports = {
                 collapsable: false,
                 children: [
                     './rocketmq/',
-                    './rocketmq/consumer'
-                    // ,'./rocketmq/idempotent'
+                    './rocketmq/consumer',
+                    './rocketmq/message-idempotent'
                 ]
             },
             {
@@ -219,7 +219,6 @@ module.exports = {
                     './digging-deeper/sign-auth',
                     './digging-deeper/mdc',
                     './digging-deeper/distributed-lock',
-                    './digging-deeper/message-idempotent',
                     './digging-deeper/mybatis-crud',
                     './digging-deeper/ifelse-1',
                     './digging-deeper/ifelse-2',
