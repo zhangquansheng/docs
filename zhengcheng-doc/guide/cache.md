@@ -1,3 +1,7 @@
+---
+sidebarDepth: 3
+---
+
 # Redis 缓存
 
 ## 安装
