@@ -223,6 +223,17 @@ spring:
       }
 ```
 
+### RAtomicLong
+
+作用：分布式下对数据中的`Long`类型进行**原子性**操作。
+
+获取自增长ID示例代码如下：
+```java
+ RAtomicLong rAtomicLong = redissonClient.getAtomicLong(CacheConstant.getVacQrCodeLessonIdIncKey());
+
+ rAtomicLong.incrementAndGet()
+```
+
 ---
 
 **参考文档**
