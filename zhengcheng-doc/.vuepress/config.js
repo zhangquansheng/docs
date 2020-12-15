@@ -126,7 +126,8 @@ module.exports = {
                 children: [
                     './spring-cloud/feign',
                     './spring-cloud/feign-dubbo',
-                    './spring-cloud/ribbon'
+                    './spring-cloud/ribbon',
+                    './spring-cloud/refresh-scope'
                 ]
             },
             {
