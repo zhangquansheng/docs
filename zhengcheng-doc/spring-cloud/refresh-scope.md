@@ -556,3 +556,7 @@ public class RefreshAutoConfiguration {
 
 }
 ```
+
+---
+**参考文档**
+- [2.9 Refresh Scope](https://cloud.spring.io/spring-cloud-static/Greenwich.SR5/single/spring-cloud.html)
