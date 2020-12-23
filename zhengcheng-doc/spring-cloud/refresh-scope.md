@@ -2,9 +2,11 @@
 
 RefreshScope(org.springframework.cloud.context.scope.refresh)是`Spring Cloud`提供的一种特殊的`scope`实现，用来实现配置、实例热加载。
 
-进行配置更改时，`@Bean`标记为的`Spring``@RefreshScope`会得到特殊处理。此功能解决了有状态`Bean`的问题，只有在初始化它们时才注入配置。
+进行配置更改时，`@Bean`标记为的`Spring` `@RefreshScope`会得到特殊处理。此功能解决了有状态`Bean`的问题，只有在初始化它们时才注入配置。
 
 ## 实现原理
+
+**动态代理（CGLIB代理）** 
 
 ### RefreshScope 注解源码
 ```java
