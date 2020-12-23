@@ -224,8 +224,8 @@ module.exports = {
                     './digging-deeper/mybatis-crud',
                     './digging-deeper/ifelse-1',
                     './digging-deeper/ifelse-2',
-                    './digging-deeper/http-long-polling',
-                    './digging-deeper/interview'
+                    './digging-deeper/http-long-polling'
+                    // './digging-deeper/interview'
                 ]
             },
             {

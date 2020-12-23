@@ -42,8 +42,6 @@ public @interface RefreshScope {
 }
 ```
 
-`@RefreshScope` 是`scopeName="refresh"`的`@Scope`. 从注解的说明来看，`@RefreshScope`的`Bean`都是延迟加载的，只有在第一次访问时才会初始化。
-
 ### RefreshScope
 ```java
 package org.springframework.cloud.context.scope.refresh;
