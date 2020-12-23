@@ -88,6 +88,26 @@ public class ZuulPropertiesRefresher implements ApplicationContextAware {
     }
 ```
 
+`DiscoveryClientRouteLocator` 中使用`ZuulProperties`如下（不能使用`@Resource`或`@Autowired`注解方式引用）
+```java
+// ...
+	public DiscoveryClientRouteLocator(String servletPath, DiscoveryClient discovery,
+			ZuulProperties properties, ServiceInstance localServiceInstance) {
+		super(servletPath, properties);
+
+		if (properties.isIgnoreLocalService() && localServiceInstance != null) {
+			String localServiceId = localServiceInstance.getServiceId();
+			if (!properties.getIgnoredServices().contains(localServiceId)) {
+				properties.getIgnoredServices().add(localServiceId);
+			}
+		}
+		this.serviceRouteMapper = new SimpleServiceRouteMapper();
+		this.discovery = discovery;
+		this.properties = properties;
+	}
+// ...
+```
+
 ## 网关配置
 
 ```properties

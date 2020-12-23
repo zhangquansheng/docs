@@ -560,6 +560,25 @@ public interface Scope {
 }
 ```
 
+## 使用注意
+
+当给`Properties`类添加`@RefreshScope`注解的目的是声明动态配置`Bean`的`scope`为`refresh`，以及声明`Bean`的代理模式（`ScopedProxyMode`）。
+
+代理模式`ScopedProxyMode`的可取值为：
+- `NO`：不创建代理类；
+- `DEFAULT`：其作用通常等于`NO`；
+- `INTERFACES`：创建一个`JDK`动态代理类来实现目标对象的类的所有接口；
+- `TARGET_CLASS`：使用`Cglib`为目标对象的类创建一个代理类，这是`@RefreshScope`使用的默认值；
+
+其中`INTERFACES`代理模式不适用于动态配置`Bean`，因为`Properties`类没有实现任何接口，如果强行给`@RefreshScope`注解配置代理模式使用`INTERFACES`，`Spring`将会抛出异常。
+
+当我们配置`@RefreshScope`的`proxyMode`属性使用**默认**的`TARGET_CLASS`代理模式时，可能会遇到获取该`Bean`的属性为`NULL`的情况，
+这是因为其它`Bean`中使用了`@Resource`或`@Autowired`注解方式引用的对象是动态代理对象，因为使用`Cglib`生成的动态代理类的实例。所以我们只能通过`get`方法去获取对象的字段的值。
+
+当配置改变时，`Spring Cloud`的实现是**将动态配置`Bean`销毁再创建新的`Bean`**，由于是在单例的`Bean`中使用`@Resource`或`@Autowired`注解方式引用该**对象**，单例`Bean`在初始化时就已经为字段赋值，
+在单例`Bean`的生命周期内都不会再刷新`bean`字段的引用，所以单例`Bean`就会一直引用一个旧的动态配置`bean`，自然就无法感知配置改变了。
+
+
 ---
 **参考文档**
 - [2.9 Refresh Scope](https://cloud.spring.io/spring-cloud-static/Greenwich.SR5/single/spring-cloud.html)
