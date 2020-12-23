@@ -562,3 +562,4 @@ public class RefreshAutoConfiguration {
 ---
 **参考文档**
 - [2.9 Refresh Scope](https://cloud.spring.io/spring-cloud-static/Greenwich.SR5/single/spring-cloud.html)
+- [Spring Cloud动态配置实现原理与源码分析](https://juejin.cn/post/6845166890461954062)
