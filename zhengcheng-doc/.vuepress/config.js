@@ -149,7 +149,9 @@ module.exports = {
                     './redis/',
                     './redis/data-types',
                     './redis/reactor',
-                    './redis/big-key'
+                    './redis/big-key',
+                    './redis/three-problems-of-cache',
+                    './redis/cache-database-double-write-consistency'
                 ]
             },
             {
