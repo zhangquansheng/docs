@@ -1,14 +1,20 @@
-# 消息幂等的通用解决方案
+---
+sidebarDepth: 3
+---
 
-## Exactly Once
+# 基于消息幂等表的非事务方案 
+
+基于消息幂等表的非事务方案是消息幂等的通用解决方案之一，首先看下`Exactly Once`的定义。
 
 ::: tip Exactly Once的解释：
 Exactly-Once 是指发送到消息系统的消息只能被消费端处理且仅处理一次，即使生产端重试消息发送导致某消息重复投递，该消息在消费端也只被消费一次。
 :::
 
-## 基于消息幂等表的非事务方案
+## 流程图
 
-### 流水式代码如下：
+![基于消息幂等表的非事务方案](/img/rocketmq/message-idempotent.webp)
+
+## 实现方式一：流水式编码
 ```java
 /**
  * RocketMQ 消息消费
@@ -92,9 +98,9 @@ public class RocketMQMessageListener implements MessageListener {
 }
 ```
 
-### AOP 
+## 实现方式一：基本 AOP 自定义注解实现
 
-#### 自定义 RocketMQ 消息去重 注解
+### 自定义 RocketMQ 消息去重 注解
 ```java
 /**
  * RocketMQ 消息去重
@@ -106,7 +112,7 @@ public @interface RocketMQDedup {
 }
 ```
 
-#### 定义切面
+### 定义切面
 ```java
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
@@ -243,7 +249,7 @@ public class RocketMQDedupAspect {
 }
 ```
 
-#### ConsumeStatusEnum
+### ConsumeStatusEnum
 ```java
 import lombok.Getter;
 
@@ -276,7 +282,7 @@ public enum ConsumeStatusEnum {
 }
 ```
 
-#### RocketMQDedupProperties
+### RocketMQDedupProperties
 ```java
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
