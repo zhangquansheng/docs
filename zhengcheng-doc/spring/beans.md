@@ -303,6 +303,50 @@ public interface DisposableBean {
 
 我们建议您不要使用`DisposableBean`回调接口，因为它不必要地将代码与`Spring`耦合。建议使用`@PreDestroy注释`或者在`bean`上使用`destroy method`属性
 
+## 应用一：Spring 项目启动时，如何打印每个 Bean 加载时间
+
+实现`BeanPostProcessor`接口，通过`Map`记录`postProcessBeforeInitialization`的加载时间，然后在`postProcessAfterInitialization`处理打印出`Bean`加载时间。
+```java
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.stereotype.Component;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * LoggerBeanLoadCostPostProcessor
+ *
+ * @author quansheng1.zhang
+ * @since 2020/12/26 17:22
+ */
+@Slf4j
+@Component
+public class LoggerBeanLoadCostPostProcessor implements BeanPostProcessor {
+
+    private static Map<String, Long> cost = new HashMap<>(10000);
+
+    @Override
+    public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+        log.info("first load-spring-bean-cost-info, bean init beanName:{}, begin time : {}", beanName, System.currentTimeMillis());
+        cost.put(beanName, System.currentTimeMillis());
+        return bean;
+    }
+
+    @Override
+    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+        if (cost.get(beanName) == null) {
+            log.warn("first load-spring-bean-cost-info, cost.get(beanName : {} ) is null", beanName);
+        } else {
+            log.info("first load-spring-bean-cost-info, bean after beanName:{}, beanType :{}  before: {}, cost : {}ms", beanName, bean.getClass().getName(), cost.get(beanName), (System.currentTimeMillis() - cost.get(beanName)));
+        }
+        return bean;
+    }
+}
+```
+
+
 ## FactoryBean
 
 一般情况下，`Spring`通过**反射机制**利用`bean`的`class`属性指定实现类实例化`Bean`，在某些情况下，实例化`Bean`过程比较复杂，如果按照传统的方式，则需要在`bean`中提供大量的配置信息。配置方式的灵活性是受限的，这时采用编码的方式可能会得到一个简单的方案。
