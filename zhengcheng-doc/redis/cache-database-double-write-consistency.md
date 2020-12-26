@@ -2,6 +2,8 @@
 
 ## Cache Aside Pattern(旁路模式)
 
+![cache-aside-diagram](/img/redis/cache-aside-diagram.png)
+
 ---
 
 **参考文档**
