@@ -98,7 +98,7 @@ public class RocketMQMessageListener implements MessageListener {
 }
 ```
 
-## 实现方式一：基本 AOP 自定义注解实现
+## 实现方式二：基本 AOP 自定义注解实现
 
 ### 自定义 RocketMQ 消息去重 注解
 ```java
