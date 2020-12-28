@@ -160,7 +160,8 @@ module.exports = {
                 children: [
                     './kafka/',
                     './kafka/spring-kafka',
-                    './kafka/multiple-kafka-config'
+                    './kafka/multiple-kafka-config',
+                    './kafka/message-sequencing'
                 ]
             },
             {
