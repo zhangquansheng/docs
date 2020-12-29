@@ -139,7 +139,8 @@ module.exports = {
                     './mysql/b-plus-index',
                     './mysql/locking',
                     './mysql/transaction',
-                    './mysql/sql-standard'
+                    './mysql/sql-standard',
+                    './mysql/innodb_trx'
                 ]
             },
             {
