@@ -198,6 +198,13 @@ module.exports = {
                 ]
             },
             {
+                title: 'Netty',
+                collapsable: false,
+                children: [
+                    './netty/'
+                ]
+            },
+            {
                 title: 'Apache ShardingSphere',
                 collapsable: false,
                 children: [
