@@ -125,9 +125,7 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 - 当要销毁Bean的时候，如果Bean实现了`DisposableBean`接口，执行`destroy()`方法。
 - 当要销毁Bean的时候，如果Bean定义包含`destroy-method`属性，执行指定的方法。
 
-### 示例代码
-
-#### 1. 定义类并实现*.Aware接口、InitializingBean接口
+### 定义类并实现 *.Aware 接口、InitializingBean 接口
 
 ```java
 /**
@@ -201,7 +199,7 @@ public class SmsBean implements BeanNameAware, BeanClassLoaderAware, BeanFactory
 }
 ```
 
-#### 2. 创建一个Bean的实例，使用构造器实例化。
+### 创建一个 Bean 的实例，使用构造器实例化。
 
 ```java
 /**
@@ -223,7 +221,7 @@ public class BeanConfig {
 }
 ```
 
-#### 3. BeanPostProcessor
+### BeanPostProcessor
 
 ::: tip 作用
 `BeanPostProcessor`（后置处理器）是`Spring IOC`容器提供的一个扩展接口，通过`BeanPostProcessor`对`Spring`管理的`bean`进行再加工，比如可以修改`bean`的属性等。
@@ -253,7 +251,7 @@ public class MyBeanPostProcessor implements BeanPostProcessor {
 }
 ```
 
-#### 控制台打印如下：
+**控制台打印如下：**
 ```
 SmsBean.java:25 - 【构造器】调用SmsBean的构造器实例化
 SmsBean.java:33 - 【注入属性】注入属性content=007
@@ -267,12 +265,12 @@ SmsBean.java:66 - 【init-method】调用<bean>的init-method属性指定的初�
 MyBeanPostProcessor.java:31 - 调用postProcessAfterInitialization() 再次获得sms加工机会
 ```
 
-### InitializingBean和DisposableBean接口
+### InitializingBean 和 DisposableBean 接口
 
 `bean`实现`InitializingBean`和`DisposableBean`接口是为了让**Spring容器**对`bean`的生命周期进行管理，**Spring容器**可以在`afterPropertiesSet()`和`destroy()`方法中执行某些操作。
 
 ::: tip 特别提示	
-在`JSR-250`中， `@PostConstruct`和`@PreDestroy`注释被认为是`Spring`应用程序中接收生命周期回调的最佳实践。使用这些注释意味着`bean`不耦合到`Spring`特定的接口。有关详细信息，请参见[使用@PostConstruct和@PreDestroy](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/core.html#beans-postconstruct-and-predestroy-annotations)。
+在`JSR-250`中， `@PostConstruct`和`@PreDestroy`注释被认为是`Spring`应用程序中接收生命周期回调的最佳实践。使用这些注释意味着`bean`不耦合到`Spring`特定的接口。有关详细信息，请参见[使用 @PostConstruct 和 @PreDestroy](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/core.html#beans-postconstruct-and-predestroy-annotations)。
 
 如果你不希望使用`JSR-250`注解，并且希望`bean`不耦合到`Spring`特定的接口中，考虑使用`init-method`和`destroy-method`。
 :::
@@ -302,50 +300,6 @@ public interface DisposableBean {
 ```
 
 我们建议您不要使用`DisposableBean`回调接口，因为它不必要地将代码与`Spring`耦合。建议使用`@PreDestroy注释`或者在`bean`上使用`destroy method`属性
-
-## 应用一：Spring 项目启动时，如何打印每个 Bean 加载时间
-
-实现`BeanPostProcessor`接口，通过`Map`记录`postProcessBeforeInitialization`的加载时间，然后在`postProcessAfterInitialization`处理打印出`Bean`加载时间。
-```java
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.stereotype.Component;
-
-import java.util.HashMap;
-import java.util.Map;
-
-/**
- * LoggerBeanLoadCostPostProcessor
- *
- * @author quansheng1.zhang
- * @since 2020/12/26 17:22
- */
-@Slf4j
-@Component
-public class LoggerBeanLoadCostPostProcessor implements BeanPostProcessor {
-
-    private static Map<String, Long> cost = new HashMap<>(10000);
-
-    @Override
-    public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-        log.info("first load-spring-bean-cost-info, bean init beanName:{}, begin time : {}", beanName, System.currentTimeMillis());
-        cost.put(beanName, System.currentTimeMillis());
-        return bean;
-    }
-
-    @Override
-    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        if (cost.get(beanName) == null) {
-            log.warn("first load-spring-bean-cost-info, cost.get(beanName : {} ) is null", beanName);
-        } else {
-            log.info("first load-spring-bean-cost-info, bean after beanName:{}, beanType :{}  before: {}, cost : {}ms", beanName, bean.getClass().getName(), cost.get(beanName), (System.currentTimeMillis() - cost.get(beanName)));
-        }
-        return bean;
-    }
-}
-```
-
 
 ## FactoryBean
 

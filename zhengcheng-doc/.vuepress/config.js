@@ -105,6 +105,7 @@ module.exports = {
                     './spring/',
                     './spring/dependency-injection',
                     './spring/beans',
+                    './spring/circular-dependencies',
                     './spring/beans-autowired-annotation',
                     './spring/beans-resource-annotation',
                     './spring/beans-value-annotations',
