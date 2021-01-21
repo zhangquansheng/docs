@@ -221,10 +221,10 @@ public class BeanConfig {
 }
 ```
 
-### BeanPostProcessor
+### BeanPostProcessor（Bean 后置处理器）
 
 ::: tip 作用
-`BeanPostProcessor`（后置处理器）是`Spring IOC`容器提供的一个扩展接口，通过`BeanPostProcessor`对`Spring`管理的`bean`进行再加工，比如可以修改`bean`的属性等。
+`BeanPostProcessor`是`Spring IOC`容器提供的一个扩展接口，通过`BeanPostProcessor`对`Spring`管理的`bean`进行再加工，比如可以修改`bean`的属性等。
 :::
 
 ```java

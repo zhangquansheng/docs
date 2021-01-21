@@ -28,6 +28,21 @@ protected void beforeSingletonCreation(String beanName) {
 那`Spring`是如何解决的？其实很简单，在`Spring`获取单例中有一个**三级缓存**，代码如下：
 ```java
 // org.springframework.beans.factory.support.DefaultSingletonBeanRegistry
+
+/** 一级缓存，保存singletonBean实例: bean name --> bean instance */
+/** Cache of singleton objects: bean name to bean instance. */
+private final Map<String, Object> singletonObjects = new ConcurrentHashMap<>(256);
+
+/** 三级缓存，保存singletonBean生产工厂: bean name --> ObjectFactory */
+/** Cache of singleton factories: bean name to ObjectFactory. */
+private final Map<String, ObjectFactory<?>> singletonFactories = new HashMap<>(16);
+
+/** 二级缓存，保存早期未完全创建的Singleton实例: bean name --> bean instance */
+/** Cache of early singleton objects: bean name to bean instance. */
+private final Map<String, Object> earlySingletonObjects = new ConcurrentHashMap<>(16);
+
+// ...
+
 /**
  * Return the (raw) singleton object registered under the given name.
  * <p>Checks already instantiated singletons and also allows for an early
