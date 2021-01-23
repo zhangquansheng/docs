@@ -78,7 +78,7 @@ protected Object getSingleton(String beanName, boolean allowEarlyReference) {
 ```
 `Spring`解决`setter`循环依赖的关键点就是在这里，主要是`singletonFactories`这个`HashMap`中。
 
-首先，我们知道在`Spring`中，所有**单例的**`bean`初始化完成后就会存放在一个`ConcurrentHashMap`（`singletonObjects`）中，`beanName`为`key`，单例`bean`为`value`。
+首先，我们知道在`Spring`中，所有**单例的**`bean`初始化完成后都会存放在一个`ConcurrentHashMap`（`singletonObjects`，一级缓存）中，`beanName`为`key`，单例`bean`为`value`。
 
 
 ### 为啥是三级缓存，二级不行是否可以
