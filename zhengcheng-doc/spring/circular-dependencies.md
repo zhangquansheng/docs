@@ -101,4 +101,5 @@ Unlike the typical case (with no circular dependencies), a circular dependency b
 ---
 ## 参考文档
 
+- [Spring 循环依赖及三级缓存 CSDN](https://blog.csdn.net/u012098021/article/details/107352463)
 - [Dependency Resolution Process](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-dependency-resolution)
