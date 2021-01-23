@@ -21,6 +21,21 @@ protected void beforeSingletonCreation(String beanName) {
 }
 ```
 
+**因为无法创建出这么一个不完整的`bean`在一个构造函数依赖的关系中**，所以`Spring`不能解决构造器循环依赖。
+
+官方文档说明如下：
+
+::: tip Circular dependencies
+If you use predominantly constructor injection, it is possible to create an unresolvable circular dependency scenario.
+
+For example: Class A requires an instance of class B through constructor injection, and class B requires an instance of class A through constructor injection. If you configure beans for classes A and B to be injected into each other, the Spring IoC container detects this circular reference at runtime, and throws a BeanCurrentlyInCreationException.
+
+One possible solution is to edit the source code of some classes to be configured by setters rather than constructors. Alternatively, avoid constructor injection and use setter injection only. In other words, although it is not recommended, you can configure circular dependencies with setter injection.
+
+Unlike the typical case (with no circular dependencies), a circular dependency between bean A and bean B forces one of the beans to be injected into the other prior to being fully initialized itself (a classic chicken-and-egg scenario).
+:::
+
+
 ## setter 循环依赖
 
 那`Spring`是如何解决的？其实很简单，在`Spring`获取单例中有一个**三级缓存**，代码如下：
@@ -82,21 +97,6 @@ protected Object getSingleton(String beanName, boolean allowEarlyReference) {
 
 
 ### 为啥是三级缓存，二级不行是否可以
-
-
-## Spring 不能解决构造器循环依赖
-
-::: tip Circular dependencies
-If you use predominantly constructor injection, it is possible to create an unresolvable circular dependency scenario.
-
-For example: Class A requires an instance of class B through constructor injection, and class B requires an instance of class A through constructor injection. If you configure beans for classes A and B to be injected into each other, the Spring IoC container detects this circular reference at runtime, and throws a BeanCurrentlyInCreationException.
-
-One possible solution is to edit the source code of some classes to be configured by setters rather than constructors. Alternatively, avoid constructor injection and use setter injection only. In other words, although it is not recommended, you can configure circular dependencies with setter injection.
-
-Unlike the typical case (with no circular dependencies), a circular dependency between bean A and bean B forces one of the beans to be injected into the other prior to being fully initialized itself (a classic chicken-and-egg scenario).
-:::
-
-总结：**因为无法创建出这么一个不完整的`bean`在一个构造函数依赖的关系中**。
 
 ---
 ## 参考文档
