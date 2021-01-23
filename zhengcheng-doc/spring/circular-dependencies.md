@@ -23,8 +23,6 @@ protected void beforeSingletonCreation(String beanName) {
 
 ## setter 循环依赖
 
-主要是通过`Spring`容器提前暴露刚完成构造器注入但未完成其他步骤的`bean`来完成的。而且只能解决`singleton`类型的循环依赖、对于`prototype`类型的是不支持的，因为`Spring`没有缓存这种类型的`bean`。
-
 那`Spring`是如何解决的？其实很简单，在`Spring`获取单例中有一个**三级缓存**，代码如下：
 ```java
 // org.springframework.beans.factory.support.DefaultSingletonBeanRegistry
@@ -80,10 +78,11 @@ protected Object getSingleton(String beanName, boolean allowEarlyReference) {
 ```
 `Spring`解决`setter`循环依赖的关键点就是在这里，主要是`singletonFactories`这个`HashMap`中。
 
+首先，我们知道在`Spring`中，所有**单例的**`bean`初始化完成后就会存放在一个`ConcurrentHashMap`（`singletonObjects`）中，`beanName`为`key`，单例`bean`为`value`。
+
 
 ### 为啥是三级缓存，二级不行是否可以
 
-当存在循环依赖的时候，用户无法对其进行一些操作。
 
 ## Spring 不能解决构造器循环依赖
 
