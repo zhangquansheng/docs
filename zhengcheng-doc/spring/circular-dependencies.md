@@ -97,14 +97,17 @@ protected Object getSingleton(String beanName, boolean allowEarlyReference) {
 3. 如果获取不到并且允许`singletonFactories`（`allowEarlyReference=true`）通过`getObject()`获取，那么就从三级缓存`singletonFactory.getObject()`获取； 如果获取到了就从`singletonFactories`中移除，并且放进`earlySingletonObjects`；
    > 加入`singletonFactories`三级缓存的前提是执行了构造器，所以构造器的循环依赖没法解决。
 
-总结：
-1. `Spring`解决`setter`循环依赖的关键点就是在这里，主要是`singletonFactories`这个`HashMap`中。
 
-### 为啥是三级缓存，二级不行是否可以
+那么当`A`、`B`类的互相依赖注入时，初始化流程图（**借用大佬的图，学习使用，如有侵权，请联系作者删除**）如下：
+![循环依赖初始化流程图](/img/spring/circular-dependencies-a-b.png)
+
+
+
+### 为啥是三级缓存，二级缓存是否可以
 
 ---
 ## 参考文档
 
-- [cnblogs 一文告诉你Spring是如何利用"三级缓存"巧妙解决Bean的循环依赖问题的【享学Spring】](https://www.cnblogs.com/like5635/articles/13597943.html)
-- [Spring 循环依赖及三级缓存 CSDN](https://blog.csdn.net/u012098021/article/details/107352463)
+- [博客园 一文告诉你Spring是如何利用"三级缓存"巧妙解决Bean的循环依赖问题的【享学Spring】](https://www.cnblogs.com/like5635/articles/13597943.html)
+- [CSDN Spring 循环依赖及三级缓存](https://blog.csdn.net/u012098021/article/details/107352463)
 - [Dependency Resolution Process](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-dependency-resolution)
