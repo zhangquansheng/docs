@@ -131,6 +131,7 @@ public class HelloServiceImpl implements HelloService {
 ```
 此`Service`类使用到了事务，所以最终会生成一个**JDK动态代理对象**。刚好它又存在自己引用自己的循环依赖。那么这个Bean的创建概要描述如下：
 
+查看`AbstractAutowireCapableBeanFactory.createBean`的源码。
 
 ---
 ## 参考文档
