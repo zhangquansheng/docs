@@ -91,7 +91,7 @@ protected Object getSingleton(String beanName, boolean allowEarlyReference) {
     return singletonObject;
 }
 ```
-**步骤分析**：
+**获取单例`Bean`步骤分析**：
 1. 先从一级缓存`singletonObjects`中去获取，如果获取到就直接`return`（我们知道在`Spring`中，所有**单例的**`bean`初始化完成后都会存放在一个`ConcurrentHashMap`（`singletonObjects`，一级缓存）中，`beanName`为`key`，单例`bean`为`value`）；
 2. 如果获取不到或者对象正在创建中（`isSingletonCurrentlyInCreation()`），那就再从二级缓存`earlySingletonObjects`中获取，如果获取到就直接`return`；
 3. 如果获取不到并且允许`singletonFactories`（`allowEarlyReference=true`）通过`getObject()`获取，那么就从三级缓存`singletonFactory.getObject()`获取； 如果获取到了就从`singletonFactories`中移除，并且放进`earlySingletonObjects`；
@@ -100,7 +100,15 @@ protected Object getSingleton(String beanName, boolean allowEarlyReference) {
 
 那么当`A`、`B`类的互相依赖注入时，初始化流程图（**借用大佬的图，学习使用，如有侵权，请联系作者删除**）如下：
 ![循环依赖初始化流程图](/img/spring/circular-dependencies-a-b.png)
-
+整个流程步骤总结如下：
+1. 实例化**单例`beanA`**，并将它的创建工厂放入三级缓存(`singletonFactories`)；
+2. 填充`beanA`时，发现依赖`beanB`，那么此时需要去容器内获取单例`beanB`；
+3. 当在容器内没有获取到`beanB`，则开始创建**单例`beanB`**；
+4. 同操作**1**，实例化**单例`beanB`**，并将它的创建工厂放入三级缓存(`singletonFactories`)；
+5. 同操作**2**，填充`beanB`时，发现依赖`beanA`，那么此时需要去容器内获取单例`beanA`；
+6. 因为在三级缓存中存在`beanA`，那么就从三级缓存`singletonFactory.getObject()`获取`beanA`，获取成功以后，就从`singletonFactories`中移除，并且放进二级缓存`earlySingletonObjects`中；
+7. `beanB`获取到了一个不完整的`beanA`，已经成功持有`beanA`的引用，所以`beanB`初始化成功，则把`beanB`放入到`singletonObjects`一级缓存中；
+8. 继续初始化`beanA`，依赖的`beanB`存在于一级缓存，直接可以获取到，所以`beanA`也可以初始化成功。
 
 
 ### 为啥是三级缓存，二级缓存是否可以
