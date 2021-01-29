@@ -119,7 +119,8 @@ module.exports = {
                 children: [
                     './spring-boot/',
                     './spring-boot/configuration-properties',
-                    './spring-boot/redis-pubsub'
+                    './spring-boot/redis-pubsub',
+                    './spring-boot/spring-boot-starter'
                 ]
             },
             {
@@ -191,8 +192,8 @@ module.exports = {
                 children: [
                     './concurrent/j.U.C',
                     './concurrent/blocking-queue',
-                    './concurrent/count-down-latch'
-                    //         './concurrent/synchronized',
+                    './concurrent/count-down-latch',
+                    './concurrent/synchronized'
                     //         './concurrent/volatile',
                     //         './concurrent/cas',
                     //         './concurrent/thread-local'
@@ -237,7 +238,8 @@ module.exports = {
                     './digging-deeper/mybatis-crud',
                     './digging-deeper/ifelse-1',
                     './digging-deeper/ifelse-2',
-                    './digging-deeper/http-long-polling'
+                    './digging-deeper/http-long-polling',
+                    './digging-deeper/meituan-leaf'
                     // './digging-deeper/interview'
                 ]
             },
