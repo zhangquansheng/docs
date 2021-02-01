@@ -11,6 +11,14 @@ select @@version;
 
 关键词: `B+树` `Innodb`
 
+
+## schema
+
+> In MySQL, physically, a schema is synonymous with a database. You can
+substitute the keyword SCHEMA instead of DATABASE in MySQL SQL syntax,
+for example using CREATE SCHEMA instead of CREATE DATABASE.
+
+
 ---
 
 **参考文档**
