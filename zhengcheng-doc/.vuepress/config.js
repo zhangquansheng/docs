@@ -210,7 +210,8 @@ module.exports = {
                 title: 'Apache ShardingSphere',
                 collapsable: false,
                 children: [
-                    './shardingsphere/'
+                    './shardingsphere/',
+                    './shardingsphere/getting-started'
                     // './shardingsphere/concept'
                 ]
             },
