@@ -4,6 +4,7 @@ module.exports = {
     base: "/",
     dest: 'zhengcheng-doc/.vuepress/docs',
     markdown: {
+        lineNumbers: true,
         externalLinks: {
             target: '_blank', rel: 'noopener noreferrer'
         }
