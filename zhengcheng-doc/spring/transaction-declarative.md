@@ -6,9 +6,7 @@ sidebarDepth: 3
 
 [Data Access 官方文档](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/data-access.html)  Transactions, DAO Support, JDBC, O/R Mapping, XML Marshalling.
 
-
 [[toc]]
-
 
 在`Spring`中使用事务非常简单，首先使用注解`@EnableTransactionManagement`开启事务支持后，然后添加注解`@Transactional`便可。为了提供更深入的理解，本文介绍了在与事务相关的问题的上下文中，`Spring`框架的声明式事务基础结构的内部工作方式。
 
