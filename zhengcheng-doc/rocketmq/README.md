@@ -88,7 +88,10 @@ RocketMQ 消息存储使用磁盘文件（**内存映射机制**），在物理�
 消息重试，指消息在消费时，如果发送异常，消息中间件支持消息重新投递，RocketMQ支持消息重试机制.
 
 ---
+
 **参考文档**
+
+- [Apache RocketMQ 官方文档](http://rocketmq.apache.org/docs/quick-start/)
 - [RocketMQ 源码](https://github.com/apache/rocketmq)
 - [阿里云消息队列（Message Queue）使用示例](https://code.aliyun.com/aliware_rocketmq/rocketmq-demo/tree/master)
 - 《RocketMQ 技术内幕: RocketMQ 架构设计与实现原理 丁威 周继峰》
