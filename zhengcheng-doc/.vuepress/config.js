@@ -175,7 +175,8 @@ module.exports = {
                 children: [
                     './rocketmq/',
                     './rocketmq/consumer',
-                    './rocketmq/message-idempotent'
+                    './rocketmq/message-idempotent',
+                    './rocketmq/java-springboot'
                 ]
             },
             {
