@@ -160,6 +160,13 @@ module.exports = {
                 ]
             },
             {
+                title: 'Elastcisearch',
+                collapsable: false,
+                children: [
+                    './es/'
+                ]
+            },
+            {
                 title: 'Kafka',
                 collapsable: false,
                 children: [
