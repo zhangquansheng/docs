@@ -7,4 +7,5 @@
 
 **参考文档**
 - [中文官方文档](https://mybatis.org/mybatis-3/zh/index.html)
+- [Mybatis 最新源码下载地址](https://github.com/mybatis/mybatis-3/releases)
 - [MybatisPlus](https://mp.baomidou.com/)
