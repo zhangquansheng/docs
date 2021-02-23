@@ -216,6 +216,13 @@ module.exports = {
                 ]
             },
             {
+                title: 'MyBatis',
+                collapsable: false,
+                children: [
+                    './MyBatis/'
+                ]
+            },
+            {
                 title: 'Apache ShardingSphere',
                 collapsable: false,
                 children: [

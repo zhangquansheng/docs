@@ -2,7 +2,7 @@
 sidebarDepth: 3
 ---
 
-# Mybatis3通过provider注解结合动态sql实现CRUD
+# Mybatis3 通过 provider 注解结合动态 sql 实现 CRUD
 
 ::: tip 特别提示
 实际项目中推荐使用[Mybatis-Plus](/guide/db.md),此篇文章重点在于它的架构思路，并且它的实现方式也借鉴了Mybatis-Plus。
