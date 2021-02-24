@@ -219,7 +219,8 @@ module.exports = {
                 title: 'MyBatis',
                 collapsable: false,
                 children: [
-                    './MyBatis/'
+                    './MyBatis/',
+                    './MyBatis/core-concepts'
                 ]
             },
             {

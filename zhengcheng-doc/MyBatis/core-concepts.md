@@ -57,3 +57,64 @@ SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(confi
 ```
 
 注意该例中，configuration 添加了一个映射器类（mapper class）。映射器类是 Java 类，它们包含 SQL 映射注解从而避免依赖 XML 文件。不过，由于 Java 注解的一些限制以及某些 MyBatis 映射的复杂性，要使用大多数高级映射（比如：嵌套联合映射），仍然需要使用 XML 配置。有鉴于此，如果存在一个同名 XML 配置文件，MyBatis 会自动查找并加载它（在这个例子中，基于类路径和 BlogMapper.class 的类名，会加载 BlogMapper.xml）。
+
+## SqlSessionFactory
+
+是用于生产 SqlSession 的工厂。
+
+既然有了 SqlSessionFactory，顾名思义，我们可以从中获得 SqlSession 的实例。SqlSession 提供了在数据库执行 SQL 命令所需的所有方法。你可以通过 SqlSession 实例来直接执行已映射的 SQL 语句。例如：
+```java
+try (SqlSession session = sqlSessionFactory.openSession()) {
+  Blog blog = (Blog) session.selectOne("org.mybatis.example.BlogMapper.selectBlog", 101);
+}
+```
+诚然，这种方式能够正常工作，对使用旧版本 MyBatis 的用户来说也比较熟悉。但现在有了一种更简洁的方式——使用和指定语句的参数和返回值相匹配的接口（比如 BlogMapper.class），现在你的代码不仅更清晰，更加类型安全，还不用担心可能出错的字符串字面值以及强制类型转换。
+
+例如：
+```java
+try (SqlSession session = sqlSessionFactory.openSession()) {
+  BlogMapper mapper = session.getMapper(BlogMapper.class);
+  Blog blog = mapper.selectBlog(101);
+}
+```
+
+## SqlSession
+
+使用`MyBatis`的主要`Java`接口，包含了执行`SQL`的所有的方法，通过这个接口，您可以执行命令、获取映射程序和管理事务。
+
+每个线程都应该有它自己的`SqlSession`实例。`SqlSession`的实例**不是线程安全的**，因此是不能被共享的，所以它的最佳的作用域是请求或方法作用域。 绝对不能将 SqlSession 实例的引用放在一个类的静态域，甚至一个类的实例变量也不行。 
+也绝不能将 SqlSession 实例的引用放在任何类型的托管作用域中，比如 Servlet 框架中的 HttpSession。 如果你现在正在使用一种 Web 框架，考虑将 SqlSession 放在一个和 HTTP 请求相似的作用域中。 
+换句话说，每次收到 HTTP 请求，就可以打开一个 SqlSession，返回一个响应后，就关闭它。 这个关闭操作很重要，为了确保每次都能执行关闭操作，你应该把这个关闭操作放到 finally 块中。 下面的示例就是一个确保 SqlSession 关闭的标准模式：
+
+```java
+try (SqlSession session = sqlSessionFactory.openSession()) {
+  // 你的应用逻辑代码
+}
+```
+在所有代码中都遵循这种使用模式，可以保证所有数据库资源都能被正确地关闭。
+
+## Mapper 接口
+
+`Mapper`顾名思义，是用做`Java`与`SQL`之间的映射的。包括了`Java`映射为`SQL`语句，以及`SQL`返回结果映射为`Java`。
+
+映射器接口的实例是从 SqlSession 中获得的。虽然从技术层面上来讲，任何映射器实例的最大作用域与请求它们的`SqlSession`相同。
+但方法作用域才是映射器实例的最合适的作用域。 也就是说，映射器实例应该在调用它们的方法中被获取，使用完毕之后即可丢弃。 
+映射器实例并不需要被显式地关闭。尽管在整个请求作用域保留映射器实例不会有什么问题，但是你很快会发现，在这个作用域上管理太多像`SqlSession`的资源会让你忙不过来。
+因此，最好将映射器放在方法作用域内。就像下面的例子一样：
+```java
+try (SqlSession session = sqlSessionFactory.openSession()) {
+ BlogMapper mapper = session.getMapper(BlogMapper.class);
+ // 你的应用逻辑代码
+}
+```
+
+::: tip 通常一个 Xml 映射文件，都会写一个 Mapper 接口与之对应，请问，这个 Mapper 接口的工作原理是什么？ Mapper 接口里的方法，参数不同时，方法能重载吗？
+`Mapper`接口的全限名就是映射文件中的`namespace`的值，接口的方法名就是映射文件中`MappedStatement`的`id`值，接口方法内的参数就是传递给`sql`的参数。
+
+`Mapper`接口是没有实现类的，当调用接口方法时，接口**全限名+方法名**拼接字符串作为`key`值，可唯一定位一个`MappedStatement`，所以`Mapper`接口里的方法，是**不能重载的**。在`MyBatis`中，每一个`<select>`、`<insert>`、`<update>`、`<delete>`标签，都会被解析为一个`MappedStatement`对象。
+
+`Mapper`接口的工作原理是`JDK`动态代理，`MyBatis`运行时会使用`JDK`动态代理为`Mapper`接口生成代理`proxy`对象，代理对象`proxy`会拦截接口方法，转而执行`MappedStatement`所代表的`sql`，然后将`sql`执行结果返回。
+
+:::
+                           
+                           
