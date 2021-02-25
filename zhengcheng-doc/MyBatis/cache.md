@@ -158,3 +158,7 @@ public int update(MappedStatement ms, Object parameter) throws SQLException {
 :::
 
 最后特别注意的是，强烈推荐**放弃使用二级缓存，在业务层使用可控制的缓存代替更好！**
+
+## mybatis-spring 一级缓存
+
+[Using an SqlSession](http://mybatis.org/spring/sqlsession.html)
