@@ -220,7 +220,8 @@ module.exports = {
                 collapsable: false,
                 children: [
                     './MyBatis/',
-                    './MyBatis/core-concepts'
+                    './MyBatis/core-concepts',
+                    './MyBatis/cache'
                 ]
             },
             {
