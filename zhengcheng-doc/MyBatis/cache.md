@@ -162,3 +162,46 @@ public int update(MappedStatement ms, Object parameter) throws SQLException {
 ## mybatis-spring 一级缓存
 
 [Using an SqlSession](http://mybatis.org/spring/sqlsession.html)
+
+`Spring`只有在开启了事务之后，在同一个事务里的`SqlSession`会被缓存起来，同一个事务中，多次查询是可以命中缓存的！所以，**在不使用事务的情况下，一级缓存是失效的**，因为不是一个`SqlSession`。
+
+**没有事务注解代码如下**：
+```java
+    //    @Transactional
+    @Override
+    public CourseCsware findById(Integer id) {
+        courseCswareMapper.selectById(id);
+
+        return courseCswareMapper.selectById(id);
+    }
+```
+打印的`SQL`如下：
+```text
+--  42  2021-02-25 13:46:01.417|zmbiz-brain-record-b@12482-ac196e25-448397-3055|zmbiz-brain-record-b@12482-ac196e25-448397-3055|zmbiz-brain-record-b@12482-ac196e25-448397-3055||zmbiz-brain-record-b|[http-nio-8080-exec-2]|DEBUG|c.z.c.domain.mapper.CourseCswareMapper.selectById - ==>
+SELECT id,type,name,version_num,subject_code,subject,grade_code,grade,edition_id,course_system_first_id,course_system_second_id,course_system_third_id,course_system_fourth_id,link_id,biz_state,updated_user_name,resource_local_url,created_user,created_time,updated_user,updated_time,deleted
+ FROM zm_xtc_course_csware
+ WHERE id=2488 AND deleted=0;
+-- ---------------------------------------------------------------------------------------------------------------------
+--  43  2021-02-25 13:46:01.431|zmbiz-brain-record-b@12482-ac196e25-448397-3055|zmbiz-brain-record-b@12482-ac196e25-448397-3055|zmbiz-brain-record-b@12482-ac196e25-448397-3055||zmbiz-brain-record-b|[http-nio-8080-exec-2]|DEBUG|c.z.c.domain.mapper.CourseCswareMapper.selectById - ==>
+SELECT id,type,name,version_num,subject_code,subject,grade_code,grade,edition_id,course_system_first_id,course_system_second_id,course_system_third_id,course_system_fourth_id,link_id,biz_state,updated_user_name,resource_local_url,created_user,created_time,updated_user,updated_time,deleted
+ FROM zm_xtc_course_csware
+ WHERE id=2488 AND deleted=0;
+```
+
+**有事务注解代码如下**：
+```java
+    @Transactional
+    @Override
+    public CourseCsware findById(Integer id) {
+        courseCswareMapper.selectById(id);
+
+        return courseCswareMapper.selectById(id);
+    }
+```
+```text
+--  42  2021-02-25 13:46:01.417|zmbiz-brain-record-b@12482-ac196e25-448397-3055|zmbiz-brain-record-b@12482-ac196e25-448397-3055|zmbiz-brain-record-b@12482-ac196e25-448397-3055||zmbiz-brain-record-b|[http-nio-8080-exec-2]|DEBUG|c.z.c.domain.mapper.CourseCswareMapper.selectById - ==>
+SELECT id,type,name,version_num,subject_code,subject,grade_code,grade,edition_id,course_system_first_id,course_system_second_id,course_system_third_id,course_system_fourth_id,link_id,biz_state,updated_user_name,resource_local_url,created_user,created_time,updated_user,updated_time,deleted
+ FROM zm_xtc_course_csware
+ WHERE id=2488 AND deleted=0;
+```
+
