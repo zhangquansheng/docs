@@ -125,7 +125,7 @@ public int update(MappedStatement ms, Object parameter) throws SQLException {
 
 ## 二级缓存
 
-二级缓存只作用于`cache`标签所在的映射文件中的语句。如果你混合使用 `Java API` 和`XML`映射文件，在共用接口中的语句将不会被默认缓存。你需要使用`@CacheNamespaceRef`注解指定缓存作用域。
+二级缓存只作用于`cache`标签所在的映射文件中的语句（作用域`namespace`）。如果你混合使用 `Java API` 和`XML`映射文件，在共用接口中的语句将不会被默认缓存。你需要使用`@CacheNamespaceRef`注解指定缓存作用域。
 
 这些属性可以通过 `cache` 元素的属性来修改。比如：
 ```xml
