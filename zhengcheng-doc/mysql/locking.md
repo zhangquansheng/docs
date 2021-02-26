@@ -70,7 +70,7 @@ X | 不兼容 |  不兼容 |  不兼容 |  不兼容
 
 ### 解决 Phantom Problem（幻读）
 
-在默认的事务隔离级别下，即**READ REPEATABLE**下，`Innodb`存储引擎采用`Next-Key Locking`机制来避免`Phantom Problem`（幻读）。`Phantom Problem`是指**在同一事务下，连续执行两次同样的SQL语句，可能导致不同的结果，第二次的SQL语句可能会返回之前不存在的行。**
+在默认的事务隔离级别下，即**READ REPEATABLE**下，`Innodb`存储引擎采用`Next-Key Locking`机制来避免**实时读**情况下的`Phantom Problem`（幻读）。`Phantom Problem`是指**在同一事务下，连续执行两次同样的SQL语句，可能导致不同的结果，第二次的SQL语句可能会返回之前不存在的行。**
 
 ## 死锁
 
