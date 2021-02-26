@@ -245,7 +245,7 @@ SELECT @@tx_isolation;
 - SELECT...LOCK IN SHARE MODE (S锁)
 ```
 
-使用 **Next-Key Lock**（Gap Lock+Record Lock ，锁定一个范围，并且锁定记录本身）**加锁**，来解决幻读问题。
+使用 **Next-Key Lock**（`Gap Lock`+`Record Lock` ，锁定一个范围，并且锁定记录本身）**加锁**，来解决幻读问题。
 
 ---
 
