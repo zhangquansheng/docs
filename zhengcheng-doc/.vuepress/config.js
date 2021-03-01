@@ -246,6 +246,16 @@ module.exports = {
                 ]
             },
             {
+                title: '设计模式',
+                collapsable: false,
+                children: [
+                    './design-patterns/',
+                    './design-patterns/principle',
+                    './design-patterns/singleton',
+                    './design-patterns/strategy'
+                ]
+            },
+            {
                 title: '综合话题',
                 collapsable: false,
                 children: [
