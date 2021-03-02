@@ -48,6 +48,7 @@ module.exports = {
     ],
     themeConfig: {
         activeHeaderLinks: false,
+        logo: '/img/logo.png',
         nav: [
             {text: '首页', link: '/'},
             {text: '指南', link: '/guide/'},
@@ -208,13 +209,13 @@ module.exports = {
                     //         './concurrent/thread-local'
                 ]
             },
-            {
-                title: 'Netty',
-                collapsable: false,
-                children: [
-                    './netty/'
-                ]
-            },
+            // {
+            //     title: 'Netty',
+            //     collapsable: false,
+            //     children: [
+            //         './netty/'
+            //     ]
+            // },
             {
                 title: 'MyBatis',
                 collapsable: false,
