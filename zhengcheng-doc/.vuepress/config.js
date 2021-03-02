@@ -246,7 +246,7 @@ module.exports = {
                 ]
             },
             {
-                title: '设计模式',
+                title: '面向对象设计模式',
                 collapsable: false,
                 children: [
                     './design-patterns/',
