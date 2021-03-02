@@ -13,6 +13,8 @@
 意图：保证一个类仅有一个实例，并提供一个访问它的全局访问点。
 关键代码：**构造函数是私有的**。
 
+`Spring`框架对单例的支持是采用单例注册表的方式进行实现的，源码参考`AbstractBeanFactory`抽象类。
+
 --- 
 参考文档
 - [单例模式|菜鸟教程](https://www.runoob.com/design-pattern/singleton-pattern.html)
