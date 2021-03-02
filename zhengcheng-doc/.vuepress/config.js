@@ -250,6 +250,8 @@ module.exports = {
                 collapsable: false,
                 children: [
                     './design-patterns/',
+                    './design-patterns/factory',
+                    './design-patterns/abstract-factory',
                     './design-patterns/singleton',
                     './design-patterns/strategy',
                     './design-patterns/principle'
