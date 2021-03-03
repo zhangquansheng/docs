@@ -255,6 +255,8 @@ module.exports = {
                     './design-patterns/abstract-factory',
                     './design-patterns/singleton',
                     './design-patterns/strategy',
+                    './design-patterns/facade',
+                    './design-patterns/mediator',
                     './design-patterns/principle'
                 ]
             },
