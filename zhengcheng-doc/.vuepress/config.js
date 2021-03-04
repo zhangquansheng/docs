@@ -221,7 +221,7 @@ module.exports = {
                 collapsable: false,
                 children: [
                     './MyBatis/',
-                    './MyBatis/core-concepts',
+                    // './MyBatis/core-concepts',
                     './MyBatis/cache'
                 ]
             },
@@ -234,18 +234,18 @@ module.exports = {
                     // './shardingsphere/concept'
                 ]
             },
-            // {
-            //     title: '数据结构与算法',
-            //     collapsable: false,
-            //     children: [
-            //         './algorithms/'
-            //         './algorithms/sort',
-            //         './algorithms/binary-tree',
-            //         './algorithms/balanced-tree',
-            //         './algorithms/sliding-window',
-            //         './algorithms/dynamic-programming'
-            //     ]
-            // },
+            {
+                title: '数据结构与算法',
+                collapsable: false,
+                children: [
+                    './algorithms/'
+                    // './algorithms/sort',
+                    // './algorithms/binary-tree',
+                    // './algorithms/balanced-tree',
+                    // './algorithms/sliding-window',
+                    // './algorithms/dynamic-programming'
+                ]
+            },
             {
                 title: '面向对象设计模式',
                 collapsable: false,
