@@ -237,11 +237,12 @@ module.exports = {
                 collapsable: false,
                 children: [
                     './algorithms/',
-                    './algorithms/sort'
+                    './algorithms/sort',
+                    './algorithms/data-structure',
+                    './algorithms/dynamic-programming'
                     // './algorithms/binary-tree',
                     // './algorithms/balanced-tree',
                     // './algorithms/sliding-window',
-                    // './algorithms/dynamic-programming'
                 ]
             },
             {
