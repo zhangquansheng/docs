@@ -12,8 +12,8 @@
 不稳定排序算法有：快速排序，希尔排序，简单选择排序，堆排序。
 :::
 
-算法复杂度对比图:
-![sort-overview](/img/algorithms/sort-overview.png)
+排序算法的复杂度说明：
+![sort-overview](/img/algorithms/array-sorting-algorithms.png)
 
 ## 冒泡排序（Bubble Sort）
 

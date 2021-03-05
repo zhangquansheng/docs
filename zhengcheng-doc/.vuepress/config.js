@@ -221,7 +221,6 @@ module.exports = {
                 collapsable: false,
                 children: [
                     './MyBatis/',
-                    // './MyBatis/core-concepts',
                     './MyBatis/cache'
                 ]
             },
@@ -231,15 +230,14 @@ module.exports = {
                 children: [
                     './shardingsphere/',
                     './shardingsphere/getting-started'
-                    // './shardingsphere/concept'
                 ]
             },
             {
                 title: '数据结构与算法',
                 collapsable: false,
                 children: [
-                    './algorithms/'
-                    // './algorithms/sort',
+                    './algorithms/',
+                    './algorithms/sort'
                     // './algorithms/binary-tree',
                     // './algorithms/balanced-tree',
                     // './algorithms/sliding-window',
