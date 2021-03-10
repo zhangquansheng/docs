@@ -274,8 +274,8 @@ module.exports = {
                     './digging-deeper/ifelse-1',
                     './digging-deeper/ifelse-2',
                     './digging-deeper/http-long-polling',
-                    './digging-deeper/meituan-leaf'
-                    // './digging-deeper/interview'
+                    './digging-deeper/meituan-leaf',
+                    './digging-deeper/copy-properties'
                 ]
             },
             {
