@@ -426,7 +426,7 @@ public void copyProperty(final Object bean, String name, Object value)
 ```
 
 
-利用`Arthas` 基本`trace`命令
+使用`Arthas` 基本`trace`命令
 ```shell script
 trace org.apache.commons.beanutils.BeanUtilsBean copyProperty -v -n 5 --skipJDKMethod false '1==1'
 ```
