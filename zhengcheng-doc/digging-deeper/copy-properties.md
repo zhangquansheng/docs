@@ -158,7 +158,7 @@ public class ZmXtcCourseLink {
 }
 ```
 
-`ZmXtcCourseLinkVO`(特别注意，此类中包含了`TeachLinkAnimationDTO`等其他的类，这是导致性能急剧下降的关键)
+`ZmXtcCourseLinkVO`(特别注意：此类中包含了`TeachLinkAnimationDTO`等其他的类，这是导致性能急剧下降的原因。)
 ```java
 @Data
 @Builder
@@ -245,3 +245,194 @@ org.apache.commons.beanutils.PropertyUtils.copyProperties | 2511ms | 22864ms | -
 org.springframework.beans.BeanUtils.copyProperties | 7ms | 63ms | 850ms
 org.springframework.cglib.beans.BeanCopier | 0ms | 0ms | 2ms
 mapstruct copyProperties | 0ms | 0ms | 3ms
+
+## org.apache.commons.beanutils.BeanUtils 源码分析
+
+
+`org.apache.commons.beanutils.BeanUtilsBean.copyProperties`
+```java
+public void copyProperties(final Object dest, final Object orig)
+        throws IllegalAccessException, InvocationTargetException {
+    
+        // ...
+
+        // Copy the properties, converting as necessary
+        if (orig instanceof DynaBean) {
+             // ...
+        } else if (orig instanceof Map) {
+            // ...
+        } else /* if (orig is a standard JavaBean) */ {
+            for (PropertyDescriptor origDescriptor : origDescriptors) {
+                 // ...
+                copyProperty(dest, name, value);
+            }
+        }
+
+    }
+```
+
+`copyProperty`
+```java
+/**
+ * <p>Copy the specified property value to the specified destination bean,
+ * performing any type conversion that is required.  If the specified
+ * bean does not have a property of the specified name, or the property
+ * is read only on the destination bean, return without
+ * doing anything.  If you have custom destination property types, register
+ * {@link Converter}s for them by calling the <code>register()</code>
+ * method of {@link ConvertUtils}.</p>
+ *
+ * <p><strong>IMPLEMENTATION RESTRICTIONS</strong>:</p>
+ * <ul>
+ * <li>Does not support destination properties that are indexed,
+ *     but only an indexed setter (as opposed to an array setter)
+ *     is available.</li>
+ * <li>Does not support destination properties that are mapped,
+ *     but only a keyed setter (as opposed to a Map setter)
+ *     is available.</li>
+ * <li>The desired property type of a mapped setter cannot be
+ *     determined (since Maps support any data type), so no conversion
+ *     will be performed.</li>
+ * </ul>
+ *
+ * @param bean Bean on which setting is to be performed
+ * @param name Property name (can be nested/indexed/mapped/combo)
+ * @param value Value to be set
+ *
+ * @throws IllegalAccessException if the caller does not have
+ *  access to the property accessor method
+ * @throws InvocationTargetException if the property accessor method
+ *  throws an exception
+ */
+public void copyProperty(final Object bean, String name, Object value)
+    throws IllegalAccessException, InvocationTargetException {
+
+    // Trace logging (if enabled)
+    if (log.isTraceEnabled()) {
+        final StringBuilder sb = new StringBuilder("  copyProperty(");
+        sb.append(bean);
+        sb.append(", ");
+        sb.append(name);
+        sb.append(", ");
+        if (value == null) {
+            sb.append("<NULL>");
+        } else if (value instanceof String) {
+            sb.append((String) value);
+        } else if (value instanceof String[]) {
+            final String[] values = (String[]) value;
+            sb.append('[');
+            for (int i = 0; i < values.length; i++) {
+                if (i > 0) {
+                    sb.append(',');
+                }
+                sb.append(values[i]);
+            }
+            sb.append(']');
+        } else {
+            sb.append(value.toString());
+        }
+        sb.append(')');
+        log.trace(sb.toString());
+    }
+
+    // Resolve any nested expression to get the actual target bean
+    Object target = bean;
+    final Resolver resolver = getPropertyUtils().getResolver();
+    while (resolver.hasNested(name)) {
+        try {
+            target = getPropertyUtils().getProperty(target, resolver.next(name));
+            name = resolver.remove(name);
+        } catch (final NoSuchMethodException e) {
+            return; // Skip this property setter
+        }
+    }
+    if (log.isTraceEnabled()) {
+        log.trace("    Target bean = " + target);
+        log.trace("    Target name = " + name);
+    }
+
+    // Declare local variables we will require
+    final String propName = resolver.getProperty(name); // Simple name of target property
+    Class<?> type = null;                         // Java type of target property
+    final int index  = resolver.getIndex(name);         // Indexed subscript value (if any)
+    final String key = resolver.getKey(name);           // Mapped key value (if any)
+
+    // Calculate the target property type
+    if (target instanceof DynaBean) {
+        final DynaClass dynaClass = ((DynaBean) target).getDynaClass();
+        final DynaProperty dynaProperty = dynaClass.getDynaProperty(propName);
+        if (dynaProperty == null) {
+            return; // Skip this property setter
+        }
+        type = dynaPropertyType(dynaProperty, value);
+    } else {
+        PropertyDescriptor descriptor = null;
+        try {
+            descriptor =
+                getPropertyUtils().getPropertyDescriptor(target, name);
+            if (descriptor == null) {
+                return; // Skip this property setter
+            }
+        } catch (final NoSuchMethodException e) {
+            return; // Skip this property setter
+        }
+        type = descriptor.getPropertyType();
+        if (type == null) {
+            // Most likely an indexed setter on a POJB only
+            if (log.isTraceEnabled()) {
+                log.trace("    target type for property '" +
+                          propName + "' is null, so skipping ths setter");
+            }
+            return;
+        }
+    }
+    if (log.isTraceEnabled()) {
+        log.trace("    target propName=" + propName + ", type=" +
+                  type + ", index=" + index + ", key=" + key);
+    }
+
+    // Convert the specified value to the required type and store it
+    if (index >= 0) {                    // Destination must be indexed
+        value = convertForCopy(value, type.getComponentType());
+        try {
+            getPropertyUtils().setIndexedProperty(target, propName,
+                                             index, value);
+        } catch (final NoSuchMethodException e) {
+            throw new InvocationTargetException
+                (e, "Cannot set " + propName);
+        }
+    } else if (key != null) {            // Destination must be mapped
+        // Maps do not know what the preferred data type is,
+        // so perform no conversions at all
+        // FIXME - should we create or support a TypedMap?
+        try {
+            getPropertyUtils().setMappedProperty(target, propName,
+                                            key, value);
+        } catch (final NoSuchMethodException e) {
+            throw new InvocationTargetException
+                (e, "Cannot set " + propName);
+        }
+    } else {                             // Destination must be simple
+        value = convertForCopy(value, type);
+        try {
+            getPropertyUtils().setSimpleProperty(target, propName, value);
+        } catch (final NoSuchMethodException e) {
+            throw new InvocationTargetException
+                (e, "Cannot set " + propName);
+        }
+    }
+
+}
+```
+
+
+利用`Arthas` 基本`trace`命令
+```shell script
+trace org.apache.commons.beanutils.BeanUtilsBean copyProperty -v -n 5 --skipJDKMethod false '1==1'
+```
+代码运行时，打印如下：
+![arthas](/img/digging-deeper/arthas-trace-copyProperty.png)
+
+
+可以看到，`org.apache.commons.beanutils.BeanUtilsBean copyProperty`方法中，有**日志，转换，解析**等功能，导致此方法性能比较差，
+而且`org.apache.commons.beanutils.BeanUtils.copyProperties`的总耗时等于属性数量x一个属性的耗时（`org.apache.commons.beanutils.BeanUtilsBean copyProperty`方法），时间复杂度是**O(n)**。
