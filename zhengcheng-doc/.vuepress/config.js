@@ -72,7 +72,8 @@ module.exports = {
                     {text: 'MVN REPOSITORY', link: 'https://mvnrepository.com/'},
                     {text: 'Algorithms', link: 'https://www.cs.usfca.edu/~galles/visualization/Algorithms.html'},
                     {text: 'Hutool', link: 'https://www.hutool.cn/'},
-                    {text: '力扣（LeetCode）', link: 'https://leetcode-cn.com/'}
+                    {text: '力扣（LeetCode）', link: 'https://leetcode-cn.com/'},
+                    {text: 'Arthas', link: 'https://github.com/alibaba/arthas'}
                 ]
             },
             {text: '更新日志', link: '/change-log/'},
@@ -256,6 +257,7 @@ module.exports = {
                     './design-patterns/singleton',
                     './design-patterns/strategy',
                     './design-patterns/facade',
+                    './design-patterns/flyweight',
                     './design-patterns/mediator',
                     './design-patterns/principle'
                 ]
