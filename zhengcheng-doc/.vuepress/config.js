@@ -258,6 +258,7 @@ module.exports = {
                     './design-patterns/strategy',
                     './design-patterns/facade',
                     './design-patterns/flyweight',
+                    './design-patterns/proxy',
                     './design-patterns/mediator',
                     './design-patterns/principle'
                 ]
