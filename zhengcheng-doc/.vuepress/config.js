@@ -244,7 +244,8 @@ module.exports = {
                     './algorithms/',
                     './algorithms/sort',
                     './algorithms/data-structure',
-                    './algorithms/dynamic-programming'
+                    './algorithms/dynamic-programming',
+                    './algorithms/LRU'
                     // './algorithms/binary-tree',
                     // './algorithms/balanced-tree',
                     // './algorithms/sliding-window',
