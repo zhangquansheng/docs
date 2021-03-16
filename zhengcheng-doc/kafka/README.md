@@ -89,28 +89,24 @@ Producer 将数据发布到指定的主题。你可以简单地为负载均衡�
 同一 **Topic** 的一条消息只能被同一个 **Consumer Group** 内的一个 Consumer 消费，但多个 **Consumer Group** 可同时消费这一消息。
 :::
 
-在Kafka中，Consumer Rebalance 算法如下：
-```html
-1. 将目标 topic 下的所有 partition 排序，存于PT
-2. 对某 **Consumer Group** 下所有 Consumer 排序，存于 CG，第 i 个consumer 记为 Ci
-3. N = size(PT)/size(CG)，向上取整
-4. 解除 Ci 对原来分配的 partition 的消费权（i从0开始）
-5. 将第 i*N 到 (i+1)*N-1 个 partition 分配给 Ci
-```
+在Kafka中，`Consumer Rebalance` 算法如下：
+1. 将目标 `topic` 下的所有 `partition` 排序，存于`PT`
+2. 对某 **Consumer Group** 下所有 `Consumer` 排序，存于 `CG`，第 `i` `个consumer` 记为 `Ci`
+3. `N = size(PT)/size(CG)`，向上取整
+4. 解除 `Ci` 对原来分配的 `partition` 的消费权（`i`从`0`开始）
+5. 将第 `i*N` 到 `(i+1)*N-1` 个 `partition` 分配给 `Ci`
 
-Consumer rebalance 的控制策略是由每一个 Consumer 通过 Zookeeper 完成的。具体的控制方式如下：
-```html
-1. 在 /consumers/[consumer-group]/ 下注册id
-2. 设置对 /consumers/[consumer-group] 的watcher
-3. 设置对 /brokers/ids 的watcher
-4. zk 下设置 watcher 的路径节点更改，触发 Consumer rebalance
-```
+`Consumer rebalance` 的控制策略是由每一个 `Consumer` 通过 `Zookeeper` 完成的。具体的控制方式如下：
+1. 在 `/consumers/[consumer-group]/` 下注册`id`
+2. 设置对 `/consumers/[consumer-group]` 的`watcher`
+3. 设置对 `/brokers/ids` 的`watcher`
+4. `zk` 下设置 `watcher` 的路径节点更改，触发 `Consumer rebalance`
 　
 ::: tip 羊群效应理论
-任何broker或者consumer的增减都会触发所有的consumer的rebalance
+任何`broker`或者`consumer`的增减都会触发所有的`consumer`的`rebalance`
 ::: 
 
-Kafka 仅仅提供 一个**Partition** 内的记录顺序，而不能提供在同一 **Topic**下不同 **Partition**的顺序。当你需要同一 **Topic**的记录是顺序的，则可以使用一个**Partition**的**Topic**来实现：
+`Kafka` 仅仅提供 一个**Partition** 内的记录顺序，而不能提供在同一 **Topic**下不同 **Partition**的顺序。当你需要同一 **Topic**的记录是顺序的，则可以使用一个**Partition**的**Topic**来实现：
 - 发送消息到只有一个**Partition**的**Topic**
 - 发送消息指定**Partition**
 - 发送消息的**KEY相同**（消息KEY相同，那么消息提交的到**Partition**是相同的）
