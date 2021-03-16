@@ -308,3 +308,12 @@ function createUuid() {
 
 
 [BlockingQueue](/concurrent/blocking-queue)
+
+
+::: tip 通常一个 Xml 映射文件，都会写一个 Mapper 接口与之对应，请问，这个 Mapper 接口的工作原理是什么？ Mapper 接口里的方法，参数不同时，方法能重载吗？
+`Mapper`接口的全限名就是映射文件中的`namespace`的值，接口的方法名就是映射文件中`MappedStatement`的`id`值，接口方法内的参数就是传递给`sql`的参数。
+
+`Mapper`接口是没有实现类的，当调用接口方法时，接口**全限名+方法名**拼接字符串作为`key`值，可唯一定位一个`MappedStatement`，所以`Mapper`接口里的方法，是**不能重载的**。在`MyBatis`中，每一个`<select>`、`<insert>`、`<update>`、`<delete>`标签，都会被解析为一个`MappedStatement`对象。
+
+`Mapper`接口的工作原理是`JDK`动态代理，`MyBatis`运行时会使用`JDK`动态代理为`Mapper`接口生成代理`proxy`对象，代理对象`proxy`会拦截接口方法，转而执行`MappedStatement`所代表的`sql`，然后将`sql`执行结果返回。
+:::
