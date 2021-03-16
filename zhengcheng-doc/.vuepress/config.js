@@ -208,7 +208,8 @@ module.exports = {
                     './concurrent/j.U.C',
                     './concurrent/blocking-queue',
                     './concurrent/count-down-latch',
-                    './concurrent/synchronized'
+                    './concurrent/synchronized',
+                    './concurrent/ConcurrentHashMap'
                     //         './concurrent/volatile',
                     //         './concurrent/cas',
                     //         './concurrent/thread-local'
@@ -245,7 +246,7 @@ module.exports = {
                     './algorithms/sort',
                     './algorithms/data-structure',
                     './algorithms/dynamic-programming',
-                    './algorithms/LRU'
+                    './algorithms/lru'
                     // './algorithms/binary-tree',
                     // './algorithms/balanced-tree',
                     // './algorithms/sliding-window',
