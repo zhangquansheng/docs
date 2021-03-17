@@ -300,4 +300,107 @@ final Node<K,V>[] resize() {
 
 ## 线程不安全
 
-`HashMap`的线程不安全性主要就体现在`resize()`方法中。
+::: tip 什么是线程安全？
+**多个线程同一时刻对同一个全局变量(同一份资源)做写操作(读操作不会涉及线程安全)时**，如果跟我们预期的结果一样，我们就称之为线程安全，反之，线程不安全。
+:::
+
+`HashMap`的线程不安全性主要表现有：
+
+测试代码：
+```java
+/**
+ * MapSizeThread
+ *
+ * @author quansheng1.zhang
+ * @since 2021/3/17 15:42
+ */
+@Slf4j
+@Component
+public class MapTest {
+
+//    public static HashMap<Integer, Integer> hashMap = new HashMap<>();
+
+    // 验证 putVal方法 是否会丢失，固定容量，那么测试时不会调用 resize 方法，
+    public static HashMap<Integer, Integer> hashMap = new HashMap<>(10000);
+
+    public static AtomicInteger atomicInteger = new AtomicInteger();
+
+    // 验证size不准确
+    @Async
+    public void size() {
+        for (int i = 0; i < 10; i++) {
+            hashMap.put(atomicInteger.get(), atomicInteger.get());
+            log.info("插入的数据为：[{}], 此时容量为:[{}]", atomicInteger.get(), hashMap.size());
+            hashMap.remove(atomicInteger.get(), atomicInteger.get());
+            atomicInteger.incrementAndGet();
+        }
+    }
+
+    // 验证put数据会丢失
+    @Async
+    public Future<Boolean> put() {
+        hashMap.put(atomicInteger.get(), atomicInteger.get());
+        atomicInteger.incrementAndGet();
+        return new AsyncResult(Boolean.TRUE);
+    }
+
+}
+```
+
+1. **`size`不准确**
+
+测试代码如下：
+```java
+for (int i = 0; i < threadCount; i++) {
+    mapTest.size();
+}
+```
+
+当只有一个线程时，运行结果如下：
+```java
+ 插入的数据为：[0], 此时容量为:[1]
+ 插入的数据为：[1], 此时容量为:[1]
+ 插入的数据为：[2], 此时容量为:[1]
+ 插入的数据为：[3], 此时容量为:[1]
+ 插入的数据为：[4], 此时容量为:[1]
+ 插入的数据为：[5], 此时容量为:[1]
+ 插入的数据为：[6], 此时容量为:[1]
+ 插入的数据为：[7], 此时容量为:[1]
+ 插入的数据为：[8], 此时容量为:[1]
+ 插入的数据为：[9], 此时容量为:[1]
+```
+
+当有多个线程时，运行结果如下：
+```java
+ 插入的数据为：[223], 此时容量为:[1]
+ 插入的数据为：[234], 此时容量为:[1]
+ 插入的数据为：[236], 此时容量为:[0]
+ 插入的数据为：[237], 此时容量为:[0]
+ 插入的数据为：[238], 此时容量为:[0]
+ 插入的数据为：[236], 此时容量为:[0]
+```
+
+造成这种偏差的原因，分析源码:
+```java
+ transient int size;
+```
+`size`只是用了`transient`关键字修饰（不参与序列化）,也就是说，在各个线程中的`size`副本不会及时同步，在多个线程操作的时候，`size`将会被覆盖。
+
+2. **数据丢失**
+
+```java
+List<Future<Boolean>> futureList = new ArrayList<>();
+for (int i = 0; i < threadCount; i++) {
+    futureList.add(mapTest.put());
+}
+
+futureList.forEach(booleanFuture -> {
+    try {
+        booleanFuture.get();
+    } catch (InterruptedException | ExecutionException e) {
+        e.printStackTrace();
+    }
+});
+
+MapTest.hashMap.forEach((k, v) -> log.info("key: {}, value: {}", k, v));
+```
