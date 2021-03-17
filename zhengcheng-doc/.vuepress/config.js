@@ -227,7 +227,8 @@ module.exports = {
                 collapsable: false,
                 children: [
                     './MyBatis/',
-                    './MyBatis/cache'
+                    './MyBatis/cache',
+                    './MyBatis/mybatis-crud'
                 ]
             },
             {
@@ -266,25 +267,25 @@ module.exports = {
                     './design-patterns/flyweight',
                     './design-patterns/proxy',
                     './design-patterns/mediator',
-                    './design-patterns/principle'
+                    './design-patterns/principle',
+                    './design-patterns/ifelse-1',
+                    './design-patterns/ifelse-2',
+                    './design-patterns/dynamic-proxy',
                 ]
             },
             {
-                title: '综合话题',
+                title: '综合话题&源码分析',
                 collapsable: false,
                 children: [
                     './digging-deeper/plugin',
                     './digging-deeper/oom',
-                    './digging-deeper/proxy',
+                    './digging-deeper/copy-properties',
                     './digging-deeper/sign-auth',
                     './digging-deeper/mdc',
                     './digging-deeper/distributed-lock',
-                    './digging-deeper/mybatis-crud',
-                    './digging-deeper/ifelse-1',
-                    './digging-deeper/ifelse-2',
                     './digging-deeper/http-long-polling',
                     './digging-deeper/meituan-leaf',
-                    './digging-deeper/copy-properties'
+                    './digging-deeper/HashMap'
                 ]
             },
             {

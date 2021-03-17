@@ -6,5 +6,5 @@
 
 --- 
 参考文档
-- [动态代理](/digging-deeper/proxy)
+- [动态代理](/design-patterns/proxy)
 - [代理模式|菜鸟教程](https://www.runoob.com/design-pattern/proxy-pattern.html)
