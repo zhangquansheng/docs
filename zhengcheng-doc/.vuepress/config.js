@@ -285,7 +285,8 @@ module.exports = {
                     './digging-deeper/distributed-lock',
                     './digging-deeper/http-long-polling',
                     './digging-deeper/meituan-leaf',
-                    './digging-deeper/HashMap'
+                    './digging-deeper/HashMap',
+                    './digging-deeper/ConcurrentHashMap'
                 ]
             },
             {
