@@ -9,3 +9,42 @@
 - `HashMap`数组长度超过`64`
 
 本次源码解析基于`JDK1.8`。
+
+## 类的关键属性
+
+```java
+public class HashMap<K,V> extends AbstractMap<K,V>
+    implements Map<K,V>, Cloneable, Serializable {
+
+    private static final long serialVersionUID = 362498820763181265L;
+    
+    // 默认的初始容量是16（1左移4位，表示2的4次方） 
+    static final int DEFAULT_INITIAL_CAPACITY = 1 << 4; // aka 16
+    // 最大容量 （1左移30位，表示2的30次方）
+    static final int MAXIMUM_CAPACITY = 1 << 30;
+    // 默认的负载因子
+    static final float DEFAULT_LOAD_FACTOR = 0.75f;
+    // 当链表上的结点数大于这个值时会转成红黑树
+    static final int TREEIFY_THRESHOLD = 8;
+    // 当链表上的结点数小于这个值时树转成链表
+    static final int UNTREEIFY_THRESHOLD = 6;
+    // 链表结构转成红黑树对应的数组长度
+    static final int MIN_TREEIFY_CAPACITY = 64;
+    // 存储元素的数组，总是2的幂次倍
+    transient Node<K,V>[] table;
+    // 存放具体元素的集
+    transient Set<Map.Entry<K,V>> entrySet;
+    // 存放元素的个数
+    transient int size;
+
+    // 结构上被修改的次数
+    transient int modCount;
+
+    // 临界值 = (容量*负载因子)
+    int threshold;
+
+    // 负载因子
+    final float loadFactor;
+
+}
+```
