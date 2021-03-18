@@ -110,14 +110,15 @@ module.exports = {
                 collapsable: false,
                 children: [
                     './spring/',
-                    // './spring/dependency-injection',
-                    // './spring/beans',
-                    // './spring/circular-dependencies',
-                    // './spring/beans-autowired-annotation',
-                    // './spring/beans-resource-annotation',
-                    // './spring/beans-value-annotations',
-                    // './spring/aop',
-                    // './spring/transaction-declarative'
+                    './spring/dependency-injection',
+                    './spring/beans',
+                    './spring/validation',
+                    './spring/circular-dependencies',
+                    './spring/beans-autowired-annotation',
+                    './spring/beans-resource-annotation',
+                    './spring/beans-value-annotations',
+                    './spring/aop',
+                    './spring/transaction-declarative'
                 ]
             },
             {

@@ -2,7 +2,7 @@
 sidebarDepth: 3
 ---
 
-# Spring框架的声明式事务实现
+# Spring 框架的声明式事务实现
 
 [Data Access 官方文档](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/data-access.html)  Transactions, DAO Support, JDBC, O/R Mapping, XML Marshalling.
 
