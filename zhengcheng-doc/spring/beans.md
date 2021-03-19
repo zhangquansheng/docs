@@ -373,3 +373,7 @@ public interface FactoryBean<T> {
 - `Object getObject()`：返回由`FactoryBean`创建的`Bean`实例，如果`isSingleton()`返回`true`，则该实例会放到`Spring`容器中单实例缓存池中；
 - `boolean isSingleton()`：返回由`FactoryBean`创建的`Bean`实例的作用域是`singleton`还是`prototype`；
 - `Class getObjectType()`：返回`FactoryBean`创建的`Bean`类型。
+
+::: tip 总结一下 FactoryBean 和 BeanFactory 的区别？
+
+:::

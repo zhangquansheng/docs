@@ -101,24 +101,30 @@ module.exports = {
                     './guide/apollo',
                     './guide/socketio',
                     './guide/nacos-eureka',
-                    './guide/log',
-                    './guide/java8-new-features'
+                    './guide/log'
+                ]
+            },
+            {
+                title: 'Java',
+                collapsable: false,
+                children: [
+                    './java/java8-new-features',
+                    './java/generics'
                 ]
             },
             {
                 title: 'Spring',
                 collapsable: false,
                 children: [
-                    './spring/'
-                    // './spring/dependency-injection',
-                    // './spring/beans',
-                    // './spring/validation',
-                    // './spring/circular-dependencies',
+                    './spring/',
+                    './spring/dependency-injection',
+                    './spring/beans',
+                    './spring/circular-dependencies',
                     // './spring/beans-autowired-annotation',
                     // './spring/beans-resource-annotation',
                     // './spring/beans-value-annotations',
-                    // './spring/aop',
-                    // './spring/transaction-declarative'
+                    './spring/transaction-declarative',
+                    './spring/aop'
                 ]
             },
             {
