@@ -120,11 +120,10 @@ module.exports = {
                     './spring/dependency-injection',
                     './spring/beans',
                     './spring/circular-dependencies',
-                    // './spring/beans-autowired-annotation',
-                    // './spring/beans-resource-annotation',
-                    // './spring/beans-value-annotations',
+                    './spring/beans-annotation-config',
                     './spring/transaction-declarative',
-                    './spring/aop'
+                    './spring/aop',
+                    './spring/validation'
                 ]
             },
             {
