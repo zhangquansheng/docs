@@ -24,3 +24,5 @@
 - [emoji-cheat-sheet](https://www.webfx.com/tools/emoji-cheat-sheet/)
 
 java8 快速实现List转map 、分组、过滤等操作 总结
+
+[Emoji](https://github.com/markdown-it/markdown-it-emoji/blob/master/lib/data/full.json)
