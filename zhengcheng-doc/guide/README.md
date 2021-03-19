@@ -55,9 +55,9 @@ zc-swagger-spring-boot-starter | swagger2.8.0 通用组件
 
 ## 添砖加瓦
 
-### 提供bug反馈或建议
+### 提供 bug 反馈或建议
 
-提交问题反馈请说明正在使用的JDK版本号、`zhengcheng`版本和相关依赖库版本。
+提交问题反馈请说明正在使用的`JDK`版本号、`zhengcheng`版本和相关依赖库版本。
 
 - [GitHub issue](https://github.com/zhangquansheng/zhengcheng-parent/issues)
 - [Gitee issue](https://gitee.com/zhangquansheng/zhengcheng-parent/issues)

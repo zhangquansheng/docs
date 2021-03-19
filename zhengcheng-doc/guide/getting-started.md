@@ -8,12 +8,6 @@
 👉 [magic](https://gitee.com/zhangquansheng/magic)
 :::
 
-## 代码规范
-
-[JAVA 开发手册](https://gitee.com/zhangquansheng/zhengcheng-parent/blob/master/doc/Java-huashanxinban.pdf)
-
-[阿里工程师的自我修养.pdf](https://gitee.com/zhangquansheng/zhengcheng-parent/blob/master/doc/%E9%98%BF%E9%87%8C%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%9A%84%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB.pdf)
-
 
 ## 工程结构
 
