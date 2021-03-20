@@ -26,7 +26,7 @@
 
 ## IoC 容器
 
-- **org.springframework.beans.factory.BeanFactory**: 是`Spring`里面最低层的接口，提供了最简单的容器的功能，只提供了实例化对象和拿对象的功能；
+- **org.springframework.beans.factory.BeanFactory**: 是`Spring`里面最低层的接口，提供了最简单的容器的功能，只提供了实例化对象和获取对象的功能。
 ```java
 public interface BeanFactory {
 

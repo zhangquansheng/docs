@@ -375,5 +375,5 @@ public interface FactoryBean<T> {
 - `Class getObjectType()`：返回`FactoryBean`创建的`Bean`类型。
 
 ::: tip 总结一下 FactoryBean 和 BeanFactory 的区别？
-
+个人认为，这两个就是名字起的有点像，所以有时间放在一起对别。但实际上`BeanFactory`是一个`IOC容器`（对象工厂），提供了最简单的容器的功能；而`FactoryBean`是工厂类接口，用户可以通过实现该接口定制`实例化Bean`的逻辑。
 :::
