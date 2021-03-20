@@ -23,7 +23,7 @@
     }
 ```
 
-## 饥饿加载
+## 饥饿加载 (Caching of Ribbon Configuration)
 
 `Spring Cloud` 会为每一个命名的`Ribbon`客户端维护一个子应用程序上下文，默认是`lazy load`。指定名称的`Ribbon`客户端第一次请求时，对应的上下文才会被加载，因此，**首次请求往往会比较慢**。 
 从 `Spring Cloud Dalston ` 开始，我们可配置饥饿加载。例如：
@@ -36,7 +36,7 @@ ribbon:
 
 这样，对于名为 client1、client2、client3 的`Ribbon`客户端，将在启动时就加载对应的子应用程序上下文，从而**提高首次请求的访问速度**。
 
-
+## ServerList 的刷新机制
 
 ---
 **参考文档**
