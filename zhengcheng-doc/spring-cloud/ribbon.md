@@ -1,4 +1,4 @@
-# Ribbon
+# Ribbon :hammer:
 
 `Ribbon`是`Netflix`发布的一个负载均衡器，有助于控制`HTTP`和`TCP`客户端行为。`Ribbon`**提供了客户端负载均衡的功能**，`Ribbon`利用从`Eureka`中读取到的服务信息，在调用服务节点提供的服务时，
 就可以基于某种负载均衡算法，自动地帮助服务消费者去请求。另外`Feign`已经使用了`Ribbon`，因此，如果使用`@FeignClient`，则此部分也适用。

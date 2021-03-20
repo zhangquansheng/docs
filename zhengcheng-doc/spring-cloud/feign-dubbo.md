@@ -58,15 +58,18 @@ public class DictItemController implements DictItemFeignClient {
     dictItemFeignClient.findById(id)
 ```
 
-## 参考
+---
+**参考文档**
 
 - [Feign Inheritance Support](https://docs.spring.io/spring-cloud-openfeign/docs/2.2.4.RELEASE/reference/html/#spring-cloud-feign-inheritance)
 - [Gitee Samples](https://gitee.com/zhangquansheng/magic/tree/feign/)
 
 虽然`spring-cloud-openfeign`官方文档中有以下的提示
 ::: tip  提示
-	It is generally not advisable to share an interface between a server and a client. It introduces tight coupling, and also actually doesn’t work with Spring MVC in its current form (method parameter mapping is not inherited).
-    通常不建议在服务器和客户端之间共享接口。它引入了紧密耦合，并且实际上也不能以当前形式与Spring MVC一起使用（方法参数映射不被继承）。
+
+It is generally not advisable to share an interface between a server and a client. It introduces tight coupling, and also actually doesn’t work with Spring MVC in its current form (method parameter mapping is not inherited).
+
+通常不建议在服务器和客户端之间共享接口。它引入了紧密耦合，并且实际上也不能以当前形式与Spring MVC一起使用（方法参数映射不被继承）。
 :::
 
 **但是能复用代码，简化开发 提高效率。**
