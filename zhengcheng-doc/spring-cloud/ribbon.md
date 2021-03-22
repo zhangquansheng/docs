@@ -139,9 +139,9 @@ public class DynamicServerListLoadBalancer<T extends Server> extends BaseLoadBal
 }
 ```
 
-本文以`Nacos`为例。
-
 ### NacosServerList
+
+> 本文以`Nacos`为例。
 ```java
 public class NacosServerList extends AbstractServerList<NacosServer> {
     
@@ -186,7 +186,7 @@ public class NacosServerList extends AbstractServerList<NacosServer> {
 获取的`result`如下：
 ![ribbon-nacos-result](/img/spring-cloud/ribbon-nacos-result.jpg)
 
-
+**总结**：
 
 
 ---
