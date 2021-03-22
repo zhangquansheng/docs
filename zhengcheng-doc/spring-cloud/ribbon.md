@@ -187,7 +187,9 @@ public class NacosServerList extends AbstractServerList<NacosServer> {
 ![ribbon-nacos-result](/img/spring-cloud/ribbon-nacos-result.jpg)
 
 **总结**：
-
+1. 创建并执行一个定时任务，（默认`30s`，首次执行延迟`1s`）去更新服务列表；
+2. 获取服务列表后，判断是否需要过滤（过滤策略）；
+3. 确认服务状态是活跃的，并快速`Ping`同服务;
 
 ---
 **参考文档**
