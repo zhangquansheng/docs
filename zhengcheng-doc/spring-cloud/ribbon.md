@@ -34,9 +34,11 @@ ribbon:
         clients: client1, client2, client3
 ```
 
-这样，对于名为 client1、client2、client3 的`Ribbon`客户端，将在启动时就加载对应的子应用程序上下文，从而**提高首次请求的访问速度**。
+这样，对于名为 `client1`、`client2`、`client3` 的`Ribbon`客户端，将在启动时就加载对应的子应用程序上下文，从而**提高首次请求的访问速度**。
 
 ## ServerList 的刷新机制
+
+>  SpringCloud 集成下，ribbon 在默认情况下，采用基于配置的服务列表维护，基于定时任务定时拉取服务列表的方式，频率为`30s`。
 
 ### PollingServerListUpdater 
 ```java
