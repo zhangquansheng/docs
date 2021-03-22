@@ -73,7 +73,7 @@ module.exports = {
                     {text: 'Algorithms', link: 'https://www.cs.usfca.edu/~galles/visualization/Algorithms.html'},
                     {text: 'Hutool', link: 'https://www.hutool.cn/'},
                     {text: '力扣（LeetCode）', link: 'https://leetcode-cn.com/'},
-                    {text: 'Arthas', link: 'https://github.com/alibaba/arthas'},
+                    {text: 'Arthas（阿尔萨斯）', link: 'https://github.com/alibaba/arthas'},
                     {
                         text: 'P3C',
                         link: 'https://github.com/alibaba/p3c'
