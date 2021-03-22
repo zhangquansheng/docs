@@ -207,20 +207,20 @@ module.exports = {
                     './zk/lock'
                 ]
             },
-            // {
-            //     title: '并发编程',
-            //     collapsable: false,
-            //     children: [
-            //         './concurrent/j.U.C',
-            //         './concurrent/blocking-queue',
-            //         './concurrent/count-down-latch',
-            //         './concurrent/synchronized',
-            //         './concurrent/ConcurrentHashMap'
-            //         //         './concurrent/volatile',
-            //         //         './concurrent/cas',
-            //         //         './concurrent/thread-local'
-            //     ]
-            // },
+            {
+                title: '并发编程',
+                collapsable: false,
+                children: [
+                    './concurrent/j.U.C',
+                    // './concurrent/blocking-queue',
+                    // './concurrent/count-down-latch',
+                    // './concurrent/synchronized',
+                    // './concurrent/ConcurrentHashMap'
+                    //         './concurrent/volatile',
+                    './concurrent/cas'
+                    //         './concurrent/thread-local'
+                ]
+            },
             // {
             //     title: 'Netty',
             //     collapsable: false,
