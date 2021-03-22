@@ -116,6 +116,22 @@ public class DynamicServerListLoadBalancer<T extends Server> extends BaseLoadBal
         updateAllServerList(servers);
     }
     
+    protected void updateAllServerList(List<T> ls) {
+        // other threads might be doing this - in which case, we pass
+        if (serverListUpdateInProgress.compareAndSet(false, true)) {
+            try {
+                for (T s : ls) {
+                    s.setAlive(true); // set so that clients can start using these
+                                      // servers right away instead
+                                      // of having to wait out the ping cycle.
+                }
+                setServersList(ls);
+                super.forceQuickPing();
+            } finally {
+                serverListUpdateInProgress.set(false);
+            }
+        }
+    }
     // ......
 
 }
@@ -169,7 +185,10 @@ public class NacosServerList extends AbstractServerList<NacosServer> {
 ![ribbon-nacos-result](/img/spring-cloud/ribbon-nacos-result.jpg)
 
 
+
+
 ---
 **参考文档**
 
+- [SpringCloud Ribbon 设计原理](https://www.it610.com/article/1295158640667336704.htm)
 - [7. Client Side Load Balancer: Ribbon](https://docs.spring.io/spring-cloud-netflix/docs/2.2.5.RELEASE/reference/html/#spring-cloud-ribbon)
