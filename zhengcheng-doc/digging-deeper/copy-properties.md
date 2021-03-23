@@ -273,37 +273,6 @@ public void copyProperties(final Object dest, final Object orig)
 
 `copyProperty`
 ```java
-/**
- * <p>Copy the specified property value to the specified destination bean,
- * performing any type conversion that is required.  If the specified
- * bean does not have a property of the specified name, or the property
- * is read only on the destination bean, return without
- * doing anything.  If you have custom destination property types, register
- * {@link Converter}s for them by calling the <code>register()</code>
- * method of {@link ConvertUtils}.</p>
- *
- * <p><strong>IMPLEMENTATION RESTRICTIONS</strong>:</p>
- * <ul>
- * <li>Does not support destination properties that are indexed,
- *     but only an indexed setter (as opposed to an array setter)
- *     is available.</li>
- * <li>Does not support destination properties that are mapped,
- *     but only a keyed setter (as opposed to a Map setter)
- *     is available.</li>
- * <li>The desired property type of a mapped setter cannot be
- *     determined (since Maps support any data type), so no conversion
- *     will be performed.</li>
- * </ul>
- *
- * @param bean Bean on which setting is to be performed
- * @param name Property name (can be nested/indexed/mapped/combo)
- * @param value Value to be set
- *
- * @throws IllegalAccessException if the caller does not have
- *  access to the property accessor method
- * @throws InvocationTargetException if the property accessor method
- *  throws an exception
- */
 public void copyProperty(final Object bean, String name, Object value)
     throws IllegalAccessException, InvocationTargetException {
 
@@ -428,7 +397,7 @@ public void copyProperty(final Object bean, String name, Object value)
 
 使用`Arthas` 基本`trace`命令
 ```shell script
-trace org.apache.commons.beanutils.BeanUtilsBean copyProperty -v -n 5 --skipJDKMethod false '1==1'
+trace org.apache.commons.beanutils.BeanUtils Bean copyProperty -v -n 5 --skipJDKMethod false '1==1'
 ```
 代码运行时，打印如下：
 ![arthas](/img/digging-deeper/arthas-trace-copyProperty.png)
