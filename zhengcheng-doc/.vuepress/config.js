@@ -109,7 +109,22 @@ module.exports = {
                 collapsable: false,
                 children: [
                     './java/java8-new-features',
-                    './java/generics'
+                    './java/generics',
+                    './java/Reference'
+                ]
+            },
+            {
+                title: '并发编程',
+                collapsable: false,
+                children: [
+                    './concurrent/j.U.C',
+                    // './concurrent/blocking-queue',
+                    // './concurrent/count-down-latch',
+                    // './concurrent/synchronized',
+                    // './concurrent/ConcurrentHashMap'
+                    //         './concurrent/volatile',
+                    './concurrent/cas',
+                    './concurrent/thread-local'
                 ]
             },
             {
@@ -205,20 +220,6 @@ module.exports = {
                     './zk/',
                     './zk/zab',
                     './zk/lock'
-                ]
-            },
-            {
-                title: '并发编程',
-                collapsable: false,
-                children: [
-                    './concurrent/j.U.C',
-                    // './concurrent/blocking-queue',
-                    // './concurrent/count-down-latch',
-                    // './concurrent/synchronized',
-                    // './concurrent/ConcurrentHashMap'
-                    //         './concurrent/volatile',
-                    './concurrent/cas',
-                    './concurrent/thread-local'
                 ]
             },
             // {
