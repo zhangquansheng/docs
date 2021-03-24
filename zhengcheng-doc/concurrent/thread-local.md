@@ -54,9 +54,39 @@ public class ThreadLocalDemo {
 
 ## ThreadLocal 的源码分析
 
+1. Thread 类中存在`threadLocals`变量，类型为`ThreadLocal.ThreadLocalMap`，这个变量就是保存每个线程的私有数据。
+```java
+// java.lang.Thread
+public
+class Thread implements Runnable {
+    // ...
+    ThreadLocal.ThreadLocalMap threadLocals = null;
+
+    ThreadLocal.ThreadLocalMap inheritableThreadLocals = null;
+    //...
+}
+```
+
+2. ThreadLocalMap 是`ThreadLocal`的内部类，每个数据都用`Entry`保存，其中`Entry`继承`WeakReference`，用一个键值对存储，键为`ThreadLocal`的引用。
+> `Entry`为什么是弱引用，如果是强引用，即使把`ThreadLocalMap`设置为null，`GC`也不会回收，因为`ThreadLocalMap`对它有强引用。
+```java
+static class ThreadLocalMap {
+        static class Entry extends WeakReference<ThreadLocal<?>> {
+            /** The value associated with this ThreadLocal. */
+            Object value;
+
+            Entry(ThreadLocal<?> k, Object v) {
+                super(k);
+                value = v;
+            }
+        }
+}
+```
+
 ## 内存泄露
 
-`ThreadLocalMap`中使用的`key`为`ThreadLocal`的弱引用，而`value`是强引用。所以，如果`ThreadLocal`没有被外部强引用的情况下，在垃圾回收的时候`key`会被清理掉，而`value`不会被清理掉。这样一来，**`ThreadLocalMap`中就会出现`key`为`null`的`Entry`**。假如我们不做任何措施的话`value`永远无法被`GC`回收，这个时候就可能会产生内存泄露。
+`ThreadLocalMap`中使用的`key`为`ThreadLocal`的弱引用，而`value`是强引用。所以，如果`ThreadLocal`没有被外部强引用的情况下，在垃圾回收的时候`key`会被清理掉，而`value`不会被清理掉。
+这样一来，**`ThreadLocalMap`中就会出现`key`为`null`的`Entry`**。假如我们不做任何措施的话`value`永远无法被`GC`回收，这个时候就可能会产生内存泄露。
 
 ## 如何避免内存泄露
 
