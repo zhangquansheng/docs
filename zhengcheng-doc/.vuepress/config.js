@@ -217,8 +217,8 @@ module.exports = {
                     // './concurrent/synchronized',
                     // './concurrent/ConcurrentHashMap'
                     //         './concurrent/volatile',
-                    './concurrent/cas'
-                    //         './concurrent/thread-local'
+                    './concurrent/cas',
+                    './concurrent/thread-local'
                 ]
             },
             // {
