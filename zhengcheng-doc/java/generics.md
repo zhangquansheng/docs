@@ -119,7 +119,7 @@ interface PayloadList<E,P> extends List<E> {
 
 ## 通配符（Wildcards）
 
-**问号(?)**表示通配符，表示未知类型。
+问号(`?`) 表示通配符，表示未知类型。
 
 - 上限通配符
 ```java
