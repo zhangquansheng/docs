@@ -144,7 +144,7 @@ public class BatchConsumerClient {
 }
 ```
 
-## 自定义 @RocketMQListener 注解
+## 自定义 @RocketMQListener 注解 :100:
 
 借鉴`@KafkaListener`实现自定义的`@RocketMQListener`来简化消费者配置，参考文档[Spring for Apache Kafka](https://spring.io/projects/spring-kafka)，源码如下
 
