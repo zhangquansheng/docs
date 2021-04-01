@@ -87,8 +87,14 @@ RocketMQ 消息存储使用磁盘文件（**内存映射机制**），在物理�
 
 消息重试，指消息在消费时，如果发送异常，消息中间件支持消息重新投递，RocketMQ支持消息重试机制.
 
----
+## Kafka 与 RocketMQ 的存储对比
 
+MQ | 结构 | 存储 | 优缺点
+---|---|---|---
+Kafka | row 1 col 2| row 1 col 2| row 1 col 2
+RocketMQ | row 2 col 2| row 1 col 2| row 1 col 2
+
+---
 **参考文档**
 
 - [Apache RocketMQ 官方文档](http://rocketmq.apache.org/docs/quick-start/)
