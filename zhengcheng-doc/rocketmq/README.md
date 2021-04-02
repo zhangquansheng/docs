@@ -89,10 +89,10 @@ RocketMQ 消息存储使用磁盘文件（**内存映射机制**），在物理�
 
 ## Kafka 与 RocketMQ 的存储对比
 
-MQ | 结构 | 存储 | 优缺点
+MQ | 结构 | 存储 
 ---|---|---|---
-Kafka | row 1 col 2| row 1 col 2| row 1 col 2
-RocketMQ | row 2 col 2| row 1 col 2| row 1 col 2
+Kafka | topic 对应多个 partition，同一个服务器（Broker）会有多个 topic-partition 对，partition 为单主多从结构，主挂了会重新选择主（ZK） | 消息直接存储在 partition 中，对单 topic 为顺序写 
+RocketMQ | topic 对应多个 ConsumeQueue，同一个服务器（Broker）会有多个 topic-ConsumeQueue 对，ConsumeQueue 为多主多从结构，主有配置指定，主挂了由其他主提供服务 | 同一个服务器的所有消息都统一写到 CommitLog 文件中，ConsumeQueue 只存储在 CommitLog 中的起始offset、log大小、MessageTag的hashCode，数据量较少。
 
 ---
 **参考文档**
