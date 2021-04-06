@@ -217,40 +217,6 @@ public @interface RocketMQListener {
 
 ### ConsumerAutoConfiguration
 ```java
-import cn.hutool.core.util.StrUtil;
-import com.aliyun.openservices.ons.api.MessageListener;
-import com.aliyun.openservices.ons.api.PropertyKeyConst;
-import com.aliyun.openservices.ons.api.batch.BatchMessageListener;
-import com.aliyun.openservices.ons.api.bean.BatchConsumerBean;
-import com.aliyun.openservices.ons.api.bean.ConsumerBean;
-import com.aliyun.openservices.ons.api.bean.Subscription;
-import com.zhangmen.ak.properties.AliyunAkProperties;
-import com.zhangmen.brain.solar.rocket.mq.annotation.RocketMQListener;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.aop.framework.AopProxyUtils;
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.SmartInitializingSingleton;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.GenericApplicationContext;
-import org.springframework.core.env.StandardEnvironment;
-import org.springframework.lang.NonNull;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-import java.util.concurrent.atomic.AtomicLong;
-
-/**
- * ConsumerAutoConfiguration
- *
- * @author quansheng1.zhang
- * @since 2021/2/2 18:57
- */
 @Slf4j
 @ConditionalOnBean({AliyunAkProperties.class, StandardEnvironment.class})
 @Configuration
@@ -273,69 +239,131 @@ public class ConsumerAutoConfiguration implements ApplicationContextAware, Smart
 
     @Override
     public void afterSingletonsInstantiated() {
+        ConcurrentHashMap<String, Boolean> concurrentHashMap = new ConcurrentHashMap<>();
+
         Map<String, Object> rocketMQListenerMap = applicationContext.getBeansWithAnnotation(RocketMQListener.class);
-        rocketMQListenerMap.forEach(this::registerConsumerBean);
-    }
 
-    private void registerConsumerBean(String beanName, Object bean) {
-        Class<?> clazz = AopProxyUtils.ultimateTargetClass(bean);
-        if (!MessageListener.class.isAssignableFrom(bean.getClass()) &&
-                !BatchMessageListener.class.isAssignableFrom(bean.getClass())) {
-            throw new IllegalStateException(StrUtil.format("{} is not instance of {} or {}", clazz, MessageListener.class.getName(), BatchMessageListener.class.getName()));
-        }
+        List<Object> rocketMQListenerObjectList = new ArrayList<>();
+        rocketMQListenerMap.forEach((beanName, bean) -> rocketMQListenerObjectList.add(bean));
 
-        RocketMQListener annotation = clazz.getAnnotation(RocketMQListener.class);
         GenericApplicationContext genericApplicationContext = (GenericApplicationContext) applicationContext;
 
-        if (bean instanceof MessageListener) {
-            String consumerBeanName = StrUtil.format("{}_{}", ConsumerBean.class.getName(), counter.incrementAndGet());
-            genericApplicationContext.registerBean(consumerBeanName, ConsumerBean.class,
-                    () -> buildConsumer((MessageListener) bean, annotation));
-            ConsumerBean consumerBean = genericApplicationContext.getBean(consumerBeanName, ConsumerBean.class);
-            consumerBean.start();
-        } else {
-            String batchConsumerBeanName = StrUtil.format("{}_{}", BatchConsumerBean.class.getName(), counter.incrementAndGet());
-            genericApplicationContext.registerBean(batchConsumerBeanName, BatchConsumerBean.class,
-                    () -> buildBatchConsumer((BatchMessageListener) bean, annotation));
-            BatchConsumerBean batchConsumerBean = genericApplicationContext.getBean(batchConsumerBeanName, BatchConsumerBean.class);
-            batchConsumerBean.start();
-        }
+        rocketMQListenerMap.forEach((beanName, bean) -> {
+            Class<?> clazz = AopProxyUtils.ultimateTargetClass(bean);
+            RocketMQListener annotation = clazz.getAnnotation(RocketMQListener.class);
+            String groupId = environment.resolvePlaceholders(annotation.groupId());
+            if (!concurrentHashMap.containsKey(groupId)) {
+                if (bean instanceof MessageListener) {
+                    String consumerBeanName = StrUtil.format("{}_{}", ConsumerBean.class.getName(), counter.incrementAndGet());
+                    genericApplicationContext.registerBean(consumerBeanName, ConsumerBean.class,
+                            () -> buildConsumer(groupId, rocketMQListenerObjectList),
+                            beanDefinition -> beanDefinition.setDestroyMethodName("shutdown"));
+                    ConsumerBean consumerBean = genericApplicationContext.getBean(consumerBeanName, ConsumerBean.class);
+                    consumerBean.start();
 
-        log.info("Register RocketMQ {} success,access-key:{} ,nameSrvAddr:{} ,topic:{} ,expression:{} ,groupId:{} ,listenerBeanName:{}",
-                bean instanceof MessageListener ? "ConsumerBean" : "BatchConsumerBean",
-                aliyunAkProperties.getAk(),
-                environment.resolvePlaceholders(annotation.nameSrvAddr()),
-                environment.resolvePlaceholders(annotation.topic()),
-                environment.resolvePlaceholders(annotation.expression()),
-                environment.resolvePlaceholders(annotation.groupId()),
-                beanName);
+                    log.info("Register RocketMQ {} success, {}, {}", consumerBeanName, consumerBean.getProperties(), consumerBean.getSubscriptionTable());
+                } else if (bean instanceof BatchMessageListener) {
+                    String batchConsumerBeanName = StrUtil.format("{}_{}", BatchConsumerBean.class.getName(), counter.incrementAndGet());
+                    genericApplicationContext.registerBean(batchConsumerBeanName, BatchConsumerBean.class,
+                            () -> buildBatchConsumer(groupId, rocketMQListenerObjectList),
+                            beanDefinition -> beanDefinition.setDestroyMethodName("shutdown"));
+                    BatchConsumerBean batchConsumerBean = genericApplicationContext.getBean(batchConsumerBeanName, BatchConsumerBean.class);
+                    batchConsumerBean.start();
+
+                    log.info("Register RocketMQ {} success, {}, {}", batchConsumerBean, batchConsumerBean.getProperties(), batchConsumerBean.getSubscriptionTable());
+                } else if (bean instanceof MessageOrderListener) {
+                    String orderConsumerBeanName = StrUtil.format("{}_{}", OrderConsumerBean.class.getName(), counter.incrementAndGet());
+                    genericApplicationContext.registerBean(orderConsumerBeanName, OrderConsumerBean.class,
+                            () -> buildOrderConsumerBean(groupId, rocketMQListenerObjectList),
+                            beanDefinition -> beanDefinition.setDestroyMethodName("shutdown")
+                    );
+                    OrderConsumerBean orderConsumerBean = genericApplicationContext.getBean(orderConsumerBeanName, OrderConsumerBean.class);
+                    orderConsumerBean.start();
+
+                    log.info("Register RocketMQ {} success, {}, {}", orderConsumerBeanName, orderConsumerBean.getProperties(), orderConsumerBean.getSubscriptionTable());
+                } else {
+                    throw new IllegalStateException(StrUtil.format("{} is not support instance of RocketMQListener Annotation", beanName));
+                }
+
+                concurrentHashMap.put(groupId, Boolean.TRUE);
+            }
+        });
     }
 
-    private BatchConsumerBean buildBatchConsumer(BatchMessageListener batchMessageListener, RocketMQListener annotation) {
+    private RocketMQListener getRocketMQListenerAnnotation(Object bean) {
+        Class<?> clazz = AopProxyUtils.ultimateTargetClass(bean);
+        return clazz.getAnnotation(RocketMQListener.class);
+    }
+
+    private OrderConsumerBean buildOrderConsumerBean(@NonNull String groupId, @NonNull List<Object> rocketMQListenerObjectList) {
+        OrderConsumerBean orderConsumerBean = new OrderConsumerBean();
+
+        //设置属性
+        RocketMQListener firstRocketMQListenerAnnotation = getFirstRocketMQListener(groupId, rocketMQListenerObjectList);
+        orderConsumerBean.setProperties(getMqProperties(groupId, firstRocketMQListenerAnnotation));
+
+        //订阅关系
+        Map<Subscription, MessageOrderListener> subscriptionTable = new HashMap<>();
+        rocketMQListenerObjectList.forEach(bean -> {
+            RocketMQListener annotation = getRocketMQListenerAnnotation(bean);
+            if (groupId.equals(environment.resolvePlaceholders(annotation.groupId()))) {
+                subscriptionTable.put(getMqSubscription(annotation), (MessageOrderListener) bean);
+            }
+        });
+        orderConsumerBean.setSubscriptionTable(subscriptionTable);
+
+        return orderConsumerBean;
+    }
+
+    private BatchConsumerBean buildBatchConsumer(@NonNull String groupId, @NonNull List<Object> rocketMQListenerObjectList) {
         BatchConsumerBean batchConsumerBean = new BatchConsumerBean();
+
         // 设置属性
-        batchConsumerBean.setProperties(getMqProperties(annotation));
+        RocketMQListener firstRocketMQListenerAnnotation = getFirstRocketMQListener(groupId, rocketMQListenerObjectList);
+        batchConsumerBean.setProperties(getMqProperties(groupId, firstRocketMQListenerAnnotation));
+
         //订阅关系
         Map<Subscription, BatchMessageListener> subscriptionTable = new HashMap<>();
-        //订阅多个topic如上面设置
-        subscriptionTable.put(getMqSubscription(annotation), batchMessageListener);
+        rocketMQListenerObjectList.forEach(bean -> {
+            RocketMQListener annotation = getRocketMQListenerAnnotation(bean);
+            if (groupId.equals(environment.resolvePlaceholders(annotation.groupId()))) {
+                subscriptionTable.put(getMqSubscription(annotation), (BatchMessageListener) bean);
+            }
+        });
         batchConsumerBean.setSubscriptionTable(subscriptionTable);
+
         return batchConsumerBean;
     }
 
-    private ConsumerBean buildConsumer(MessageListener messageListener, RocketMQListener annotation) {
+    private ConsumerBean buildConsumer(@NonNull String groupId, @NonNull List<Object> rocketMQListenerObjectList) {
         ConsumerBean consumerBean = new ConsumerBean();
 
         // 设置属性
-        consumerBean.setProperties(getMqProperties(annotation));
+        RocketMQListener firstRocketMQListenerAnnotation = getFirstRocketMQListener(groupId, rocketMQListenerObjectList);
+        consumerBean.setProperties(getMqProperties(groupId, firstRocketMQListenerAnnotation));
+
         //订阅关系
         Map<Subscription, MessageListener> subscriptionTable = new HashMap<>();
-        //订阅多个topic如上面设置
-        subscriptionTable.put(getMqSubscription(annotation), messageListener);
-
+        rocketMQListenerObjectList.forEach(bean -> {
+            RocketMQListener annotation = getRocketMQListenerAnnotation(bean);
+            if (groupId.equals(environment.resolvePlaceholders(annotation.groupId()))) {
+                subscriptionTable.put(getMqSubscription(annotation), (MessageListener) bean);
+            }
+        });
         consumerBean.setSubscriptionTable(subscriptionTable);
 
         return consumerBean;
+    }
+
+    @NonNull
+    private RocketMQListener getFirstRocketMQListener(@NonNull String groupId, @NonNull List<Object> rocketMQListenerObjectList) {
+        for (Object object : rocketMQListenerObjectList) {
+            RocketMQListener annotation = getRocketMQListenerAnnotation(object);
+            if (Objects.nonNull(annotation) && StrUtil.equalsAnyIgnoreCase(groupId, environment.resolvePlaceholders(annotation.groupId()))) {
+                return annotation;
+            }
+        }
+        throw new IllegalStateException(StrUtil.format("GroupId [{}] is not support instance of RocketMQListener Annotation", groupId));
     }
 
     private Subscription getMqSubscription(RocketMQListener annotation) {
@@ -346,12 +374,12 @@ public class ConsumerAutoConfiguration implements ApplicationContextAware, Smart
         return subscription;
     }
 
-    private Properties getMqProperties(RocketMQListener annotation) {
+    private Properties getMqProperties(String groupId, RocketMQListener annotation) {
         Properties properties = new Properties();
+        properties.setProperty(PropertyKeyConst.NAMESRV_ADDR, environment.resolvePlaceholders(annotation.nameSrvAddr()));
+        properties.setProperty(PropertyKeyConst.GROUP_ID, groupId);
         properties.setProperty(PropertyKeyConst.AccessKey, aliyunAkProperties.getAk());
         properties.setProperty(PropertyKeyConst.SecretKey, aliyunAkProperties.getSec());
-        properties.setProperty(PropertyKeyConst.NAMESRV_ADDR, environment.resolvePlaceholders(annotation.nameSrvAddr()));
-        properties.setProperty(PropertyKeyConst.GROUP_ID, environment.resolvePlaceholders(annotation.groupId()));
         properties.setProperty(PropertyKeyConst.ConsumeThreadNums, String.valueOf(annotation.consumeThreadNums()));
         properties.setProperty(PropertyKeyConst.MessageModel, annotation.messageModel().getModeCN());
         return properties;
