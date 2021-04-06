@@ -92,8 +92,3 @@ final V putVal(K key, V value, boolean onlyIfAbsent) {
     return null;
 }
 ```
-
-总结几点如下：
-1.  `HashMap` 是可以存在`null`值，但是 `ConcurrentHashMap` 不允许存在`null`，会直接抛出`NPE`。
-2. `CAS`保证数组写入数据的线程安全，`synchronized`锁住头节点来保证链表的线程安全。
-3.  采用**尾插法**将新数据插入链表中。
