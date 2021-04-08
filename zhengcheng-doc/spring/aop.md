@@ -70,3 +70,59 @@ public class Animal {
 `Spring AOP`默认将**标准JDK动态代理**用于`AOP`代理。所以它可以代理任何接口（或一组接口）。
 
 `Spring AOP`也可以使用**CGLIB代理**，默认情况下，如果业务对象未实现接口，则使用`CGLIB`。**由于对接口而不是对类进行编程是一种好习惯(As it is good practice to program to interfaces rather than classes)**，因此业务类通常实现一个或多个业务接口。
+
+## @EnableAspectJAutoProxy 解决内部方法调用导致 AOP 失效的问题
+```java
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Import(AspectJAutoProxyRegistrar.class)
+public @interface EnableAspectJAutoProxy {
+    // 是否强制指定使用CGLIB代理
+	boolean proxyTargetClass() default false;
+   /**
+     * @since 4.3.1 代理的暴露方式：解决内部调用不能使用代理的场景  默认为false表示不处理
+     * true：这个代理就可以通过AopContext.currentProxy()获得这个代理对象的一个副本（ThreadLocal里面）,从而我们可以很方便得在Spring框架上下文中拿到当前代理对象（处理事务时很方便）
+     * 必须为true才能调用AopContext得方法，否则报错：Cannot find current proxy: Set 'exposeProxy' property on Advised to 'true' to make it available.
+     */
+	boolean exposeProxy() default false;
+}
+```
+
+```java
+// org.springframework.context.annotation.AspectJAutoProxyRegistrar.java
+class AspectJAutoProxyRegistrar implements ImportBeanDefinitionRegistrar {
+
+	@Override
+	public void registerBeanDefinitions(
+			AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
+
+		AopConfigUtils.registerAspectJAnnotationAutoProxyCreatorIfNecessary(registry);
+
+		AnnotationAttributes enableAspectJAutoProxy =
+				AnnotationConfigUtils.attributesFor(importingClassMetadata, EnableAspectJAutoProxy.class);
+		if (enableAspectJAutoProxy != null) {
+			if (enableAspectJAutoProxy.getBoolean("proxyTargetClass")) {
+				AopConfigUtils.forceAutoProxyCreatorToUseClassProxying(registry);
+			}
+			if (enableAspectJAutoProxy.getBoolean("exposeProxy")) {
+				AopConfigUtils.forceAutoProxyCreatorToExposeProxy(registry);
+			}
+		}
+	}
+}
+```
+
+第一步：需要在启动类中增加以下注解
+```java
+@EnableAspectJAutoProxy(proxyTargetClass = true, exposeProxy = true)
+```
+
+第二步：使用 `AopContext.currentProxy()` 获取当前代理，调用内部方法
+```java
+  CurrentImpl currentProxy = (CurrentImpl) AopContext.currentProxy();
+  // 使用代理调用
+  currentProxy.method();
+```
+
+
