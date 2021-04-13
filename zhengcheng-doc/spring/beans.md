@@ -107,8 +107,8 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 }
 ```
 
-::: tip Spring 中的单例 bean 的线程安全问题了解吗？
-是存在安全问题的。因为，当多个线程操作同一个对象的时候，对这个对象的成员变量的写操作会存在线程安全问题。
+::: tip Spring 中的单例 bean 是否有线程安全问题？
+**存在线程安全问题**。因为，当多个线程操作同一个对象的时候，对这个对象的成员变量的写操作会存在线程安全问题。
 
 但是，一般情况下，我们常用的`Controller`、`Service`、`Dao`这些`Bean`是无状态的。无状态的`Bean`不能保存数据，因此是线程安全的。
 
