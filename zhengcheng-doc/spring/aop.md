@@ -71,6 +71,12 @@ public class Animal {
 
 `Spring AOP`也可以使用**CGLIB代理**，默认情况下，如果业务对象未实现接口，则使用`CGLIB`。**由于对接口而不是对类进行编程是一种好习惯(As it is good practice to program to interfaces rather than classes)**，因此业务类通常实现一个或多个业务接口。
 
+如下图所示：
+
+![Spring AOP Process](/img/spring/spring-aop-process.jpg)
+
+当然你也可以使用`AspectJ` ，`Spring AOP`已经集成了`AspectJ` ，`AspectJ`应该算的上是`Java`生态系统中最完整的`AOP`框架了。
+
 ## @EnableAspectJAutoProxy 解决内部方法调用导致 AOP 失效的问题
 ```java
 @Target(ElementType.TYPE)
@@ -124,5 +130,13 @@ class AspectJAutoProxyRegistrar implements ImportBeanDefinitionRegistrar {
   // 使用代理调用
   currentProxy.method();
 ```
+
+##  Spring AOP 和 AspectJ AOP 的区别
+
+`Spring AOP`属于运行时增强，而`AspectJ`是编译时增强。 `Spring AOP`基于代理(`Proxying`)，而`AspectJ`基于字节码操作(`Bytecode Manipulation`)。
+
+`AspectJ`相比于`Spring AOP`功能更加强大，但是`Spring AOP`相对来说更简单，
+
+如果我们的切面比较少，那么两者性能差异不大。但是，当切面太多的话，最好选择`AspectJ` ，它比`Spring AOP`快很多。
 
 
