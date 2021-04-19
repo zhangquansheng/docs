@@ -47,3 +47,18 @@
 ## String Manipulation
 
 [String Manipulation](https://plugins.jetbrains.com/plugin/2162-string-manipulation): Switch case (camelCase, kebab-lowercase, KEBAB-UPPERCASE, snake_case, SCREAMING_SNAKE_CASE, dot.case, words lowercase, First word capitalized, Words Capitalized, PascalCase)
+
+## Alibaba Java Coding Guidelines
+
+[Alibaba Java Coding Guidelines](https://plugins.jetbrains.com/plugin/10046-alibaba-java-coding-guidelines)
+
+## 阿里代码格式化
+
+首先允许直接从`IntelliJ`使用`Eclipse`的代码格式化程序，安装插件[Eclipse Code Formatter](https://plugins.jetbrains.com/plugin/6546-eclipse-code-formatter)。
+
+接着导入代码格式化规约（阿里的格式化文件下载地址：[https://github.com/alibaba/p3c](https://github.com/alibaba/p3c)）
+![p3c](/img/digging-deeper/p3c-1.png)
+
+![p3c-2](/img/digging-deeper/p3c-2.png)
+
+**代码格式化快捷键 CTRL+ALT+L**
