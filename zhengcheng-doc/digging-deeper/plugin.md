@@ -12,9 +12,9 @@
 [Gitee](https://gitee.com/makejava/EasyCode)
 :::
 
-## RestfulToolkit
+## MapStruct Support
 
-[RestfulToolkit](https://plugins.jetbrains.com/plugin/10292-restfultoolkit/)
+[MapStruct Support](https://plugins.jetbrains.com/plugin/10036-mapstruct-support):This plugin gives some assistance in projects that use MapStruct to generate bean mapping code.
 
 ## Codota
 
@@ -62,3 +62,7 @@
 ![p3c-2](/img/digging-deeper/p3c-2.png)
 
 **代码格式化快捷键 CTRL+ALT+L**
+
+## RestfulToolkit
+
+[RestfulToolkit](https://plugins.jetbrains.com/plugin/10292-restfultoolkit/)
