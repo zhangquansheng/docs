@@ -20,9 +20,21 @@
  if (employee.isEligibleForFullBenefits())
 ```
 
-## 命名规则
+## 常见的命名法
 
-### 驼峰命名法（CamelCase）
+1. 大驼峰命名法（`UpperCamelCase`）: 类名需要使用大驼峰命名法
+2. 小驼峰命名法（`lowerCamelCase`）: 方法名、参数名、成员变量、局部变量需要使用小驼峰命名法
+3. 蛇形命名法（`snake_case`）: 测试方法名、常量、枚举名称需要使用蛇形命名法
+4. 串式命名法（`kebab-case`）: 建议项目文件夹名称使用串式命名法
+
+类型 |	约束 |	例 
+---|---|---
+项目名 |	串式命名法（`kebab-case`）：全部小写，多个单词用中划线分隔‘-’ |	spring-cloud
+包名 |	全部小写 |	com.alibaba.fastjson
+类名 |	大驼峰命名法（`UpperCamelCase`）：单词首字母大写 |	Feature, ParserConfig,DefaultFieldDeserializer
+变量名 |	小驼峰命名法（`lowerCamelCase`）：首字母小写，多个单词组成时，除首个单词，其他单词首字母都要大写 |	password, userName
+常量名 |	全部大写，多个单词，用'_'分隔 |	CACHE_EXPIRED_TIME
+方法 |	小驼峰命名法（`lowerCamelCase`） |	read(), readObject(), getById()
 
 ---
 
