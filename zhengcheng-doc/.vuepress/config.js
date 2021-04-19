@@ -294,7 +294,8 @@ module.exports = {
                     './digging-deeper/meituan-leaf',
                     './digging-deeper/J2Cache',
                     './digging-deeper/HashMap',
-                    './digging-deeper/ConcurrentHashMap'
+                    './digging-deeper/ConcurrentHashMap',
+                    './digging-deeper/naming'
                 ]
             },
             {
