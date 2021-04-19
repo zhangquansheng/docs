@@ -1,3 +1,7 @@
+---
+sidebarDepth: 3
+---
+
 # Java命名规范参考
 
 ## 为什么需要重视命名？
@@ -35,6 +39,26 @@
 变量名 |	小驼峰命名法（`lowerCamelCase`）：首字母小写，多个单词组成时，除首个单词，其他单词首字母都要大写 |	password, userName
 常量名 |	全部大写，多个单词，用'_'分隔 |	CACHE_EXPIRED_TIME
 方法 |	小驼峰命名法（`lowerCamelCase`） |	read(), readObject(), getById()
+
+
+## 类命名
+
+类名使用大驼峰命名形式，类命通常时名词或名词短语，接口名除了用名词和名词短语以外，还可以使用形容词或形容词短语，如 `Cloneable`，`Callable` 等，
+表示实现该接口的类有某种功能或能力。对于测试类则以它要测试的类开头，以`Test`结尾，如`HashMapTest`。
+
+属性 |	约束 |	例
+---|---|---
+抽象类 |	Abstract 或者 Base 开头 |	BaseUserService
+枚举类 |	Enum 作为后缀 |	GenderEnum
+工具类 |	Utils 作为后缀 |	StringUtils
+异常类 |	Exception 结尾 |	RuntimeException
+接口实现 |	I+ 接口名 |	IUserService
+接口实现类 |	接口名+ Impl |	UserServiceImpl
+领域模型相关 |	/DO/DTO/VO/DAO |	正例：UserDTO 反例： UserDto
+设计模式相关类 |	Builder，Factory 等 |	当使用到设计模式时，需要使用对应的设计模式作为后缀，如 ThreadFactory
+处理特定功能的 |	Handler，Predicate, Validator |	表示处理器，校验器，断言，这些类工厂还有配套的方法名如 handle，predicate，validate
+测试类 |	Test 结尾	| UserServiceTest，表示用来测试 UserService 类的
+MVC 分层 |	Controller，Service，ServiceImpl，DAO 后缀 |	UserManageController，UserManageDAO
 
 ---
 
