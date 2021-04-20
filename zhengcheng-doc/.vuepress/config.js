@@ -120,9 +120,8 @@ module.exports = {
                     './concurrent/j.U.C',
                     // './concurrent/blocking-queue',
                     // './concurrent/count-down-latch',
-                    // './concurrent/synchronized',
-                    // './concurrent/ConcurrentHashMap'
-                    //         './concurrent/volatile',
+                    './concurrent/volatile',
+                    './concurrent/synchronized',
                     './concurrent/cas',
                     './concurrent/thread-local'
                 ]
@@ -295,7 +294,8 @@ module.exports = {
                     './digging-deeper/J2Cache',
                     './digging-deeper/HashMap',
                     './digging-deeper/ConcurrentHashMap',
-                    './digging-deeper/naming'
+                    './digging-deeper/naming',
+                    './digging-deeper/cpu100'
                 ]
             },
             {
