@@ -47,3 +47,9 @@
 ::: tip 撸码利器：
 👉 [EasyCode](https://gitee.com/makejava/EasyCode): **代码神器，个人迄今为止最喜欢的插件，上手以后太爽啦。。。**
 :::
+
+## 效率工具
+
+### uTools（Windows/Mac）
+1. 文档地址：[https://u.tools/docs/guide/about-uTools.html](https://u.tools/docs/guide/about-uTools.html)
+2. 交流论坛：[https://yuanliao.info/t/utools](https://yuanliao.info/t/utools)

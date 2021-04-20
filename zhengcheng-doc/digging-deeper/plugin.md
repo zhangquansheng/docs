@@ -4,11 +4,6 @@
 [IntelliJ IDEA 2019.3.5](https://www.jetbrains.com/idea/download/other.html) （2020.x版本下，有些插件会收费）下推荐几款效率可以翻倍的IDEA插件，撸码利器。
 :::
 
-## uTools（Windows/Mac）
-
-1. 文档地址：[https://u.tools/docs/guide/about-uTools.html](https://u.tools/docs/guide/about-uTools.html)
-2. 交流论坛：[https://yuanliao.info/t/utools](https://yuanliao.info/t/utools)
-
 ## EasyCode
 
 [EasyCode](https://plugins.jetbrains.com/plugin/10954-easy-code): **代码神器，个人迄今为止最喜欢的插件，上手以后太爽啦。。。** 
