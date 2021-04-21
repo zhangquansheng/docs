@@ -167,6 +167,7 @@ module.exports = {
                 children: [
                     './mysql/',
                     './mysql/b-plus-index',
+                    './mysql/ICP',
                     './mysql/locking',
                     './mysql/transaction',
                     './mysql/sql-standard',
