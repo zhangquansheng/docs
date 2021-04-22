@@ -1,3 +1,7 @@
+---
+sidebarDepth: 3
+---
+
 # 锁
 
 ## Innodb存储引擎中的锁
