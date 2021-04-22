@@ -49,3 +49,12 @@ mysql>SHOW INDEX FROM `TABLE_NAME`
 ## B+树索引的使用：覆盖索引
 
 如果一个索引包含(或覆盖)所有需要查询的字段的值，称为**覆盖索引**。即只需扫描索引而无须**回表**。
+
+**应用场景：全模糊查询使用索引（索引扫描不回表）**
+ 
+![idx_name_like_out](/img/mysql/idx_name_like_out.png)
+从执行计划看到 `type=ALL，Extra=Using where` 走的是全表扫描，索引失效。
+
+利用覆盖索引的特性，改下后的`SQL`如下;
+![idx_name_like_in](/img/mysql/idx_name_like_in.jpg)
+从执行计划看，走了索引`idx_name`，不需要回表访问数据，可以利用` Using where; Using index`这种**索引扫描不回表的方式减少资源开销来提升性能**。
