@@ -32,7 +32,7 @@
  - `using index`：查询使用覆盖索引的时候会出现。
  - `using index & using where`：查询使用了索引，但是需要的数据都在索引列中能找到，不需要回表查询数据。
  
-# ICP 相关控制参数 
+## ICP 相关控制参数 
 
 `index_condition_pushdown`：索引条件下推默认开启的，可以设置为`off`关闭`ICP`特性。
 ```sql
@@ -40,4 +40,4 @@ mysql>show variables like 'optimizer_switch';
 
 # 开启或者关闭ICP特性
 mysql>set optimizer_switch = 'index_condition_pushdown=on | off';
-``
+```
