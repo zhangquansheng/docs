@@ -17,6 +17,7 @@ In MySQL, physically, a schema is synonymous with a database. You can
 substitute the keyword SCHEMA instead of DATABASE in MySQL SQL syntax,
 for example using CREATE SCHEMA instead of CREATE DATABASE.
 :::
+> 在MySQL中，schema 和 数据库（DATABASE）是同义的。
 
 ---
 

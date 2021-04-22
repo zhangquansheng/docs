@@ -166,6 +166,7 @@ module.exports = {
                 collapsable: false,
                 children: [
                     './mysql/',
+                    './mysql/Infrastructure',
                     './mysql/b-plus-index',
                     './mysql/ICP',
                     './mysql/locking',
