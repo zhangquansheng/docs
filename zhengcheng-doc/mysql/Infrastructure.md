@@ -30,6 +30,6 @@
 
 根据表的引擎定义，去使用这个引擎提供的接口。
 
-## 存储引擎 InnoDB引擎 架构图
+## InnoDB存储引擎架构图
 
 ![innodb-architecture](/img/mysql/innodb-architecture.png)

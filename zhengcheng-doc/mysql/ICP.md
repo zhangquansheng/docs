@@ -24,14 +24,6 @@
  
 ## EXPLAIN 分析
  
- `index_condition_pushdown`：索引条件下推默认开启的，可以设置为`off`关闭`ICP`特性后，验证`ICP`优化效果。
- ```sql
- mysql>show variables like 'optimizer_switch';
- 
- # 开启或者关闭ICP特性
- mysql>set optimizer_switch = 'index_condition_pushdown=on | off';
- ```
- 
  ![Using-index-condition](/img/mysql/Using-index-condition.png)
  
  `Extra`显示的索引扫描方式如下:
@@ -40,11 +32,10 @@
  - `using index`：查询使用覆盖索引的时候会出现。
  - `using index & using where`：查询使用了索引，但是需要的数据都在索引列中能找到，不需要回表查询数据。
  
- ## 全模糊查询使用索引（索引扫描不回表）
- 
- ![idx_name_like_out](/img/mysql/idx_name_like_out.png)
- 从执行计划看到 `type=ALL，Extra=Using where` 走的是全部扫描，没有利用到`ICP`特性。
- 
- ![idx_name_like_in](/img/mysql/idx_name_like_in.jpg)
- 从执行计划看到，`type=index，Extra=Using where; Using index`，索引全扫描，但是需要的数据都在索引列中能找到，不需要回表。利用这个特点，将原始的`SQL`语句先获取主键`id`，然后通过`id`跟原表进行关联。
- 并且我们可以看到，走了索引`idx_name`不需要回表访问数据，`type = index` 说明没有用到`ICP`特性，但是可以利用 `Using where; Using index` 这种**索引扫描不回表的方式减少资源开销来提升性能**。
+`index_condition_pushdown`：索引条件下推默认开启的，可以设置为`off`关闭`ICP`特性。
+```sql
+mysql>show variables like 'optimizer_switch';
+
+# 开启或者关闭ICP特性
+mysql>set optimizer_switch = 'index_condition_pushdown=on | off';
+``
