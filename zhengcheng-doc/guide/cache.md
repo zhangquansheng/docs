@@ -219,12 +219,14 @@ spring:
               
                 // TODO Something
           }
-      } catch (Exception e) {
-          // 释放锁
-          if (lock.isLocked() && lock.isHeldByCurrentThread()) {
-              lock.unlock();
-          }
-      }
+    } catch (Exception e) {
+           log.error(e.getMessage(), e);
+    } finally {
+       // 释放锁
+       if (lock.isLocked() && lock.isHeldByCurrentThread()) {
+           lock.unlock();
+       }
+    }
 ```
 
 ### RAtomicLong
