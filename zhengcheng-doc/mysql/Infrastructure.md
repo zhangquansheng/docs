@@ -33,3 +33,11 @@
 ## InnoDB存储引擎架构图
 
 ![innodb-architecture](/img/mysql/innodb-architecture.png)
+
+从这张图可以看到，`InnoDB`存储结构主要包括两部分：**逻辑存储结构**和**物理存储结构**。
+
+逻辑上是由表空间`tablespace` —>  段`segment`或者`inode` —> 区`Extent` ——>数据页`Page`构成，`Innodb`逻辑管理单位是`segment`，
+空间分配的最小单位是`extent`，每个`segment`都会从表空间`FREE_PAGE`中分配`32`个`page`，当这`32`个`page`不够用时，会按照以下原则进行扩展：
+如果当前小于`1`个`extent`，则扩展到`1`个`extent`；当表空间小于`32MB`时，每次扩展一个`extent`；表空间大于`32MB`，每次扩展`4`个`extent`。
+
+物理上主要由系统用户数据文件，日志文件组成，数据文件主要存储`MySQL`字典数据和用户数据，日志文件记录的是`data page`的变更记录，用于`MySQL Crash`时的恢复。

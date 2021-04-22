@@ -172,7 +172,8 @@ module.exports = {
                     './mysql/locking',
                     './mysql/transaction',
                     './mysql/sql-standard',
-                    './mysql/innodb_trx'
+                    './mysql/innodb_trx',
+                    './mysql/delete'
                 ]
             },
             {
