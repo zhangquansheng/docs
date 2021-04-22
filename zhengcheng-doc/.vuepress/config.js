@@ -234,9 +234,9 @@ module.exports = {
                 title: 'MyBatis',
                 collapsable: false,
                 children: [
-                    './MyBatis/',
-                    './MyBatis/cache',
-                    './MyBatis/mybatis-crud'
+                    './mybatis/',
+                    './mybatis/cache',
+                    './mybatis/mybatis-crud'
                 ]
             },
             {
