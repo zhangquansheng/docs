@@ -173,7 +173,8 @@ module.exports = {
                     './mysql/transaction',
                     './mysql/sql-standard',
                     './mysql/innodb_trx',
-                    './mysql/delete'
+                    './mysql/delete',
+                    './mysql/sql-execute'
                 ]
             },
             {

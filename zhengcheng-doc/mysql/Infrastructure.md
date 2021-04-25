@@ -1,7 +1,7 @@
 # 基础架构
 
-`MySQL` 的基本架构示意图(网络图片，学习使用，侵权删除)
-![MySQL的基本架构示意图.png](/img/mysql/MySQL的基本架构示意图.png)
+`MySQL` 的基本架构示意图( :flags: 网络图片，学习使用，侵权删除)
+![MySQL-Infrastructure.png](/img/mysql/MySQL-Infrastructure.png)
 
 大体来说`MySQL`分为`Server`层和**储存引擎层**两部分。
 - `Server`层包括连接器、查询缓存、分析器、优化器、执行器等，涵盖`MySQL`的大多数核 心服务功能，以及所有的内置函数(如日期、时间、数学和加密函数等)，所有跨存储引 擎的功能都在这一层实现，比如存储过程、触发器、视图等。
