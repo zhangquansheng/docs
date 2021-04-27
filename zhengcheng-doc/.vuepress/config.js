@@ -273,6 +273,7 @@ module.exports = {
                     './design-patterns/builder',
                     './design-patterns/singleton',
                     './design-patterns/strategy',
+                    './design-patterns/template',
                     './design-patterns/facade',
                     './design-patterns/flyweight',
                     './design-patterns/proxy',
