@@ -1,7 +1,5 @@
 # CHANGELOG
 
-[Markdown编辑器](https://stackedit.io/)
-
 ## [v4.8.0] 2020.10.15
 
 - （重点）提高效率：引入`MapStruct` `Orika`等`Bean`映射工具
