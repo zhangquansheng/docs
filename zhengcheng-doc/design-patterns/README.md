@@ -17,4 +17,6 @@
 ---
 
 **参考文档**
+
+- [java-design-patterns.com](https://java-design-patterns.com/)
 - [java-design-patterns](https://github.com/iluwatar/java-design-patterns)
