@@ -59,12 +59,35 @@ class Solution {
 - 时间复杂度：`O(n)`。
 - 空间复杂度：`O(1)`。
 
-## 凑零钱问题
+## 零钱兑换
 
-- 凑零钱一：给定不同面额的硬币和一个总金额。计算可以凑成总金额的硬币组合数。
-- 凑零钱二：给定不同面额的硬币`coins`和一个总金额`amount`。计算可以凑成总金额所需的最少的硬币个数。
+### 零钱兑换一：给定不同面额的硬币`coins`和一个总金额`amount`。计算可以凑成总金额所需的最少的硬币个数。
 
-## 背包问题
+状态转移方程：
+
+![状态转移方程](/img/algorithms/coin-change-1.png)
+
+### 零钱兑换二：给定不同面额的硬币和一个总金额。计算可以凑成总金额的硬币组合数。
+
+```java
+class Solution {
+  public int change(int amount, int[] coins) {
+    int[] dp = new int[amount + 1];
+    dp[0] = 1;
+
+    for (int coin : coins) {
+      for (int x = coin; x < amount + 1; ++x) {
+        dp[x] += dp[x - coin];
+      }
+    }
+    return dp[amount];
+  }
+}
+```
+
+**复杂度分析**
+- 时间复杂度：`O(N×amount)`。其中`N`为`coins`数组的长度。
+- 空间复杂度：`O(amount)`，`dp`数组使用的空间。
 
 
 ---
