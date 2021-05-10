@@ -77,6 +77,49 @@ public class Animal {
 
 当然你也可以使用`AspectJ` ，`Spring AOP`已经集成了`AspectJ` ，`AspectJ`应该算的上是`Java`生态系统中最完整的`AOP`框架了。
 
+参考源码如下：
+```java
+// org.springframework.aop.framework.AopProxyFactory.java
+public interface AopProxyFactory {
+
+	AopProxy createAopProxy(AdvisedSupport config) throws AopConfigException;
+
+}
+```
+
+```java
+// org.springframework.aop.framework.DefaultAopProxyFactory.java
+public class DefaultAopProxyFactory implements AopProxyFactory, Serializable {
+
+	@Override
+	public AopProxy createAopProxy(AdvisedSupport config) throws AopConfigException {
+		if (config.isOptimize() || config.isProxyTargetClass() || hasNoUserSuppliedProxyInterfaces(config)) {
+			Class<?> targetClass = config.getTargetClass();
+			if (targetClass == null) {
+				throw new AopConfigException("TargetSource cannot determine target class: " +
+						"Either an interface or a target is required for proxy creation.");
+			}
+            //  如果是接口，使用JDK动态代理
+			if (targetClass.isInterface() || Proxy.isProxyClass(targetClass)) {
+				return new JdkDynamicAopProxy(config);
+			}
+            // 否则使用 cglib
+			return new ObjenesisCglibAopProxy(config);
+		}
+		else {
+			return new JdkDynamicAopProxy(config);
+		}
+	}
+
+	private boolean hasNoUserSuppliedProxyInterfaces(AdvisedSupport config) {
+		Class<?>[] ifcs = config.getProxiedInterfaces();
+		return (ifcs.length == 0 || (ifcs.length == 1 && SpringProxy.class.isAssignableFrom(ifcs[0])));
+	}
+
+}
+```
+
+
 ## @EnableAspectJAutoProxy 解决内部方法调用导致 AOP 失效的问题
 ```java
 @Target(ElementType.TYPE)
