@@ -1,5 +1,7 @@
 # 概述
 
+`PB级海量数据` `准实时（near real-time）查询` `秒级`
+
 [搜索引擎实时排名](https://db-engines.com/en/ranking/search+engine)
 
 ## 环境准备
@@ -17,6 +19,11 @@
 
 - 垂直搜索引擎：有明确搜索目的的搜索行为，如各大电商网站、OA、站内搜索、视频网站等。
 
+### 准实时（near real-time）查询
+
+`elasticsearch` 被称为准实时搜索，原因是对 `Elasticsearch` 的写入操作成功后，写入的数据需要1秒钟后才能被搜索到，因此 `Elasticsearch` 搜索是准实时或者又称为近实时（`near real time`）。
+
+`elasticsearch` 底层使用的 `lucene`，而 `lucene` 的写入是实时的。但 `lucene` 的实时写入意味着每一次写入请求都直接将数据写入硬盘，因此频繁的`I/O`操作会导致很大的性能问题。
 
 ## 参考文档
 
