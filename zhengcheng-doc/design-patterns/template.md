@@ -7,6 +7,13 @@
 
 注意事项：为防止恶意操作，一般**模板方法**都加上`final`关键词。
 
+**因为抽象类就是要被继承的，所以抽象类不能增加`final`修饰**。 
+
+## 抽象类中使用 @Autowired
+
+- 抽象类不会进行组件扫描，因为没有具体的子类就无法实例化。
+- `Spring`在抽象类中不支持构造函数注入。
+
 --- 
 参考文档
 - [模板模式|菜鸟教程](https://www.runoob.com/design-pattern/template-pattern.html)
