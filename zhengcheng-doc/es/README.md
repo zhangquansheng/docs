@@ -9,6 +9,15 @@
 - `elasticsearch-6.4.3` 
 - `kibana-6.4.3`
 
+## 核心概览
+
+什么是搜索引擎？
+
+- 全文搜索引擎: 自然语言处理（NLP）、爬虫、网页处理、大数据处理，如谷歌、百度等等。
+
+- 垂直搜索引擎：有明确搜索目的的搜索行为，如各大电商网站、OA、站内搜索、视频网站等。
+
+
 ## 参考文档
 
 - [Support Matrix](https://www.elastic.co/cn/support/matrix)
