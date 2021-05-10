@@ -15,7 +15,7 @@ sidebarDepth: 3
   </dependency>
 ```
 
-**Lettuce**
+**Lettuce** [ˈletɪs]
 > 高级`Redis`客户端，用于线程安全同步，异步和响应使用，支持集群，Sentinel，管道和编码器
 
 `SpringBoot2.x`默认采用`Lettuce`客户端来连接`Redis`服务端的。
@@ -251,3 +251,5 @@ spring:
 - [redisson-spring-boot-starter](https://github.com/redisson/redisson/tree/master/redisson-spring-boot-starter)
 - [RedisTemplate 官方文档](https://docs.spring.io/spring-data/data-redis/docs/current/reference/html/#redis:template)
 - [Caching 官方文档](https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-caching)
+- [lettuce](https://lettuce.io/)
+- [lettuce-core](https://github.com/lettuce-io/lettuce-core)

@@ -25,6 +25,8 @@
 
 `Elasticsearch` 底层使用的 `Lucene`，而 `Lucene` 的写入是实时的。但 `Lucene` 的实时写入意味着每一次写入请求都直接将数据写入硬盘，因此频繁的`I/O`操作会导致很大的性能问题。
 
+### 倒排索引
+
 ## 参考文档
 
 - [Support Matrix](https://www.elastic.co/cn/support/matrix)
