@@ -193,7 +193,8 @@ module.exports = {
                 title: 'Elastcisearch',
                 collapsable: false,
                 children: [
-                    './es/'
+                    './es/',
+                    './es/inverted-index'
                 ]
             },
             {
