@@ -73,6 +73,7 @@ public class Animal {
 
 ::: tip 实际项目中如何使用代理？
 按照我们目前的编程习惯，`Mapper`接口使用的`JDK动态代理`，`Service`、`Facade`、`Controller`都是使用`CGLIB`代理。
+
 可以通过在项目启动时，`debug` `AutowiredFieldElement`类来查看注入属性时，使用的是哪种方式实现的代理类。
 :::
 
