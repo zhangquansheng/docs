@@ -78,6 +78,10 @@ module.exports = {
                         text: 'P3C',
                         link: 'https://github.com/alibaba/p3c'
                     },
+                    {
+                        text: 'stack overflow',
+                        link: 'https://stackoverflow.com/'
+                    },
                 ]
             },
             {text: '更新日志', link: '/change-log/'},
