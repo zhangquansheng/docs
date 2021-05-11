@@ -182,4 +182,9 @@ class AspectJAutoProxyRegistrar implements ImportBeanDefinitionRegistrar {
 
 如果我们的切面比较少，那么两者性能差异不大。但是，当切面太多的话，最好选择`AspectJ` ，它比`Spring AOP`快很多。
 
+##  Spring AOP final 方法
 
+由于在项目里面用到模板方法设计模式，在抽象类里面有一个`final`方法。这个`final`方法调用`@Autowired`注解的属性字段时候报空指针异常，
+
+我们知道在默认情况下，如果业务对象未实现接口，则使用`CGLIB`（例如：`controller`类，抽象类的子类）。我们称代理的对象为`proxy`，
+被代理的对象是`target`。而对于`final`方法，子类是不能覆盖的，走的代码流程依然是`target`里面的。
