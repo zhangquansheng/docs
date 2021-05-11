@@ -134,7 +134,8 @@ public class HelloServiceImpl implements HelloService {
 查看`AbstractAutowireCapableBeanFactory.createBean`的源码。
 
 ---
-## 参考文档
+
+**参考文档**
 
 - [博客园 一文告诉你Spring是如何利用"三级缓存"巧妙解决Bean的循环依赖问题的【享学Spring】](https://www.cnblogs.com/like5635/articles/13597943.html)
 - [Dependency Resolution Process](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-dependency-resolution)

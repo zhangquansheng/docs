@@ -190,7 +190,16 @@ class AspectJAutoProxyRegistrar implements ImportBeanDefinitionRegistrar {
 
 ##  Spring AOP final 方法
 
-由于在项目里面用到模板方法设计模式，在抽象类里面有一个`final`方法。这个`final`方法调用`@Autowired`注解的属性字段时候报空指针异常，
+由于在项目里面用到模板方法设计模式，在抽象类里面有一个`final`方法。**这个`final`方法调用`@Autowired`注解的属性字段时候报空指针异常**。
 
 我们知道在默认情况下，如果业务对象未实现接口，则使用`CGLIB`（例如：`controller`类，抽象类的子类）。我们称代理的对象为`proxy`，
 被代理的对象是`target`。而对于`final`方法，子类是不能覆盖的，走的代码流程依然是`target`里面的。
+
+`@Autowired` `AutowiredFieldElement` 实现属性依赖注入核心源码如下:
+```java
+// 根据容器中`Bean`定义，解析指定的依赖关系，获取依赖对象
+value = beanFactory.resolveDependency(desc, beanName, autowiredBeanNames, typeConverter);
+```
+
+其实最核心还是在`Bean`工厂里，也就是它的唯一内建实现类`org.springframework.beans.factory.support.DefaultListableBeanFactory`。
+
