@@ -71,6 +71,11 @@ public class Animal {
 
 `Spring AOP`也可以使用**CGLIB代理**，默认情况下，如果业务对象未实现接口，则使用`CGLIB`。**由于对接口而不是对类进行编程是一种好习惯(As it is good practice to program to interfaces rather than classes)**，因此业务类通常实现一个或多个业务接口。
 
+::: tip 实际项目中如何使用代理？
+按照我们目前的编程习惯，Mapper接口使用的`JDK动态代理`，`Service`、`Facade`、`Controller`都是使用`CGLIB`代理。
+可以通过在项目启动时，`debug` `AutowiredFieldElement`类来查看注入属性时，使用的是哪种方式实现的代理类。
+:::
+
 如下图所示：
 
 ![Spring AOP Process](/img/spring/spring-aop-process.jpg)
