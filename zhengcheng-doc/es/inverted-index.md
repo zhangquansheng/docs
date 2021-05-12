@@ -17,3 +17,7 @@
 适合稀疏的数组
 
 `Container`
+
+## 字典树
+
+[Trie](https://www.cs.usfca.edu/~galles/visualization/Trie.html)
