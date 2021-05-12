@@ -23,3 +23,5 @@
 [Trie](https://www.cs.usfca.edu/~galles/visualization/Trie.html) 前缀树
 
 ## FST
+
+有限状态机
