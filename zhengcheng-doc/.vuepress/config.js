@@ -193,14 +193,14 @@ module.exports = {
                     './redis/cache-database-double-write-consistency'
                 ]
             },
-            {
-                title: 'Elastcisearch',
-                collapsable: false,
-                children: [
-                    './es/',
-                    './es/inverted-index'
-                ]
-            },
+            // {
+            //     title: 'Elastcisearch',
+            //     collapsable: false,
+            //     children: [
+            //         './es/',
+            //         './es/inverted-index'
+            //     ]
+            // },
             {
                 title: 'Kafka',
                 collapsable: false,
