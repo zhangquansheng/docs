@@ -20,4 +20,6 @@
 
 ## 字典树
 
-[Trie](https://www.cs.usfca.edu/~galles/visualization/Trie.html)
+[Trie](https://www.cs.usfca.edu/~galles/visualization/Trie.html) 前缀树
+
+## FST
