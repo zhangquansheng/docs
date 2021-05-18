@@ -23,3 +23,7 @@ keyword 256 截断
 ## filter
 
 filter 不计算相关度评分， query 按照评分排序，filter 还有缓存， 所以基本上 filter 性能高
+
+## bool 每个版本的语义是不一样的
+
+filter should minimun_should_match 的结合使用
