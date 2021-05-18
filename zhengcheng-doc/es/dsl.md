@@ -19,3 +19,7 @@
 ::: tip term 和 keyword 的区别？
 keyword 256 截断
 :::
+
+## filter
+
+filter 不计算相关度评分， query 按照评分排序，filter 还有缓存， 所以基本上 filter 性能高
