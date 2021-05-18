@@ -4,6 +4,8 @@
 
 ## mapping
 
+[Mapping 官方文档](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping.html?baymax=rec&rogue=pop-1&elektra=docs)
+
 ## 全文检索
 
 ## 精准检索
