@@ -180,8 +180,15 @@ module.exports = {
                     './mysql/delete',
                     './mysql/sql-execute'
                 ]
-            },
-            {
+            }, {
+                title: 'Elasticsearch',
+                collapsable: false,
+                children: [
+                    './es/',
+                    './es/inverted-index',
+                    './es/dsl'
+                ]
+            }, {
                 title: 'Redis',
                 collapsable: false,
                 children: [
@@ -192,17 +199,7 @@ module.exports = {
                     './redis/three-problems-of-cache',
                     './redis/cache-database-double-write-consistency'
                 ]
-            },
-            {
-                title: 'Elasticsearch',
-                collapsable: false,
-                children: [
-                    './es/',
-                    './es/inverted-index',
-                    './es/dsl'
-                ]
-            },
-            {
+            }, {
                 title: 'Kafka',
                 collapsable: false,
                 children: [
@@ -211,8 +208,7 @@ module.exports = {
                     './kafka/multiple-kafka-config',
                     './kafka/message-sequencing'
                 ]
-            },
-            {
+            }, {
                 title: 'RocketMQ',
                 collapsable: false,
                 children: [
@@ -221,8 +217,7 @@ module.exports = {
                     './rocketmq/message-idempotent',
                     './rocketmq/java-springboot'
                 ]
-            },
-            {
+            }, {
                 title: 'ZooKeeper',
                 collapsable: false,
                 children: [
@@ -230,15 +225,7 @@ module.exports = {
                     './zk/zab',
                     './zk/lock'
                 ]
-            },
-            // {
-            //     title: 'Netty',
-            //     collapsable: false,
-            //     children: [
-            //         './netty/'
-            //     ]
-            // },
-            {
+            }, {
                 title: 'MyBatis',
                 collapsable: false,
                 children: [
@@ -246,16 +233,14 @@ module.exports = {
                     './mybatis/cache',
                     './mybatis/mybatis-crud'
                 ]
-            },
-            {
+            }, {
                 title: 'Apache ShardingSphere',
                 collapsable: false,
                 children: [
                     './shardingsphere/',
                     './shardingsphere/getting-started'
                 ]
-            },
-            {
+            }, {
                 title: '数据结构与算法',
                 collapsable: false,
                 children: [
@@ -268,8 +253,7 @@ module.exports = {
                     // './algorithms/balanced-tree',
                     // './algorithms/sliding-window',
                 ]
-            },
-            {
+            }, {
                 title: '面向对象设计模式',
                 collapsable: false,
                 children: [
@@ -289,8 +273,7 @@ module.exports = {
                     './design-patterns/ifelse-2',
                     './design-patterns/dynamic-proxy',
                 ]
-            },
-            {
+            }, {
                 title: '综合话题&源码分析',
                 collapsable: false,
                 children: [
@@ -308,8 +291,7 @@ module.exports = {
                     './digging-deeper/naming',
                     './digging-deeper/cpu100'
                 ]
-            },
-            {
+            }, {
                 title: 'FAQ',
                 collapsable: false,
                 children: [
@@ -317,8 +299,7 @@ module.exports = {
                     './faq/hikaricp-connection-is-not-available',
                     './faq/hikaricp-config',
                 ]
-            },
-            {
+            }, {
                 title: '更新日志',
                 collapsable: false,
                 children: [
