@@ -186,7 +186,8 @@ module.exports = {
                 children: [
                     './es/',
                     './es/inverted-index',
-                    './es/dsl'
+                    './es/dsl',
+                    './es/tokenizer'
                 ]
             }, {
                 title: 'Redis',
@@ -289,7 +290,8 @@ module.exports = {
                     './digging-deeper/HashMap',
                     './digging-deeper/ConcurrentHashMap',
                     './digging-deeper/naming',
-                    './digging-deeper/cpu100'
+                    './digging-deeper/cpu100',
+                    './digging-deeper/multipart-upload'
                 ]
             }, {
                 title: 'FAQ',
