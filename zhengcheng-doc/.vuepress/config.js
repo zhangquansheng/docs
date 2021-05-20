@@ -186,8 +186,9 @@ module.exports = {
                 children: [
                     './es/',
                     './es/inverted-index',
-                    './es/dsl',
-                    './es/tokenizer'
+                    './es/Query-DSL.md',
+                    './es/tokenizer',
+                    './es/aggregations'
                 ]
             }, {
                 title: 'Redis',

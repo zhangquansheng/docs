@@ -1,5 +1,7 @@
 # DSL(Domain Specified Language)领域专用语言
 
+[query-dsl](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html)
+
 `_`代表使用`ES`的`API`，例如`_mapping` 、`_search`
 
 ## mapping
