@@ -7,3 +7,5 @@
 ## 中文分词器
 
 [elasticsearch-analysis-ik](https://github.com/medcl/elasticsearch-analysis-ik)
+
+## 热更新
