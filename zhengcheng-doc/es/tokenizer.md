@@ -9,3 +9,7 @@
 [elasticsearch-analysis-ik](https://github.com/medcl/elasticsearch-analysis-ik)
 
 ## 热更新
+
+### 基于远程词库的热更新
+
+### 基于数据库的热更新
