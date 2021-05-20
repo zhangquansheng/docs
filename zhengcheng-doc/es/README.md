@@ -6,7 +6,7 @@
 
 ## 环境准备
 
-elasticsearch 7.10 版本，学习最新的版本
+elasticsearch 7.12 版本，学习最新的版本
 
 - `JDK 1.8 or later`
 - `spring-boot-starter-data-elasticsearch` `2.1.17.RELEASE`
