@@ -21,3 +21,5 @@ GET /my-index-000001/_search
 
 ## 管道聚合
 
+
+不建议使用field_data(内存) 正排索引

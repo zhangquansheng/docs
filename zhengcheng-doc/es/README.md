@@ -34,6 +34,20 @@ elasticsearch 7.12 版本，学习最新的版本
 ### 全文检索
 
 
+## Elasticsearch 客户端TransportClient vs RestClient
+
+Elasticsearch(ES)有两种连接方式：TransportClient、RestClient。TransportClient通过TCP方式访问ES(只支持java),RestClient方式通过http API 访问ES(没有语言限制)。
+
+Elasticsearch计划在Elasticsearch 7.0中弃用TransportClient，在8.0中完全删除它。故在实际使用过程中建议您使用Java高级REST client。不管是transport client还是rest client都是线程安全的，都应该使用单例。
+
+TransportClient:
+TransportClient 是ElasticSearch（java）客户端封装对象，使用transport远程连接到Elasticsearch集群，默认用的TCP端口是9300，该transport node并不会加入集群，而是简单的向ElasticSearch集群上的节点发送请求。
+
+Rest Client:
+Java Low Level REST Client：elasticsearch client 低级别客户端。它允许通过http请求与Elasticsearch集群进行通信。API本身不负责数据的编码解码，由用户去编码解码。它与所有的ElasticSearch版本兼容。
+
+Java High Level REST Client：Elasticsearch client官方高级客户端。基于低级客户端，它定义的API,已经对请求与响应数据包进行编码解码。
+
 ## 参考文档
 
 
