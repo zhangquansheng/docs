@@ -82,6 +82,10 @@ module.exports = {
                         text: 'stack overflow',
                         link: 'https://stackoverflow.com/'
                     },
+                    {
+                        text: 'redisson-spring-boot-starter',
+                        link: 'https://github.com/redisson/redisson/tree/master/redisson-spring-boot-starter'
+                    },
                 ]
             },
             {text: '更新日志', link: '/change-log/'},
