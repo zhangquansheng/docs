@@ -203,7 +203,8 @@ module.exports = {
                     './redis/reactor',
                     './redis/big-key',
                     './redis/three-problems-of-cache',
-                    './redis/cache-database-double-write-consistency'
+                    './redis/cache-database-double-write-consistency',
+                    './redis/redisson'
                 ]
             }, {
                 title: 'Kafka',
