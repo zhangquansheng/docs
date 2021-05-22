@@ -14,6 +14,13 @@ redis-server -v
 
 关键词: `空间换时间`
 
+
+Redis哈希槽
+
+Redis集群
+
+Redis事务
+
 ---
 **参考文档**
 - [官方文档](https://redis.io/documentation)
