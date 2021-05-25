@@ -153,9 +153,6 @@ facade.digOutGold();
 facade.endDay();
 ```
 
-
-
-
 ## 适用性
 
 在以下情况下使用外观模式
