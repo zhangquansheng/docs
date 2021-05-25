@@ -274,6 +274,7 @@ module.exports = {
                     './design-patterns/facade',
                     './design-patterns/flyweight',
                     './design-patterns/proxy',
+                    './design-patterns/chain-of-responsibility',
                     './design-patterns/mediator',
                     './design-patterns/principle',
                     './design-patterns/ifelse-1',
