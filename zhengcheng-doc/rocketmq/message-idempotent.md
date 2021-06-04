@@ -315,5 +315,6 @@ public class RocketMQDedupProperties {
 ---
 **参考文档**
 
+- [RocketMQDedupListener](https://github.com/Jaskey/RocketMQDedupListener)
 - [SETNX](http://redisdoc.com/string/setnx.html)
 - [RocketMQ消息幂等的通用解决方案](https://mp.weixin.qq.com/s/X25Jw-sz3XItVrXRS6IQdg)
