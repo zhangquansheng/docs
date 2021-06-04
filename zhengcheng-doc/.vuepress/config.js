@@ -269,6 +269,7 @@ module.exports = {
                     './design-patterns/factory',
                     './design-patterns/abstract-factory',
                     './design-patterns/builder',
+                    './design-patterns/adapter',
                     './design-patterns/singleton',
                     './design-patterns/strategy',
                     './design-patterns/template',
