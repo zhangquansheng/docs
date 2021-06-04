@@ -118,7 +118,8 @@ module.exports = {
                 children: [
                     './java/java8-new-features',
                     './java/generics',
-                    './java/Reference'
+                    './java/reference',
+                    './java/abstract-interface'
                 ]
             },
             {
