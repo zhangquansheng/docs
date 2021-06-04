@@ -1,5 +1,7 @@
 # 多数据源配置
 
+如果使用`MyBatis-Plus`，推荐的[多数据源](https://gitee.com/baomidou/dynamic-datasource-spring-boot-starter)。
+
 ## 数据源配置
 
 ```java
@@ -235,7 +237,13 @@ spring.datasource.hikari.slave.username=root
 spring.datasource.hikari.slave.password=root
 ```
 
----
+## dynamic-datasource-spring-boot-starter 源码分析 :hammer:
 
+
+## dynamic-datasource-spring-boot-starter 根据方法名实现读写分离 :hammer:
+
+
+---
 **参考文档**
+
 - [动态数据源](https://github.com/baomidou/dynamic-datasource-spring-boot-starter)
