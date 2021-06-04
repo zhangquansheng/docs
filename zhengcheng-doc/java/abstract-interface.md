@@ -26,4 +26,8 @@
 3. 接口中不能含有静态代码块以及静态方法(用`static`修饰的方法)，而抽象类是可以有静态代码块和静态方法。
 4. **一个类只能继承一个抽象类，而一个类却可以实现多个接口**。 
 
-## JAVA8 接口支持`default`和 `static`修饰的方法
+## Java 8 引入了新的语言特性——默认方法（Default Methods）
+
+- [Default Methods](https://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html)
+- [Java 8 Default Methods Tutorial](https://www.viralpatel.net/java-8-default-methods-tutorial/)
+
