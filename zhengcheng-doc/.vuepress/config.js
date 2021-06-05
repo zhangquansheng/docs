@@ -247,6 +247,7 @@ module.exports = {
                 collapsable: false,
                 children: [
                     './shardingsphere/',
+                    './shardingsphere/concept',
                     './shardingsphere/getting-started'
                 ]
             }, {
