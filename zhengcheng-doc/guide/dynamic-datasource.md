@@ -242,6 +242,129 @@ spring.datasource.hikari.slave.password=root
 `Spring boot`提供了`AbstractRoutingDataSource`根据用户定义的规则选择当前的数据源，这样我们可以在执行查询之前，设置使用的数据源。
 实现可动态路由的数据源，在每次数据库查询操作前执行。它的抽象方法 `determineCurrentLookupKey()` 决定使用哪个数据源。
 
+`org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource` 源码的介绍：
+```java
+/**
+ * Abstract {@link javax.sql.DataSource} implementation that routes {@link #getConnection()}
+ * calls to one of various target DataSources based on a lookup key. The latter is usually
+ * (but not necessarily) determined through some thread-bound transaction context.
+ *
+ * @author Juergen Hoeller
+ * @since 2.0.1
+ * @see #setTargetDataSources
+ * @see #setDefaultTargetDataSource
+ * @see #determineCurrentLookupKey()
+ */
+public abstract class AbstractRoutingDataSource extends AbstractDataSource implements InitializingBean {
+
+	@Nullable
+	private Map<Object, Object> targetDataSources;
+
+	@Nullable
+	private Object defaultTargetDataSource;
+
+	private boolean lenientFallback = true;
+
+	private DataSourceLookup dataSourceLookup = new JndiDataSourceLookup();
+
+	@Nullable
+	private Map<Object, DataSource> resolvedDataSources;
+
+	@Nullable
+	private DataSource resolvedDefaultDataSource;
+
+	public void setTargetDataSources(Map<Object, Object> targetDataSources) {
+		this.targetDataSources = targetDataSources;
+	}
+
+	public void setDefaultTargetDataSource(Object defaultTargetDataSource) {
+		this.defaultTargetDataSource = defaultTargetDataSource;
+	}
+
+	public void setLenientFallback(boolean lenientFallback) {
+		this.lenientFallback = lenientFallback;
+	}
+
+	public void setDataSourceLookup(@Nullable DataSourceLookup dataSourceLookup) {
+		this.dataSourceLookup = (dataSourceLookup != null ? dataSourceLookup : new JndiDataSourceLookup());
+	}
+
+	@Override
+	public void afterPropertiesSet() {
+		if (this.targetDataSources == null) {
+			throw new IllegalArgumentException("Property 'targetDataSources' is required");
+		}
+		this.resolvedDataSources = new HashMap<>(this.targetDataSources.size());
+		this.targetDataSources.forEach((key, value) -> {
+			Object lookupKey = resolveSpecifiedLookupKey(key);
+			DataSource dataSource = resolveSpecifiedDataSource(value);
+			this.resolvedDataSources.put(lookupKey, dataSource);
+		});
+		if (this.defaultTargetDataSource != null) {
+			this.resolvedDefaultDataSource = resolveSpecifiedDataSource(this.defaultTargetDataSource);
+		}
+	}
+
+	protected Object resolveSpecifiedLookupKey(Object lookupKey) {
+		return lookupKey;
+	}
+
+	protected DataSource resolveSpecifiedDataSource(Object dataSource) throws IllegalArgumentException {
+		if (dataSource instanceof DataSource) {
+			return (DataSource) dataSource;
+		}
+		else if (dataSource instanceof String) {
+			return this.dataSourceLookup.getDataSource((String) dataSource);
+		}
+		else {
+			throw new IllegalArgumentException(
+					"Illegal data source value - only [javax.sql.DataSource] and String supported: " + dataSource);
+		}
+	}
+
+
+	@Override
+	public Connection getConnection() throws SQLException {
+		return determineTargetDataSource().getConnection();
+	}
+
+	@Override
+	public Connection getConnection(String username, String password) throws SQLException {
+		return determineTargetDataSource().getConnection(username, password);
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public <T> T unwrap(Class<T> iface) throws SQLException {
+		if (iface.isInstance(this)) {
+			return (T) this;
+		}
+		return determineTargetDataSource().unwrap(iface);
+	}
+
+	@Override
+	public boolean isWrapperFor(Class<?> iface) throws SQLException {
+		return (iface.isInstance(this) || determineTargetDataSource().isWrapperFor(iface));
+	}
+
+	protected DataSource determineTargetDataSource() {
+		Assert.notNull(this.resolvedDataSources, "DataSource router not initialized");
+		Object lookupKey = determineCurrentLookupKey();
+		DataSource dataSource = this.resolvedDataSources.get(lookupKey);
+		if (dataSource == null && (this.lenientFallback || lookupKey == null)) {
+			dataSource = this.resolvedDefaultDataSource;
+		}
+		if (dataSource == null) {
+			throw new IllegalStateException("Cannot determine target DataSource for lookup key [" + lookupKey + "]");
+		}
+		return dataSource;
+	}
+
+	@Nullable
+	protected abstract Object determineCurrentLookupKey();
+
+}
+```
 
 `dynamic-datasource-spring-boot-starter` 的具体实现如下：
 
