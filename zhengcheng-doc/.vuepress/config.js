@@ -183,7 +183,8 @@ module.exports = {
                     './mysql/sql-standard',
                     './mysql/innodb_trx',
                     './mysql/delete',
-                    './mysql/sql-execute'
+                    './mysql/sql-execute',
+                    './mysql/in'
                 ]
             }, {
                 title: 'Elasticsearch',
