@@ -97,6 +97,7 @@ RocketMQ | topic 对应多个 ConsumeQueue，同一个服务器（Broker）会�
 ---
 **参考文档**
 
+- [apache-rocketmq-spring-boot](https://www.baeldung.com/apache-rocketmq-spring-boot)
 - [Apache RocketMQ 官方文档](http://rocketmq.apache.org/docs/quick-start/)
 - [RocketMQ 源码](https://github.com/apache/rocketmq)
 - [阿里云消息队列（Message Queue）使用示例](https://code.aliyun.com/aliware_rocketmq/rocketmq-demo/tree/master)
