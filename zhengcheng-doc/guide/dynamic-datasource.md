@@ -366,7 +366,7 @@ public abstract class AbstractRoutingDataSource extends AbstractDataSource imple
 }
 ```
 
-`dynamic-datasource-spring-boot-starter` 的具体实现如下：
+同理，`dynamic-datasource-spring-boot-starter` 的具体实现如下：
 
 ### 动态数据源核心自动配置类 DynamicDataSourceAutoConfiguration
 
@@ -754,7 +754,66 @@ public final class DynamicDataSourceContextHolder {
     }
 }
 ```
-2. 创建一个动态数据源，继承自`spring`的`org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource`。实现了`determineCurrentLookupKey`方法，该方法唯一需要做的事情就是从`DynamicDataSourceContextHolder`获取当前需要访问的数据库名称。
+
+2. 创建一个动态数据源，继承自`自定义`的`com.baomidou.dynamic.datasource.ds.AbstractRoutingDataSource`。实现了`determineDataSource`方法，该方法唯一需要做的事情就是从`DynamicDataSourceContextHolder`获取当前需要访问的数据库名称。
+```java
+/**
+ * 抽象动态获取数据源
+ *
+ * @author TaoYu
+ * @since 2.2.0
+ */
+public abstract class AbstractRoutingDataSource extends AbstractDataSource {
+
+    protected abstract DataSource determineDataSource();
+
+    @Override
+    public Connection getConnection() throws SQLException {
+        String xid = TransactionContext.getXID();
+        if (StringUtils.isEmpty(xid)) {
+            return determineDataSource().getConnection();
+        } else {
+            String ds = DynamicDataSourceContextHolder.peek();
+            ConnectionProxy connection = ConnectionFactory.getConnection(ds);
+            return connection == null ? getConnectionProxy(ds, determineDataSource().getConnection()) : connection;
+        }
+    }
+
+    @Override
+    public Connection getConnection(String username, String password) throws SQLException {
+        String xid = TransactionContext.getXID();
+        if (StringUtils.isEmpty(xid)) {
+            return determineDataSource().getConnection(username, password);
+        } else {
+            String ds = DynamicDataSourceContextHolder.peek();
+            ConnectionProxy connection = ConnectionFactory.getConnection(ds);
+            return connection == null ? getConnectionProxy(ds, determineDataSource().getConnection(username, password))
+                    : connection;
+        }
+    }
+
+    private Connection getConnectionProxy(String ds, Connection connection) {
+        ConnectionProxy connectionProxy = new ConnectionProxy(connection, ds);
+        ConnectionFactory.putConnection(ds, connectionProxy);
+        return connectionProxy;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public <T> T unwrap(Class<T> iface) throws SQLException {
+        if (iface.isInstance(this)) {
+            return (T) this;
+        }
+        return determineDataSource().unwrap(iface);
+    }
+
+    @Override
+    public boolean isWrapperFor(Class<?> iface) throws SQLException {
+        return (iface.isInstance(this) || determineDataSource().isWrapperFor(iface));
+    }
+}
+```
+
 3. 自定义注解`@DS`，用于标识方法查询的数据库，然后利用一个切面，根据注解的属性，设置需要访问的数据源。
 ```java
 /**
@@ -776,7 +835,7 @@ public @interface DS {
     String value();
 }
 ```
-AOP如下：
+`AOP`如下：
 ```java
 /**
  * Core Interceptor of Dynamic Datasource
