@@ -820,6 +820,8 @@ public class DynamicDataSourceAnnotationInterceptor implements MethodInterceptor
 
 ## dynamic-datasource-spring-boot-starter 根据方法名实现读写分离（不推荐）
 
+> 推荐[ShardingSphere-JDBC](https://shardingsphere.apache.org/document/current/cn/overview/)来实现读写分离，毕竟`dynamic-datasource-spring-boot-starter`更适合做切换数据源的工作。 
+
 ```java
 /**
  * DataSourceAspect
