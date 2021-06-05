@@ -239,6 +239,12 @@ spring.datasource.hikari.slave.password=root
 
 ## dynamic-datasource-spring-boot-starter 源码分析 
 
+`Spring boot`提供了`AbstractRoutingDataSource`根据用户定义的规则选择当前的数据源，这样我们可以在执行查询之前，设置使用的数据源。
+实现可动态路由的数据源，在每次数据库查询操作前执行。它的抽象方法 `determineCurrentLookupKey()` 决定使用哪个数据源。
+
+
+`dynamic-datasource-spring-boot-starter` 的具体实现如下：
+
 ### 动态数据源核心自动配置类 DynamicDataSourceAutoConfiguration
 
 ```java
