@@ -818,8 +818,62 @@ public class DynamicDataSourceAnnotationInterceptor implements MethodInterceptor
 }
 ```
 
-## dynamic-datasource-spring-boot-starter 根据方法名实现读写分离（不推荐） :hammer:
+## dynamic-datasource-spring-boot-starter 根据方法名实现读写分离（不推荐）
 
+```java
+/**
+ * DataSourceAspect
+ *
+ * @author quansheng1.zhang
+ * @since 2021/6/5 13:41
+ */
+@Aspect
+@Component
+@Slf4j
+public class DataSourceAspect {
+
+    private static final String MASTER = "master";
+
+    private static final String SLAVE = "slave";
+
+    @Pointcut("execution(* com.zhengcheng.magic.service..*.*(..)) || execution(* com.baomidou.mybatisplus.extension.service..*.*(..))")
+    public void checkMethod() {}
+
+    @SuppressWarnings({"RawTypeCanBeGeneric", "rawtypes"})
+    @Before("checkMethod()")
+    public void process(JoinPoint joinPoint) throws NoSuchMethodException, SecurityException {
+        String methodName = joinPoint.getSignature().getName();
+        Class clazz = joinPoint.getTarget().getClass();
+        if (clazz.isAnnotationPresent(DS.class)) {
+            return;
+        }
+
+        Class[] parameterTypes = ((MethodSignature)joinPoint.getSignature()).getMethod().getParameterTypes();
+        Method method = clazz.getMethod(methodName, parameterTypes);
+        if (method.isAnnotationPresent(DS.class)) {
+            return;
+        }
+        if (methodName.startsWith("get") || methodName.startsWith("count") || methodName.startsWith("find")
+            || methodName.startsWith("list") || methodName.startsWith("select") || methodName.startsWith("check")
+            || methodName.startsWith("page")) {
+
+            log.info("当前执行的读库：" + SLAVE);
+            DynamicDataSourceContextHolder.push(SLAVE);
+        } else {
+            log.info("当前执行的写库：" + MASTER);
+            DynamicDataSourceContextHolder.push(MASTER);
+        }
+    }
+
+    @After("checkMethod()")
+    public void afterAdvice() {
+        DynamicDataSourceContextHolder.clear();
+    }
+
+}
+```
+
+在执行目标方法前，通过 `DynamicDataSourceContextHolder.push(SLAVE);` 设置数据源，执行完成以后，通过`DynamicDataSourceContextHolder.clear();`释放内存，以免产生内存泄漏（`ThreadLocal`）。
 
 ---
 **参考文档**
