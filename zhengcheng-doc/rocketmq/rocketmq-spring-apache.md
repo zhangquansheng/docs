@@ -70,4 +70,5 @@ public class MyConsumer implements RocketMQListener<String> {
 ---
 **参考文档**
 
+- [RocketMQ-Spring 毕业两周年，为什么能成为 Spring 生态中最受欢迎的 messaging 实现？](https://mp.weixin.qq.com/s/N5koHVHEylibP7jnJpH2dw)
 - [用户手册](https://github.com/apache/rocketmq-spring/wiki/%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C)
