@@ -102,4 +102,3 @@ RocketMQ | topic 对应多个 ConsumeQueue，同一个服务器（Broker）会�
 - [RocketMQ 源码](https://github.com/apache/rocketmq)
 - [阿里云消息队列（Message Queue）使用示例](https://code.aliyun.com/aliware_rocketmq/rocketmq-demo/tree/master)
 - 《RocketMQ 技术内幕: RocketMQ 架构设计与实现原理 丁威 周继峰》
-- https://www.alibabacloud.com/help/zh/doc-detail/29553.htm?spm=a2c63.p38356.b99.56.b56f31depbOwgZ
