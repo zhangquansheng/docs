@@ -284,7 +284,7 @@ module.exports = {
                     './design-patterns/principle',
                     './design-patterns/ifelse-1',
                     './design-patterns/ifelse-2',
-                    './design-patterns/dynamic-proxy',
+                    './design-patterns/dynamic-proxy'
                 ]
             }, {
                 title: '综合话题&源码分析',
@@ -303,7 +303,8 @@ module.exports = {
                     './digging-deeper/ConcurrentHashMap',
                     './digging-deeper/naming',
                     './digging-deeper/cpu100',
-                    './digging-deeper/multipart-upload'
+                    './digging-deeper/multipart-upload',
+                    './digging-deeper/system-architecture-diagram',
                 ]
             }, {
                 title: 'FAQ',
