@@ -38,6 +38,21 @@ public class DataSourceConfig {
     public DataSource slaveHikariDataSource() {
         return DataSourceBuilder.create().type(HikariDataSource.class).build();
     }
+     
+    // 在原来的多数据源配置的基础之上，使用 dynamic-datasource-spring-boot-starter
+    @Bean(name = "slaveHikariDataSource")
+    @Qualifier("slaveHikariDataSource")
+    public DataSource slaveHikariDataSource(DynamicDataSourceProperties properties,
+        DynamicDataSourceProvider dynamicDataSourceProvider) {
+        DynamicRoutingDataSource dataSource = new DynamicRoutingDataSource();
+        dataSource.setPrimary(properties.getPrimary());
+        dataSource.setStrict(properties.getStrict());
+        dataSource.setStrategy(properties.getStrategy());
+        dataSource.setProvider(dynamicDataSourceProvider);
+        dataSource.setP6spy(properties.getP6spy());
+        dataSource.setSeata(properties.getSeata());
+        return dataSource;
+    }
 
 }
 ```
