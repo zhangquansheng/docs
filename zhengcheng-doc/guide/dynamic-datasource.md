@@ -951,7 +951,10 @@ public class DataSourceAspect {
 
 在执行目标方法前，通过 `DynamicDataSourceContextHolder.push(SLAVE);` 设置数据源，执行完成以后，通过`DynamicDataSourceContextHolder.clear();`释放内存，以免产生内存泄漏（`ThreadLocal`）。
 
+**属性配置请参考 `com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DataSourceProperty`**。
+
 ---
 **参考文档**
 
+- [dynamic-datasource-spring-boot-starter 详细文档](https://gitee.com/zhangquansheng/dynamic-datasource-spring-boot-starter)
 - [动态数据源](https://github.com/baomidou/dynamic-datasource-spring-boot-starter)
