@@ -28,6 +28,27 @@
 
 ## Java 8 引入了新的语言特性——默认方法（Default Methods）
 
+```java
+public interface Math {
+
+	int add(int a, int b);
+
+	default int multiply(int a, int b) {
+		return a * b;
+	}
+}
+```
+在上面的 Math 接口中，我们添加了一个与实际方法体相乘的方法。
+
+### 为什么我们需要默认方法？
+
+为什么要在接口中添加方法？我们会这样做是**因为接口与其实现类耦合得太紧密了**。即不可能在不破坏实现类的情况下在接口中添加方法。一旦你在接口中添加了一个方法，它的所有实现类都必须声明这个新方法的方法体。
+
+从 `Java 8` 开始，事情开始变得丑陋。引入了一个很酷的新功能`Lambda`。但是，无法在现有 `Java` 库（例如 `java.util` 包）中使用此功能。如果你在 `interface` 中添加一个方法`List`，它会破坏一切。
+您需要在每个实现List接口的类中添加它的实现。想象一下在现实世界中有多少自定义类会发生变化。
+
+所以为了**向后兼容**，`Java 8` 巧妙地添加了`Default Methods`。
+
 - [Default Methods](https://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html)
 - [Java 8 Default Methods Tutorial](https://www.viralpatel.net/java-8-default-methods-tutorial/)
 
