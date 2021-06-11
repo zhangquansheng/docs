@@ -953,8 +953,106 @@ public class DataSourceAspect {
 
 在执行目标方法前，通过 `DynamicDataSourceContextHolder.push(SLAVE);` 设置数据源，执行完成以后，通过`DynamicDataSourceContextHolder.clear();`释放内存，以免产生内存泄漏（`ThreadLocal`）。
 
+## 问题汇总
+
+### 动态数据源切换失败【未配置动态数据源】
+
+需要把所有配置 DataSource 都改为 DynamicRoutingDataSource ，并且需要设置不同的默认数据源，示例代码：
+
+```java
+private DynamicRoutingDataSource buildDynamicDataSource(DynamicDataSourceProperties properties,
+    DynamicDataSourceProvider dynamicDataSourceProvider, String primary) {
+    DynamicRoutingDataSource dataSource = new DynamicRoutingDataSource();
+    dataSource.setPrimary(primary);
+    dataSource.setStrict(properties.getStrict());
+    dataSource.setStrategy(properties.getStrategy());
+    dataSource.setProvider(dynamicDataSourceProvider);
+    dataSource.setP6spy(properties.getP6spy());
+    dataSource.setSeata(properties.getSeata());
+    return dataSource;
+}
+```
+
+### 动态数据源切换失败【使用默认事务管理器的事务注解导致的，例如在方法上有 @Transactional(rollbackFor = {Throwable.class}, propagation = Propagation.REQUIRES_NEW)】
+
+1. 开启事务的同时，会从数据库连接池获取数据库连接；
+2. 如果内层使用@DS切换数据源，只是又做了一层拦截，但是并没有改变整个事务的连接；
+3. 在这个事务内的所有数据库操作，都是在事务连接建立之后，所以会产生数据源没有切换的问题；（Connection 复用，可以从 DataSourceTransactionManager doBegin 方法看到）
+4. 为了使@DS起作用，必须替换数据库连接，也就是改变事务的传播机智，产生新的事务，获取新的数据库连接
+5. 所以在@DS切换数据源之前加@Transactional，并且还需要设置propagation = Propagation.REQUIRES_NEW。
+
+
+
+### 异常信息：
+```
+org.springframework.transaction.CannotCreateTransactionException: Could not open JPA EntityManager for transaction; nested exception is java.lang.IllegalStateException: Already value [org.springframework.jdbc.datasource.ConnectionHolder@7ab324e6] for key [com.baomidou.dynamic.datasource.DynamicRoutingDataSource@4015ebf1] bound to thread [main]
+ 
+    at org.springframework.orm.jpa.JpaTransactionManager.doBegin(JpaTransactionManager.java:447)
+    at org.springframework.transaction.support.AbstractPlatformTransactionManager.getTransaction(AbstractPlatformTransactionManager.java:378)
+    at org.springframework.transaction.interceptor.TransactionAspectSupport.createTransactionIfNecessary(TransactionAspectSupport.java:475)
+    at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:289)
+    at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:98)
+    at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+    at com.baomidou.dynamic.datasource.aop.DynamicDataSourceAnnotationInterceptor.invoke(DynamicDataSourceAnnotationInterceptor.java:50)
+    at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+    at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:212)
+    at com.sun.proxy.$Proxy241.insert(Unknown Source)
+    at com.zhangmen.orders.service.tx.ExchangeTxService.insertStudentDeductRatioInfo(ExchangeTxService.java:738)
+    at com.zhangmen.orders.service.tx.ExchangeTxService$$FastClassBySpringCGLIB$$2a0c0d6f.invoke(<generated>)
+    at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+    at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:752)
+    at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+    at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:295)
+    at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:98)
+    at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+    at com.zhangmen.arch.cat.utils.CatAspectUtil.aspectLogic(CatAspectUtil.java:90)
+    at com.zhangmen.arch.cat.component.custom.CatCustomMethodInterceptor.invoke(CatCustomMethodInterceptor.java:40)
+    at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+    at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:691)
+    at com.zhangmen.orders.service.tx.ExchangeTxService$$EnhancerBySpringCGLIB$$7f279a49.insertStudentDeductRatioInfo(<generated>)
+    at com.zhangmen.orders.ds.DynamicDatasourceTest.testTStudentDeductRatioInfo2(DynamicDatasourceTest.java:74)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+    at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+    at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+    at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+    at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+    at org.springframework.test.context.junit4.statements.RunBeforeTestExecutionCallbacks.evaluate(RunBeforeTestExecutionCallbacks.java:74)
+    at org.springframework.test.context.junit4.statements.RunAfterTestExecutionCallbacks.evaluate(RunAfterTestExecutionCallbacks.java:84)
+    at org.springframework.test.context.junit4.statements.RunBeforeTestMethodCallbacks.evaluate(RunBeforeTestMethodCallbacks.java:75)
+    at org.springframework.test.context.junit4.statements.RunAfterTestMethodCallbacks.evaluate(RunAfterTestMethodCallbacks.java:86)
+    at org.springframework.test.context.junit4.statements.SpringRepeat.evaluate(SpringRepeat.java:84)
+    at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+    at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:251)
+    at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:97)
+    at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+    at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+    at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+    at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+    at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+    at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+    at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+    at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+    at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:190)
+    at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+    at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:68)
+    at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:33)
+    at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:230)
+    at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:58)
+Caused by: java.lang.IllegalStateException: Already value [org.springframework.jdbc.datasource.ConnectionHolder@7ab324e6] for key [com.baomidou.dynamic.datasource.DynamicRoutingDataSource@4015ebf1] bound to thread [main]
+    at org.springframework.transaction.support.TransactionSynchronizationManager.bindResource(TransactionSynchronizationManager.java:193)
+    at org.springframework.orm.jpa.JpaTransactionManager.doBegin(JpaTransactionManager.java:422)
+    ... 53 more
+```
+
+当 `Mybatis` 的多数据源配置已经制定 `basePackages`，而你的 `Mapper` 就存在此包下，就不需要增加`@Transactional(propagation = Propagation.REQUIRES_NEW)` 注解了，因为已经配置过了。
+
+
 ---
 **参考文档**
 
 - [dynamic-datasource-spring-boot-starter 详细文档](https://gitee.com/zhangquansheng/dynamic-datasource-spring-boot-starter)
 - [动态数据源](https://github.com/baomidou/dynamic-datasource-spring-boot-starter)
+- [事务导致Mybatis plus的多数据源@DS不起作用了](https://baijiahao.baidu.com/s?id=1685490934094994913&wfr=spider&for=pc)
