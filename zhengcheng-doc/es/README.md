@@ -6,10 +6,10 @@
 
 ## 环境准备
 
-elasticsearch 7.12 版本，学习最新的版本
+`elasticsearch 6.4.3` 版本
 
 - `JDK 1.8 or later`
-- `spring-boot-starter-data-elasticsearch` `2.1.17.RELEASE`
+- `spring-boot-starter-data-elasticsearch` `2.1.18.RELEASE`
 - `elasticsearch-6.4.3` 
 - `kibana-6.4.3`
 
@@ -23,30 +23,21 @@ elasticsearch 7.12 版本，学习最新的版本
 
 ### 准实时（near real-time）查询
 
-`Elasticsearch` 被称为准实时搜索，原因是对 `Elasticsearch` 的写入操作成功后，写入的数据需要1秒钟后才能被搜索到，因此 `Elasticsearch` 搜索是准实时或者又称为近实时（`near real time`）。
+`Elasticsearch` 被称为准实时搜索，原因是对 `Elasticsearch` 的写入操作成功后，写入的数据需要**1秒钟**后才能被搜索到，因此 `Elasticsearch` 搜索是准实时或者又称为近实时（`near real time`）。
 
 `Elasticsearch` 底层使用的 `Lucene`，而 `Lucene` 的写入是实时的。但 `Lucene` 的实时写入意味着每一次写入请求都直接将数据写入硬盘，因此频繁的`I/O`操作会导致很大的性能问题。
-
-### 倒排索引
-
-### Lucene 
-
-### 全文检索
-
 
 ## Elasticsearch 客户端TransportClient vs RestClient
 
 Elasticsearch(ES)有两种连接方式：TransportClient、RestClient。TransportClient通过TCP方式访问ES(只支持java),RestClient方式通过http API 访问ES(没有语言限制)。
 
-Elasticsearch计划在Elasticsearch 7.0中弃用TransportClient，在8.0中完全删除它。故在实际使用过程中建议您使用Java高级REST client。不管是transport client还是rest client都是线程安全的，都应该使用单例。
+Elasticsearch计划在Elasticsearch 7.0中弃用TransportClient，在8.0中完全删除它。故在实际使用过程中**建议您使用Java高级`REST client`**。不管是transport client还是rest client都是线程安全的，都应该使用单例。
 
-TransportClient:
-TransportClient 是ElasticSearch（java）客户端封装对象，使用transport远程连接到Elasticsearch集群，默认用的TCP端口是9300，该transport node并不会加入集群，而是简单的向ElasticSearch集群上的节点发送请求。
-
-Rest Client:
-Java Low Level REST Client：elasticsearch client 低级别客户端。它允许通过http请求与Elasticsearch集群进行通信。API本身不负责数据的编码解码，由用户去编码解码。它与所有的ElasticSearch版本兼容。
-
-Java High Level REST Client：Elasticsearch client官方高级客户端。基于低级客户端，它定义的API,已经对请求与响应数据包进行编码解码。
+- TransportClient:
+      TransportClient 是ElasticSearch（java）客户端封装对象，使用transport远程连接到Elasticsearch集群，默认用的TCP端口是9300，该transport node并不会加入集群，而是简单的向ElasticSearch集群上的节点发送请求。
+- **Rest Client（推荐）**:
+    - Java Low Level REST Client：elasticsearch client 低级别客户端。它允许通过http请求与`Elasticsearch`集群进行通信。API本身不负责数据的编码解码，由用户去编码解码。它与所有的ElasticSearch版本兼容。
+    - Java High Level REST Client：Elasticsearch client官方高级客户端。基于低级客户端，它定义的API,已经对请求与响应数据包进行编码解码。
 
 ## 参考文档
 
