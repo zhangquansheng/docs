@@ -41,7 +41,6 @@ Elasticsearch计划在Elasticsearch 7.0中弃用TransportClient，在8.0中完�
 
 ## 参考文档
 
-
 - [Support Matrix](https://www.elastic.co/cn/support/matrix)
 - [官方文档](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html)
 - [官方中文教程](https://www.elastic.co/guide/cn/elasticsearch/guide/current/index.html)
