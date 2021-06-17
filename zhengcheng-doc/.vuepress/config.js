@@ -194,7 +194,8 @@ module.exports = {
                     './es/inverted-index',
                     './es/Query-DSL.md',
                     './es/tokenizer',
-                    './es/aggregations'
+                    './es/aggregations',
+                    './es/restHighLevelClient'
                 ]
             }, {
                 title: 'Redis',
