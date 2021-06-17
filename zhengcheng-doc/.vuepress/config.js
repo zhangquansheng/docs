@@ -304,6 +304,7 @@ module.exports = {
                     './digging-deeper/naming',
                     './digging-deeper/cpu100',
                     './digging-deeper/multipart-upload',
+                    './digging-deeper/arthas',
                     './digging-deeper/system-architecture-diagram',
                 ]
             }, {
