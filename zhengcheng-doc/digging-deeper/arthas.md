@@ -13,5 +13,7 @@ trace com.zhangmen.zmbiz.domain.* initPreCheckEntity* '#cost > 10'
 ```
 
 **参考文档**
+- [arthas idea plugin](https://plugins.jetbrains.com/plugin/13581-arthas-idea)
+- [arthas idea plugin 使用文档](https://www.yuque.com/arthas-idea-plugin/help/pe6i45)
 - [命令列表](https://arthas.aliyun.com/doc/commands.html)
 - [trace在线教程](https://arthas.aliyun.com/doc/arthas-tutorials.html?language=cn&id=command-trace)
