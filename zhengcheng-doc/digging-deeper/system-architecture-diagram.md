@@ -12,3 +12,9 @@
 
 ![v2.0架构.png](/img/digging-deeper/flink-recommandSystem-v2.png)
 [Github](https://github.com/CheckChe0803/flink-recommandSystem-demo)
+
+## WebMagic总体架构图
+
+![v2.0架构.png](/img/digging-deeper/webmagic.png)
+
+[WebMagic](http://webmagic.io/docs/zh/)
