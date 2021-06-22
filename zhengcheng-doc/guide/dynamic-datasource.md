@@ -981,8 +981,6 @@ private DynamicRoutingDataSource buildDynamicDataSource(DynamicDataSourcePropert
 4. 为了使@DS起作用，必须替换数据库连接，也就是改变事务的传播机智，产生新的事务，获取新的数据库连接
 5. 所以在@DS切换数据源之前加@Transactional，并且还需要设置propagation = Propagation.REQUIRES_NEW。
 
-
-
 ### 异常信息：
 ```
 org.springframework.transaction.CannotCreateTransactionException: Could not open JPA EntityManager for transaction; nested exception is java.lang.IllegalStateException: Already value [org.springframework.jdbc.datasource.ConnectionHolder@7ab324e6] for key [com.baomidou.dynamic.datasource.DynamicRoutingDataSource@4015ebf1] bound to thread [main]
@@ -1049,6 +1047,22 @@ Caused by: java.lang.IllegalStateException: Already value [org.springframework.j
 
 当 `Mybatis` 的多数据源配置已经制定 `basePackages`，而你的 `Mapper` 就存在此包下，就不需要增加`@Transactional(propagation = Propagation.REQUIRES_NEW)` 注解了，因为已经配置过了。
 
+###  org.springframework.data.jpa.repository.JpaRepository   save 方法（从源码看，方法上有 @Transactional 注解） 无法切换数据源，怎么处理？
+
+重载`save`方法，使用`@DS`来切换数据源，例如：
+```java
+@AccountWrite
+@Override
+T save(T t);
+ 
+// 组合注解
+@Target({ElementType.TYPE, ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Transactional(propagation = Propagation.REQUIRES_NEW)
+@DS(ConfigConstants.DB_DS_NAME)
+public @interface DBAccountWrite {}
+```
 
 ---
 **参考文档**
