@@ -321,6 +321,11 @@ public class DefaultAopProxyFactory implements AopProxyFactory, Serializable {
 
 解决办法就是避免同一类中自调用或者使用`AspectJ`取代`Spring AOP`代理。
 
+**核心关键类及其方法**如下：
+- TransactionInterceptor
+    - invokeWithinTransaction
+- DataSourceTransactionManager
+
 ## @Transactional 使用
 
 [官方文档](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/data-access.html#transaction-declarative-annotations)
