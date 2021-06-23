@@ -320,11 +320,17 @@ public class DefaultAopProxyFactory implements AopProxyFactory, Serializable {
 `Spring AOP`自调用问题：若`同一类`中的其他没有`@Transactional`注解的方法内部调用有`@Transactional`注解的方法，有`@Transactional`注解的方法的事务会失效。
 
 解决办法就是避免同一类中自调用或者使用`AspectJ`取代`Spring AOP`代理。
+```java
+@EnableTransactionManagement(mode = AdviceMode.ASPECTJ)
+```
+
 
 **核心关键类及其方法**如下：
 - TransactionInterceptor
     - invokeWithinTransaction
 - DataSourceTransactionManager
+- TransactionSynchronizationManager
+    - bindResource
 
 ## @Transactional 使用
 
