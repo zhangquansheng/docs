@@ -2,7 +2,7 @@
 
 如果使用`MyBatis-Plus`多数据源，推荐的[dynamic-datasource-spring-boot-starter](https://gitee.com/baomidou/dynamic-datasource-spring-boot-starter)。
 
-## 数据源配置
+## 静态多数据源配置
 
 ```java
 import com.zaxxer.hikari.HikariDataSource;
@@ -140,6 +140,7 @@ public class MasterMybatisPlusConfig {
 ```
 
 ## Slave MybatisPlus 配置
+
 ```java
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
@@ -252,7 +253,7 @@ spring.datasource.hikari.slave.username=root
 spring.datasource.hikari.slave.password=root
 ```
 
-## dynamic-datasource-spring-boot-starter 源码分析 
+## 动态多数据源 dynamic-datasource-spring-boot-starter 源码分析 
 
 > **属性配置请参考 `com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DataSourceProperty`**。
 
