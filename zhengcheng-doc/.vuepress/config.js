@@ -306,6 +306,7 @@ module.exports = {
                     './digging-deeper/cpu100',
                     './digging-deeper/multipart-upload',
                     './digging-deeper/arthas',
+                    './digging-deeper/tcc-transaction',
                     './digging-deeper/system-architecture-diagram',
                 ]
             }, {
