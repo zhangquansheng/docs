@@ -14,11 +14,11 @@
 
 把项目中的`pom.xml`的`parent`中替换以下内容:
 ```xml
-    <parent>
-        <groupId>com.zhengcheng</groupId>
-        <artifactId>zhengcheng-parent</artifactId>
-        <version>5.0.0</version>
-    </parent>
+<parent>
+    <groupId>com.zhengcheng</groupId>
+    <artifactId>zhengcheng-parent</artifactId>
+    <version>5.0.0</version>
+</parent>
 ```
 
 ## 通用组件
