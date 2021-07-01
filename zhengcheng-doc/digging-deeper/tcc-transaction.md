@@ -4,7 +4,7 @@
 
 `XA`协议是由`X/Open`组织提出的分布式事务处理规范，主要定义了事务管理器`TM`和局部资源管理器`RM`之间的接口。目前主流的数据库，比如`oracle`、`DB2` 都是支持`XA`协议的。
 
-## 分布式事务解决方案
+## 分布式数据库系统事务解决方案（业务代码无侵入）
 
 ### 2PC(两段提交)
 
@@ -19,9 +19,12 @@
 `there is only one consensus protocol, and that’s Paxos” – all other approaches are just broken versions of Paxos`. 
 意即世上只有一种一致性算法，那就是`Paxos`算法。
 
+
+## 分布式系统事务解决方案（业务代码侵入严重）
+
 ### TCC(补偿事务)
 
-### SAGA
+
 
 **参考文档**
 - [seata](https://github.com/seata/seata)
