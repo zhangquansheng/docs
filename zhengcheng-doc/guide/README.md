@@ -1,6 +1,7 @@
 # 简介
 
-`zhengcheng`是一个基于**SpringBoot**的框架支持项目，只需简单配置，即可快速接入各种通用组件，从而节省大量时间,让我们在开发业务时能够专注于业务的编写而不必过多的关注框架的配置，并且可以促进团队合作，降低维护成本，减少低级BUG，有助于代码审查。
+`zhengcheng`是一个基于`SpringBoot2.x`的框架支持项目，只需简单配置，即可快速接入各种通用组件，从而节省大量时间，
+让我们在开发业务时能够专注于业务的编写而不必过多的关注框架的配置，并且可以促进团队合作，降低维护成本，减少低级`BUG`，有助于代码审查。
 
 ## 环境准备
 
@@ -11,12 +12,12 @@
 
 ## 安装
 
-把项目中的`pom.xml`的 parent 中替换以下内容:
+把项目中的`pom.xml`的`parent`中替换以下内容:
 ```xml
     <parent>
         <groupId>com.zhengcheng</groupId>
         <artifactId>zhengcheng-parent</artifactId>
-        <version>4.8.0</version>
+        <version>5.0.0</version>
     </parent>
 ```
 
@@ -24,12 +25,13 @@
 
  name | description
 ---|---
-zc-web-core-spring-boot-starter | WEB服务核心模块通用组件
-zc-feign-spring-boot-starter | 远程通信（Feign）通用组件
+zc-core-spring-boot-starter | 核心模块通用组件
 zc-mybatis-plus-spring-boot-starter | MyBatis-Plus 通用组件
 zc-cache-spring-boot-starter | 缓存（Redis @EnableCaching caffeine）通用组件
 zc-xx-job-spring-boot-starter | XXL-JOB 定时任务通用组件
-zc-swagger-spring-boot-starter | swagger2.8.0 通用组件
+zc-swagger-spring-boot-starter | swagger 2.8.0 通用组件
+zc-rocket-mq-spring-boot-starter | RocketMQ 通用组件
+zc-elasticsearch-spring-boot-starter | 基于 elasticsearch-rest-high-level-client 进行封装的通用组件
 
 ## 三方包
 
@@ -46,7 +48,7 @@ zc-swagger-spring-boot-starter | swagger2.8.0 通用组件
 
 ## 关于作者
 
-`zhengcheng` 是个人学习作品，如果您觉得还不错，欢迎使用，如有问题，联系作者（微信：`z088600`、邮箱：`952547584@qq.com`），必定竭诚为您解决。
+`zhengcheng`是个人学习作品，如果您觉得还不错，欢迎使用，如有问题，联系作者（微信：`z088600`、邮箱：`952547584@qq.com`），必定竭诚为您解决。
 
 ### 座右铭
 
