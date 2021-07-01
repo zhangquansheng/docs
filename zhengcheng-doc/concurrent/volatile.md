@@ -1,4 +1,4 @@
-# volatile 关键字 :hammer:
+# volatile 关键字 
 
 `volatile` 关键字最重要的两点功能点是：**防止JVM的指令重排**和**保证变量的内存可见性**。
 

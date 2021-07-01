@@ -126,12 +126,12 @@ module.exports = {
                 title: '并发编程',
                 collapsable: false,
                 children: [
-                    './concurrent/j.U.C',
+                    // './concurrent/j.U.C',
                     // './concurrent/blocking-queue',
                     // './concurrent/count-down-latch',
-                    './concurrent/volatile',
-                    './concurrent/synchronized',
-                    './concurrent/cas',
+                    // './concurrent/volatile',
+                    // './concurrent/synchronized',
+                    // './concurrent/cas',
                     './concurrent/thread-local'
                 ]
             },
@@ -306,7 +306,7 @@ module.exports = {
                     './digging-deeper/cpu100',
                     './digging-deeper/multipart-upload',
                     './digging-deeper/arthas',
-                    './digging-deeper/tcc-transaction',
+                    './digging-deeper/distributed-transaction',
                     './digging-deeper/system-architecture-diagram',
                 ]
             }, {
