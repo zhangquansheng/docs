@@ -1,3 +1,7 @@
+---
+sidebarDepth: 3
+---
+
 # 日志规范
 
 ## 使用slf4j
