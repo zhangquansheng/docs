@@ -111,3 +111,7 @@ Producer 将数据发布到指定的主题。你可以简单地为负载均衡�
 - 发送消息指定**Partition**
 - 发送消息的**KEY相同**（消息KEY相同，那么消息提交的到**Partition**是相同的）
 
+## 延伸阅读
+
+- [Kafka文件存储机制那些事](https://tech.meituan.com/2015/01/13/kafka-fs-design-theory.html)
+
