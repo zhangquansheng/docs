@@ -58,3 +58,7 @@ mysql>SHOW INDEX FROM `TABLE_NAME`
 利用覆盖索引的特性，改下后的`SQL`如下;
 ![idx_name_like_in](/img/mysql/idx_name_like_in.jpg)
 从执行计划看，走了索引`idx_name`，不需要回表访问数据，可以利用` Using where; Using index`这种**索引扫描不回表的方式减少资源开销来提升性能**。
+
+## 延伸阅读
+
+- [MySQL索引原理及慢查询优化](https://tech.meituan.com/2014/06/30/mysql-index.html)
