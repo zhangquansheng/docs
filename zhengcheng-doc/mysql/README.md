@@ -47,7 +47,19 @@ DCL is `Data Control Language` statements. 数据控制语言，用来授予或�
 3. ROLLBACK - restore database to original since the last COMMIT 回滚
 4. SET TRANSACTION - Change transaction options like what rollback segment to use 设置当前事务的特性，它对后面的事务没有影响.
 
----
+## MySQL Connector/J 8.0 Developer Guide
+
+### Configuration Properties
+
+[官方文档](https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-reference-configuration-properties.html)
+
+
+- allowMultiQueries
+
+Allow the use of ';' to delimit multiple queries during one statement (true/false). Default is 'false', and it does not affect the addBatch() and executeBatch() methods, which rely on rewriteBatchStatements instead.
+
+Default Value **false** Since Version 3.1.1
 
 **参考文档**
+
 - [官方文档](https://dev.mysql.com/doc/)
