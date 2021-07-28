@@ -19,9 +19,22 @@ However with Redis 4.0 we started to make Redis more threaded. For now this is l
 
 ::: 
 
+以上的解释大致的意思是：**在`Redis`中单线程已经够用了，`CPU`不是`Redis`的瓶颈，`Redis`的瓶颈最有可能是机器内存或者网络带宽。**
+
+::: warning 注意
+因为处理请求是单线程的，所以不要在生产环境运行**长命令**，比如`keys`、`flushall`、`flushdb`，否则会导致请求被阻塞。
+:::
+
+## 非阻塞的IO多路复用机制
+
+
+## 多线程I/O
+
+`Redis 6.0`版本引入了多线程，这里所说的多线程，其实就是将`Redis`单线程中做的这两件事情**从客户端读取数据**、**回写数据给客户端**（也可以称为网络I/O），处理成多线程的方式，但是执行`Redis`命令还是在主线程中串行执行，所以不存在线程并发安全问题。
+
+下面是单线程`I/O`和多线程`I/O`的区别：
 
 ---
-
 **参考文档**
 - [redis-is-single-threaded-how-can-i-exploit-multiple-cpu--cores](https://redis.io/topics/faq#redis-is-single-threaded-how-can-i-exploit-multiple-cpu--cores)
 - [为什么 Redis 选择单线程模型](https://draveness.me/whys-the-design-redis-single-thread/)
