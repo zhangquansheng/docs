@@ -29,6 +29,7 @@ However with Redis 4.0 we started to make Redis more threaded. For now this is l
 
 `redis`服务端对于命令的处理是单线程的，但是在`I/O`层面却可以同时面对多个客户端并发的提供服务，并发到内部单线程的转化通过多路复用框架实现。
 
+-[IO多路复用底层原理](https://gitee.com/oslo/LearningNotes/blob/master/Redis/IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/README.md)
 
 ## 多线程I/O :hammer:
 
