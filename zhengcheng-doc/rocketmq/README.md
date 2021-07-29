@@ -94,6 +94,7 @@ MQ | 结构 | 存储
 Kafka | topic 对应多个 partition，同一个服务器（Broker）会有多个 topic-partition 对，partition 为单主多从结构，主挂了会重新选择主（ZK） | 消息直接存储在 partition 中，对单 topic 为顺序写 
 RocketMQ | topic 对应多个 ConsumeQueue，同一个服务器（Broker）会有多个 topic-ConsumeQueue 对，ConsumeQueue 为多主多从结构，主有配置指定，主挂了由其他主提供服务 | 同一个服务器的所有消息都统一写到 CommitLog 文件中，ConsumeQueue 只存储在 CommitLog 中的起始offset、log大小、MessageTag的hashCode，数据量较少。
 
+
 ---
 **参考文档**
 
@@ -102,3 +103,4 @@ RocketMQ | topic 对应多个 ConsumeQueue，同一个服务器（Broker）会�
 - [RocketMQ 源码](https://github.com/apache/rocketmq)
 - [阿里云消息队列（Message Queue）使用示例](https://code.aliyun.com/aliware_rocketmq/rocketmq-demo/tree/master)
 - 《RocketMQ 技术内幕: RocketMQ 架构设计与实现原理 丁威 周继峰》
+- [消费者Rebalance机制](http://www.tianshouzhi.com/api/tutorials/rocketmq/409)
