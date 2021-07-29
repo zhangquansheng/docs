@@ -22,5 +22,9 @@ Redis集群
 Redis事务
 
 ---
+
 **参考文档**
-- [官方文档](https://redis.io/documentation)
+- Redis 官网：[https://redis.io/](https://redis.io/)
+- 源码地址：[https://github.com/redis/redis](https://github.com/redis/redis)
+- Redis 在线测试：[http://try.redis.io/](http://try.redis.io/)
+- Redis 命令参考：[http://doc.redisfans.com/](http://doc.redisfans.com/)
