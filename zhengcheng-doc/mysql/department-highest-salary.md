@@ -68,7 +68,7 @@
 - 其他函数：`nth_value()` / `nfile()`
 
 序号函数的一般语法如下：
-> select 序号函数 over (partition by 用于分组的列名， order by 用于排序的列名)
+> select 序号函数 over (partition by 用于分组的列名 order by 用于排序的列名)
 
 其中，`over`是关键字，用来指定函数执行的窗口范围。
 
