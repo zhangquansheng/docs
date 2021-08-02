@@ -184,7 +184,8 @@ module.exports = {
                     './mysql/innodb_trx',
                     './mysql/delete',
                     './mysql/sql-execute',
-                    './mysql/in'
+                    './mysql/in',
+                    './mysql/department-highest-salary'
                 ]
             }, {
                 title: 'Elasticsearch',
