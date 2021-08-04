@@ -185,7 +185,8 @@ module.exports = {
                     './mysql/delete',
                     './mysql/sql-execute',
                     './mysql/in',
-                    './mysql/department-highest-salary'
+                    './mysql/department-highest-salary',
+                    './mysql/having'
                 ]
             }, {
                 title: 'Elasticsearch',
