@@ -119,5 +119,5 @@ HAVING COUNT(DISTINCT student) >= 5
 
 **参考文档**
 - [SQL HAVING 子句 | 菜鸟教程](https://www.runoob.com/sql/sql-having.html)
-
+- [596. 超过5名学生的课](https://www.runoob.com/sql/sql-having.html)
 
