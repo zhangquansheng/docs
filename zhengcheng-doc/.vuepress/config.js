@@ -207,10 +207,11 @@ module.exports = {
                     './redis/data-types',
                     './redis/memory',
                     './redis/reactor',
-                    './redis/big-key',
                     './redis/three-problems-of-cache',
                     './redis/cache-database-double-write-consistency',
-                    './redis/redisson'
+                    './redis/redisson',
+                    './redis/big-key',
+                    './redis/delay-queue'
                 ]
             }, {
                 title: 'Kafka',
