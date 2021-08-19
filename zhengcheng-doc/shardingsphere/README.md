@@ -8,3 +8,4 @@
 ## 延伸阅读
 
 - [大众点评订单系统分库分表实践](https://tech.meituan.com/2016/11/18/dianping-order-db-sharding.html)
+- [干货 | 数据为王，携程国际火车票的Sharding-Sphere之路](https://mp.weixin.qq.com/s/Dw9e33Xk9DO7PbYPIfo_kg)
