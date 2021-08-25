@@ -53,6 +53,13 @@ module.exports = {
             {text: '首页', link: '/'},
             {text: '指南', link: '/guide/'},
             {
+                text: '干货',
+                items: [{
+                    text: '干货 | 数据为王，携程国际火车票的Sharding-Sphere之路',
+                    link: 'https://mp.weixin.qq.com/s/Dw9e33Xk9DO7PbYPIfo_kg'
+                }]
+            },
+            {
                 text: '好站',
                 items: [
                     {
