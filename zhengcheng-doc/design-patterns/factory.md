@@ -102,6 +102,10 @@ public class FactoryPatternDemo {
 }
 ```
 
+## Spring 框架应用
+
+`Spring`使用工厂模式通过`BeanFactory`、`ApplicationContext`创建`bean`对象。
+
 --- 
 参考文档
 - [工厂模式|菜鸟教程](https://www.runoob.com/design-pattern/factory-pattern.html)

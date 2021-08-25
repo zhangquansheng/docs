@@ -15,6 +15,10 @@
 - `Spring`在抽象类中不支持构造函数注入。
 - 私有字段就像其他任何非静态字段一样被[继承](https://www.runoob.com/java/java-inheritance.html)，它们只是在子类代码中不可见，`Spring`将自动装配这些字段。
 
+## Spring 框架应用
+
+`Spring` 中 `jdbcTemplate`、`hibernateTemplate` 等以`Template`结尾的对数据库操作的类，它们就使用到了模板模式。
+
 --- 
 
 参考文档

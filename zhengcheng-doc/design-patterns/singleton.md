@@ -20,6 +20,10 @@ var enumIvoryTower2 = EnumIvoryTower.INSTANCE;
 assertEquals(enumIvoryTower1, enumIvoryTower2); // true
 ```
 
+## Spring 框架应用
+
+`Spring`中的`Bean`默认都是单例的。
+
 --- 
 参考文档
 - [单例模式|菜鸟教程](https://www.runoob.com/design-pattern/singleton-pattern.html)

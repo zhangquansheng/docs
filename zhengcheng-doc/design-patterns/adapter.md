@@ -11,6 +11,10 @@
 [java.util.Arrays#asList()](https://docs.oracle.com/javase/8/docs/api/java/util/Arrays.html#asList%28T...%29)
 [java.util.Collections#list()](https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html#list-java.util.Enumeration-)
 
+## Spring 框架应用
+
+`Spring AOP` 的增强或通知(`Advice`)使用到了适配器模式、`Spring MVC`中也是用到了适配器模式适配`Controller`。
+
 --- 
 **参考文档**
 [适配器模式|菜鸟教程](https://www.runoob.com/design-pattern/adapter-pattern.html)
