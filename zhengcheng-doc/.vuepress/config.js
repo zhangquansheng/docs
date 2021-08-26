@@ -303,6 +303,7 @@ module.exports = {
                 collapsable: false,
                 children: [
                     './digging-deeper/plugin',
+                    './digging-deeper/io',
                     './digging-deeper/oom',
                     './digging-deeper/copy-properties',
                     './digging-deeper/sign-auth',
