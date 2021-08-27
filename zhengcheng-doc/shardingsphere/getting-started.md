@@ -17,7 +17,7 @@ sidebarDepth: 3
         <version>${shardingsphere.version}</version>
     </dependency>
 ```
-注意：请将 `${shardingsphere.version}` 更改为实际的版本号，这里使用的`4.1.1`。
+注意：请将 `${shardingsphere.version}` 更改为实际的版本号，这里使用的`4.0.1`。
 
 ### 2. 数据分片
 
