@@ -132,6 +132,7 @@ module.exports = {
                     './concurrent/volatile',
                     './concurrent/synchronized',
                     './concurrent/cas',
+                    './concurrent/AQS',
                     './concurrent/thread-local',
                     './concurrent/thread-pool-executor',
                 ]
