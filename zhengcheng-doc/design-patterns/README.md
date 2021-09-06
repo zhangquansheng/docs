@@ -20,3 +20,4 @@
 
 - [java-design-patterns.com](https://java-design-patterns.com/)
 - [java-design-patterns](https://github.com/iluwatar/java-design-patterns)
+- [xuxueli-设计模式.md](https://www.xuxueli.com/blog/?blog=./notebook/2-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F.md)
