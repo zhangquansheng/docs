@@ -129,10 +129,11 @@ module.exports = {
                     // './concurrent/j.U.C',
                     // './concurrent/blocking-queue',
                     // './concurrent/count-down-latch',
-                    // './concurrent/volatile',
-                    // './concurrent/synchronized',
-                    // './concurrent/cas',
-                    './concurrent/thread-local'
+                    './concurrent/volatile',
+                    './concurrent/synchronized',
+                    './concurrent/cas',
+                    './concurrent/thread-local',
+                    './concurrent/thread-pool-executor',
                 ]
             },
             {
