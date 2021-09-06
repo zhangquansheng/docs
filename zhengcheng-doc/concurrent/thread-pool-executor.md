@@ -74,6 +74,12 @@ public ThreadPoolExecutor(int corePoolSize,
 6 | threadFactory | int | executor 创建新线程的时候会用到。
 7 | handler | int | 饱和策略。
 
+`handler`的饱和（拒绝）策略
+1. `AbortPolicy`: 不执行新任务，直接抛出异常，提示线程池已满
+2. `DisCardPolicy`: 不执行新任务，也不抛出异常
+3. `DisCardOldSetPolicy`: 将消息队列中的第一个任务替换为当前新进来的任务执行
+4. `CallerRunsPolicy`: 直接调用`execute`来执行当前任务
+
 ## 实现原理
 
 ![thread-pool.png](/img/concurrent/thread-pool.png)
