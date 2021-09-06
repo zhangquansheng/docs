@@ -115,3 +115,6 @@ public class UserThreadFactory implements ThreadFactory {
 > 说明：`Executors` 返回的线程池对象的弊端如下：
 > - 1） `FixedThreadPool` 和 `SingleThreadPool`：允许的请求队列长度为 `Integer.MAX_VALUE`，可能会堆积大量的请求，从而导致`OOM`。
 > - 2） `CachedThreadPool`：允许的创建线程数量为` Integer.MAX_VALUE`，可能会创建大量的线程，从而导致`OOM`。
+
+**参考文档**
+- 《Java 并发编程的艺术》
