@@ -77,3 +77,35 @@ public ThreadPoolExecutor(int corePoolSize,
 ## 实现原理
 
 ![thread-pool.png](/img/concurrent/thread-pool.png)
+
+## 阿里Java编程规范
+
+2. 【强制】创建线程或线程池时请指定有意义的线程名称，方便出错时回溯。
+> 正例：自定义线程工厂，并且根据外部特征进行分组，比如，来自同一机房的调用，把机房编号赋值给`whatFeatureOfGroup`
+```java
+public class UserThreadFactory implements ThreadFactory {
+    private final String namePrefix;
+    private final AtomicInteger nextId = new AtomicInteger(1);
+    
+    // 定义线程组名称，在利用 jstack 来排查问题时，非常有帮助
+    UserThreadFactory(String whatFeatureOfGroup) {
+        namePrefix = "From UserThreadFactory's " + whatFeatureOfGroup + "-Worker-";
+    }
+
+    @Override
+    public Thread newThread(Runnable task) {
+        String name = namePrefix + nextId.getAndIncrement();
+        Thread thread = new Thread(null, task, name, 0, false);
+        System.out.println(thread.getName());
+        return thread;
+    }
+}
+```
+
+3. 【强制】线程资源必须通过线程池提供，不允许在应用中自行显式创建线程。
+> 线程池的好处是减少在创建和销毁线程上所消耗的时间以及系统资源的开销，解决资源不足的问题。如果不使用线程池，有可能造成系统创建大量同类线程而导致消耗完内存或者“过度切换”的问题。
+
+4. 【强制】线程池不允许使用`Executors`去创建，而是通过`ThreadPoolExecutor`的方式，这样的处理方式让写的同学更加明确线程池的运行规则，规避资源耗尽的风险。
+> 说明：`Executors` 返回的线程池对象的弊端如下：
+- 1） `FixedThreadPool` 和 `SingleThreadPool`：允许的请求队列长度为 `Integer.MAX_VALUE`，可能会堆积大量的请求，从而导致`OOM`。
+- 2） `CachedThreadPool`：允许的创建线程数量为` Integer.MAX_VALUE`，可能会创建大量的线程，从而导致`OOM`。
