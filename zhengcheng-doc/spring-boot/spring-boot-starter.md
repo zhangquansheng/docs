@@ -202,7 +202,7 @@ public @interface SpringBootApplication {
 根据`SpringBoot`官网，这三个注解的作用分别是：
 - `@EnableAutoConfiguration`：启用`SpringBoot`的自动配置机制
 - `@Configuration`：允许在上下文中注册额外的`bean`或导入其他配置类
-- `@ComponentScan`： 扫描被`@Component` (`@Service`,`@Controller`)注解的`bean`，注解默认会扫描启动类所在的包下所有的类 ，可以自定义不扫描某些`bean`。
+- `@ComponentScan`： 扫描被`@Component` (`@Service`,`@Controller`)注解的`bean`，注解默认会扫描启动类所在的包下所有的类 ，可以自定义不扫描某些`bean`。如上面的源码所示，容器中将排除`TypeExcludeFilter`和`AutoConfigurationExcludeFilter`。
 
 ---
 **参考文档**
