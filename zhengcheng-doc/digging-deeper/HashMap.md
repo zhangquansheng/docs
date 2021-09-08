@@ -410,7 +410,7 @@ MapTest.hashMap.forEach((k, v) -> log.info("key: {}, value: {}", k, v));
 1. 从`HashMap`的语法上来讲，一切对象都可以作为`Key`值。如：`Integer`、`Long`、`String`、`Object`等。（但是在实际工作中，最常用的使用`String`作为`Key`值）
 > - 使用`Object`作为`Key`值的时候，如`Class Person` (包含，姓名，年龄等属性，它是**可变对象**)作为`Key`。
 > 当`Person`类中的属性改变时，导致`hashCode`的值也发生变化，变化后，`map.get(key)`因为`hashCode`值的变化，
-> 而无法找到之前保存的`value`值，同样，删除也取不到值。**解决方案是重写`HashCode`方法，使其在属性变化时，对象的`HashCode`不变。**
+> 而无法找到之前保存的`value`值，同样，删除也取不到值。**解决方案是重写`HashCode`方法，使其在属性变化时，`hashCode值`不变。**
 > - 尽量避免使用`Long`，`Integer`做`key`，可能由于拆箱装箱问题，导致取不到数据，如下所示：
 ```java
     @Test
@@ -419,13 +419,16 @@ MapTest.hashMap.forEach((k, v) -> log.info("key: {}, value: {}", k, v));
         map1.put(11, "11");
         map1.put(22, "22");
         long key1 = 11;
-        System.out.println(map1.get(key1)); // null
-
         Map<Long, String> map2 = new HashMap<>();
         map2.put(11L, "11");
         map2.put(22L, "22");
+        map2.put(null, "33");
         int key2 = 11;
+
+        System.out.println(map1.get(key1)); // null
         System.out.println(map1.get(key2)); // 11
+        System.out.println(map2.get(key2)); // null
+        System.out.println(map2.get(null)); // 33
     }
 ```
 2. 不能使用基本数据类型作为`Key`值。
@@ -437,3 +440,10 @@ MapTest.hashMap.forEach((k, v) -> log.info("key: {}, value: {}", k, v));
 > 所以`HashMap`集合的`key`只能为引用数据类型，不能为基本数据类型，可以使用基本数据类型的包装类，例如`Integer`等。
 
 3. `HashMap`中`key`是可以为`null`，只能存储一个`null`，因为计算`key`的`hash`值的时候，如果`key`为`null`，则其`hash`值为`0`。
+```java
+    // 当key为null时，hash值为0
+    static final int hash(Object key) {
+        int h;
+        return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);
+    }
+```
