@@ -404,3 +404,36 @@ futureList.forEach(booleanFuture -> {
 
 MapTest.hashMap.forEach((k, v) -> log.info("key: {}, value: {}", k, v));
 ```
+
+## HashMap 中 Key 类型的选择
+
+1. 从`HashMap`的语法上来讲，一切对象都可以作为`Key`值。如：`Integer`、`Long`、`String`、`Object`等。（但是在实际工作中，最常用的使用`String`作为`Key`值）
+> - 使用`Object`作为`Key`值的时候，如`Class Person` (包含，姓名，年龄等属性，它是**可变对象**)作为`Key`。
+> 当`Person`类中的属性改变时，导致`hashCode`的值也发生变化，变化后，`map.get(key)`因为`hashCode`值的变化，
+> 而无法找到之前保存的`value`值，同样，删除也取不到值。**解决方案是重写`HashCode`方法，使其在属性变化时，对象的`HashCode`不变。**
+> - 尽量避免使用`Long`，`Integer`做`key`，可能由于拆箱装箱问题，导致取不到数据，如下所示：
+```java
+    @Test
+    public void testInteger() {
+        Map<Integer, String> map1 = new HashMap<>();
+        map1.put(11, "11");
+        map1.put(22, "22");
+        long key1 = 11;
+        System.out.println(map1.get(key1)); // null
+
+        Map<Long, String> map2 = new HashMap<>();
+        map2.put(11L, "11");
+        map2.put(22L, "22");
+        int key2 = 11;
+        System.out.println(map1.get(key2)); // 11
+    }
+```
+2. 不能使用基本数据类型作为`Key`值。
+> `HashMap`存储元素采用的是`hash表`存储数据，每存储一个对象的时候，都会调用其`hashCode()`方法，算出其`hash值`，
+> 如果相同，则认为是相同的数据，直接不存储，如果`hash值`不同，则再调用其`equals`方法进行比较，如果返回`true`，
+> 则认为是相同的对象，不存储，如果返回`false`，则认为是不同的对象，可以存储到`HashMap`集合中。
+> 
+> 之所以`key`不能为基本数据类型，则是因为基本数据类型不能调用其`hashcode()`方法和`equals()`方法，进行比较，
+> 所以`HashMap`集合的`key`只能为引用数据类型，不能为基本数据类型，可以使用基本数据类型的包装类，例如`Integer`等。
+
+3. `HashMap`中`key`是可以为`null`，只能存储一个`null`，因为计算`key`的`hash`值的时候，如果`key`为`null`，则其`hash`值为`0`。
