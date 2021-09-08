@@ -307,6 +307,7 @@ module.exports = {
                     './digging-deeper/distributed-lock',
                     './digging-deeper/http-long-polling',
                     './digging-deeper/xxl-job',
+                    './digging-deeper/xxl-rpc',
                     './digging-deeper/meituan-leaf',
                     './digging-deeper/J2Cache',
                     './digging-deeper/HashMap',
