@@ -232,7 +232,8 @@ module.exports = {
                     './rocketmq/consumer',
                     './rocketmq/message-idempotent',
                     './rocketmq/rocketmq-spring',
-                    './rocketmq/rocketmq-spring-apache'
+                    './rocketmq/rocketmq-spring-apache',
+                    './rocketmq/Transaction'
                 ]
             }, {
                 title: 'ZooKeeper',
