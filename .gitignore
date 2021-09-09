@@ -1,6 +1,6 @@
 # IntelliJ project files
 .idea/
-.vuepress/
+.vuepress/docs/
 *.iml
 *.ipr
 *.iws
