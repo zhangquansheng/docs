@@ -14,19 +14,22 @@
 
 ## 异步请求
 
-`Servlet`异步请求处理的非常简洁的概述：
+### `Servlet`异步请求处理的非常简洁的概述：（Nacos）
+
 - 一个`servlet`请求`ServletRequest`可以通过调用`request.startAsync()` 方法而进入异步模式。这样做的主要效果是`Servlet`（以及任何过滤器）都可以退出，但是响应（response）仍然是开放的，以便稍后处理完成。
 - `request.startAsync()`返回一个`AsyncContext`对象，可用它进一步控制异步处理。例如，它提供了`dispatch`方法，类似于`Servlet API`的转发（forward），只是它允许应用程序在`Servlet`容器线程上恢复请求处理。
 - `ServletRequest`提供了获取当前`DispatcherType`的方式，可以使用它来区分处理初始请求、异步调度、转发和其他调度程序类型。
 
-`DeferredResult` 处理流程如下：
+### `DeferredResult` 处理流程如下：（Apollo）
+
 - `Controller`先返回一个`DeferredResult`对象，并将其保存在内存队列或列表中，以便访问它。
 - `Spring MVC` 调用`request.startAsync()`。
 - 同时，`DispatcherServlet`和所有配置的过滤器退出请求处理线程，但响应保持打开状态。
 - 在应用程序中的某一个线程设置`DeferredResult`，然后`Spring MVC` 调度`request`请求返回到`Servlet`容器中。
 - `DispatcherServlet`再次调用，恢复对该异步返回结果的处理。
 
-`Callable` 处理流程如下：
+### `Callable` 处理流程如下：
+
 - `Controller`先返回一个`Callable`对象。
 - `Spring MVC`调用`request.startAsync()`并把该`Callable`对象提交给独立线程的执行器`TaskExecutor`处理
 - 同时，`DispatcherServlet`和所有过滤器退出`Servlet`容器线程，但响应保持打开状态。
@@ -48,7 +51,7 @@
 
 ## 携程`Apollo`配置中心 Http Long Polling 的具体实现
 
-服务端:
+**服务端:**
 ```java
 // com.ctrip.framework.apollo.configservice.controller.NotificationControllerV2.java
 
@@ -107,7 +110,7 @@ public class NotificationControllerV2 implements ReleaseMessageListener {
 }
 ```
 
-客户端:
+**客户端:**
 ```java
 com.ctrip.framework.apollo.internals.RemoteConfigLongPollService.java
 
@@ -191,7 +194,6 @@ public class RemoteConfigLongPollService {
 `Apollo`客户端和服务端保持了一个长连接，从而能第一时间获得配置更新的推送。
 
 长连接实际上我们是通过`Http Long Polling`实现的，具体而言：
-
 1. 客户端发起一个Http请求到服务端
 2. 服务端会保持住这个连接60秒
    - 如果在60秒内有客户端关心的配置变化，被保持住的客户端请求会立即返回，并告知客户端有配置变化的`namespace`信息，客户端会据此拉取对应`namespace`的最新配置
