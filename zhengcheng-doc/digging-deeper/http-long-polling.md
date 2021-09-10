@@ -200,6 +200,10 @@ public class RemoteConfigLongPollService {
 
 考虑到会有数万客户端向服务端发起长连，在服务端我们使用了`async servlet(Spring DeferredResult)`来服务`Http Long Polling`请求。
 
+## Nacos 配置中心 Http Long Polling 的具体实现
+
+
+
 
 ## PC 端实时查询用户个人消息 Http Long Polling 的具体实现 :100:
 
