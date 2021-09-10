@@ -33,13 +33,13 @@
 - 最终，`Callable`生成一个返回结果，此时`Spring MVC`将重新把请求发送回`Servlet`容器，恢复处理。
 - `DispatcherServlet`再次被调用，恢复对该异步返回结果的处理。
 
-## 简述 polling 和 long polling 的区别
+## polling 和 long polling 的区别
 
-> 这里暂时抛开某些场景webSocket的解决方案
+> 这里暂时抛开某些场景 `webSocket` 的解决方案
 
 举一个栗子来说明长轮询的好处，例如携程`Apollo`配置中心，怎么实时查询配置中心有数据更新呢？`polling`和`long polling`的方式分别如下：
-- polling: 轮询会每隔`1s`去向服务器发起一次查询请求，返回是否有数据更新，数据最长有`1s`的延时。
-- long polling: 首先发起查询请求，服务端没有更新的话就不回复，直到`60s`后或者有数据变更时立即返回给客户端，客户端收到服务器响应后，立即发起下一次请求。长轮询保证了数据变更获取的实时性，也极大的较少了与服务器的交互，基于web异步处理技术，大大的提升了服务性能。
+- `polling`: 轮询会每隔`1s`去向服务器发起一次查询请求，返回是否有数据更新，数据最长有`1s`的延时。
+- `long polling`: 首先发起查询请求，服务端没有更新的话就不回复，直到`60s`后或者有数据变更时立即返回给客户端，客户端收到服务器响应后，立即发起下一次请求。长轮询保证了数据变更获取的实时性，也极大的较少了与服务器的交互，基于web异步处理技术，大大的提升了服务性能。
 
 ::: tip 延伸思考
   `long polling`的方式和`发布订阅`的模式的不同点有哪些？
@@ -202,6 +202,18 @@ public class RemoteConfigLongPollService {
 
 ## Nacos 配置中心 Http Long Polling 的具体实现
 
+[https://nacos.io/zh-cn/](https://nacos.io/zh-cn/) | [Nacos 架构](https://nacos.io/zh-cn/docs/architecture.html)
+
+`Nacos` 配置中心的几个核心概念：`dataId`、`group`、`namespace`，它们的层级关系如下图：
+![Nacos数据模型](/img/digging-deeper/nacos-data-model.webp)
+
+- `dataId`：是配置中心里最基础的单元，它是一种`key-value`结构，`key`通常是我们的配置文件名称，比如：`application.yml`、`mybatis.xml`，而`value`是整个文件下的内容。
+- `group`：`dataId`配置的分组管理，比如同在`dev`环境下开发，但同环境不同分支需要不同的配置数据，这时就可以用分组隔离，默认分组`DEFAULT_GROUP`。
+- `namespace`：项目开发过程中肯定会有`dev`、`test`、`pro`等多个不同环境，`namespace`则是对不同环境进行隔离，默认所有配置都在`public`里。
+
+::: tip 
+下边以` Nacos 2.0.1` 版本源码分析，`2.0`以后的版本改动较多，和网上的很多资料略有些不同 地址：[https://github.com/alibaba/nacos/releases/tag/2.0.1](https://github.com/alibaba/nacos/releases/tag/2.0.1)
+:::
 
 
 
@@ -304,10 +316,10 @@ public class UserNewMessageDeferredResultWrapper implements Comparable<UserNewMe
     }
 ```
 
-由于我们日常工作中，所有的服务都是集群部署的，那么有可能缓存的`deferredResultWrapper`和处理新消息的线程不在一个服务中，导致无法调用setResult方法设置值。所以当有新消息的情况下，需要使用**广播的方式**通知集群下所有的服务都执行新消息处理逻辑。
+由于我们日常工作中，所有的服务都是集群部署的，那么有可能缓存的`deferredResultWrapper`和处理新消息的线程不在一个服务中，导致无法调用`setResult`方法设置值。
+所以当有新消息的情况下，需要使用**广播的方式**通知集群下所有的服务都执行新消息处理逻辑。
 
-
-## Long Polling 的实现为什么需要设置超时时间？
+## Long Polling 的实现为什么需要设置超时时间
 
 主要原因是网络传输层主要走的是`tcp协议`，`tcp协议`是可靠面向连接的协议，通过三次握手建立连接。但是所建立的连接是虚拟的，
 可能存在某段时间网络不通，或者服务端程序非正常关闭，亦或服务端机器非正常关机，面对这些情况客户端根本不知道服务端此时已经不能互通，
