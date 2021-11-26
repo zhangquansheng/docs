@@ -298,6 +298,7 @@ module.exports = {
                 title: '综合话题&源码分析',
                 collapsable: false,
                 children: [
+                    './digging-deeper/Clean-Code',
                     './digging-deeper/plugin',
                     './digging-deeper/io',
                     './digging-deeper/oom',
@@ -318,6 +319,12 @@ module.exports = {
                     './digging-deeper/arthas',
                     './digging-deeper/distributed-transaction',
                     './digging-deeper/system-architecture-diagram',
+                ]
+            }, {
+                title: '微服务框架体系',
+                collapsable: false,
+                children: [
+                    './Microservice-Architecture/',
                 ]
             }, {
                 title: 'FAQ',
