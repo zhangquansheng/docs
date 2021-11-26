@@ -315,6 +315,7 @@ module.exports = {
                     './digging-deeper/ConcurrentHashMap',
                     './digging-deeper/naming',
                     './digging-deeper/cpu100',
+                    './digging-deeper/bitmap',
                     './digging-deeper/multipart-upload',
                     './digging-deeper/arthas',
                     './digging-deeper/distributed-transaction',
