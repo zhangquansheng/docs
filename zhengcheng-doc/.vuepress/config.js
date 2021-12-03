@@ -158,7 +158,8 @@ module.exports = {
                     './spring-boot/',
                     './spring-boot/configuration-properties',
                     './spring-boot/redis-pubsub',
-                    './spring-boot/spring-boot-starter'
+                    './spring-boot/spring-boot-starter',
+                    './spring-boot/transaction-after'
                 ]
             },
             {
