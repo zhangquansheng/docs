@@ -2,7 +2,7 @@
 sidebarDepth: 3
 ---
 
-# Java命名规范参考
+# Java 命名规范参考
 
 ## 为什么需要重视命名？
 
@@ -52,7 +52,7 @@ sidebarDepth: 3
 枚举类 |	Enum 作为后缀 |	GenderEnum
 工具类 |	Utils 作为后缀 |	StringUtils
 异常类 |	Exception 结尾 |	RuntimeException
-接口实现 |	I+ 接口名 |	IUserService
+接口实现 |	I+ 接口名 |	IUserService :x: 《Clean Code》这本书明确指出： I 是废话。
 接口实现类 |	接口名+ Impl |	UserServiceImpl
 领域模型相关 |	/DO/DTO/VO/DAO |	正例：UserDTO 反例： UserDto
 设计模式相关类 |	Builder，Factory 等 |	当使用到设计模式时，需要使用对应的设计模式作为后缀，如 ThreadFactory

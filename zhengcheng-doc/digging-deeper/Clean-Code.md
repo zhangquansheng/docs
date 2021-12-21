@@ -2,24 +2,93 @@
 
 ## 第一章 整洁代码
 
-### 什么是整洁代码
+### 1.3.5 什么是整洁代码
 
-> 整洁的代码应可由作者之外的开发者阅读和增补。它应当有单元测试和验收测试。它使用有意义的命名。它只提供一种而非多种做一件事的途径。它只有尽量少的依赖关系，而且要明确地定义和提供清晰、尽量少的 API。代码应通过其字面表达含义，因为不同的语言导致并非所有必需信息均可通过代码自身清晰表达。
+整洁的代码应可由作者之外的开发者阅读和增补。它应当有单元测试和验收测试。它使用有意义的命名。它只提供一种而非多种做一件事的途径。它只有尽量少的依赖关系，而且要明确地定义和提供清晰、尽量少的 API。代码应通过其字面表达含义，因为不同的语言导致并非所有必需信息均可通过代码自身清晰表达。
 
-简单代码规则，依其重要顺序：
+## 第二章 有意义的命名
 
-- 能通过所有测试；
-- **没有重复代码**；
-- 体现系统中的全部设计理念；
-- 包括尽量少的实体，比如类、方法、函数等。
+[Java 命名规范参考](/digging-deeper/naming)
+
+### 2.2 名副其实
+
+名副其实说起来简单。我们想要强调，这事很严肃。选个好名字要花时间，但省下来的时间比花掉的多。注意命名，而且一旦发现有更好的名称，就换掉旧的。这么做，读你代码的人（包括你自己）都会更开心。
+
+变量、函数或类的名称应该已经答复了所有的大问题。它该告诉你，它为什么会存在，它做什么事，应该怎么用。如果名称需要注释来补充，那就不算是名副其实。
+
+反例：
+```java
+long remainingPayAmount = new BigDecimal(productDetailDTO.getOriginalPrice())
+        .multiply(new BigDecimal(orderPriceCalculateReq.getQuantity())).longValue()
+        - orderPriceCalculateReq.getMedicalInsurancePayAmount();
+if (remainingPayAmount < 0) {
+    throw new BizException("501", "医保支付金额不满足要求！");
+}
+```
+
+### 2.3 避免误导
+
+程序员必须避免留下掩藏代码本意的错误线索。应当避免使用与本意相悖的词。
+
+### 2.7.3 接口和实现
+
+有时也会出现采用编码的特殊情形。比如，你在做一个创建形状用的抽象工厂（Abstract Factory）。该工厂是个接口，要用具体类来实现。你怎么来命名工厂和具体类呢？IShapeFactory 和 ShapeFactory 吗？我喜欢不加修饰的接口。前导字母 I 被滥用到了说好听点是干扰，说难听点根本就是废话的程度。我不想让用户知道我给他们的是接口。我就想让他们知道那是个 ShapeFactory。如果接口和实现必须选一个来编码的话，我宁肯选择实现。ShapeFactoryImp，甚至是丑陋的 CShapeFactory，都比对接口名称编码来得好。
 
 ## 第三章 函数
 
-### 封装多个参数
+### 3.2 只做一件事
+
+**函数应该做一件事。做好这件事。只做这一件事。**
+
+### 3.6 封装多个参数
 
 1. 如果方法参数将超过`3`个，建议放在类中包装起来，否则再增加参数时，由于语义的强耦合会导致调用方语法错误。在后台管理中的分页查询接口，常常会有很多查询参数，而且有可能增加，封装起来是最好的。
 
-### 抽离 try/catch
+### 3.6.1 不要使用标记位做为函数参数
+
+标记位是告诉你的用户这个函数做了不只一件事情。 函数应该只做一件事情。 如果你的函数因为一个布尔值 出现不同的代码路径， 请拆分它们。
+
+反例：
+```java
+void createFile(String name,boolean temp){
+    if(temp){
+        new File("./temp"+name);
+    }else{
+        new File(name);
+    }
+}
+```
+
+正例：
+```java
+void createFile(String name){
+    new File(name);
+}
+
+void createTempFile(String name){
+    new File("./temp"+name);
+}
+```
+
+### 3.6.2 封装条件语句
+
+反例：
+```java
+if ("I".equals(patientInfoDTO.getCertType())) {
+}
+```
+
+正例：
+```java
+private boolean isIDCard(String certType){
+    return "I".equals(certType);
+}
+
+if (isIDCard(patientInfoDTO.getCertType())) {
+}
+```
+
+### 3.9.1 抽离 try/catch
 
 1. `Try/catch` 代码块丑陋不堪。它们搞乱了代码结构，把错误处理与正常流程混为一谈。最好把`try`和`catch`代码块的主体部分抽离出来，另外形成函数。
 
@@ -420,5 +489,6 @@ public class WebExceptionAspect {
 ## 参考文档
 
 - [Java 代码精简之道](https://mp.weixin.qq.com/s/A1Z8YZyqQsFqK1TA1dTl2Q)
+- [《代码整洁之道》中文翻译](https://github.com/glen9527/Clean-Code-zh)
 
 

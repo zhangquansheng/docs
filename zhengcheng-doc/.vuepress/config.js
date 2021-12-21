@@ -300,6 +300,7 @@ module.exports = {
                 collapsable: false,
                 children: [
                     './digging-deeper/Clean-Code',
+                    './digging-deeper/naming',
                     './digging-deeper/plugin',
                     './digging-deeper/io',
                     './digging-deeper/oom',
@@ -314,7 +315,6 @@ module.exports = {
                     './digging-deeper/J2Cache',
                     './digging-deeper/HashMap',
                     './digging-deeper/ConcurrentHashMap',
-                    './digging-deeper/naming',
                     './digging-deeper/cpu100',
                     './digging-deeper/bitmap',
                     './digging-deeper/multipart-upload',

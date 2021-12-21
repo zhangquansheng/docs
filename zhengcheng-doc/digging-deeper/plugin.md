@@ -4,6 +4,10 @@
 [IntelliJ IDEA 2019.3.5](https://www.jetbrains.com/idea/download/other.html) （2020.x版本下，有些插件会收费）下推荐几款效率可以翻倍的IDEA插件，撸码利器。
 :::
 
+## Rainbow Brackets
+
+[Rainbow Brackets](https://github.com/izhangzhihao/intellij-rainbow-brackets): 彩虹括号，各种鲜明颜色的括号。
+
 ## EasyCode
 
 [EasyCode](https://plugins.jetbrains.com/plugin/10954-easy-code): **代码神器，个人迄今为止最喜欢的插件，上手以后太爽啦。。。** 
