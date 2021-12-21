@@ -250,7 +250,8 @@ module.exports = {
                 children: [
                     './mybatis/',
                     './mybatis/cache',
-                    './mybatis/mybatis-crud'
+                    './mybatis/mybatis-crud',
+                    './mybatis/MyBatis-Plus'
                 ]
             }, {
                 title: 'Apache ShardingSphere',
