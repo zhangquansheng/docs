@@ -330,6 +330,12 @@ module.exports = {
                     './Microservice-Architecture/',
                 ]
             }, {
+                title: '代码人生',
+                collapsable: false,
+                children: [
+                    './career/',
+                ]
+            }, {
                 title: 'FAQ',
                 collapsable: false,
                 children: [
