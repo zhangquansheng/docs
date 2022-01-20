@@ -334,6 +334,7 @@ module.exports = {
                 collapsable: false,
                 children: [
                     './career/',
+                    './career/book-list',
                 ]
             }, {
                 title: 'FAQ',
