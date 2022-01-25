@@ -578,6 +578,8 @@ public interface Scope {
 当配置改变时，`Spring Cloud`的实现是**将动态配置`Bean`销毁再创建新的`Bean`**，由于是在单例的`Bean`中使用`@Resource`或`@Autowired`注解方式引用该**对象**，单例`Bean`在初始化时就已经为字段赋值，
 在单例`Bean`的生命周期内都不会再刷新`bean`字段的引用，所以单例`Bean`就会一直引用一个旧的动态配置`bean`，自然就无法感知配置改变了。
 
+`Spring Cloud` 负责更新环境`Environment`以及创建新的动态配置`bean`，而判断配置是否改变，以及怎么获取新的配置则是由第三方框架实现的，如`nacos`,`apollo`。
+
 
 ---
 **参考文档**

@@ -185,7 +185,7 @@ public class SpringBootApolloRefreshConfiguration implements ApplicationContextA
 ```
 
 ::: warning 注意
-禁止直接使用 `refreshScope.refreshAll()`来刷新，这样会导致一些正在使用的单例`bean`被删除后，引发的错误。
+（2022-01-25 似乎随着 Spring Cloud 版本的升级，已经不存在此问题了，我在很多公司内部的配置中心中，看到都是直接使用 `refreshScope.refreshAll()` 动态刷新配置 ）禁止直接使用 `refreshScope.refreshAll()`来刷新，这样会导致一些正在使用的单例`bean`被删除缓存后，引发的错误。
 :::
 
 ## 客户端设计
