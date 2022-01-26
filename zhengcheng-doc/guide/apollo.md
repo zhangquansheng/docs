@@ -204,5 +204,10 @@ public class SpringBootApolloRefreshConfiguration implements ApplicationContextA
     - 在遇到服务不可用，或网络不通的时候，依然能从本地恢复配置
 5. 应用程序可以从Apollo客户端获取最新的配置、订阅配置更新通知
 
+## @Value 自动更新的实现
+
+- [实现springcloud应用@Value配置的自动刷新](https://blog.csdn.net/echizao1839/article/details/122319170)
+- [Apollo——@Value自动更新的实现](https://blog.csdn.net/u013445220/article/details/95590749)
+
 
 
