@@ -4,6 +4,8 @@ sidebarDepth: 3
 
 # 概览
 
+**对于畏惧算法的朋友来说，可以先刷树的相关题目，试着从框架上看问题，而不要纠结于细节问题**。
+
 推荐阅读：[ labuladong 的算法小抄](https://github.com/lyh200/fucking-algorithm)
 
 ## 核心概念
