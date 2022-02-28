@@ -165,11 +165,20 @@ List<Integer> preorderTraverse(TreeNode root) {
 1. 对于`BST`的每一个节点`node`，左子树节点的值都比`node`的值要小，右子树节点的值都比`node`的值大。
 2. 对于`BST`的每一个节点`node`，它的左侧子树和右侧子树都是`BST`。
 
-二叉搜索树并不算复杂，
 - 直接基于`BST`的数据结构有`AVL`树，`红黑树`等等，
 - 基于`BST`的思想来设计，拥有了自平衡性质，可以提供`logN`级别的增删查改效率有`B+`树，`线段树`等结构。
 
 **从做算法题的角度来看`BST`，除了它的定义，还有一个重要的性质：`BST`的中序遍历结果是有序的（升序）**。
+````java
+void traverse(TreeNode root) {
+    if (root == null) return;
+    traverse(root.left);
+    // 中序遍历代码位置
+    print(root.val);
+    traverse(root.right);
+}
+````
+
 
 
 ## 参考文档
