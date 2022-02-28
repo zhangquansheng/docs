@@ -107,6 +107,7 @@ module.exports = {
                     './guide/async',
                     './guide/mapstruct',
                     './guide/apollo',
+                    './guide/nacos',
                     './guide/socketio',
                     './guide/nacos-eureka',
                     './guide/log'
