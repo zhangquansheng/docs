@@ -18,3 +18,7 @@
 ![v2.0架构.png](/img/digging-deeper/webmagic.png)
 
 [WebMagic](http://webmagic.io/docs/zh/)
+
+## 电商平台企业中台典型技术架构
+
+![电商架构图](/img/digging-deeper/电商架构图.jfif)
