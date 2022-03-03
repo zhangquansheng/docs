@@ -158,6 +158,10 @@ List<Integer> preorderTraverse(TreeNode root) {
 }
 ```
 
+综上，遇到一道二叉树的题目时的通用思考过程是：
+
+**是否可以通过遍历一遍二叉树得到答案？如果不能的话，是否可以定义一个递归函数，通过子问题（子树）的答案推导出原问题的答案？**
+
 ## 二叉搜索树（Binary Search Tree，简写 BST）
 
 ### 特性
@@ -192,8 +196,6 @@ void BST(TreeNode root, int target) {
         BST(root.left, target);
 }
 ````
-
-
 
 ## 参考文档
 
