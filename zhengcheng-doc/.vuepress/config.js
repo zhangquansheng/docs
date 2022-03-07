@@ -235,7 +235,8 @@ module.exports = {
                     './rocketmq/message-idempotent',
                     './rocketmq/rocketmq-spring',
                     './rocketmq/rocketmq-spring-apache',
-                    './rocketmq/Transaction'
+                    './rocketmq/transaction',
+                    './rocketmq/delay'
                 ]
             }, {
                 title: 'ZooKeeper',
@@ -323,6 +324,7 @@ module.exports = {
                     './digging-deeper/arthas',
                     './digging-deeper/distributed-transaction',
                     './digging-deeper/system-architecture-diagram',
+                    './digging-deeper/auto-cancel',
                 ]
             }, {
                 title: '微服务框架体系',
