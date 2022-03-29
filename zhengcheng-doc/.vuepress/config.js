@@ -186,6 +186,7 @@ module.exports = {
                     './mysql/transaction',
                     './mysql/sql-standard',
                     './mysql/innodb_trx',
+                    './mysql/datetime',
                     './mysql/delete',
                     './mysql/sql-execute',
                     './mysql/in',
