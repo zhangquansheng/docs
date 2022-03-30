@@ -216,7 +216,8 @@ module.exports = {
                     './redis/cache-database-double-write-consistency',
                     './redis/redisson',
                     './redis/big-key',
-                    './redis/delay-queue'
+                    './redis/delay-queue',
+                    './redis/J2Cache',
                 ]
             }, {
                 title: 'Kafka',
@@ -316,7 +317,6 @@ module.exports = {
                     './digging-deeper/xxl-job',
                     './digging-deeper/xxl-rpc',
                     './digging-deeper/meituan-leaf',
-                    './digging-deeper/J2Cache',
                     './digging-deeper/HashMap',
                     './digging-deeper/ConcurrentHashMap',
                     './digging-deeper/cpu100',

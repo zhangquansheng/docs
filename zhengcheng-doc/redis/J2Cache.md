@@ -115,3 +115,7 @@ public class RedisSampleServiceImplTest {
 ## 业务场景
 
 就算是使用了`redis`缓存，也会存在一定程度的网络传输上的消耗，在实际应用当中，会存在一些变更频率非常低的数据，就可以直接缓存在应用内部，对于一些实时性要求不太高的数据，也可以在应用内部缓存一定时间，减少对`redis`的访问，提高响应速度。
+
+## 推荐阅读
+
+- [Redis+Caffeine 两级缓存实战！性能爆表](https://mp.weixin.qq.com/s/4a-nIjS4Z55XzEdZQPl7tQ)
