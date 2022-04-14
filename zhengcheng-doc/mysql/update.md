@@ -1,5 +1,7 @@
 # MySQL 中 UPDATE 语句的返回值问题汇总
 
+关键字：**更新的行数**，**影响的行数**
+
 数据库表中原始数据如下：
 ![update-table-data.png](/img/mysql/update-table-data.png)
 
