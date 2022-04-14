@@ -160,7 +160,8 @@ module.exports = {
                     './spring-boot/configuration-properties',
                     './spring-boot/redis-pubsub',
                     './spring-boot/spring-boot-starter',
-                    './spring-boot/transaction-after'
+                    './spring-boot/transaction-after',
+                    './spring-boot/ContiPerf'
                 ]
             },
             {
@@ -187,6 +188,7 @@ module.exports = {
                     './mysql/sql-standard',
                     './mysql/innodb_trx',
                     './mysql/datetime',
+                    './mysql/update',
                     './mysql/delete',
                     './mysql/sql-execute',
                     './mysql/in',
