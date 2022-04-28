@@ -110,7 +110,8 @@ module.exports = {
                     './guide/nacos',
                     './guide/socketio',
                     './guide/nacos-eureka',
-                    './guide/log'
+                    './guide/log',
+                    './guide/maven'
                 ]
             },
             {
