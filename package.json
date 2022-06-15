@@ -1,6 +1,6 @@
 {
   "name": "zhengcheng",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "private": true,
   "devDependencies": {
     "@vuepress/plugin-active-header-links": "^1.8.2",

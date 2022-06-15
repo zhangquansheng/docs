@@ -1,8 +1,6 @@
 module.exports = {
     port: "80",
     ga: "UA-85414008-1",
-    base: "/zhengcheng-doc/",
-    dest: 'zhengcheng-doc/.vuepress/docs',
     markdown: {
         lineNumbers: true,
         externalLinks: {
