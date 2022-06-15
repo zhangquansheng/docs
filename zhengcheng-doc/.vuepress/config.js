@@ -336,6 +336,7 @@ module.exports = {
                     './digging-deeper/arthas',
                     './digging-deeper/distributed-transaction',
                     './digging-deeper/system-architecture-diagram',
+                    './digging-deeper/sequence-diagram',
                     './digging-deeper/auto-cancel',
                 ]
             }, {
