@@ -104,7 +104,7 @@ module.exports = {
                     './guide/feign',
                     './guide/async',
                     './guide/mapstruct',
-                    './guide/apollo',
+                    // './guide/apollo',
                     './guide/nacos',
                     './guide/socketio',
                     './guide/nacos-eureka',

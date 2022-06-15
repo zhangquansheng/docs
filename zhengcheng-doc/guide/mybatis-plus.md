@@ -34,7 +34,7 @@ mybatis-plus.type-enums-package = com.zhengcheng.user.enums
 
 ## 核心功能
 
-`zhengcheng` 按照阿里巴巴`JAVA`开发手册、规定，每张数据库表都有以下的公共字段：
+按照阿里巴巴`JAVA`开发手册、规定，每张数据库表都有以下的公共字段：
 ```sql
 CREATE TABLE `t_base` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
