@@ -93,7 +93,7 @@ module.exports = {
         sidebar: [
             {
                 title: '开发指南',
-                collapsable: false,
+                collapsable: true,
                 children: [
                     './guide/',
                     './guide/getting-started',
@@ -113,8 +113,12 @@ module.exports = {
                 ]
             },
             {
-                title: 'Java',
-                collapsable: false,
+                title: 'Spring Cloud 大型线上商城项目实战',
+                collapsable: true
+            },
+            {
+                title: 'Java 基础',
+                collapsable: true,
                 children: [
                     './java/java8-new-features',
                     './java/generics',
@@ -124,7 +128,7 @@ module.exports = {
             },
             {
                 title: '并发编程',
-                collapsable: false,
+                collapsable: true,
                 children: [
                     // './concurrent/j.U.C',
                     // './concurrent/blocking-queue',
@@ -139,7 +143,7 @@ module.exports = {
             },
             {
                 title: 'Spring',
-                collapsable: false,
+                collapsable: true,
                 children: [
                     './spring/',
                     './spring/dependency-injection',
@@ -153,7 +157,7 @@ module.exports = {
             },
             {
                 title: 'Spring Boot',
-                collapsable: false,
+                collapsable: true,
                 children: [
                     './spring-boot/',
                     './spring-boot/configuration-properties',
@@ -165,7 +169,7 @@ module.exports = {
             },
             {
                 title: 'Spring Cloud',
-                collapsable: false,
+                collapsable: true,
                 children: [
                     './spring-cloud/feign',
                     './spring-cloud/feign-dubbo',
@@ -176,7 +180,7 @@ module.exports = {
             },
             {
                 title: 'MySQL',
-                collapsable: false,
+                collapsable: true,
                 children: [
                     './mysql/',
                     './mysql/Infrastructure',
@@ -196,7 +200,7 @@ module.exports = {
                 ]
             }, {
                 title: 'Elasticsearch',
-                collapsable: false,
+                collapsable: true,
                 children: [
                     './es/',
                     './es/inverted-index',
@@ -207,7 +211,7 @@ module.exports = {
                 ]
             }, {
                 title: 'Redis',
-                collapsable: false,
+                collapsable: true,
                 children: [
                     './redis/',
                     './redis/data-types',
@@ -222,7 +226,7 @@ module.exports = {
                 ]
             }, {
                 title: 'Kafka',
-                collapsable: false,
+                collapsable: true,
                 children: [
                     './kafka/',
                     './kafka/spring-kafka',
@@ -231,7 +235,7 @@ module.exports = {
                 ]
             }, {
                 title: 'RocketMQ',
-                collapsable: false,
+                collapsable: true,
                 children: [
                     './rocketmq/',
                     './rocketmq/consumer',
@@ -243,7 +247,7 @@ module.exports = {
                 ]
             }, {
                 title: 'ZooKeeper',
-                collapsable: false,
+                collapsable: true,
                 children: [
                     './zk/',
                     './zk/zab',
@@ -251,7 +255,7 @@ module.exports = {
                 ]
             }, {
                 title: 'MyBatis',
-                collapsable: false,
+                collapsable: true,
                 children: [
                     './mybatis/',
                     './mybatis/cache',
@@ -260,7 +264,7 @@ module.exports = {
                 ]
             }, {
                 title: 'Apache ShardingSphere',
-                collapsable: false,
+                collapsable: true,
                 children: [
                     './shardingsphere/',
                     './shardingsphere/concept',
@@ -268,7 +272,7 @@ module.exports = {
                 ]
             }, {
                 title: '数据结构与算法',
-                collapsable: false,
+                collapsable: true,
                 children: [
                     './algorithms/',
                     './algorithms/binary-tree',
@@ -281,7 +285,7 @@ module.exports = {
                 ]
             }, {
                 title: '面向对象设计模式',
-                collapsable: false,
+                collapsable: true,
                 children: [
                     './design-patterns/',
                     './design-patterns/factory',
@@ -303,7 +307,7 @@ module.exports = {
                 ]
             }, {
                 title: '综合话题&源码分析',
-                collapsable: false,
+                collapsable: true,
                 children: [
                     './digging-deeper/Clean-Code',
                     './digging-deeper/naming',
@@ -330,13 +334,13 @@ module.exports = {
                 ]
             }, {
                 title: '微服务框架体系',
-                collapsable: false,
+                collapsable: true,
                 children: [
                     './Microservice-Architecture/',
                 ]
             }, {
                 title: '代码人生',
-                collapsable: false,
+                collapsable: true,
                 children: [
                     './career/',
                     './career/biz',
@@ -344,7 +348,7 @@ module.exports = {
                 ]
             }, {
                 title: 'FAQ',
-                collapsable: false,
+                collapsable: true,
                 children: [
                     './faq/jackson-serializable',
                     './faq/hikaricp-connection-is-not-available',
@@ -352,7 +356,7 @@ module.exports = {
                 ]
             }, {
                 title: '更新日志',
-                collapsable: false,
+                collapsable: true,
                 children: [
                     './change-log/'
                 ]

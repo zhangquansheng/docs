@@ -7,8 +7,9 @@
 
 - `JDK 1.8 or later`
 - [Maven 3.2+](https://maven.apache.org/download.cgi)
-- [SpringBoot 2.1.13.RELEASE](https://spring.io/projects/spring-boot)
-- [SpringCloud Greenwich.SR4](https://cloud.spring.io/spring-cloud-static/Greenwich.SR4/single/spring-cloud.html)
+- [SpringBoot 2.6.3](https://spring.io/projects/spring-boot)
+- SpringCloud 2021.0.1
+- SpringCloud Alibaba 2021.0.1.0
 
 ## 安装
 
@@ -17,7 +18,7 @@
 <parent>
     <groupId>com.zhengcheng</groupId>
     <artifactId>zhengcheng-parent</artifactId>
-    <version>5.0.0</version>
+    <version>6.0.0</version>
 </parent>
 ```
 
@@ -29,7 +30,7 @@ zc-core-spring-boot-starter | 核心模块通用组件
 zc-mybatis-plus-spring-boot-starter | MyBatis-Plus 通用组件
 zc-cache-spring-boot-starter | 缓存（Redis @EnableCaching caffeine）通用组件
 zc-xx-job-spring-boot-starter | XXL-JOB 定时任务通用组件
-zc-swagger-spring-boot-starter | swagger 2.8.0 通用组件
+zc-swagger-spring-boot-starter | knife4j 通用组件
 zc-rocket-mq-spring-boot-starter | RocketMQ 通用组件
 zc-elasticsearch-spring-boot-starter | 基于 elasticsearch-rest-high-level-client 进行封装的通用组件
 
