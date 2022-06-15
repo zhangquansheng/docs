@@ -2,6 +2,45 @@
 
 [typora MD编辑器](https://www.typora.io/)
 
+## [v6.0.0] 2022.02.24
+
+- 去掉`apollo`的依赖
+- 使用`nocos`作为默认的配置中心，注册中心
+- `spring-boot-starter-parent` 从 `2.1.13.RELEASE` 升级到 [Spring Boot 2.3.12.RELEASE](https://spring.io/projects/spring-boot#support)
+- [ ] @ConditionalOnProperty 结合 nacos-config 使用问题
+- 默认引入`jasypt-spring-boot-starter`用于加密数据库密码，缓存密码等敏感信息
+- [springcloud、springboot、springcloud alibaba版本依赖](https://github.com/alibaba/spring-cloud-alibaba/wiki/%E7%89%88%E6%9C%AC%E8%AF%B4%E6%98%8E)
+- [Spring Cloud Alibaba 2021.0.1.0 升级指南](https://github.com/alibaba/spring-cloud-alibaba/blob/2021.x/spring-cloud-alibaba-docs/src/main/asciidoc-zh/sca-upgrade-guide.adoc)
+- [SpringBoot 和 SpringCloud 版本对应信息查询地址](https://start.spring.io/actuator/info)
+- [knife4j](https://doc.xiaominfo.com/knife4j/documentation/)
+- Spring Cloud Alibaba 2021.0.1.0 (Spring Boot 2.6.3 | Spring Cloud 2021.0.1 )
+
+## [v5.0.0] 2021.06.19
+
+- 从`zc-core-spring-boot-starter`迁移出`zc-apollo-spring-boot-starter`，支持各种配置中心
+- 升级`zc-rocket-mq-spring-boot-starter`，使用更便捷
+- elasticsearch-rest-high-level-client
+  - 目前`spring-data-elasticsearch`底层采用`es`官方`TransportClient`，而`es`官方计划放弃`TransportClient`，工具以`es`
+    官方推荐的`RestHighLevelClient`进行封装
+  - 类似于`Mybatis-Plus`一样，能够极大简化`java client API`，并不断更新，让`es`更高级的功能更轻松的使用
+  - 基于`elasticsearch6.4.3`版本进行开发
+- 默认使用`mapstruct`进行对象属性`copy`
+- 增加`zc-rsa-encrypt-body-spring-boot-starter`对接口入参及返回参加密解密（重要的数据，需要加密）
+- `Alibaba Nacos`替换`Eureka`注册中心
+- 配置中心默认使用`apollo`，并提供`zc.apollo.refresh.name`刷新指定`bean`
+- 去掉`zc-feign-spring-boot-starter`，改成`zc-core-spring-boot-starter`默认配置
+- `zc-web-core-spring-boot-starter` 改成 `zc-core-spring-boot-starter`，新征程微服务核心通用组件。
+- 去掉`zc-auth-client-spring-boot-starter`认证客户端通用组件。
+- 去掉`zc-zk-spring-boot-starter`在日常开发中，很少用到的通用组件。
+- 去掉`zc-aliyun-spring-boot-starter` 、 `zc-tencentcloud-spring-boot-starter`等大而全的通用组件，后续按照业务需要提供组件。
+- 去掉`zc-cat-spring-boot-starter`，监控使用[`Apache SkyWalking`](https://skywalking.apache.org/)
+- （重点）提高效率：引入`MapStruct` `Orika`等`Bean`映射工具
+- `BaseMessage` 增加 `timestamp`，为消息幂等使用
+- ~~增加`zc-tk-mybatis-spring-boot-starter`，集成[MyBatis 通用 Mapper4](https://github.com/abel533/Mapper)~~
+- ~~修改`zc-db-spring-boot-starter`为`zc-mybatis-plus-spring-boot-starter`，在`zc-web-spring-boot-starter`
+  中去掉`zc-db-spring-boot-starter`等默认配置~~
+- ~~`redisson-spring-boot-starter`使用示例文档~~
+
 ## [v4.8.0] 2020.10.15
 
 - （重点）提高效率：引入`MapStruct` `Orika`等`Bean`映射工具
