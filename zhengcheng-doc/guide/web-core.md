@@ -55,18 +55,8 @@ spring.swagger.exclude-path = /error, /ops/**
 ---
 
 核心组件通过 `@RestControllerAdvice` + `@ExceptionHandler` 的方式实现了**全局统一异常处理**，参考文档如下：
-- [ExceptionControllerAdvice 源码](https://gitee.com/zhangquansheng/zhengcheng-parent/blob/master/zc-web-core-spring-boot-starter/src/main/java/com/zhengcheng/core/web/advice/ExceptionControllerAdvice.java)
+- ExceptionControllerAdvice
 - [Spring MVC Exceptions](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/web.html#mvc-ann-exceptionhandler)
 - [有关 @ControllerAdvice  更多详细信息，请参见 javadoc。](https://docs.spring.io/spring-framework/docs/5.2.8.RELEASE/javadoc-api/org/springframework/web/bind/annotation/ControllerAdvice.html)
 
----
-
-在现实的项目中我们经常会遇到系统出现异常或者问题, 为了方便定位问题，需要知道`Controller`调用入参和`traceId`（链路ID），
-核心组件使用的是**Spring AOP**对`Controller`进行切面打印日志以及使用`Interceptor`结合`MDC`实现**链路日志**，参考文档如下：
-- [ControllerLogAspect 源码](https://gitee.com/zhangquansheng/zhengcheng-parent/blob/master/zc-web-core-spring-boot-starter/src/main/java/com/zhengcheng/core/web/aspect/ControllerLogAspect.java)
-- [TraceIdInterceptor 链路日志拦截器源码](https://gitee.com/zhangquansheng/zhengcheng-parent/blob/master/zc-web-core-spring-boot-starter/src/main/java/com/zhengcheng/core/web/interceptor/TraceIdInterceptor.java)
-
-::: tip 特别提示
-**X-ZHENGCHENG-TRACE-ID** 是`zhengcheng`约定的`traceId` 的`key`，在`HTTP request header`中传递。
-:::
 
