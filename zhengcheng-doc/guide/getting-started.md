@@ -5,7 +5,7 @@
 :::
 
 ::: tip 示例项目源码：
-👉 [magic](https://gitee.com/zhangquansheng/magic)
+👉 Spring Cloud 大型线上商城项目实战 [github](https://github.com/zhangquansheng/zhengcheng-mall) | [gitee](https://gitee.com/zhangquansheng/zhengcheng-mall)
 :::
 
 
