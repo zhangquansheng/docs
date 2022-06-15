@@ -7,7 +7,6 @@
 - 去掉`apollo`的依赖
 - 使用`nocos`作为默认的配置中心，注册中心
 - `spring-boot-starter-parent` 从 `2.1.13.RELEASE` 升级到 [Spring Boot 2.3.12.RELEASE](https://spring.io/projects/spring-boot#support)
-- [ ] @ConditionalOnProperty 结合 nacos-config 使用问题
 - 默认引入`jasypt-spring-boot-starter`用于加密数据库密码，缓存密码等敏感信息
 - [springcloud、springboot、springcloud alibaba版本依赖](https://github.com/alibaba/spring-cloud-alibaba/wiki/%E7%89%88%E6%9C%AC%E8%AF%B4%E6%98%8E)
 - [Spring Cloud Alibaba 2021.0.1.0 升级指南](https://github.com/alibaba/spring-cloud-alibaba/blob/2021.x/spring-cloud-alibaba-docs/src/main/asciidoc-zh/sca-upgrade-guide.adoc)
