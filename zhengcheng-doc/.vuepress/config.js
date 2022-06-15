@@ -108,8 +108,7 @@ module.exports = {
                     './guide/nacos',
                     './guide/socketio',
                     './guide/nacos-eureka',
-                    './guide/log',
-                    './guide/maven'
+                    './guide/log'
                 ]
             },
             {
@@ -124,6 +123,13 @@ module.exports = {
                     './java/generics',
                     './java/reference',
                     './java/abstract-interface'
+                ]
+            },
+            {
+                title: 'Maven 基础',
+                collapsable: true,
+                children: [
+                    './maven/'
                 ]
             },
             {
