@@ -34,7 +34,7 @@ mybatis-plus.type-enums-package = com.zhengcheng.user.enums
 
 ## 核心功能
 
-`zhengcheng` 按照阿里巴巴[JAVA 开发手册](https://gitee.com/zhangquansheng/zhengcheng-parent/blob/master/doc/Java-huashanxinban.pdf)规定，每张数据库表都有以下的公共字段：
+`zhengcheng` 按照阿里巴巴`JAVA`开发手册、规定，每张数据库表都有以下的公共字段：
 ```sql
 CREATE TABLE `t_base` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
@@ -105,17 +105,43 @@ public class DictItem extends BaseEntity<DictItem> {
 
 - 解决了繁琐的配置，让`mybatis`优雅的使用枚举属性！对应代码如下：
 ```java
-public enum AgeEnum implements IEnum<Integer> {
-    ONE(1, "一岁"),
-    TWO(2, "二岁"),
-    THREE(3, "三岁");
-    
-    private int value;
-    private String desc;
-    
-    @Override
-    public Integer getValue() {
-        return this.value;
+/**
+ * 登录结果
+ *
+ * @author : quansheng.zhang
+ * @date : 2019/10/29 11:02
+ */
+@Getter
+public enum LoginResultEnum {
+
+    SUCCESS(0, "成功"),
+
+    FAILURE(1, "失败");
+
+    @EnumValue
+    private final int    value;
+
+    private final String desc;
+
+    LoginResultEnum(final int value, final String desc) {
+        this.value = value;
+        this.desc = desc;
+    }
+
+    /**
+     * 根据value获取类型
+     *
+     * @param value
+     *            值
+     * @return 枚举
+     */
+    public static LoginResultEnum getByValue(Integer value) {
+        for (LoginResultEnum loginResultEnum : LoginResultEnum.values()) {
+            if (value.equals(loginResultEnum.getValue())) {
+                return loginResultEnum;
+            }
+        }
+        return LoginResultEnum.SUCCESS;
     }
 }
 ```
