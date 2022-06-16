@@ -116,7 +116,8 @@ module.exports = {
                 collapsable: true,
                 children: [
                     './mall/',
-                    './mall/sa-token'
+                    './mall/sa-token',
+                    './mall/product'
                 ]
             },
             {
