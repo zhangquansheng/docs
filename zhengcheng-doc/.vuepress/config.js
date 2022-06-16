@@ -113,7 +113,11 @@ module.exports = {
             },
             {
                 title: 'Spring Cloud 大型线上商城项目实战',
-                collapsable: true
+                collapsable: true,
+                children: [
+                    './mall/',
+                    './mall/sa-token'
+                ]
             },
             {
                 title: 'Java 基础',
