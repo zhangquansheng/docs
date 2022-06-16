@@ -32,7 +32,7 @@ sidebarDepth: 3
 
 ## 四、ER图
 
-> 
+![](/img/mall/product-er图.png)
 
 ## 五、数据表
 
