@@ -22,13 +22,35 @@
 
 如果需要提供一个查询当前用户是否在线的接口，也可以考虑使用BitMap 。即节约空间效率又高，只需要一个key，然后用户id为offset，如果在线就设置为1，不在线就设置为0。
 具体步骤如下：
-- 设置一个key专门用来记录用户日活的，可以使用时间来翻滚比如1号的key为active01.
-- 使用每个用户的唯一标识映射一个偏移量，比如使用id，这里可以把id换算成一个数字或直接使用id的二进制值作为该用户在当天是否活跃偏移量
-- 用户登录则把该用户偏移量上的位值设置为1
-- 每天按日期生成一个位图（bitmap）
-- 计算日活则使用bitcount即可获得一个key的位值为1的量
-- 计算月活（一个月内登陆的用户去重总数）即可把30天的所有bitmap做or计算，然后再计算bitcount
-- 计算留存率（次日留存=昨天今天连续登录的人数/昨天登录的人数） 即昨天的bitmap与今天的bitmap做and计算就是连续登录的再做bitcount就得到连续登录人数，再bitcount得到昨天登录人数，就可以通过公式计算出次日留存。
+- 使用每个用户的唯一标识映射一个偏移量，比如使用`id`，这里可以把`id`换算成一个数字或直接使用id的二进制值作为该用户在当天是否活跃偏移量
+- 用户登录则把该用户偏移量上的位值设置为`1`
+- 每天按日期生成一个位图（`bitmap`）
+```java
+stringRedisTemplate.opsForValue().setBit(dayKey, user.getId(), Boolean.TRUE);
+```
+- 计算日活则使用`bitcount`即可获得一个`key`的位值为`1`的量
+```java
+Long dayActivityNum = stringRedisTemplate.execute((RedisCallback<Long>) con -> con.bitCount(dayKey.getBytes()));
+log.info("用户日活: {}", dayActivityNum);
+```
+
+- 计算月活（一个月内登陆的用户去重总数）即可把`30`天的所有`bitmap`做`or`计算，然后再计算`bitcount`
+```java
+int maxDayNum = 30;
+byte[][] bytes = new byte[maxDayNum][];
+for (int offset = 0; offset < maxDayNum; offset++) {
+    bytes[offset] = StrUtil.format("{}{}", userActivityKeyPrefix,
+            DateUtil.format(DateUtil.offsetDay(new Date(), -offset), PURE_DATE_FORMAT)).getBytes();
+}
+String monthKey = StrUtil.format("{}{}", userActivityKeyPrefix, 30);
+stringRedisTemplate.execute((RedisCallback<Long>) con -> con.bitOp(RedisStringCommands.BitOperation.OR,
+        monthKey.getBytes(), bytes));
+Long monthActivityNum = stringRedisTemplate
+        .execute((RedisCallback<Long>) con -> con.bitCount(monthKey.getBytes()));
+log.info("用户月活：{}", monthActivityNum);
+```
+- 计算留存率（次日留存=昨天今天连续登录的人数/昨天登录的人数） 即昨天的`bitmap`与今天的`bitmap`做`and`计算再做`bitcount`就得到连续登录人数，`bitcount`得到昨天登录人数，就可以通过公式计算出次日留存。
+
 
 ### 实现布隆过滤器
 
