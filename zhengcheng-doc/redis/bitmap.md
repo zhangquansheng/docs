@@ -32,6 +32,40 @@
 
 ### 实现布隆过滤器
 
+## Redis 的 bitmap 命令
+
+### setbit
+
+设置或修改key上的偏移量（offset）的位（value）的值。
+- 语法：setbit key offset value
+- 返回值：指定偏移量（offset）原来存储的值。
+
+### getbit
+
+查询key所存储的字符串值，获取偏移量上的位。
+- 语法：getbit key offset
+- 返回值：返回指定key上的偏移量，若key不存在，那么返回0。
+
+### bitcount
+
+计算给定key的字符串值中，被设置为1的位bit的数量
+- 语法：bitcount key [start] [end]
+- 返回值：1比特位的数量
+
+### bitop
+
+对一个或多个保存二进制的字符串key进行元操作，并将结果保存到destkey上。
+
+- 语法：operation可以是and、or、not、xor的一种。
+- bitop and destkey key [key...]，对一个或多个key逻辑并，结果保存到destkey。
+- bitop or destkey key [key...]，对一个或多个key逻辑或，结果保存到destkey。
+- bitop xor destkey key [key...]，对一个或多个key逻辑异或，结果保存到destkey。
+- bitop xor destkey key，对一个或多个key逻辑非，结果保存到destkey。
+- 除了`NOT`之外，其他操作多可以接受一个或多个key作为输入。
+
+`BITOP`的时间复杂度是`O(N)`，当处理大型矩阵或者大量数据统计时，最好将任务指派到附属节点（slave）进行，避免阻塞主节点。
+
+
 ## bitmap 导致大 KEY
 
 bitmap推荐的偏移量是从1一直累加的，但是计算出的hash值为10位（10亿级别），那么占用的内存大小为239MB，若是计算出的hash值为7位（百万级别）占用的内存大小为124KB。
