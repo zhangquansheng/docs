@@ -1,5 +1,7 @@
 # 概述
 
+> [官方文档](https://zookeeper.apache.org/doc/current/index.html)
+
 ZooKeeper is a centralized service for maintaining configuration information, naming, providing distributed synchronization, and providing group services.
 
 它是一个针对大型分布式系统的可靠协调系统，提供的功能包括：配置维护、名字服务、分布式同步、组服务等

@@ -262,6 +262,7 @@ module.exports = {
                 children: [
                     './zk/',
                     './zk/zab',
+                    './zk/watcher',
                     './zk/lock'
                 ]
             }, {
