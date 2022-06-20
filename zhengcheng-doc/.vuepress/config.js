@@ -232,6 +232,7 @@ module.exports = {
                     './redis/cache-database-double-write-consistency',
                     './redis/redisson',
                     './redis/big-key',
+                    './redis/bitmap',
                     './redis/delay-queue',
                     './redis/J2Cache',
                 ]
