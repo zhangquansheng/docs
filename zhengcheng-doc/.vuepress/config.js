@@ -352,6 +352,12 @@ module.exports = {
                     './Microservice-Architecture/',
                 ]
             }, {
+                title: '项目管理',
+                collapsable: true,
+                children: [
+                    './PM/project-flow',
+                ]
+            }, {
                 title: '代码人生',
                 collapsable: true,
                 children: [
