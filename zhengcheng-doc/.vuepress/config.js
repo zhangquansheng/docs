@@ -258,6 +258,12 @@ module.exports = {
                     './rocketmq/delay'
                 ]
             }, {
+                title: 'Flink',
+                collapsable: true,
+                children: [
+                    './flink/'
+                ]
+            }, {
                 title: 'ZooKeeper',
                 collapsable: true,
                 children: [
