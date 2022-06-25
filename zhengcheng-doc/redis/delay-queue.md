@@ -38,7 +38,6 @@ public static void main(String[] args) throws InterruptedException, UnsupportedE
 }
 ```
 
-
 ## 参考文档
 
 - [基于Redis实现延时队列——Redisson延时队列解析](https://juejin.cn/post/6931288745844932621)
