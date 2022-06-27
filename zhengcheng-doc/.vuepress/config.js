@@ -348,7 +348,6 @@ module.exports = {
                     './digging-deeper/multipart-upload',
                     './digging-deeper/arthas',
                     './digging-deeper/distributed-transaction',
-                    './digging-deeper/system-architecture-diagram',
                     './digging-deeper/sequence-diagram',
                     './digging-deeper/auto-cancel',
                 ]
@@ -357,6 +356,7 @@ module.exports = {
                 collapsable: true,
                 children: [
                     './Microservice-Architecture/',
+                    './Microservice-Architecture/Architecture'
                 ]
             }, {
                 title: '项目管理',
