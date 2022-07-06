@@ -90,7 +90,20 @@ X | 不兼容 |  不兼容 |  不兼容 |  不兼容
 
 ## MYSQL-Innodb下，update的并发是否会产生脏数据？
 
+### 问题描述
 
+```
+语句1：update A set number=number+ 5 where id=1;
+语句2：update A set number=number+ 7 where id=1;
+```
+
+假设这两条SQL语句同时被mysql执行，id=1的记录中number字段的原始值为 10，那么是否有可能出现这种情况：
+
+语句1和2因为同时执行，他们得到的number的值都是10，都是在10的基础上分别加5和7，导致最终number被更新为15或17，而不是22？
+
+### 正解
+
+不会，并发执行时第一个`update`会持有`id=1`这行记录的**排它锁（X锁）**，
 
 ## 小结
 
