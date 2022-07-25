@@ -360,6 +360,12 @@ module.exports = {
                     './Microservice-Architecture/Architecture'
                 ]
             }, {
+                title: 'IOT/物联网/边缘计算',
+                collapsable: true,
+                children: [
+                    './iot/',
+                ]
+            }, {
                 title: '项目管理',
                 collapsable: true,
                 children: [
