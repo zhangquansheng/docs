@@ -350,6 +350,7 @@ module.exports = {
                     './digging-deeper/distributed-transaction',
                     './digging-deeper/sequence-diagram',
                     './digging-deeper/auto-cancel',
+                    './digging-deeper/duplicate-pay',
                 ]
             }, {
                 title: '微服务框架体系',
