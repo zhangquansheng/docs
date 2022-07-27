@@ -11,20 +11,7 @@ module.exports = {
         ['meta', {
             name: 'keywords',
             content: '新征程框架,新征程,zhengcheng.plus'
-        }],
-        ['meta', {
-            name: 'baidu-site-verification',
-            content: '5oKnqi1avz'
-        }],
-        ['script', {}, `
-            var _hmt = _hmt || [];
-            (function() {
-              var hm = document.createElement("script");
-              hm.src = "https://hm.baidu.com/hm.js?3ea82649baaaaf57c9ad42bcf4e2385a";
-              var s = document.getElementsByTagName("script")[0]; 
-              s.parentNode.insertBefore(hm, s);
-            })();
-        `]
+        }]
     ],
     title: "新征程框架",
     description: "简化开发 效率至上",
@@ -53,6 +40,10 @@ module.exports = {
             {
                 text: '好站',
                 items: [
+                    {
+                        text: '凤凰架构',
+                        link: 'https://icyfenix.cn/'
+                    },
                     {
                         text: 'Spring Framework Documentation',
                         link: 'https://docs.spring.io/spring-framework/docs/current/reference/html/index.html'
@@ -93,7 +84,7 @@ module.exports = {
         sidebar: [
             {
                 title: '开发指南',
-                collapsable: true,
+                collapsable: false,
                 children: [
                     './guide/',
                     './guide/getting-started',
@@ -113,7 +104,7 @@ module.exports = {
             },
             {
                 title: 'Spring Cloud 大型线上商城项目实战',
-                collapsable: true,
+                collapsable: false,
                 children: [
                     './mall/',
                     './mall/sa-token',
@@ -122,7 +113,7 @@ module.exports = {
             },
             {
                 title: 'Java 基础',
-                collapsable: true,
+                collapsable: false,
                 children: [
                     './java/java8-new-features',
                     './java/generics',
@@ -132,14 +123,14 @@ module.exports = {
             },
             {
                 title: 'Maven 基础',
-                collapsable: true,
+                collapsable: false,
                 children: [
                     './maven/'
                 ]
             },
             {
                 title: '并发编程',
-                collapsable: true,
+                collapsable: false,
                 children: [
                     // './concurrent/j.U.C',
                     // './concurrent/blocking-queue',
@@ -154,7 +145,7 @@ module.exports = {
             },
             {
                 title: 'Spring',
-                collapsable: true,
+                collapsable: false,
                 children: [
                     './spring/',
                     './spring/dependency-injection',
@@ -168,7 +159,7 @@ module.exports = {
             },
             {
                 title: 'Spring Boot',
-                collapsable: true,
+                collapsable: false,
                 children: [
                     './spring-boot/',
                     './spring-boot/configuration-properties',
@@ -180,7 +171,7 @@ module.exports = {
             },
             {
                 title: 'Spring Cloud',
-                collapsable: true,
+                collapsable: false,
                 children: [
                     './spring-cloud/feign',
                     './spring-cloud/feign-dubbo',
@@ -191,7 +182,7 @@ module.exports = {
             },
             {
                 title: 'MySQL',
-                collapsable: true,
+                collapsable: false,
                 children: [
                     './mysql/',
                     './mysql/Infrastructure',
@@ -211,7 +202,7 @@ module.exports = {
                 ]
             }, {
                 title: 'Elasticsearch',
-                collapsable: true,
+                collapsable: false,
                 children: [
                     './es/',
                     './es/inverted-index',
@@ -222,7 +213,7 @@ module.exports = {
                 ]
             }, {
                 title: 'Redis',
-                collapsable: true,
+                collapsable: false,
                 children: [
                     './redis/',
                     './redis/data-types',
@@ -238,7 +229,7 @@ module.exports = {
                 ]
             }, {
                 title: 'Kafka',
-                collapsable: true,
+                collapsable: false,
                 children: [
                     './kafka/',
                     './kafka/spring-kafka',
@@ -247,7 +238,7 @@ module.exports = {
                 ]
             }, {
                 title: 'RocketMQ',
-                collapsable: true,
+                collapsable: false,
                 children: [
                     './rocketmq/',
                     './rocketmq/consumer',
@@ -259,13 +250,13 @@ module.exports = {
                 ]
             }, {
                 title: 'Flink',
-                collapsable: true,
+                collapsable: false,
                 children: [
                     './flink/'
                 ]
             }, {
                 title: 'ZooKeeper',
-                collapsable: true,
+                collapsable: false,
                 children: [
                     './zk/',
                     './zk/zab',
@@ -274,7 +265,7 @@ module.exports = {
                 ]
             }, {
                 title: 'MyBatis',
-                collapsable: true,
+                collapsable: false,
                 children: [
                     './mybatis/',
                     './mybatis/cache',
@@ -283,7 +274,7 @@ module.exports = {
                 ]
             }, {
                 title: 'Apache ShardingSphere',
-                collapsable: true,
+                collapsable: false,
                 children: [
                     './shardingsphere/',
                     './shardingsphere/concept',
@@ -291,7 +282,7 @@ module.exports = {
                 ]
             }, {
                 title: '数据结构与算法',
-                collapsable: true,
+                collapsable: false,
                 children: [
                     './algorithms/',
                     './algorithms/binary-tree',
@@ -304,7 +295,7 @@ module.exports = {
                 ]
             }, {
                 title: '面向对象设计模式',
-                collapsable: true,
+                collapsable: false,
                 children: [
                     './design-patterns/',
                     './design-patterns/factory',
@@ -326,7 +317,7 @@ module.exports = {
                 ]
             }, {
                 title: '综合话题&源码分析',
-                collapsable: true,
+                collapsable: false,
                 children: [
                     './digging-deeper/Clean-Code',
                     './digging-deeper/naming',
@@ -354,26 +345,26 @@ module.exports = {
                 ]
             }, {
                 title: '微服务框架体系',
-                collapsable: true,
+                collapsable: false,
                 children: [
                     './Microservice-Architecture/',
                     './Microservice-Architecture/Architecture'
                 ]
             }, {
                 title: 'IOT/物联网/边缘计算',
-                collapsable: true,
+                collapsable: false,
                 children: [
                     './iot/',
                 ]
             }, {
                 title: '项目管理',
-                collapsable: true,
+                collapsable: false,
                 children: [
                     './PM/project-flow',
                 ]
             }, {
                 title: '代码人生',
-                collapsable: true,
+                collapsable: false,
                 children: [
                     './career/',
                     './career/biz',
@@ -381,7 +372,7 @@ module.exports = {
                 ]
             }, {
                 title: 'FAQ',
-                collapsable: true,
+                collapsable: false,
                 children: [
                     './faq/jackson-serializable',
                     './faq/hikaricp-connection-is-not-available',
@@ -389,7 +380,7 @@ module.exports = {
                 ]
             }, {
                 title: '更新日志',
-                collapsable: true,
+                collapsable: false,
                 children: [
                     './change-log/'
                 ]
