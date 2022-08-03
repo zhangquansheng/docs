@@ -182,6 +182,14 @@ module.exports = {
                 ]
             },
             {
+                title: 'Docker',
+                collapsable: false,
+                children: [
+                    './docker/',
+                    './docker/install'
+                ]
+            },
+            {
                 title: 'MySQL',
                 collapsable: false,
                 children: [
