@@ -80,7 +80,6 @@ module.exports = {
             },
             {text: '更新日志', link: '/change-log/'},
             {text: 'GitHub', link: 'https://github.com/zhangquansheng/zhengcheng-parent'},
-            {text: 'Gitee', link: 'https://gitee.com/zhangquansheng/zhengcheng-parent'},
         ],
         sidebar: [
             {
