@@ -23,4 +23,7 @@
 ---
 
 **参考文档**
-[Cache-Aside pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/cache-aside)
+
+- [Cache-Aside pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/cache-aside)
+- [如何保证数据库和缓存双写一致性](https://blog.csdn.net/zhiyikeji/article/details/123940351)
+- [解决缓存和数据库双写数据一致性问题](https://blog.csdn.net/D812359/article/details/121645548)
