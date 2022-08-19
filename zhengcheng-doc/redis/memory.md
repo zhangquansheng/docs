@@ -22,22 +22,32 @@ typedef struct redisDb {
 
 Redis 提供 6 种数据淘汰策略：
 
-1. volatile-lru（least recently used）：从已设置过期时间的数据集（server.db[i].expires）中挑选最近最少使用的数据淘汰
-2. volatile-ttl：从已设置过期时间的数据集（server.db[i].expires）中挑选将要过期的数据淘汰
-3. volatile-random：从已设置过期时间的数据集（server.db[i].expires）中任意选择数据淘汰
-4. allkeys-lru（least recently used）：当内存不足以容纳新写入数据时，在键空间中，移除最近最少使用的 key（这个是最常用的）
-5. allkeys-random：从数据集（server.db[i].dict）中任意选择数据淘汰
-6. no-eviction：禁止驱逐数据，也就是说当内存不足以容纳新写入数据时，新写入操作会报错。这个应该没人使用吧！
+1. **volatile-lru（least recently used）**：从已设置过期时间的数据集（server.db[i].expires）中挑选最近最少使用的数据淘汰
+2. **volatile-ttl**：从已设置过期时间的数据集（server.db[i].expires）中挑选将要过期的数据淘汰
+3. **volatile-random**：从已设置过期时间的数据集（server.db[i].expires）中任意选择数据淘汰
+4. **allkeys-lru（least recently used）**：当内存不足以容纳新写入数据时，在键空间中，移除最近最少使用的 key（这个是最常用的）
+5. **allkeys-random**：从数据集（server.db[i].dict）中任意选择数据淘汰
+6. **no-eviction**：禁止驱逐数据，也就是说当内存不足以容纳新写入数据时，新写入操作会报错。这个应该没人使用吧！
 
 4.0 版本后增加以下两种：
 
-7. volatile-lfu（least frequently used）：从已设置过期时间的数据集（server.db[i].expires）中挑选最不经常使用的数据淘汰
-8. allkeys-lfu（least frequently used）：当内存不足以容纳新写入数据时，在键空间中，移除最不经常使用的 key
+7. **volatile-lfu（least frequently used）**：从已设置过期时间的数据集（server.db[i].expires）中挑选最不经常使用的数据淘汰
+8. **allkeys-lfu（least frequently used）**：当内存不足以容纳新写入数据时，在键空间中，移除最不经常使用的 key
 
-::: tip MySQL 里有 2000w 数据，Redis 中只存 20w 的数据，如何保证 Redis 中的数据都是热点数据?
-1. 保留热点数据：对于保留 Redis 热点数据来说，我们可以使用 Redis 的内存淘汰策略来实现，可以使用allkeys-lru淘汰策略，该淘汰策略是从 Redis 的数据中挑选最近最少使用的数据删除，这样频繁被访问的数据就可以保留下来了。
-2. 保证 Redis 只存20w的数据：1个中文占2个字节，假如1条数据有100个中文，则1条数据占200字节，20w数据 乘以 200字节 等于 4000 字节（大概等于38M）;所以要保证能存20w数据，Redis 需要38M的内存。
+::: tip 相关问题：MySQL 里有 2000w 数据，Redis 中只存 20w 的数据，如何保证 Redis 中的数据都是热点数据?
+1. 保留热点数据：对于保留 Redis 热点数据来说，我们可以使用 Redis 的内存淘汰策略来实现，可以使用**allkeys-lru**淘汰策略，该淘汰策略是从 Redis 的数据中挑选最近最少使用的数据删除，这样频繁被访问的数据就可以保留下来了。
+2. 保证 Redis 只存20w的数据：1个中文占2个字节，假如1条数据有100个中文，则1条数据占200字节，20w数据 乘以 200字节 等于 4000 字节（大概等于38M）;所以要保证能存20w数据，Redis 需要**38M**的内存。
 :::
+
+## 过期删除机制
+
+常用的过期数据的删除策略就两个：
+- **惰性删除** ：只会在取出 key 的时候才对数据进行过期检查。这样对 CPU 最友好，但是可能会造成太多过期 key 没有被删除。
+- **定期删除** ： 每隔一段时间抽取一批 key 执行删除过期 key 操作。并且，Redis 底层会通过限制删除操作执行的时长和频率来减少删除操作对 CPU 时间的影响。
+
+`Redis`采用的是 **定期删除+惰性/懒汉式删除**，两者配合使用。
+
+> redis 主从模式下，惰性删除也只在`master`上生效，`slave`上是不生效的。`slave`上过期的`key`会依赖`master`发过来的`DEL`命令来删除
 
 ## 数据持久化
 
@@ -47,10 +57,25 @@ Redis 提供 6 种数据淘汰策略：
 
 非常适用于备份，全量复制等场景，但是无法做到实时持久化/秒级持久化。
 
+快照持久化是 Redis **默认采用的持久化方式**，在 redis.conf 配置文件中默认有此下配置：
+```
+save 900 1           #在900秒(15分钟)之后，如果至少有1个key发生变化，Redis就会自动触发BGSAVE命令创建快照。
+
+save 300 10          #在300秒(5分钟)之后，如果至少有10个key发生变化，Redis就会自动触发BGSAVE命令创建快照。
+
+save 60 10000        #在60秒(1分钟)之后，如果至少有10000个key发生变化，Redis就会自动触发BGSAVE命令创建快照。
+```
+
 ### AOF（Append Only File）
 
+在`Redis`的配置文件中存在三种不同的`AOF`持久化方式，它们分别是：
+```
+appendfsync always    #每次有数据修改发生时都会写入AOF文件,这样会严重降低Redis的速度
+appendfsync everysec  #每秒钟同步一次，显式地将多个写命令同步到硬盘
+appendfsync no        #让操作系统决定何时进行同步
+```
 `AOF`的`appendfsync`触发机制是上面配置的三个参数决定的：`no`、`always`、`everysec`。
-可以根据对性能和持久化的实时性要求，具体配置。如果不知道哪种合适，就使用默认的`everysec`，可能会有`1s`的数据丢失。
+可以根据对性能和持久化的实时性要求，具体配置。如果不知道哪种合适，就使用默认的`everysec`，这样即使出现系统崩溃，最多只会丢失`1s`之内产生的数据。
 
 `AOF`文件远大于`RDB`文件，数据恢复速度比`rdb`慢。
  
