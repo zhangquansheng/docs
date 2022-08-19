@@ -61,7 +61,7 @@ module.exports = {
                     {text: 'MVN REPOSITORY', link: 'https://mvnrepository.com/'},
                     {text: 'Algorithms', link: 'https://www.cs.usfca.edu/~galles/visualization/Algorithms.html'},
                     {text: 'Hutool', link: 'https://www.hutool.cn/'},
-                    {text: '力扣（LeetCode）', link: 'https://leetcode-cn.com/'},
+                    {text: '力扣（LeetCode）', link: 'https://leetcode.cn/'},
                     {text: 'Arthas（阿尔萨斯）', link: 'https://github.com/alibaba/arthas'},
                     {text: 'ProcessOn', link: 'https://www.processon.com/'},
                     {
