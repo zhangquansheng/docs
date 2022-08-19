@@ -1,11 +1,13 @@
-# Redis 单线程模型详解 :hammer:
+# Redis 单线程模型详解 
 
-## 为什么 Redis 选择单线程模型
+**`Redis`基于`Reactor`模式来设计开发了自己的一套高效的事件处理模型&& （`Netty` 的线程模型也基于`Reactor`模式），这套事件处理模型对应的是`Redis`中的文件事件处理器（`file event handler`）。由于文件事件处理器（`file event handler`）是单线程方式运行的，所以我们一般都说`Redis`是单线程模型。
 
-- **`Redis`服务中运行的绝大多数操作的性能瓶颈都不是`CPU`**；
-- 使用单线程模型也能并发的处理客户端的请求，核心是**基于非阻塞的IO多路复用机制**；
-- 单线程同时也避免了多线程的上下文频繁切换问题,预防了多线程可能产生的竞争问题；
-- 使用单线程模型能带来更好的可维护性，方便开发和调试；
+## 为什么 Redis 选择单线程模型 
+> Redis6.0 之前为什么不使用多线程？
+1. **`Redis`服务中运行的绝大多数操作的性能瓶颈都不是`CPU`**；
+2. 使用单线程模型也能并发的处理客户端的请求，核心是**基于非阻塞的IO多路复用机制**；
+3. 单线程同时也避免了多线程的上下文频繁切换问题,预防了多线程可能产生的竞争问题；
+4. 使用单线程模型能带来更好的可维护性，方便开发和调试；
 
 ::: tip Redis is single threaded. How can I exploit multiple CPU / cores?
 
@@ -31,8 +33,11 @@ However with Redis 4.0 we started to make Redis more threaded. For now this is l
 
 -[IO多路复用底层原理](https://gitee.com/oslo/LearningNotes/blob/master/Redis/IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/README.md)
 
-## 多线程I/O 
+## Redis6.0 之后为何引入了多线程？
 
+**Redis6.0 引入多线程主要是为了提高网络`IO`读写性能，** 因为这个算是 Redis 中的一个性能瓶颈（Redis 的瓶颈主要受限于内存和网络）。
+
+虽然，Redis6.0 引入了多线程，但是 Redis 的多线程只是在网络数据的读写这类耗时操作上使用了，执行命令仍然是单线程顺序执行。因此，你也不需要担心线程安全问题。
 
 ---
 **参考文档**
