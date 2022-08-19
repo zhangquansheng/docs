@@ -359,6 +359,12 @@ module.exports = {
                     './Microservice-Architecture/Architecture'
                 ]
             }, {
+                title: '计算机网络基础',
+                collapsable: false,
+                children: [
+                    './network/',
+                ]
+            }, {
                 title: 'IOT/物联网/边缘计算',
                 collapsable: false,
                 children: [
