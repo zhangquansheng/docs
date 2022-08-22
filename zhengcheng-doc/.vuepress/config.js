@@ -358,7 +358,8 @@ module.exports = {
                 collapsable: false,
                 children: [
                     './Microservice-Architecture/',
-                    './Microservice-Architecture/Architecture'
+                    './Microservice-Architecture/Architecture',
+                    './Microservice-Architecture/limit-request'
                 ]
             }, {
                 title: '计算机网络基础',
