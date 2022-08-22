@@ -249,6 +249,7 @@ module.exports = {
                 collapsable: false,
                 children: [
                     './rocketmq/',
+                    './rocketmq/message-queue.md',
                     './rocketmq/consumer',
                     './rocketmq/message-idempotent',
                     './rocketmq/rocketmq-spring',
