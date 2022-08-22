@@ -113,3 +113,18 @@ where create_time >= '20190101' and create_time < '20190102'
 `pt-online-schema-change`它会首先建立一个与原表结构相同的新表，并且在新表上进行表结构的修改，然后再把原表中的数据复制到新表中，
 并在原表中增加一些触发器。把原表中新增的数据也复制到新表中，在行所有数据复制完成之后，把新表命名成原表，并把原来的表删除掉。
 把原来一个 `DDL` 操作，分解成多个小的批次进行。
+
+## limit 深分页问题 :+1:
+
+举例：
+```sql
+select id,name,balance from account where create_time> '2020-09-19' limit 100000,10;
+```
+limit深分页，导致SQL变慢原因有两个：
+1. limit语句会先扫描`offset+n`行，然后再丢弃掉前`offset`行，返回后n行数据。也就是说limit 100000,10，就会扫描100010行，而limit 0,10，只扫描10行。
+2. limit 100000,10 扫描更多的行数，也意味着回表更多的次数。
+
+优化深分页问题我们可以通过**减少回表次数**来优化。一般有**标签记录法**和**延迟关联法**：
+- 标签记录法：`select  id,name,balance FROM account where id > 100000 limit 10;` 需要一种类似连续自增的字段来支持
+- 延迟关联法：`select  acct1.id,acct1.name,acct1.balance FROM account acct1 INNER JOIN (SELECT a.id FROM account a WHERE a.create_time > '2020-09-19' limit 100000, 10) AS acct2 on acct1.id= acct2.id;`
+优化思路：先通过idx_create_time二级索引树查询到满足条件的主键ID，再与原表通过主键ID内连接，这样后面直接走了主键索引了，同时也减少了回表
