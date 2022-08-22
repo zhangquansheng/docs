@@ -177,7 +177,8 @@ module.exports = {
                     './spring-cloud/feign-dubbo',
                     './spring-cloud/ribbon',
                     './spring-cloud/refresh-scope',
-                    './spring-cloud/apollo-zuul'
+                    './spring-cloud/apollo-zuul',
+                    './spring-cloud/Hystrix.md'
                 ]
             },
             {
