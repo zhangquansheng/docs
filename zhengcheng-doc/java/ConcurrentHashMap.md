@@ -1,7 +1,7 @@
 # ConcurrentHashMap 
 
-- `JDK1.7`中是采用`Segment` + `HashEntry` + `ReentrantLock`的方式进行实现的。
-- `JDK1.8`中是采用`自旋锁` + [CAS](../concurrent/cas) + `synchronized`来保证并发安全进行实现。
+- **`JDK1.7`中是采用`Segment` + `HashEntry` + `ReentrantLock`的方式进行实现的**
+- **`JDK1.8`中是采用`自旋锁` + [CAS](../concurrent/cas) + `synchronized`来保证并发安全进行实现**
 
 本次源码解析基于`JDK1.8`。
 
@@ -101,7 +101,10 @@ final V putVal(K key, V value, boolean onlyIfAbsent) {
 
 ::: tip 为什么 ConcurrentHashMap  不允许存在 null ？
 首先我们知道，`HashMap` 是可以存在`null`值，但是 `ConcurrentHashMap` 不允许存在`null`，会直接抛出`NPE`。
-如果允许`value`空值，那么`get`方法返回`null`时存在两种情况：一、未找到`key`，二、找到了`key`但是`value`为`null`；
+如果允许`value`空值，那么`get`方法返回`null`时存在两种情况：
+- 一、未找到`key`，
+- 二、找到了`key`但是`value`为`null`；
+
 当`get`方法返回`null`时无法判断是那种情况，在并发的环境下`containsKey`方法不可靠。当然可以通过逻辑处理来允许`key`空值，
 但这样占用数组空间，且并没有多大的实用价值。
 :::
