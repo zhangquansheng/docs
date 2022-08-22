@@ -87,12 +87,30 @@ RocketMQ 消息存储使用磁盘文件（**内存映射机制**），在物理�
 
 消息重试，指消息在消费时，如果发送异常，消息中间件支持消息重新投递，RocketMQ支持消息重试机制.
 
-## Kafka 与 RocketMQ 的存储对比
+## RocketMQ 的存储机制 :tada:
+
+1. **CommitLog** 
+   1. **消息主体以及元数据的存储主体**
+   2. 单个文件大小默认1G ，文件名长度为20位，左边补零，剩余为起始偏移量
+   3. 消息主要是顺序写入日志文件，当文件满了，写入下一个文件。
+2. **ConsumeQueue** 
+   1. 消息消费队列，引入的目的主要是提高消息消费的性能
+   2. ConsumeQueue（逻辑消费队列）作为消费消息的索引，保存了指定 Topic 下的队列消息在 CommitLog 中的起始物理偏移量 offset ，消息大小 size 和消息 Tag 的 HashCode 值
+   3. ConsumeQueue 文件可以看成是基于 topic 的 CommitLog 索引文件
+3.  IndexFile（索引文件）提供了一种可以通过`key`或时间区间来查询消息的方法
+
+
+## Kafka 与 RocketMQ 的存储对比 :tada:
 
 MQ | 结构 | 存储 
 ---|---|---|---
 Kafka | topic 对应多个 partition，同一个服务器（Broker）会有多个 topic-partition 对，partition 为单主多从结构，主挂了会重新选择主（ZK） | 消息直接存储在 partition 中，对单 topic 为顺序写 
 RocketMQ | topic 对应多个 ConsumeQueue，同一个服务器（Broker）会有多个 topic-ConsumeQueue 对，ConsumeQueue 为多主多从结构，主有配置指定，主挂了由其他主提供服务 | 同一个服务器的所有消息都统一写到 CommitLog 文件中，ConsumeQueue 只存储在 CommitLog 中的起始offset、log大小、MessageTag的hashCode，数据量较少。
+
+## RocketMQ 内存映射机制 :tada:
+
+RocketMQ 通过使用内存映射文件（内存映射机制）来提高`IO访问性能`，无论是CommitLog、 ConsumeQueue还是IndexFile，单个文件都被设计为固定长度，如果一个文件写满以后再创建一个新文件，文件名就为该文件第一条消息对应的全局物理偏移量。
+
 
 
 ---
