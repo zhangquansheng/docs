@@ -205,7 +205,7 @@ module.exports = {
                     './mysql/update',
                     './mysql/delete',
                     './mysql/sql-execute',
-                    './mysql/in',
+                    './mysql/index-invalid',
                     './mysql/department-highest-salary',
                     './mysql/having'
                 ]

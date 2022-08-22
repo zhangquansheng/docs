@@ -1,4 +1,6 @@
-# MySQL 索引在 in 条件下失效的原因
+# MySQL 索引失效
+
+## MySQL 索引在 in 条件下失效的原因
 
 首先我们看`IN`索引失效的情况：
 ![in-1](/img/mysql/in-1.jpg)
