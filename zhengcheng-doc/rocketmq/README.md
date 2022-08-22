@@ -109,7 +109,7 @@ RocketMQ | topic 对应多个 ConsumeQueue，同一个服务器（Broker）会�
 
 ## RocketMQ 内存映射机制 :tada:
 
-RocketMQ 通过使用内存映射文件（内存映射机制）来提高`IO访问性能`，无论是CommitLog、 ConsumeQueue还是IndexFile，单个文件都被设计为固定长度，如果一个文件写满以后再创建一个新文件，文件名就为该文件第一条消息对应的全局物理偏移量。
+RocketMQ 通过使用内存映射文件（内存映射机制）来提高`IO访问性能`，无论是 CommitLog、 ConsumeQueue 还是 IndexFile，单个文件都被设计为固定长度，如果一个文件写满以后再创建一个新文件，文件名就为该文件第一条消息对应的全局物理偏移量。
 
 
 
