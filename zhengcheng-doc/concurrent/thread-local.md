@@ -197,9 +197,9 @@ private void remove(ThreadLocal<?> key) {
 
 所以，`set`和`get`如果冲突严重的话，效率很低，应该尽量少的使用`ThreadLocal`变量。
 
-## 内存泄露
+## 内存泄露 :tada:
 
-`ThreadLocalMap`中使用的`key`为`ThreadLocal`的弱引用，而`value`是强引用。所以，如果`ThreadLocal`没有被外部强引用的情况下，在垃圾回收的时候`key`会被清理掉，而`value`不会被清理掉。
+`ThreadLocalMap`中使用的`key`为`ThreadLocal`的**弱引用**，而`value`是**强引用**。所以，如果`ThreadLocal`没有被外部强引用的情况下，在垃圾回收的时候`key`会被清理掉，而`value`不会被清理掉。
 这样一来，**`ThreadLocalMap`中就会出现`key`为`null`的`Entry`**。假如我们不做任何措施的话`value`永远无法被`GC`回收，这个时候就可能会产生内存泄露。
 
 ## 如何避免内存泄露

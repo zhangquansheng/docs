@@ -118,7 +118,9 @@ module.exports = {
                     './java/java8-new-features',
                     './java/generics',
                     './java/reference',
-                    './java/abstract-interface'
+                    './java/abstract-interface',
+                    './java/HashMap',
+                    './java/ConcurrentHashMap'
                 ]
             },
             {
@@ -342,8 +344,6 @@ module.exports = {
                     './digging-deeper/xxl-job',
                     './digging-deeper/xxl-rpc',
                     './digging-deeper/meituan-leaf',
-                    './digging-deeper/HashMap',
-                    './digging-deeper/ConcurrentHashMap',
                     './digging-deeper/cpu100',
                     './digging-deeper/bitmap',
                     './digging-deeper/multipart-upload',
