@@ -93,7 +93,7 @@ final V putVal(K key, V value, boolean onlyIfAbsent) {
 }
 ```
 
-put 方法大致流程如下（重点在后3步）：
+put 方法大致流程如下（重点在后3步）： :tada:
 1. 如果`key`是空值或者`value`是空值，那么直接抛出`NPE`；
 2. 判断数组是否已经初始化，如果未初始化，会先去初始化数组；
 3. 如果当前要插入的节点位置为`null`，则尝试**使用`CAS`插入数据**；
