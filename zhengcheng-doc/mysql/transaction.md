@@ -72,9 +72,15 @@ select @@innodb_flush_log_at_trx_commit;
 **LSN**称为日志序列号(Log Sequence Number)。在`InnoDB`存储引擎中，**LSN**占用8个字节，并且单调递增。**LSN**表示的含义有：
 - 重做日志写入的总量，通过LSN开始号码和结束号码可以计算出写入的日志量
 - checkpoint（检查点） 的位置
-- 页的版本                                                            
+- 页的版本   
+
+#### Redo Log 总结 :tada:
+
+1. 实现事务的**持久性**
+2. 将写操作从磁盘的「随机写」变成了「顺序写」，提升`MySQL`写入磁盘的性能。
+3. **WAL** （Write-Ahead Logging）技术，指的是 MySQL 的写操作并不是立刻更新到磁盘上，而是先记录在日志（Redo Log）上，然后在合适的时间再更新到磁盘上。
       
-### Undo Logs
+### Undo Log 
 
 [官方文档](https://dev.mysql.com/doc/refman/5.7/en/innodb-undo-logs.html)
 
@@ -96,6 +102,17 @@ select @@innodb_flush_log_at_trx_commit;
 #### 2. undo log 的存储方式
 
 `InnoDB`存储引擎对`undo`的管理采用段的方式。`rollback segment`称为**回滚段**，每个回滚段中有1024个`undo log segment`。
+
+#### undo log（回滚日志）总结 :tada:
+
+1. 是 Innodb 存储引擎层生成的日志，实现了事务中的**原子性**，主要用于事务回滚和**MVCC**；
+2. 一个事务在执行过程中，在还没有提交事务之前，如果MySQL 发生了崩溃，可以通过这个日志（**undo log**）回滚到事务之前的数据；
+3. MVCC 是通过 **ReadView** + undo log 实现的。undo log 为每条记录保存多份历史数据，MySQL 在执行快照读（普通 select 语句）的时候，会根据事务的 ReadView 里的信息，顺着 undo log 的版本链找到满足其可见性的记录。
+
+::: tip redo log 和 undo log 区别在哪？
+- redo log 记录了此次事务**「**完成后**」的数据状态，记录的是更新之「**后**」**的值；
+- undo log 记录了此次事务**「**开始前**」的数据状态，记录的是更新之「**前**」**的值；
+:::
 
 ### purge 
 
