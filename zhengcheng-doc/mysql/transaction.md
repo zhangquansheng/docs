@@ -76,7 +76,7 @@ select @@innodb_flush_log_at_trx_commit;
 
 #### Redo Log 总结 :tada:
 
-1. 实现事务的**持久性**
+1. 是 Innodb 存储引擎层生成的日志，实现了事务的**持久性**
 2. 将写操作从磁盘的「随机写」变成了「顺序写」，提升`MySQL`写入磁盘的性能。
 3. **WAL** （Write-Ahead Logging）技术，指的是 MySQL 的写操作并不是立刻更新到磁盘上，而是先记录在日志（Redo Log）上，然后在合适的时间再更新到磁盘上。
       
