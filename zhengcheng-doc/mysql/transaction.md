@@ -267,4 +267,6 @@ SELECT @@tx_isolation;
 ---
 
 **参考文档**
+
 - 《MySQL技术内幕 InnoDB存储引擎 第2版》
+- [MySQL 日志：undo log、redo log、binlog](https://juejin.cn/post/7120460698953941029#heading-6)
