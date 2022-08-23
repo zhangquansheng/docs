@@ -67,14 +67,14 @@ select @@innodb_flush_log_at_trx_commit;
 
 由于`InnoDB`存储引擎的存储管理是基于页的，故其`redo log`也是基于页的。
 
-#### LSN 
+#### 5. LSN 
 
 **LSN**称为日志序列号(Log Sequence Number)。在`InnoDB`存储引擎中，**LSN**占用8个字节，并且单调递增。**LSN**表示的含义有：
 - 重做日志写入的总量，通过LSN开始号码和结束号码可以计算出写入的日志量
 - checkpoint（检查点） 的位置
 - 页的版本   
 
-#### Redo Log 总结 :tada:
+#### 6. Redo Log 总结 :tada:
 
 1. 是 Innodb 存储引擎层生成的日志，实现了事务的**持久性**
 2. 将写操作从磁盘的「随机写」变成了「顺序写」，提升`MySQL`写入磁盘的性能。
@@ -103,7 +103,7 @@ select @@innodb_flush_log_at_trx_commit;
 
 `InnoDB`存储引擎对`undo`的管理采用段的方式。`rollback segment`称为**回滚段**，每个回滚段中有1024个`undo log segment`。
 
-#### undo log（回滚日志）总结 :tada:
+#### 3. undo log（回滚日志）总结 :tada:
 
 1. 是 Innodb 存储引擎层生成的日志，实现了事务中的**原子性**，主要用于事务回滚和**MVCC**；
 2. 一个事务在执行过程中，在还没有提交事务之前，如果MySQL 发生了崩溃，可以通过这个日志（**undo log**）回滚到事务之前的数据；
