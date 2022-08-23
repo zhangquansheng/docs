@@ -25,7 +25,7 @@ sidebarDepth: 3
 - InterProcessMultiLock：将多个锁作为单个实体管理的容器
 
 
-## InterProcessMutex分布式可重入排它锁的实现原理
+## InterProcessMutex分布式可重入排它锁的实现原理 :tada:
 
 ### 加锁流程图
 
