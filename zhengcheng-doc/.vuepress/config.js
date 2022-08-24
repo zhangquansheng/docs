@@ -297,6 +297,7 @@ module.exports = {
                 collapsable: false,
                 children: [
                     './algorithms/',
+                    './algorithms/algorithms-think',
                     './algorithms/binary-tree',
                     './algorithms/sort',
                     './algorithms/data-structure',
