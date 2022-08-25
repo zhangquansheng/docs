@@ -360,7 +360,8 @@ module.exports = {
                 children: [
                     './Microservice-Architecture/',
                     './Microservice-Architecture/Architecture',
-                    './Microservice-Architecture/limit-request'
+                    './Microservice-Architecture/limit-request',
+                    './Microservice-Architecture/Nacos'
                 ]
             }, {
                 title: '计算机网络基础',
