@@ -353,9 +353,7 @@ module.exports = {
                     './digging-deeper/sequence-diagram',
                     './digging-deeper/auto-cancel',
                     './digging-deeper/duplicate-pay',
-                    './digging-deeper/Tech-Middle-Platform',
-                    './digging-deeper/Business-Middle-Platform',
-                    './digging-deeper/Data-Middle-Platform',
+                    './digging-deeper/Middle-Platform',
                 ]
             }, {
                 title: '微服务框架体系',
