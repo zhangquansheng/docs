@@ -1,4 +1,4 @@
-# Spring 循环依赖
+# Spring 循环依赖 :tada:
 
 `Spring`中的循环依赖包括: 构造器循环依赖、`setter`循环依赖。
 
