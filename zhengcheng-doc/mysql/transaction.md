@@ -218,6 +218,7 @@ SELECT @@tx_isolation;
 ## MySQL是怎么解决幻读问题的？
 
 - **快照读**: 通过`MVCC`（并发多版本控制）来解决幻读问题
+  - MVCC 的实现依赖于：`隐藏字段`、`Read View`、`undo log` 
 - **实时读**: 通过**采用`Next-Key Locking`机制**来解决幻读问题
 
 ### 快照读
