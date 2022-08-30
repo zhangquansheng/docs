@@ -218,7 +218,8 @@ SELECT @@tx_isolation;
 ## MySQL是怎么解决幻读问题的？
 
 - **快照读**: 通过`MVCC`（并发多版本控制）来解决幻读问题
-  - MVCC 的实现依赖于：`隐藏字段`、`Read View`、`undo log` 
+  - MVCC 的实现依赖于：`隐藏字段`、`Read View`、`undo log`
+  - 隐藏字段：事务ID、回滚指针、DB_ROW_ID（如果没有设置主键且该表没有唯一非空索引时，InnoDB 会使用该 id 来生成聚簇索引）
 - **实时读**: 通过**采用`Next-Key Locking`机制**来解决幻读问题
 
 ### 快照读
