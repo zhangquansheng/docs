@@ -259,7 +259,7 @@ module.exports = {
                     './rocketmq/rocketmq-spring-apache',
                     './rocketmq/transaction',
                     './rocketmq/delay',
-                    './rocketmq/message-heap'
+                    './rocketmq/message-heap',
                 ]
             }, {
                 title: 'Flink',
