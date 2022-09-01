@@ -1,9 +1,5 @@
 # ThreadPoolExecutor 线程池 :tada:
 
-## UML
-
-![ThreadPoolExecutor](/img/concurrent/ThreadPoolExecutor.png)
-
 ## 参数说明
 
 `ThreadPoolExecutor` 提供了四个构造方法
