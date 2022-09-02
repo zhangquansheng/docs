@@ -23,109 +23,6 @@
    - 如果存在就调用 ThreadLocalMap 的 remove() 方法
    - ThreadLocalMap 确定元素的位置，把Entry的键值对都设为NULL，最后把Entry也设置为NULL
 
-## ThreadLocal 源码分析
-
-1. Thread 类中存在`threadLocals`变量，类型为`ThreadLocal.ThreadLocalMap`，这个变量就是保存每个线程的私有数据。
-```java
-// java.lang.Thread
-public
-class Thread implements Runnable {
-    // ...
-    ThreadLocal.ThreadLocalMap threadLocals = null;
-
-    ThreadLocal.ThreadLocalMap inheritableThreadLocals = null;
-    //...
-}
-```
-
-2. ThreadLocalMap 是`ThreadLocal`的内部类，每个数据都用`Entry`保存，其中`Entry`继承`WeakReference`，用一个键值对存储，键为`ThreadLocal`的引用。
-> `Entry`为什么是弱引用，如果是强引用，即使把`ThreadLocalMap`设置为null，`GC`也不会回收，因为`ThreadLocalMap`对它有强引用。
-```java
-static class ThreadLocalMap {
-        static class Entry extends WeakReference<ThreadLocal<?>> {
-            /** The value associated with this ThreadLocal. */
-            Object value;
-
-            Entry(ThreadLocal<?> k, Object v) {
-                super(k);
-                value = v;
-            }
-        }
-}
-```
-
-3. ThreadLocal 中的`set`方法：先获取当前线程，取出当前线程的`ThreadLocalMap`，如果不存在就会创建一个`ThreadLocalMap`，
-如果存在就会把**当前的`ThreadLocal`的引用作为键**，传入的参数作为值存入`map`中。
-```java
-public void set(T value) {
-    Thread t = Thread.currentThread();
-    ThreadLocalMap map = getMap(t);
-    if (map != null)
-        map.set(this, value);
-    else
-        createMap(t, value);
-}
-```
-
-4. ThreadLocal 中的`get`方法：获取当前线程，取出当前线程的`ThreadLocalMap`，用当前的`threadLocals`作为`key`在`ThreadLocalMap`查找，
-如果存在不为空的`Entry`，就返回`Entry`中的`value`，否则就会执行初始化并返回默认的值。
-```java
-public T get() {
-    Thread t = Thread.currentThread();
-    ThreadLocalMap map = getMap(t);
-    if (map != null) {
-        ThreadLocalMap.Entry e = map.getEntry(this);
-        if (e != null) {
-            @SuppressWarnings("unchecked")
-            T result = (T)e.value;
-            return result;
-        }
-    }
-    return setInitialValue();
-}
-
-private T setInitialValue() {
-    T value = initialValue();
-    Thread t = Thread.currentThread();
-    ThreadLocalMap map = getMap(t);
-    if (map != null)
-        map.set(this, value);
-    else
-        createMap(t, value);
-    return value;
-}
-```
-
-5. ThreadLocal 中的`remove`方法：先获取当前线程的`ThreadLocalMap`变量，如果存在就调用`ThreadLocalMap`的`remove`方法。
-`ThreadLocalMap`需要确定元素的位置（数组实现，存在**哈希冲突**），把`Entry`的键值对都设为`NULL`，最后把`Entry`也设置为`NULL`。
-```java
-public void remove() {
- ThreadLocalMap m = getMap(Thread.currentThread());
- if (m != null)
-     m.remove(this);
-}
-
-
-//ThreadLocal.ThreadLocalMap
-/**
- * Remove the entry for key.
- */
-private void remove(ThreadLocal<?> key) {
-    Entry[] tab = table;
-    int len = tab.length;
-    int i = key.threadLocalHashCode & (len-1);
-    for (Entry e = tab[i];
-         e != null;
-         e = tab[i = nextIndex(i, len)]) {
-        if (e.get() == key) {
-            e.clear();
-            expungeStaleEntry(i);
-            return;
-        }
-    }
-}
-```
-
 ## 哈希冲突
 
 ![ThreadLocal](/img/concurrent/threadLocal-thread.webp)
@@ -169,10 +66,11 @@ private void remove(ThreadLocal<?> key) {
 
 ## 内存泄露 
 
-`ThreadLocalMap`中使用的`key`为`ThreadLocal`的**弱引用**，而`value`是**强引用**。所以，如果`ThreadLocal`没有被外部强引用的情况下，在垃圾回收的时候`key`会被清理掉，而`value`不会被清理掉。
-这样一来，**`ThreadLocalMap`中就会出现`key`为`null`的`Entry`**。假如我们不做任何措施的话`value`永远无法被`GC`回收，这个时候就可能会产生内存泄露。
+1. `ThreadLocalMap`中使用的`key`为`ThreadLocal`的**弱引用**，而`value`是**强引用**。
+2. 如果`ThreadLocal`没有被外部强引用的情况下，在垃圾回收的时候`key`会被清理掉，而`value`不会被清理掉。
+3. 那么，**`ThreadLocalMap`中就会出现`key`为`null`的`Entry`**。假如我们不做任何措施的话`value`永远无法被`GC`回收，这个时候就可能会产生内存泄露。
 
-## 如何避免内存泄露
+### 如何避免内存泄露
 
 必须回收自定义的`ThreadLocal`变量，尤其在线程池场景下，线程经常会被复用，如果不清理自定义的 `ThreadLocal` 变量，可能会影响后续业务逻辑和造成内存泄露等问题。
 
@@ -185,6 +83,14 @@ try {
    objectThreadLocal.remove();
 }
 ```
+
+## ThreadLocal 为什么使用弱引用
+
+> 官方文档：为了应对非常大和长时间的使用
+
+## ThreadLocal 是线程安全吗
+
+> 线程不安全
 
 ## ThreadLocal
 
@@ -233,6 +139,109 @@ public class ThreadLocalDemo {
             });
             thread.setName("线程" + i);
             thread.start();
+        }
+    }
+}
+```
+
+## ThreadLocal 源码分析
+
+1. Thread 类中存在`threadLocals`变量，类型为`ThreadLocal.ThreadLocalMap`，这个变量就是保存每个线程的私有数据。
+```java
+// java.lang.Thread
+public
+class Thread implements Runnable {
+    // ...
+    ThreadLocal.ThreadLocalMap threadLocals = null;
+
+    ThreadLocal.ThreadLocalMap inheritableThreadLocals = null;
+    //...
+}
+```
+
+2. ThreadLocalMap 是`ThreadLocal`的内部类，每个数据都用`Entry`保存，其中`Entry`继承`WeakReference`，用一个键值对存储，键为`ThreadLocal`的引用。
+> `Entry`为什么是弱引用，如果是强引用，即使把`ThreadLocalMap`设置为null，`GC`也不会回收，因为`ThreadLocalMap`对它有强引用。
+```java
+static class ThreadLocalMap {
+        static class Entry extends WeakReference<ThreadLocal<?>> {
+            /** The value associated with this ThreadLocal. */
+            Object value;
+
+            Entry(ThreadLocal<?> k, Object v) {
+                super(k);
+                value = v;
+            }
+        }
+}
+```
+
+3. ThreadLocal 中的`set`方法：先获取当前线程，取出当前线程的`ThreadLocalMap`，如果不存在就会创建一个`ThreadLocalMap`，
+   如果存在就会把**当前的`ThreadLocal`的引用作为键**，传入的参数作为值存入`map`中。
+```java
+public void set(T value) {
+    Thread t = Thread.currentThread();
+    ThreadLocalMap map = getMap(t);
+    if (map != null)
+        map.set(this, value);
+    else
+        createMap(t, value);
+}
+```
+
+4. ThreadLocal 中的`get`方法：获取当前线程，取出当前线程的`ThreadLocalMap`，用当前的`threadLocals`作为`key`在`ThreadLocalMap`查找，
+   如果存在不为空的`Entry`，就返回`Entry`中的`value`，否则就会执行初始化并返回默认的值。
+```java
+public T get() {
+    Thread t = Thread.currentThread();
+    ThreadLocalMap map = getMap(t);
+    if (map != null) {
+        ThreadLocalMap.Entry e = map.getEntry(this);
+        if (e != null) {
+            @SuppressWarnings("unchecked")
+            T result = (T)e.value;
+            return result;
+        }
+    }
+    return setInitialValue();
+}
+
+private T setInitialValue() {
+    T value = initialValue();
+    Thread t = Thread.currentThread();
+    ThreadLocalMap map = getMap(t);
+    if (map != null)
+        map.set(this, value);
+    else
+        createMap(t, value);
+    return value;
+}
+```
+
+5. ThreadLocal 中的`remove`方法：先获取当前线程的`ThreadLocalMap`变量，如果存在就调用`ThreadLocalMap`的`remove`方法。
+   `ThreadLocalMap`需要确定元素的位置（数组实现，存在**哈希冲突**），把`Entry`的键值对都设为`NULL`，最后把`Entry`也设置为`NULL`。
+```java
+public void remove() {
+ ThreadLocalMap m = getMap(Thread.currentThread());
+ if (m != null)
+     m.remove(this);
+}
+
+
+//ThreadLocal.ThreadLocalMap
+/**
+ * Remove the entry for key.
+ */
+private void remove(ThreadLocal<?> key) {
+    Entry[] tab = table;
+    int len = tab.length;
+    int i = key.threadLocalHashCode & (len-1);
+    for (Entry e = tab[i];
+         e != null;
+         e = tab[i = nextIndex(i, len)]) {
+        if (e.get() == key) {
+            e.clear();
+            expungeStaleEntry(i);
+            return;
         }
     }
 }
