@@ -1,4 +1,4 @@
-# ThreadPoolExecutor 线程池 :hammer:
+# ThreadPoolExecutor 线程池 :+1:
 
 ## 参数说明
 
@@ -79,7 +79,7 @@ public ThreadPoolExecutor(int corePoolSize,
 ![thread-pool.png](/img/concurrent/thread-pool.png)
 
 ::: tip 线程池中任务是按照提交的顺序执行的吗？
-1. 根据线程池的实现原理，是不会的；
+1. 根据线程池的实现原理，是**不会的**；
 2. 当核心线程池已满并且等待队列已满后，会根据`maximumPoolSize`来创建创建线程，此时后提交的线程的执行顺序就在等待队列中的线程之前；
 :::
 
