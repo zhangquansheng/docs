@@ -220,7 +220,7 @@ SELECT @@tx_isolation;
 - **快照读**: 通过`MVCC`（并发多版本控制）来解决幻读问题
   - MVCC 的实现依赖于：`隐藏字段`、`Read View`、`undo log`
   - 隐藏字段：事务ID、回滚指针、DB_ROW_ID（如果没有设置主键且该表没有唯一非空索引时，InnoDB 会使用该 id 来生成聚簇索引）
-- **实时读**: 通过**采用`Next-Key Locking`机制**来解决幻读问题
+- **实时读**（执行 `select...for update/lock in share mode`、`insert`、`update`、`delete`）: 通过**采用`Next-Key Locking`机制**来解决幻读问题
 
 ### 快照读
 
@@ -267,6 +267,52 @@ SELECT @@tx_isolation;
 使用 **Next-Key Lock**（`Gap Lock`+`Record Lock` ，锁定一个范围，并且锁定记录本身）**加锁**，来解决幻读问题。
 
 ---
+
+## MVCC 实现原理
+
+MVCC 的实现依赖于：隐藏字段、Read View、undo log
+
+1. **通过事务ID（DB_TRX_ID）和 ReadView 来判断数据的可见性**；
+2. 如可见，则返回 ReadView 规则的版本数据；
+2. 如不可见，则通过**回滚指针**（DB_ROLL_PTR）找到 undo log 中的历史版本数据；
+
+### 隐藏字段
+
+InnoDB 存储引擎为每行数据添加了三个 隐藏字段：
+
+1. DB_TRX_ID（6字节）：表示最后一次插入或更新该行的事务ID。此外，delete 操作在内部被视为更新，只不过会在记录头 Record header 中的 deleted_flag 字段将其标记为已删除
+2. DB_ROLL_PTR（7字节） **回滚指针**，指向该行的 undo log 。如果该行未被更新，则为空
+3. DB_ROW_ID（6字节）：如果没有设置主键且该表没有唯一非空索引时，InnoDB 会使用该 id 来生成聚簇索引
+
+### ReadView
+
+> Read view lists the trx ids of those transactions for which a consistent read should not see the modifications to the database.
+
+ReadView是事务开启时，**当前所有活跃事务（还未提交的事务）的一个集合**，ReadView数据结构决定了不同事务隔离级别下，数据的可见性。
+
+1. ReadView的组成
+   - m_ids：**存了当前数据库系统中正处于活跃（没有 commit）的事务的ID列表**
+   - min_trx_id：m_ids里最小的值；
+   - max_trx_id：mysql下一个要生成的事务id，就是最大事务id；
+   - creator_trx_id：当前这个事务的id；
+2. 数据可见性：InnoDB 会将该记录行的 DB_TRX_ID 与 Read View 中的一些变量及当前事务 ID 进行比较
+   - 当 DB_TRX_ID < min_trx_id 表示此版本是已经提交的事务生成的，数据可见
+   - 当 DB_TRX_ID > max_trx_id 表示此版本是由将来启动的事务生成的，数据不可见
+   - 当 DB_TRX_ID >= min_trx_id & DB_TRX_ID <= max_trx_id 
+     - 如果 DB_TRX_ID 在 m_ids 的数组中，数据不可见，但对当前自己的事务是可见的
+     - 如果 DB_TRX_ID 不在 m_ids 的数组中，数据可见
+3. 生成的时机
+   - RC：每个查询都单独构建ReadView
+   - RR：事务开始后第一条select时生成一个ReadView，一直用到事务结束
+
+### undo log 版本链
+
+![undo-log-link.png](/img/mysql/undo-log-link.png)
+
+1. 假设有一个事务A（事务ID=50）插入一条数据，那么此时这条数据的隐藏字段：事务ID=50、**回滚指针**（DB_ROLL_PTR）指向的空的undo log；
+2. 当有另一个事务B（事务ID=51）更新这条数据，那么此时更新之前会生成一个 undo log 记录（事务A的值），这条数据的隐藏字段：事务ID=51、**回滚指针**指向刚生成的undo log；
+3. 当再有一个事务C更新这条数据，同步骤2，这样就形成了 undo log 版本链；
+
 
 **参考文档**
 
