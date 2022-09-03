@@ -268,7 +268,7 @@ SELECT @@tx_isolation;
 
 ---
 
-## MVCC 实现原理
+## MVCC 实现原理 :tada:
 
 MVCC 的实现依赖于：隐藏字段、Read View、undo log
 
