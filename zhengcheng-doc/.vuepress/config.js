@@ -356,6 +356,7 @@ module.exports = {
                     './digging-deeper/duplicate-pay',
                     './digging-deeper/Middle-Platform',
                     './digging-deeper/g1',
+                    './digging-deeper/visit-incr',
                 ]
             }, {
                 title: '微服务框架体系',
