@@ -364,7 +364,8 @@ module.exports = {
                     './Microservice-Architecture/',
                     './Microservice-Architecture/Architecture',
                     './Microservice-Architecture/limit-request',
-                    './Microservice-Architecture/Nacos'
+                    './Microservice-Architecture/Nacos',
+                    './Microservice-Architecture/Availability'
                 ]
             }, {
                 title: '计算机网络基础',
