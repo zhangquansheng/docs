@@ -363,6 +363,7 @@ module.exports = {
                 collapsable: false,
                 children: [
                     './Microservice-Architecture/',
+                    './Microservice-Architecture/Architecture-design',
                     './Microservice-Architecture/Architecture',
                     './Microservice-Architecture/limit-request',
                     './Microservice-Architecture/Nacos',
