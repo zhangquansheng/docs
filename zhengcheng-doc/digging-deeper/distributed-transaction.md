@@ -37,6 +37,9 @@ CAP原则指的是在一个分布式系统中，一致性(Consistency)、可用�
 
 ## 2PC(两段提交)
 
+- 一阶段 prepare 行为
+- 二阶段 commit 或 rollback 行为
+
 ## 3PC(三段提交)
 
 与两阶段提交不同的是，三阶段提交有两个改动点。
@@ -49,10 +52,22 @@ CAP原则指的是在一个分布式系统中，一致性(Consistency)、可用�
 意即世上只有一种一致性算法，那就是`Paxos`算法。
 
 
-## TCC(补偿事务)
+## TCC
 
-**两阶段事务**
+全局事务是由若干分支事务组成的，分支事务要满足**两阶段提交**的模型要求，即需要每个分支事务都具备自己的：
 
+- 一阶段 prepare 行为
+- 二阶段 commit 或 rollback 行为
+
+![seata-tcc](/img/digging-deeper/seata-tcc.png)
+
+TCC 模式，不依赖于底层数据资源的事务支持：
+
+- 一阶段 prepare 行为：调用自定义的 prepare 逻辑。
+- 二阶段 commit 行为：调用自定义的 commit 逻辑。
+- 二阶段 rollback 行为：调用自定义的 rollback 逻辑。
+
+所谓 TCC 模式，是指支持把自定义的分支事务纳入到全局事务的管理中。
 
 **参考文档**
 - [seata](https://github.com/seata/seata)
