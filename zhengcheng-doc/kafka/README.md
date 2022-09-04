@@ -73,7 +73,7 @@ Kafka 中的**Topic**是逻辑概念，而**Partition**是物理概念，对用�
 
 Producer 将数据发布到指定的主题。你可以简单地为负载均衡而采取循环方式完成此操作，也可以根据某些规则（例如基于记录的KEY）来完成此操作。
 
-## Consumers
+## Consumers :tada:
 
 **Consumer**使用group name 标记自己, 并且发布到**Topic**的每条记录都会传递到每个订阅**Consumer Group**中的一个 Consumer 实例。
 
@@ -90,11 +90,16 @@ Producer 将数据发布到指定的主题。你可以简单地为负载均衡�
 :::
 
 在Kafka中，`Consumer Rebalance` 算法如下：
-1. 将目标 `topic` 下的所有 `partition` 排序，存于`PT`
-2. 对某 **Consumer Group** 下所有 `Consumer` 排序，存于 `CG`，第 `i` `个consumer` 记为 `Ci`
-3. `N = size(PT)/size(CG)`，向上取整
-4. 解除 `Ci` 对原来分配的 `partition` 的消费权（`i`从`0`开始）
-5. 将第 `i*N` 到 `(i+1)*N-1` 个 `partition` 分配给 `Ci`
+1. **将目标 `topic` 下的所有 `partition` 排序，存于`PT`**
+2. **对某Consumer Group下所有 `Consumer` 排序，存于 `CG`，第 `i` `个consumer` 记为 `Ci`**
+3. **`N = size(PT)/size(CG)`，向上取整**
+4. **解除 `Ci` 对原来分配的 `partition` 的消费权（`i`从`0`开始）**
+5. **将第 `i*N` 到 `(i+1)*N-1` 个 `partition` 分配给 `Ci`**
+
+例如：
+- 有4个partition，2个consumer，则会把p0~p1分配给c0,p2~p3分配给c1；
+- 有4个partition，3个consumer，则会把p0~p1分配给c0,p2~p3分配给c1，c2未分配；
+- 有4个partition，4个consumer，则会把p0分配给c0,p1分配给c1，p2分配给c2，p3分配给c3；
 
 `Consumer rebalance` 的控制策略是由每一个 `Consumer` 通过 `Zookeeper` 完成的。具体的控制方式如下：
 1. 在 `/consumers/[consumer-group]/` 下注册`id`
