@@ -1,7 +1,5 @@
 # RocketMQ 支持事务消息机制的实现原理
 
-关键词：二阶段提交
-
 Apache RocketMQ在4.3.0版中已经支持分布式事务消息，这里RocketMQ采用了2PC的思想来实现了提交事务消息，同时增加一个补偿逻辑来处理二阶段超时或者失败的消息，如下图所示。
 
 ![rocketmq-transaction](/img/rocketmq/rocketmq-transaction.jpeg)
@@ -33,7 +31,9 @@ RocketMQ事务消息的做法是：
 - **然后改变主题为RMQ_SYS_TRANS_HALF_TOPIC。由于消费组未订阅该主题，故消费端无法消费half类型的消息**，
 - **然后RocketMQ会开启一个定时任务，从Topic为RMQ_SYS_TRANS_HALF_TOPIC中拉取消息进行消费，根据生产者组获取一个服务提供者，发送回查事务状态请求，根据事务状态来决定是提交或回滚消息**。
 
-RocketMQ的具体实现策略是：写入的如果事务消息，对消息的Topic和Queue等属性进行替换，同时将原来的Topic和Queue信息存储到消息的属性中，正因为消息主题被替换，故消息并不会转发到该原主题的消息消费队列，消费者无法感知消息的存在，不会消费。其实改变消息主题是RocketMQ的常用“套路”，回想一下延时消息的实现机制。
+RocketMQ的具体实现策略是：
+
+写入的如果事务消息，对消息的Topic和Queue等属性进行替换，同时将原来的Topic和Queue信息存储到消息的属性中，正因为消息主题被替换，故消息并不会转发到该原主题的消息消费队列，消费者无法感知消息的存在，不会消费。其实改变消息主题是RocketMQ的常用“套路”，回想一下延时消息的实现机制。
 
 2. Commit和Rollback操作以及Op消息的引入
 
@@ -52,7 +52,7 @@ Commit相对于Rollback只是在写入Op消息前创建Half消息的索引。
 RocketMQ将Op消息写入到全局一个特定的Topic中通过源码中的方法—TransactionalMessageUtil.buildOpTopic()；
 这个Topic是一个内部的Topic（像Half消息的Topic一样），不会被用户消费。
 
-Op消息的内容为对应的Half消息的存储的Offset，这样通过Op消息能索引到Half消息进行后续的回查操作。
+**Op消息的内容为对应的`Half消息`的存储的`Offset`，这样通过`Op消息`能索引到`Half消息`进行后续的回查操作**。
 
 4. Half消息的索引构建
 
@@ -61,11 +61,11 @@ Op消息的内容为对应的Half消息的存储的Offset，这样通过Op消息
 
 所以RocketMQ事务消息二阶段其实是利用了一阶段存储的消息的内容，在二阶段时恢复出一条完整的普通消息，然后走一遍消息写入流程。
 
-5. 如何处理二阶段失败的消息？
+5. **如何处理二阶段失败的消息？**
 
 如果在RocketMQ事务消息的二阶段过程中失败了，例如在做Commit操作时，出现网络问题导致Commit失败，那么需要通过一定的策略使这条消息最终被Commit。
 
 RocketMQ采用了一种**补偿机制**，称为**“回查”**。Broker端对未确定状态的消息发起回查，将消息发送到对应的Producer端（同一个Group的Producer），
 由Producer根据消息来检查本地事务的状态，进而执行Commit或者Rollback。Broker端通过对比Half消息和Op消息进行事务消息的回查并且推进CheckPoint（记录那些事务消息的状态是确定的）。
 
-值得注意的是，rocketmq并不会无休止的的信息事务状态回查，默认回查15次，如果15次回查还是无法得知事务状态，rocketmq默认回滚该消息。
+**值得注意的是，rocketmq并不会无休止的的信息事务状态回查，默认回查15次，如果15次回查还是无法得知事务状态，rocketmq默认回滚该消息**。
