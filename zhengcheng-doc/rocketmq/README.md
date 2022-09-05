@@ -99,6 +99,13 @@ RocketMQ 消息存储使用磁盘文件（**内存映射机制**），在物理�
    3. ConsumeQueue 文件可以看成是基于 topic 的 CommitLog 索引文件
 3.  IndexFile（索引文件）提供了一种可以通过`key`或时间区间来查询消息的方法
 
+## RocketMQ 消费者的负载均衡策略 :tada:
+
+消费者的负载均衡，简单来说就是将Topic下的MessageQueue分配给这些Consumer
+
+- 平均分配
+- 环形平均分配
+- 
 
 ## Kafka 与 RocketMQ 的存储对比 :tada:
 

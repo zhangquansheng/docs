@@ -120,7 +120,9 @@ module.exports = {
                     './java/reference',
                     './java/abstract-interface',
                     './java/HashMap',
-                    './java/ConcurrentHashMap'
+                    './java/ConcurrentHashMap',
+                    './java/cms',
+                    './java/g1',
                 ]
             },
             {
