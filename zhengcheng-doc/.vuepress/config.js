@@ -235,6 +235,7 @@ module.exports = {
                     './redis/three-problems-of-cache',
                     './redis/cache-database-double-write-consistency',
                     './redis/redisson',
+                    './redis/redisson-lock',
                     './redis/big-key',
                     './redis/bitmap',
                     './redis/delay-queue',
