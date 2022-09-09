@@ -122,29 +122,27 @@ module.exports = {
                     './java/HashMap',
                     './java/ConcurrentHashMap',
                     './java/cms',
-                    './java/g1',
+                    './java/g1'
                 ]
             },
-            {
-                title: 'Maven 基础',
-                collapsable: false,
-                children: [
-                    './maven/'
-                ]
-            },
+            // {
+            //     title: 'Maven 基础',
+            //     collapsable: false,
+            //     children: [
+            //         './maven/'
+            //     ]
+            // },
             {
                 title: '并发编程',
                 collapsable: false,
                 children: [
-                    // './concurrent/j.U.C',
-                    // './concurrent/blocking-queue',
-                    // './concurrent/count-down-latch',
+                    './concurrent/count-down-latch',
                     './concurrent/volatile',
                     './concurrent/synchronized',
                     './concurrent/cas',
                     './concurrent/AQS',
                     './concurrent/thread-local',
-                    './concurrent/thread-pool-executor',
+                    './concurrent/thread-pool-executor'
                 ]
             },
             {
@@ -185,14 +183,14 @@ module.exports = {
                     './spring-cloud/Hystrix.md'
                 ]
             },
-            {
-                title: 'Docker',
-                collapsable: false,
-                children: [
-                    './docker/',
-                    './docker/install'
-                ]
-            },
+            // {
+            //     title: 'Docker',
+            //     collapsable: false,
+            //     children: [
+            //         './docker/',
+            //         './docker/install'
+            //     ]
+            // },
             {
                 title: 'MySQL',
                 collapsable: false,
@@ -213,18 +211,7 @@ module.exports = {
                     './mysql/department-highest-salary',
                     './mysql/having'
                 ]
-            }, {
-                title: 'Elasticsearch',
-                collapsable: false,
-                children: [
-                    './es/',
-                    './es/inverted-index',
-                    './es/Query-DSL.md',
-                    './es/tokenizer',
-                    './es/aggregations',
-                    './es/restHighLevelClient'
-                ]
-            }, {
+            },  {
                 title: 'Redis',
                 collapsable: false,
                 children: [
@@ -242,6 +229,17 @@ module.exports = {
                     './redis/J2Cache',
                 ]
             }, {
+                title: 'Elasticsearch',
+                collapsable: false,
+                children: [
+                    './es/',
+                    './es/inverted-index',
+                    './es/Query-DSL.md',
+                    './es/tokenizer',
+                    './es/aggregations',
+                    './es/restHighLevelClient'
+                ]
+            },{
                 title: 'Kafka',
                 collapsable: false,
                 children: [
@@ -261,15 +259,17 @@ module.exports = {
                     './rocketmq/rocketmq-spring',
                     './rocketmq/rocketmq-spring-apache',
                     './rocketmq/transaction',
-                    './rocketmq/delay',
+                    './rocketmq/delay'
                 ]
-            }, {
-                title: 'Flink',
-                collapsable: false,
-                children: [
-                    './flink/'
-                ]
-            }, {
+            },
+            // {
+            //     title: 'Flink',
+            //     collapsable: false,
+            //     children: [
+            //         './flink/'
+            //     ]
+            // },
+            {
                 title: 'ZooKeeper',
                 collapsable: false,
                 children: [
@@ -357,8 +357,7 @@ module.exports = {
                     './digging-deeper/auto-cancel',
                     './digging-deeper/duplicate-pay',
                     './digging-deeper/Middle-Platform',
-                    './digging-deeper/g1',
-                    './digging-deeper/visit-incr',
+                    './digging-deeper/visit-incr'
                 ]
             }, {
                 title: '微服务框架体系',
@@ -377,19 +376,15 @@ module.exports = {
                 children: [
                     './network/',
                 ]
-            }, {
-                title: 'IOT/物联网/边缘计算',
-                collapsable: false,
-                children: [
-                    './iot/',
-                ]
-            }, {
-                title: '项目管理',
-                collapsable: false,
-                children: [
-                    './PM/project-flow',
-                ]
-            }, {
+            },
+            // {
+            //     title: '项目管理',
+            //     collapsable: false,
+            //     children: [
+            //         './PM/project-flow',
+            //     ]
+            // },
+            {
                 title: '代码人生',
                 collapsable: false,
                 children: [
