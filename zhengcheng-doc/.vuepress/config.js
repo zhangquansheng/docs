@@ -121,6 +121,8 @@ module.exports = {
                     './java/abstract-interface',
                     './java/HashMap',
                     './java/ConcurrentHashMap',
+                    './java/jvm',
+                    './java/gc',
                     './java/cms',
                     './java/g1'
                 ]
