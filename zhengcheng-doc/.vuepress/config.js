@@ -182,7 +182,8 @@ module.exports = {
                     './spring-cloud/ribbon',
                     './spring-cloud/refresh-scope',
                     './spring-cloud/apollo-zuul',
-                    './spring-cloud/Hystrix.md'
+                    './spring-cloud/Hystrix',
+                    './spring-cloud/gw'
                 ]
             },
             // {
@@ -223,7 +224,7 @@ module.exports = {
                     './redis/reactor',
                     './redis/three-problems-of-cache',
                     './redis/cache-database-double-write-consistency',
-                    './redis/redisson',
+                    // './redis/redisson',
                     './redis/redisson-lock',
                     './redis/big-key',
                     './redis/bitmap',
@@ -295,7 +296,8 @@ module.exports = {
                 children: [
                     './shardingsphere/',
                     './shardingsphere/concept',
-                    './shardingsphere/getting-started'
+                    './shardingsphere/getting-started',
+                    './shardingsphere/sharding'
                 ]
             }, {
                 title: '数据结构与算法',
@@ -360,7 +362,8 @@ module.exports = {
                     './digging-deeper/duplicate-pay',
                     './digging-deeper/Middle-Platform',
                     './digging-deeper/visit-incr',
-                    './digging-deeper/seckill'
+                    './digging-deeper/seckill',
+                    './digging-deeper/ddd'
                 ]
             }, {
                 title: '微服务框架体系',
