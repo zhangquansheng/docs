@@ -359,7 +359,8 @@ module.exports = {
                     './digging-deeper/auto-cancel',
                     './digging-deeper/duplicate-pay',
                     './digging-deeper/Middle-Platform',
-                    './digging-deeper/visit-incr'
+                    './digging-deeper/visit-incr',
+                    './digging-deeper/seckill'
                 ]
             }, {
                 title: '微服务框架体系',
