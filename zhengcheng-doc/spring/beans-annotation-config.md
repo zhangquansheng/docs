@@ -212,3 +212,10 @@ public @interface Value {
 //若maxAge是负数,则代表为临时Cookie,不会被持久化,Cookie信息保存在浏览器内存中,浏览器关闭Cookie就消失
 @CrossOrigin(origins = "*",maxAge = 3600)
 ```
+
+## 为什么Spring不推荐使用 @Autowired 注解
+
+1. 不建议直接在字段上进行依赖注入，Spring 开发团队建议：在Java Bean 中永远使用构造函数进行依赖注入；
+2. 编译过程不会报错，但是运行之后可能报NPE异常；
+
+
