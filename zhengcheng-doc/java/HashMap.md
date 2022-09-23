@@ -137,6 +137,24 @@ static final class TreeNode<K,V> extends LinkedHashMap.Entry<K,V> {
     }
 ```
 
+## 与运算
+
+```java
+static int indexFor(int h, int length){
+     return h & (length - 1);
+}
+```
+
+::: tips 如何计算 hash 值
+1. 扰乱函数
+   - 将 key.hashCode() 向右移动16位，在异或运算（二进制位相同为0，不同为1），如上代码所示；
+   - 其实就是将 key.hashCode() 的【高半区16位】数据不变，【低半区16位】数据与高半区16位数据进行异或操作；
+   - 目的是让散列的分布更加均匀，增加随机性，减少碰撞；
+2. 与运算
+   - 为了存储空间的考虑，必须根据当前 hashmap 的容量进行与算法；
+   - key.hashCode()计算出hash值，则范围为：-2147483648到2147483648，大约40亿的映射空间，这么大范围无法放入内存中；
+:::
+
 ## put() 
 
 ```java
