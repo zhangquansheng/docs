@@ -145,7 +145,7 @@ static int indexFor(int h, int length){
 }
 ```
 
-::: tips 如何计算 hash 值
+::: tip 如何计算 hash 值
 1. 扰乱函数
    - 将 key.hashCode() 向右移动16位，在异或运算（二进制位相同为0，不同为1），如上代码所示；
    - 其实就是将 key.hashCode() 的【高半区16位】数据不变，【低半区16位】数据与高半区16位数据进行异或操作；
