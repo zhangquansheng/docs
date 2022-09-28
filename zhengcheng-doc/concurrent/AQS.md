@@ -34,7 +34,9 @@ AQS的实现依赖内部的同步队列，也就是FIFO的双向队列（双向�
 ## Semaphore（信号量）
 
 `synchronized` 和 `ReentrantLock` 都是一次只允许一个线程访问某个资源，Semaphore(信号量)可以指定多个线程同时访问某个资源。
-
+1. Semaphore 与 CountDownLatch 一样，也是共享锁的一种实现。它默认构造 AQS 的 state 为 permits。当执行任务的线程数量超出 permits，那么多余的线程将会被放入阻塞队列 Park,并自旋判断 state 是否大于 0。
+2. 只有当 state 大于 0 的时候，阻塞的线程才能继续执行,此时先前执行任务的线程继续执行 release() 方法，release() 方法使得 state 的变量会加 1，那么自旋的线程便会判断成功。
+3. 如此，每次只有最多不超过 permits 数量的线程能自旋成功，便限制了执行任务线程的数量。
 
 
 ## CountDownLatch （倒计时器）
