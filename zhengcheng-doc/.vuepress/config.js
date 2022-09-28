@@ -138,7 +138,6 @@ module.exports = {
                 title: '并发编程',
                 collapsable: false,
                 children: [
-                    './concurrent/count-down-latch',
                     './concurrent/volatile',
                     './concurrent/synchronized',
                     './concurrent/cas',
