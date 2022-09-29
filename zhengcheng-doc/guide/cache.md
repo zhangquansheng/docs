@@ -57,6 +57,7 @@ List<YourObject> list = this.redisTemplate.executePipelined(new RedisCallback<Yo
     }
 ```
 
+mGet 与 PipeLine 的区别：
 **它们底层都是用到`execute`方法，`multiGet`是一条命令直接传给`Redis`，而`executePipelined`实际上是一条或多条命令，但是共用一个连接**。
 
 ### execute 方法
