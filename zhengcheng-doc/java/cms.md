@@ -25,3 +25,7 @@
 1. 大对象分配时,年轻代放不下,直接去老年代,结果老年代也放不下，（内存碎片问题：使用 标记-清除 算法的缺点）。
 2. CMS GC失败，无法处理浮动垃圾，可能出现(Concurrent Mode Failure)失败而导致。
 3. jmap -histo 人为执行了命令。
+
+## CMS GC日志分析 :+1:
+
+![CMS GC日志分析](/img/java/CMS GC日志分析.png)
