@@ -95,29 +95,47 @@ int n = i;       //拆箱  等价于 int n = i.intValue();
 ## 【易错点】 整型包装类对象之间值的比较
 
 ```java
+/**
+ * 1. i1,i2 都会发生装箱操作，实际上他们都等同于 Integer.valueOf(100)
+ * 2. Integer 的缓存机制会把创建数值 [-128，127] 的相应类型的缓存数据
+ * 3. 因为 100 在 [-128，127] 范围之类，获取到的对象是一样的，所以输出true 
+ */
 Integer i1 = 100;
 Integer i2 = 100;
 System.out.println(i1 == i2);// 输出 true
 
+
+/**
+ * 1. i3,i4 都会发生装箱操作，实际上他们都等同于 Integer.valueOf(100)
+ * 2. Integer 的缓存机制会把创建数值 [-128，127] 的相应类型的缓存数据
+ * 3. 因为 1000 不在 [-128，127] 范围之类，则实际上 i3 = new Integer(1000)、i4 = new Integer(1000)，创建了两个新的对象，对象的地址肯定不相同，所以输出false
+ */     
 Integer i3 = 1000;
 Integer i4 = 1000;
 System.out.println(i3 == i4);// 输出 false
 
 
-Integer i5 = 40;
-Integer i6 = new Integer(40);
+/**
+ * 1. i5 会发生装箱操作，实际上他们都等同于 Integer.valueOf(100)
+ * 2. i6 会直接创建新的对象，对象的地址肯定不相同，所以输出false
+ */
+Integer i5 = 100;
+Integer i6 = new Integer(100);
 System.out.println(i5 == i6);  // 输出 false        
 
+
+/**
+ * 1. 两种浮点数类型的包装类 Float,Double 并没有实现缓存机制
+ * 2. f1,f2,d1,d2 都发生了装箱操作，创建了新的对象，对象的地址肯定不相同，所以输出false
+ */        
 Float f1 = 33f;
 Float f2 = 33f;
 System.out.println(f1 == f2);// 输出 false
-
+        
 Double d1 = 1.2;
 Double d2 = 1.2;
 System.out.println(d1 == d2);// 输出 false
 ```
-
-
 
 ::: tip 阿里云JAVA开发手册 OOP 规约
 7. 【强制】所有整型包装类对象之间值的比较，全部使用 equals 方法比较。
