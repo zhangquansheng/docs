@@ -92,6 +92,31 @@ int n = i;       //拆箱  等价于 int n = i.intValue();
    - 类没有覆盖`equals()`方法，则通过`equals()`比较该类的两个对象时，等价于通过`==`比较这两个对象（属于`object`类，默认是判断内存地址是否相同）；
    - 类可以重写`equals()`方法，具体判断对象是否相等是根据程序而定的，如在`String`类中只是比较对象内容是否一致。
 
+## 【易错点】 整型包装类对象之间值的比较
+
+```java
+Integer i1 = 100;
+Integer i2 = 100;
+System.out.println(i1 == i2);// 输出 true
+
+Integer i3 = 1000;
+Integer i4 = 1000;
+System.out.println(i3 == i4);// 输出 false
+
+
+Integer i5 = 40;
+Integer i6 = new Integer(40);
+System.out.println(i5 == i6);  // 输出 false        
+
+Float f1 = 33f;
+Float f2 = 33f;
+System.out.println(f1 == f2);// 输出 false
+
+Double d1 = 1.2;
+Double d2 = 1.2;
+System.out.println(d1 == d2);// 输出 false
+```
+
 
 
 ::: tip 阿里云JAVA开发手册 OOP 规约
