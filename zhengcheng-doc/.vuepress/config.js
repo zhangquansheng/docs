@@ -116,6 +116,7 @@ module.exports = {
                 collapsable: false,
                 children: [
                     './java/java8-new-features',
+                    './java/java-basic-datatypes',
                     './java/generics',
                     './java/reference',
                     './java/abstract-interface',
