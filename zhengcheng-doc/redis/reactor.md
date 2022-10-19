@@ -1,6 +1,6 @@
 # Redis 线程模型 
 
-**`Redis`基于`Reactor`模式来设计开发了自己的一套高效的事件处理模型（`Netty` 的线程模型也基于`Reactor`模式），这套事件处理模型对应的是`Redis`中的文件事件处理器（`file event handler`）。由于文件事件处理器（`file event handler`）是单线程方式运行的，所以我们一般都说`Redis`是单线程模型。
+`Redis`基于`Reactor`模式来设计开发了自己的一套高效的事件处理模型（`Netty` 的线程模型也基于`Reactor`模式），这套事件处理模型对应的是`Redis`中的文件事件处理器（`file event handler`）。由于文件事件处理器（`file event handler`）是单线程方式运行的，所以我们一般都说`Redis`是单线程模型。
 
 ## 为什么 Redis 选择单线程模型 
 > Redis6.0 之前为什么不使用多线程？
@@ -31,7 +31,8 @@ However with Redis 4.0 we started to make Redis more threaded. For now this is l
 > Redis 既然是单线程，那怎么监听大量的客户端连接呢？
 
 `redis`服务端对于命令的处理是单线程的，但是在`I/O`层面却可以同时面对多个客户端并发的提供服务，并发到内部单线程的转化通过多路复用框架实现。
-[IO多路复用底层原理](https://gitee.com/oslo/LearningNotes/blob/master/Redis/IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/README.md)
+
+
 
 ## Redis6.0 之后为何引入了多线程？
 
