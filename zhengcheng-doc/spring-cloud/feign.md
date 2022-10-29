@@ -693,6 +693,23 @@ public class FeignOkHttpConfig {
 
 ## 常见问题
 
+### 同时配置 Feign 和 Ribbon 的超时时间的优先级
+
+```java
+// LoadBalancerFeignClient.java
+  IClientConfig getClientConfig(Request.Options options, String clientName) {
+        Object requestConfig;
+        if (options == DEFAULT_OPTIONS) {
+            requestConfig = this.clientFactory.getClientConfig(clientName);
+        } else {
+            requestConfig = new FeignOptionsClientConfig(options);
+        }
+
+        return (IClientConfig)requestConfig;
+    }
+```
+
+
 ### feign 启用Hystrix，Hystrix线程池隔离支持日志链路跟踪
 
 ```java
