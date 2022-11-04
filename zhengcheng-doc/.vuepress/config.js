@@ -92,6 +92,7 @@ module.exports = {
                     './guide/mybatis-plus',
                     './guide/dynamic-datasource',
                     './guide/cache',
+                    './guide/idempotent',
                     './guide/feign',
                     './guide/async',
                     './guide/mapstruct',
