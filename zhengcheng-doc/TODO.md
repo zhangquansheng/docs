@@ -9,3 +9,4 @@
 - Spring处理@Async导致的循环依赖失败问题的方案详解 http://www.45fan.com/article.php?aid=1D5hgg7OHe5PBWNd
 - @EnableAspectJAutoProxy(exposeProxy = true) 使用原理
 - JMC 1.8 的使用学习，
+- nacos2.x 的实现原理
