@@ -206,6 +206,7 @@ module.exports = {
                     './mysql/locking',
                     './mysql/transaction',
                     './mysql/sql-standard',
+                    './mysql/database-design-paradigm',
                     './mysql/innodb_trx',
                     './mysql/datetime',
                     './mysql/update',
