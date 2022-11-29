@@ -127,6 +127,8 @@ public class DefaultAopProxyFactory implements AopProxyFactory, Serializable {
 
 ## @EnableAspectJAutoProxy
 
+> 开启注解版的AOP功能
+
 ```java
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
@@ -186,6 +188,11 @@ class AspectJAutoProxyRegistrar implements ImportBeanDefinitionRegistrar {
 
 ### AspectJAutoProxyRegistrar :hammer:
 
+`AspectJAutoProxyRegistrar` 是一个 `ImportBeanDefinitionRegistrar`
+
+`AnnotationAwareAspectJAutoProxyCreator`这个类定义为`BeanDefinition`注册到`Spring`容器中，这是通过实现`ImportBeanDefinitionRegistrar`接口来装载的.
+
+`AnnotationAwareAspectJAutoProxyCreator`继承了`SmartInstantiationAwareBeanPostProcessor`, 也就是`BeanPostProcessor`，这个**后置处理器**可以拦截实例创建, 在创建之前调用`postProcessBeforeInstantiation`
 
 
 ##  Spring AOP 和 AspectJ AOP 的区别
