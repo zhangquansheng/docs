@@ -81,8 +81,6 @@ public class Animal {
 
 ![Spring AOP Process](/img/spring/spring-aop-process.jpg)
 
-当然你也可以使用`AspectJ` ，`Spring AOP`已经集成了`AspectJ` ，`AspectJ`应该算的上是`Java`生态系统中最完整的`AOP`框架了。
-
 参考源码如下：
 ```java
 // org.springframework.aop.framework.AopProxyFactory.java
@@ -125,6 +123,7 @@ public class DefaultAopProxyFactory implements AopProxyFactory, Serializable {
 }
 ```
 
+除了以上两种代理方式外，当然你也可以使用`AspectJ` ，`Spring AOP`已经集成了`AspectJ` ，`AspectJ`应该算的上是`Java`生态系统中最完整的`AOP`框架了。
 
 ## @EnableAspectJAutoProxy
 
