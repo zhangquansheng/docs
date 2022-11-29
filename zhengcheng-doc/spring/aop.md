@@ -126,7 +126,8 @@ public class DefaultAopProxyFactory implements AopProxyFactory, Serializable {
 ```
 
 
-## @EnableAspectJAutoProxy 解决内部方法调用导致 AOP 失效的问题
+## @EnableAspectJAutoProxy
+
 ```java
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
@@ -157,9 +158,11 @@ class AspectJAutoProxyRegistrar implements ImportBeanDefinitionRegistrar {
 		AnnotationAttributes enableAspectJAutoProxy =
 				AnnotationConfigUtils.attributesFor(importingClassMetadata, EnableAspectJAutoProxy.class);
 		if (enableAspectJAutoProxy != null) {
+            // 是否强制指定使用CGLIB代理
 			if (enableAspectJAutoProxy.getBoolean("proxyTargetClass")) {
 				AopConfigUtils.forceAutoProxyCreatorToUseClassProxying(registry);
 			}
+            // 代理的暴露方式：解决内部调用不能使用代理的场景
 			if (enableAspectJAutoProxy.getBoolean("exposeProxy")) {
 				AopConfigUtils.forceAutoProxyCreatorToExposeProxy(registry);
 			}
@@ -168,17 +171,23 @@ class AspectJAutoProxyRegistrar implements ImportBeanDefinitionRegistrar {
 }
 ```
 
-第一步：需要在启动类中增加以下注解
+解决内部方法调用导致`AOP`失效的问题：
+
+- 第一步：需要在启动类中增加以下注解
 ```java
 @EnableAspectJAutoProxy(proxyTargetClass = true, exposeProxy = true)
 ```
 
-第二步：使用 `AopContext.currentProxy()` 获取当前代理，调用内部方法
+- 第二步：使用 `AopContext.currentProxy()` 获取当前代理，调用内部方法
 ```java
   CurrentImpl currentProxy = (CurrentImpl) AopContext.currentProxy();
   // 使用代理调用
   currentProxy.method();
 ```
+
+### AspectJAutoProxyRegistrar :hammer:
+
+
 
 ##  Spring AOP 和 AspectJ AOP 的区别
 
