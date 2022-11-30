@@ -172,20 +172,6 @@ class AspectJAutoProxyRegistrar implements ImportBeanDefinitionRegistrar {
 }
 ```
 
-解决内部方法调用导致`AOP`失效的问题：
-
-- 第一步：需要在启动类中增加以下注解
-```java
-@EnableAspectJAutoProxy(proxyTargetClass = true, exposeProxy = true)
-```
-
-- 第二步：使用 `AopContext.currentProxy()` 获取当前代理，调用内部方法
-```java
-  CurrentImpl currentProxy = (CurrentImpl) AopContext.currentProxy();
-  // 使用代理调用
-  currentProxy.method();
-```
-
 ### AspectJAutoProxyRegistrar :hammer:
 
 `AspectJAutoProxyRegistrar` 是一个 `ImportBeanDefinitionRegistrar`
@@ -217,4 +203,41 @@ value = beanFactory.resolveDependency(desc, beanName, autowiredBeanNames, typeCo
 ```
 
 其实最核心还是在`Bean`工厂里，也就是它的唯一内建实现类`org.springframework.beans.factory.support.DefaultListableBeanFactory`。
+
+## 解决内部方法调用导致`AOP`失效的问题
+
+### 方法一：通过 SpringUtil.getBean 手动获取对象来获取代理对象
+
+```java
+@Service
+@Slf4j
+public class DemoService {
+    
+    public void add(){
+        DemoService bean = SpringUtil.getBean(DemoService.class);
+        bean.sendToKafka();
+    }
+    
+    @Async
+    public void sendToKafka() {
+        
+    }
+}
+```
+
+### 方法二：通过 AopContext 获取当前代理
+
+- 第一步：需要在启动类中增加以下注解
+```java
+@EnableAspectJAutoProxy(exposeProxy = true)
+```
+
+- 第二步：使用 `AopContext.currentProxy()` 获取当前代理，调用内部方法
+```java
+  CurrentImpl currentProxy = (CurrentImpl) AopContext.currentProxy();
+  // 使用代理调用
+  currentProxy.method();
+```
+
+### 方法三：不同的类之间调用即可
 
