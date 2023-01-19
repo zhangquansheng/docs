@@ -353,6 +353,7 @@ module.exports = {
                     './digging-deeper/http-long-polling',
                     './digging-deeper/xxl-job',
                     './digging-deeper/xxl-rpc',
+                    './digging-deeper/DataPermissionHandler',
                     // './digging-deeper/meituan-leaf',
                     './digging-deeper/cpu100',
                     './digging-deeper/bitmap',
