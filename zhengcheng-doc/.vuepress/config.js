@@ -290,7 +290,8 @@ module.exports = {
                     './mybatis/',
                     './mybatis/cache',
                     './mybatis/mybatis-crud',
-                    './mybatis/MyBatis-Plus'
+                    './mybatis/MyBatis-Plus',
+                    './mybatis/DataPermissionHandler',
                 ]
             }, {
                 title: 'Apache ShardingSphere',
@@ -353,7 +354,6 @@ module.exports = {
                     './digging-deeper/http-long-polling',
                     './digging-deeper/xxl-job',
                     './digging-deeper/xxl-rpc',
-                    './digging-deeper/DataPermissionHandler',
                     // './digging-deeper/meituan-leaf',
                     './digging-deeper/cpu100',
                     './digging-deeper/bitmap',

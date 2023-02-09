@@ -1,12 +1,10 @@
-# Mybatis-Plus
+# Mybatis-Plus 实现动态 SQL 语句的源码解析 
 
-## Mybatis-Plus 是如何实现动态 SQL 语句的 ? 
-
-### 框架结构
+## 框架结构
 
 ![mybatis-plus-framework.jpg](/img/mybatis/mybatis-plus-framework.jpg)
 
-### 入口类 MybatisSqlSessionFactoryBuilder
+## 入口类 MybatisSqlSessionFactoryBuilder
 
 通过在入口类`MybatisSqlSessionFactoryBuilder#build`方法中, 在应用启动时, 将`mybatis plus`自定义的动态配置`xml`文件注入到`Mybatis`中。
 
@@ -90,7 +88,7 @@ public class MybatisSqlSessionFactoryBuilder extends SqlSessionFactoryBuilder {
 }
 ```
 
-### MybatisConfiguration 
+## MybatisConfiguration 
 
 ```java
 /**
