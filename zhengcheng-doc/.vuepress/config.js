@@ -145,7 +145,8 @@ module.exports = {
                     './concurrent/cas',
                     './concurrent/AQS',
                     './concurrent/thread-local',
-                    './concurrent/thread-pool-executor'
+                    './concurrent/thread-pool-executor',
+                    './concurrent/TransmittableThreadLocal'
                 ]
             },
             {
