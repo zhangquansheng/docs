@@ -69,6 +69,7 @@ zc.executor.thread-name-prefix=default-executor-
 
 提供以下几种方法将任务提交到`ExecutorService`对应的线程池：
 ```java
+// Executor 接口的方法
 void execute(Runnable command);
 
 <T> Future<T> submit(Callable<T> task);
@@ -86,4 +87,44 @@ Future<?> submit(Runnable task);
 <T> T invokeAny(Collection<? extends Callable<T>> tasks,
         long timeout, TimeUnit unit)
         throws InterruptedException, ExecutionException, TimeoutException;
+```
+
+::: tip 常见面试题：`execute` 和 `submit` 的区别
+1. `execute`是`Executor`接口的方法，而`submit`是`ExecutorService`的方法，并且`ExecutorService`接口继承了`Executor`接口。
+2. `execute`只接受`Runnable`参数，没有返回值；而`submit`可以接受`Runnable`参数和`Callable`参数，并且返回了`Future`对象，可以进行任务取消、获取任务结果、判断任务是否执行完毕/取消等操作。其中，`submit`会对`Runnable`或`Callable`入参封装成`RunnableFuture`对象，调用`execute`方法并返回。
+3. 通过`execute`方法提交的任务如果出现异常则直接抛出原异常，是在线程池中的线程中；而`submit`方法是捕获了异常的，只有当调用`Future`的`get`方法时，才会抛出`ExecutionException`异常，且是在调用`get`方法的线程。
+:::
+
+#### execute(Runnable command)
+
+```java
+executorService.execute(new Runnable() {
+    public void run() {
+       // todo something
+    }
+});
+    
+//executorService.shutdown();
+```
+
+#### submit(Runnable)
+
+```java
+Future future = executorService.submit(new Runnable() {
+    public void run() {
+        // todo something
+    }
+});
+```
+
+#### submit(Callable)
+
+`Callable`的`call()`方法可以返回结果
+```java
+Future future = executorService.submit(new Callable(){
+    public Object call() throws Exception {
+        // todo something
+        return "Callable Result";
+    }
+});
 ```
