@@ -65,4 +65,25 @@ zc.executor.thread-name-prefix=default-executor-
 - 方法所属的类的对象需要是被Spring容器所管理的，也就是指被`@Controller` `@Service` `@Repository` `@Component`这些注解的类
 :::
 
-### ExecutorService :hammer:
+### ExecutorService 
+
+提供以下几种方法将任务提交到`ExecutorService`对应的线程池：
+```java
+void execute(Runnable command);
+
+<T> Future<T> submit(Callable<T> task);
+<T> Future<T> submit(Runnable task, T result);
+Future<?> submit(Runnable task);
+
+<T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks)
+        throws InterruptedException;
+<T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks,
+        long timeout, TimeUnit unit)
+        throws InterruptedException;
+
+<T> T invokeAny(Collection<? extends Callable<T>> tasks)
+        throws InterruptedException, ExecutionException;
+<T> T invokeAny(Collection<? extends Callable<T>> tasks,
+        long timeout, TimeUnit unit)
+        throws InterruptedException, ExecutionException, TimeoutException;
+```
