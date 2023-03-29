@@ -345,6 +345,7 @@ module.exports = {
                 children: [
                     './digging-deeper/Clean-Code',
                     './digging-deeper/naming',
+                    './digging-deeper/DateTime',
                     './digging-deeper/plugin',
                     './digging-deeper/io',
                     './digging-deeper/oom',
