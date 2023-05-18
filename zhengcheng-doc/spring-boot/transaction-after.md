@@ -21,11 +21,18 @@
 public void handle() {
     // 业务代码
         
-    TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronizationAdapter() {
-        @Override
-        public void afterCommit() {
-            // 事务提交以后的调用的方法，例如MQ，第三方接口调用
-        }
-    });
-}
+    //判断是否在事务当中,如果在事务中则,则在事务提交以后调用，否则直接调用
+    if (TransactionSynchronizationManager.isSynchronizationActive()) {
+        //如果在事务中，则在事务结束后调用
+        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronizationAdapter() {
+            @Override
+            public void afterCommit() {
+                // 事务提交以后的调用的方法，例如MQ，第三方接口调用
+            }
+        });
+    } else {
+        // 事务提交以后的调用的方法，例如MQ，第三方接口调用
+    }
+
+}    
 ```
