@@ -12,4 +12,4 @@
 - redis 各种模式下如何解决可用性的，算法是什么，redlog是什么
 - redis 解决数据一致性，延迟双删，延迟多长时间，redis的写入时间
 - 异步线程的使用、插装线程，监控线程，线程启动的方式submit与run的区别
-- 
+- Java 8 CompletableFuture 多线程

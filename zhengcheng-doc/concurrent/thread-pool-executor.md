@@ -189,7 +189,7 @@ Runnable自 Java 1.0 以来一直存在，但Callable仅在 Java 1.5 中引入,�
 ## 如何创建线程池
 
 1. 通过 ThreadPoolExecutor构造方法（提供了四个构造方法）实现
-2. 通过工具类 Executors 来实现（《阿里巴巴 Java 开发手册》中强制线程池不允许使用 Executors 去创建，而是通过 ThreadPoolExecutor 的方式）
+2. 通过工具类 Executors 来实现（《阿里巴巴 Java 开发手册》中**强制线程池不允许使用 Executors 去创建，而是通过 ThreadPoolExecutor 的方式**）
 
 ## RejectedExecutionHandler 饱和策略
 
