@@ -217,7 +217,8 @@ module.exports = {
                     './mysql/sql-execute',
                     './mysql/index-invalid',
                     './mysql/department-highest-salary',
-                    './mysql/having'
+                    './mysql/having',
+                    './mysql/MySQL-8'
                 ]
             },  {
                 title: 'Redis',
