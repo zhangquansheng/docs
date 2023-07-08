@@ -1,6 +1,5 @@
 # 待办
 
-- @EnableAspectJAutoProxy(exposeProxy = true) AspectJAutoProxyRegistrar 实现原理 AspectJ 的实现原理
 - Spring处理@Async导致的循环依赖失败问题的方案详解 http://www.45fan.com/article.php?aid=1D5hgg7OHe5PBWNd
 - 同时配置 Feign 和 Ribbon 的超时时间的优先级
 - JMC 1.8 的使用学习，
@@ -13,3 +12,4 @@
 - redis 解决数据一致性，延迟双删，延迟多长时间，redis的写入时间
 - 异步线程的使用、插装线程，监控线程，线程启动的方式submit与run的区别
 - Java 8 CompletableFuture 多线程
+- Java 8 函数式编程 学习下，然后把事务工具类写进来
