@@ -12,4 +12,3 @@
 - redis 解决数据一致性，延迟双删，延迟多长时间，redis的写入时间
 - 异步线程的使用、插装线程，监控线程，线程启动的方式submit与run的区别
 - Java 8 CompletableFuture 多线程
-- Java 8 函数式编程 学习下，然后把事务工具类写进来
