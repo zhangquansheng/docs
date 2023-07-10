@@ -116,7 +116,8 @@ module.exports = {
                 title: 'Java 基础',
                 collapsable: false,
                 children: [
-                    './java/java8-new-features',
+                    './java/java8-func',
+                    './java/java8-stream',
                     './java/java-basic-datatypes',
                     './java/generics',
                     './java/reference',
