@@ -219,7 +219,8 @@ module.exports = {
                     './mysql/index-invalid',
                     './mysql/department-highest-salary',
                     './mysql/having',
-                    './mysql/MySQL-8'
+                    './mysql/MySQL-8',
+                    './mysql/limit_order_by'
                 ]
             },  {
                 title: 'Redis',
