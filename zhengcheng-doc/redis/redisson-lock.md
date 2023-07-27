@@ -5,7 +5,7 @@
 Redisson分布式锁方案优点：
 1. 和`Zookeeper`相比较，`Redisson`基于`Redis`性能更高，适合对性能要求高的场景
 2. Redisson 通过 **Watch Dog（看门狗）** 机制很好的解决了锁的续期问题
-3. 通过 Redisson 实现分布式**可重入锁**，比原生的SET mylock userId NX PX milliseconds + lua实现的效果更好些，虽然基本原理都一样，但是它帮我们屏蔽了内部的执行细节。
+3. 通过 Redisson 实现分布式**可重入锁**，比原生的`SET mylock userId NX PX milliseconds + lua`实现的效果更好些，虽然基本原理都一样，但是它帮我们屏蔽了内部的执行细节。
 
 存在的问题：
 1. 存在分布式问题，解决办法引入RedLock解决方案（有争议）
