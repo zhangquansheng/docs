@@ -1,5 +1,7 @@
 # Redisson 分布式锁 :+1:
 
+其实[Redis官网](https://redis.io/topics/distlock)已经给出了实现，建议用 `Redlock` 实现（区别于 `setnx`、`expire` ），这样更规范、更安全。
+
 Redisson分布式锁方案优点：
 1. 和`Zookeeper`相比较，`Redisson`基于`Redis`性能更高，适合对性能要求高的场景
 2. Redisson 通过 **Watch Dog（看门狗）** 机制很好的解决了锁的续期问题
@@ -25,7 +27,7 @@ Redisson分布式锁方案优点：
    - 加锁key = KEYS[1]
    - 若 key 存在返回 1 ，否则返回 0
 2. 新增该锁并且hash中该线程id对应的count置1，设置过期时间，默认30秒
-   - 使用 hincrby 命令
+   - 使用 [hincrby](https://www.runoob.com/redis/hashes-hincrby.html) 命令
    - hash中的field = Redisson客户端ID(UUID)+线程ID
    - 使用 pexpire 命令设置过期时间
 3. 存在该key 并且 hash中线程id的key也存在，则线程重入次数+1（可重入锁），否则返回该key的剩余过期时间
