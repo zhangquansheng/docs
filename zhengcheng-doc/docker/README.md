@@ -7,4 +7,7 @@ Docker 是一个开源的应用**容器引擎**，让开发者可以打包他们
 - Docker 的 GitHub: [https://github.com/moby/moby](https://github.com/moby/moby)
 :::
 
+- Docker技术 ( 容器虚拟化技术 )
+- iso 映像文件，镜像文件
+
 
