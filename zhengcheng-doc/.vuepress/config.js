@@ -257,7 +257,8 @@ module.exports = {
                     './kafka/',
                     './kafka/spring-kafka',
                     './kafka/multiple-kafka-config',
-                    './kafka/message-sequencing'
+                    './kafka/message-sequencing',
+                    './kafka/spring-kafka-retry'
                 ]
             }, {
                 title: 'RocketMQ',
