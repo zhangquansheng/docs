@@ -401,15 +401,16 @@ module.exports = {
             //         './PM/project-flow',
             //     ]
             // },
+            // {
+            //     title: '代码人生',
+            //     collapsable: false,
+            //     children: [
+            //         './career/',
+            //         './career/biz',
+            //         './career/book-list',
+            //     ]
+            // },
             {
-                title: '代码人生',
-                collapsable: false,
-                children: [
-                    './career/',
-                    './career/biz',
-                    './career/book-list',
-                ]
-            }, {
                 title: 'FAQ',
                 collapsable: false,
                 children: [
