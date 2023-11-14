@@ -38,6 +38,62 @@ public static void main(String[] args) throws InterruptedException, UnsupportedE
 }
 ```
 
+## Redis 实现过期监听
+
+```java
+package cn.seczone.iast.framework.redis.config.vh2cache;
+
+import com.github.benmanes.caffeine.cache.Cache;
+
+import org.springframework.data.redis.connection.Message;
+import org.springframework.data.redis.listener.KeyExpirationEventMessageListener;
+import org.springframework.data.redis.listener.RedisMessageListenerContainer;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
+
+import cn.hutool.core.text.CharSequenceUtil;
+import lombok.extern.slf4j.Slf4j;
+
+/**
+ * MyRedisKeyExpirationListener
+ *
+ * @author quansheng1.zhang
+ * @since 2023/11/6 17:54
+ */
+@Slf4j
+@Component
+public class MyRedisKeyExpirationListener  extends KeyExpirationEventMessageListener {
+
+    public Vh2CacheRedisKeyExpirationListener(RedisMessageListenerContainer listenerContainer) {
+        super(listenerContainer);
+    }
+
+    // spring.redis.listener.channels=__keyevent@*:expired 默认监听所有的过期key，且是广播通知
+    @Override
+    public void onMessage(Message message, byte[] pattern) {
+        try {
+            String expiredKey = message.toString();
+            if (CharSequenceUtil.isNotBlank(expiredKey)) {
+                if (log.isDebugEnabled()) {
+                    log.debug("key message: " + expiredKey + " expired.");
+                }
+                //TODO 需要处理的业务，例如关闭订单
+            }
+        } catch (Exception ignored) {
+
+        }
+    }
+}
+```
+
+::: tip
+Redis不能确保`key`在指定时间被删除，可能会造成了通知的延期。
+
+官方文档在`Timing of expired events`中，明确的说明了
+"Basically expired events are generated when the Redis server deletes the key and not when the time to live theoretically reaches the value of zero."
+:::
+
 ## 参考文档
 
 - [基于Redis实现延时队列——Redisson延时队列解析](https://juejin.cn/post/6931288745844932621)
