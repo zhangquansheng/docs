@@ -38,7 +38,7 @@ public static void main(String[] args) throws InterruptedException, UnsupportedE
 }
 ```
 
-## Redis 实现过期监听
+## Redis 实现过期监听 （不推荐）
 
 ```java
 package cn.seczone.iast.framework.redis.config.vh2cache;
@@ -93,6 +93,7 @@ Redis不能确保`key`在指定时间被删除，可能会造成了通知的延�
 官方文档在`Timing of expired events`中，明确的说明了
 "Basically expired events are generated when the Redis server deletes the key and not when the time to live theoretically reaches the value of zero."
 :::
+
 
 ## 参考文档
 

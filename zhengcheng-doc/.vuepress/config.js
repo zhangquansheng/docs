@@ -237,6 +237,7 @@ module.exports = {
                     './redis/big-key',
                     './redis/bitmap',
                     './redis/delay-queue',
+                    './redis/pub-sub',
                     './redis/J2Cache',
                 ]
             }, {
