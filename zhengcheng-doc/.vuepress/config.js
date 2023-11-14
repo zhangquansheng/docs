@@ -348,6 +348,7 @@ module.exports = {
                 title: '综合话题&源码分析',
                 collapsable: false,
                 children: [
+                    './digging-deeper/docker-in-action',
                     './digging-deeper/Clean-Code',
                     './digging-deeper/naming',
                     './digging-deeper/DateTime',
@@ -375,14 +376,7 @@ module.exports = {
                     './digging-deeper/seckill',
                     './digging-deeper/ddd'
                 ]
-            }, {
-                title: 'Docker',
-                collapsable: false,
-                children: [
-                    './docker/',
-                    './docker/docker-in-action'
-                ]
-            }, {
+            },  {
                 title: '微服务框架体系',
                 collapsable: false,
                 children: [
