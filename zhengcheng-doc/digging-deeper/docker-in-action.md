@@ -22,7 +22,7 @@ Docker 是一个开源的应用**容器引擎**，基于`Go`语言进行开发�
 
 由于容器不需要进行硬件虚拟以及运行完整操作系统等额外开销， `Docker`对系统资源的利用率更高。无 论是应用执行速度、内存损耗或者文件存储速度，都要比传统虚拟机技术更高效。因此，相比虚拟机技术，一个相同配置的主机，往往可以运行更多数量的应用。
 
-## 安装 Docker
+## Docker 安装 
 
 ::: tip
 - [CentOS Docker 安装](https://www.runoob.com/docker/centos-docker-install.html)
@@ -38,7 +38,63 @@ curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
 ```
 
 启动 Docker。
-
 ```shell
 systemctl start docker
 ```
+
+## Docker 重要概念
+
+### Docker 镜像
+
+镜像就是一个只读的模板，镜像可以用来创建`Docker`容器，一个镜像可以创建多个容器。
+
+1. 构建`Dockerfile`
+
+`Dockerfile` 是用来定义`Docker`镜像内容的文件，通常是`JSON`格式。其中包含了基础镜像、操作指令（`RUN`、`CMD`、`EXPOSE` 等）、环境变量、工作目录等。例如：
+```
+FROM ubuntu:18.04
+RUN apt-get update && apt-get install -y python3
+CMD ["python3", "app.py"]
+EXPOSE 8080
+```
+
+2. 构建`Docker`镜像
+
+使用`docker build`命令构建`Docker`镜像，例如：
+
+```shell
+docker build -t my-image
+```
+
+3. 运行`Docker`镜像
+
+使用 `docker run` 命令运行`Docker`镜像，例如：
+
+```shell
+docker run -p 8080:80 my-image
+```
+
+### Docker 容器
+
+容器是用镜像创建的运行实例，`Docker`利用容器独立运行一个或一组应用。它可以被启动、开始、停止、删除，每个容器都是相互隔离的、保证安全的平台。
+可以把容器看作是一个简易的 Linux 环境和运行在其中的应用程序。容器的定义和镜像几乎一模一样，也是一堆层的统一视角，唯一区别在于容器的最上面那一层是可读可写的。
+
+1. 创建 Docker 容器
+
+使用 `docker create` 命令创建`Docker`容器，例如：
+```shell
+docker create -it my-container my-image
+```
+
+2. 启动 Docker 容器
+
+使用 `docker start` 命令启动已创建的`Docker`容器，例如：
+```shell
+docker start my-container
+```
+
+3. 进入 Docker 容器内部操作
+
+使用 `docker exec` 命令进入`Docker`容器内部操作，例如：
+```shell
+docker exec -it my-container /bin/bash  #进入容器内部，并启动bash终端（-it`选项允许交互式会话）`bash`命令启动bash shell。`my-container`是容器的名称或ID。现在你可以在bash shell中运行任何命令。`exit`退出shell。现在你已经退出了容器。你可以用`docker ps`查看当前运行的容器列表。看到你的容器已经停止运行（状态为Exited）。
