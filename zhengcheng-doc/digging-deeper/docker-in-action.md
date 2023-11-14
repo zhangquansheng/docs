@@ -98,3 +98,16 @@ docker start my-container
 使用 `docker exec` 命令进入`Docker`容器内部操作，例如：
 ```shell
 docker exec -it my-container /bin/bash  #进入容器内部，并启动bash终端（-it`选项允许交互式会话）`bash`命令启动bash shell。`my-container`是容器的名称或ID。现在你可以在bash shell中运行任何命令。`exit`退出shell。现在你已经退出了容器。你可以用`docker ps`查看当前运行的容器列表。看到你的容器已经停止运行（状态为Exited）。
+```
+
+## 五、Docker 镜像命令、容器命令
+
+### Docker 镜像命令
+
+### Docker 容器命令
+
+## 六、参考文档
+
+- [Docker 菜鸟教程](https://m.runoob.com/docker/)
+- Docker 的官方网站: [https://www.docker.com/](https://www.docker.com/)
+- Docker 的 GitHub: [https://github.com/moby/moby](https://github.com/moby/moby)
