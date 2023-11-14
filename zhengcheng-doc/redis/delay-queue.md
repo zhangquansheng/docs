@@ -41,20 +41,6 @@ public static void main(String[] args) throws InterruptedException, UnsupportedE
 ## Redis 实现过期监听 （不推荐）
 
 ```java
-package cn.seczone.iast.framework.redis.config.vh2cache;
-
-import com.github.benmanes.caffeine.cache.Cache;
-
-import org.springframework.data.redis.connection.Message;
-import org.springframework.data.redis.listener.KeyExpirationEventMessageListener;
-import org.springframework.data.redis.listener.RedisMessageListenerContainer;
-import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
-
-import cn.hutool.core.text.CharSequenceUtil;
-import lombok.extern.slf4j.Slf4j;
-
 /**
  * MyRedisKeyExpirationListener
  *
