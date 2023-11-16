@@ -349,6 +349,7 @@ module.exports = {
                 collapsable: false,
                 children: [
                     './digging-deeper/docker-in-action',
+                    './digging-deeper/docker-compose',
                     './digging-deeper/Clean-Code',
                     './digging-deeper/naming',
                     './digging-deeper/DateTime',
