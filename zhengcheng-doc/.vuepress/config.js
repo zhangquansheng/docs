@@ -36,57 +36,17 @@ module.exports = {
         logo: '/img/logo.png',
         nav: [
             {text: '首页', link: '/'},
-            {
-                text: '好站',
-                items: [
-                    {
-                        text: '凤凰架构',
-                        link: 'https://icyfenix.cn/'
-                    },
-                    {
-                        text: 'Spring Framework Documentation',
-                        link: 'https://docs.spring.io/spring-framework/docs/current/reference/html/index.html'
-                    },
-                    {
-                        text: 'Spring Boot 2.1.18.RELEASE',
-                        link: 'https://docs.spring.io/spring-boot/docs/2.1.18.RELEASE/reference/html/'
-                    },
-                    {
-                        text: 'Spring Cloud Greenwich.SR5',
-                        link: 'https://cloud.spring.io/spring-cloud-static/Greenwich.SR5/single/spring-cloud.html'
-                    },
-                    {text: 'MyBatis-Plus', link: 'http://mybatis.plus/'},
-                    {
-                        text: 'ShardingSphere',
-                        link: 'https://shardingsphere.apache.org/document/current/cn/overview/'
-                    },
-                    {text: 'MVN REPOSITORY', link: 'https://mvnrepository.com/'},
-                    {
-                        text: 'Algorithms',
-                        link: 'https://www.cs.usfca.edu/~galles/visualization/Algorithms.html'
-                    },
-                    {text: 'Hutool', link: 'https://www.hutool.cn/'},
-                    {text: '力扣（LeetCode）', link: 'https://leetcode.cn/'},
-                    {text: 'Arthas（阿尔萨斯）', link: 'https://github.com/alibaba/arthas'},
-                    {text: 'ProcessOn', link: 'https://www.processon.com/'},
-                    {
-                        text: 'P3C',
-                        link: 'https://github.com/alibaba/p3c'
-                    },
-                    {
-                        text: 'stack overflow',
-                        link: 'https://stackoverflow.com/'
-                    },
-                    {
-                        text: 'redisson-spring-boot-starter',
-                        link: 'https://github.com/redisson/redisson/tree/master/redisson-spring-boot-starter'
-                    },
-                ]
-            },
             {text: '更新日志', link: '/change-log/'},
             {text: 'GitHub', link: 'https://github.com/zhangquansheng/zhengcheng-parent'},
         ],
         sidebar: [
+            {
+                title: '好站',
+                collapsable: false,
+                children: [
+                    './awesome/'
+                ]
+            },
             {
                 title: '更新日志',
                 collapsable: false,

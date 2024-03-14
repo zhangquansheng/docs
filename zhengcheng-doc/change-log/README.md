@@ -1,6 +1,19 @@
 # CHANGELOG
 
-[typora MD编辑器](https://www.typora.io/)
+### [v6.1.1-RC] 2024.01
+
+- 整理 `zhengcheng-parent` 项目的系统模块 ums cms frontend
+- Bumps hutool-core from 5.7.4 to 5.8.20.
+- 增加分布式锁的 [lock4j](https://gitee.com/baomidou/lock4j)
+
+### [v6.1.0] 2022.08
+
+- 增加`幂等或防重复提交`自定义注解 `@Idempotent`
+- 新增限流器 自定义注解 `@RateLimiter`
+- `zc-rsa-encrypt-body-spring-boot-starter` 升级为 `zc-encrypt-body-spring-boot-starter`， 支持AES/RSA
+- 采用ttl对相应的线程池进行包装（修改之前的漏洞）
+- 禁止直接引入 `hutool-all` 依赖，依照`即取即用`的原则引入依赖
+- json数据推荐使用`jackson`、`fastjson2`，而不要使用 `fastjson` 、 `hutool-json` 等第三方包
 
 ## [v6.0.0] 2022.02.24
 
