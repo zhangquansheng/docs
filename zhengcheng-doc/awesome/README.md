@@ -2,7 +2,6 @@
 
 ## 目录
 
-- [Awesome GitHub Reo](#awesome-github-repo)
 - [目录](#目录)
 - 日常开发
   - [JAVA开发](#JAVA开发)

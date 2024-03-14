@@ -48,6 +48,21 @@ module.exports = {
                 ]
             },
             {
+                title: '算法',
+                collapsable: false,
+                children: [
+                    './algorithms/',
+                    './algorithms/algorithms-think',
+                    './algorithms/binary-tree',
+                    './algorithms/sort',
+                    './algorithms/data-structure',
+                    './algorithms/dynamic-programming',
+                    './algorithms/lru',
+                    './algorithms/balanced-tree',
+                    './algorithms/sliding-window'
+                ]
+            },
+            {
                 title: '更新日志',
                 collapsable: false,
                 children: [
