@@ -288,8 +288,8 @@ module.exports = {
                     './zk/zab',
                     './zk/watcher',
                     './zk/lock'
-                ]
             }, {
+                ]
                 title: 'MyBatis',
                 collapsable: false,
                 children: [
@@ -348,8 +348,6 @@ module.exports = {
                 title: '综合话题&源码分析',
                 collapsable: false,
                 children: [
-                    './digging-deeper/docker-in-action',
-                    './digging-deeper/docker-compose',
                     './digging-deeper/Clean-Code',
                     './digging-deeper/naming',
                     './digging-deeper/DateTime',
@@ -372,7 +370,7 @@ module.exports = {
                     './digging-deeper/sequence-diagram',
                     './digging-deeper/auto-cancel',
                     './digging-deeper/duplicate-pay',
-                    './digging-deeper/Middle-Platform',
+                    // './digging-deeper/Middle-Platform',
                     './digging-deeper/visit-incr',
                     './digging-deeper/seckill',
                     './digging-deeper/ddd'
