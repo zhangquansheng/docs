@@ -269,19 +269,20 @@ module.exports = {
                     './system-design/seckill'
                 ]
             },
+            // {
+            //     title: '分布式',
+            //     collapsable: false,
+            //     children: [
+            //         './distributed/'
+            //     ]
+            // },{
+            //     title: '高性能、高并发、高可用',
+            //     collapsable: false,
+            //     children: [
+            //         './high/'
+            //     ]
+            // },
             {
-                title: '分布式',
-                collapsable: false,
-                children: [
-                    './distributed/'
-                ]
-            },{
-                title: '高性能、高并发、高可用',
-                collapsable: false,
-                children: [
-                    './high/'
-                ]
-            }, {
                 title: '源码分析',
                 collapsable: false,
                 children: [
