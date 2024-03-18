@@ -48,18 +48,27 @@ module.exports = {
                 ]
             },
             {
-                title: '算法',
+                title: 'Java',
                 collapsable: false,
                 children: [
-                    './algorithms/',
-                    './algorithms/algorithms-think',
-                    './algorithms/binary-tree',
-                    './algorithms/sort',
-                    './algorithms/data-structure',
-                    './algorithms/dynamic-programming',
-                    './algorithms/lru',
-                    './algorithms/balanced-tree',
-                    './algorithms/sliding-window'
+                    './java/java8-func',
+                    './java/java8-stream',
+                    './java/java-basic-datatypes',
+                    './java/generics',
+                    './java/reference',
+                    './java/abstract-interface',
+                    './java/HashMap',
+                    './java/ConcurrentHashMap'
+                ]
+            },
+            {
+                title: 'Java 虚拟机底层原理',
+                collapsable: false,
+                children: [
+                    './jvm/',
+                    './jvm/gc',
+                    './jvm/cms',
+                    './jvm/g1'
                 ]
             },
             {
