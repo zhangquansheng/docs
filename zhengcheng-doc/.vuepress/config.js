@@ -281,30 +281,6 @@ module.exports = {
                     './source-code-hunter/xxl-job',
                     './source-code-hunter/http-long-polling',
                 ]
-            },{
-                title: '待梳理',
-                collapsable: false,
-                children: [
-                    './digging-deeper/Clean-Code',
-                    './digging-deeper/naming',
-                    './digging-deeper/DateTime',
-                    './digging-deeper/io',
-                    './digging-deeper/oom',
-                    './digging-deeper/copy-properties',
-                    './digging-deeper/sign-auth',
-                    './digging-deeper/mdc',
-                    './digging-deeper/distributed-lock',
-                    // './digging-deeper/meituan-leaf',
-                    './digging-deeper/cpu100',
-                    './digging-deeper/bitmap',
-                    './digging-deeper/multipart-upload',
-                    './digging-deeper/arthas',
-                    './digging-deeper/distributed-transaction',
-                    './digging-deeper/sequence-diagram',
-                    './digging-deeper/auto-cancel',
-                    './digging-deeper/duplicate-pay',
-                    './digging-deeper/Middle-Platform',
-                ]
             }, {
                 title: 'zhengcheng 开发指南',
                 collapsable: false,
