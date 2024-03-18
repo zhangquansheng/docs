@@ -89,95 +89,12 @@ module.exports = {
         ],
         sidebar: [
             {
-                title: '开发指南',
-                collapsable: false,
-                children: [
-                    './guide/',
-                    './guide/getting-started',
-                    './guide/web-core',
-                    './guide/mybatis-plus',
-                    './guide/dynamic-datasource',
-                    './guide/cache',
-                    './guide/idempotent',
-                    './guide/feign',
-                    './guide/async',
-                    './guide/mapstruct',
-                    // './guide/apollo',
-                    './guide/nacos',
-                    './guide/socketio',
-                    './guide/nacos-eureka',
-                    './guide/log'
-                ]
-            },
-            {
                 title: 'Spring Cloud 大型线上商城项目实战',
                 collapsable: false,
                 children: [
                     './mall/',
                     './mall/sa-token',
                     './mall/product'
-                ]
-            },
-            {
-                title: '并发编程',
-                collapsable: false,
-                children: [
-                    './concurrent/volatile',
-                    './concurrent/synchronized',
-                    './concurrent/cas',
-                    './concurrent/AQS',
-                    './concurrent/thread-local',
-                    './concurrent/TransmittableThreadLocal',
-                    './concurrent/thread-pool-executor',
-                    './concurrent/Future',
-                    './concurrent/CompletableFuture'
-                ]
-            },
-
-            {
-                title: 'Apache ShardingSphere',
-                collapsable: false,
-                children: [
-                    './shardingsphere/',
-                    './shardingsphere/concept',
-                    './shardingsphere/getting-started',
-                    './shardingsphere/sharding'
-                ]
-            }, {
-                title: '数据结构与算法',
-                collapsable: false,
-                children: [
-                    './algorithms/',
-                    './algorithms/algorithms-think',
-                    './algorithms/binary-tree',
-                    './algorithms/sort',
-                    './algorithms/data-structure',
-                    './algorithms/dynamic-programming',
-                    './algorithms/lru'
-                    // './algorithms/balanced-tree',
-                    // './algorithms/sliding-window',
-                ]
-            }, {
-                title: '面向对象设计模式',
-                collapsable: false,
-                children: [
-                    './design-patterns/',
-                    './design-patterns/factory',
-                    './design-patterns/abstract-factory',
-                    './design-patterns/builder',
-                    './design-patterns/adapter',
-                    './design-patterns/singleton',
-                    './design-patterns/strategy',
-                    './design-patterns/template',
-                    './design-patterns/facade',
-                    './design-patterns/flyweight',
-                    './design-patterns/proxy',
-                    './design-patterns/chain-of-responsibility',
-                    './design-patterns/mediator',
-                    './design-patterns/principle',
-                    './design-patterns/ifelse-1',
-                    './design-patterns/ifelse-2',
-                    './design-patterns/dynamic-proxy'
                 ]
             }, {
                 title: '综合话题&源码分析',

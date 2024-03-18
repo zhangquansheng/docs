@@ -70,8 +70,57 @@ module.exports = {
                     './jvm/cms',
                     './jvm/g1'
                 ]
-            },
-            {
+            }, {
+                title: '并发编程',
+                collapsable: false,
+                children: [
+                    './concurrent/volatile',
+                    './concurrent/synchronized',
+                    './concurrent/cas',
+                    './concurrent/AQS',
+                    './concurrent/thread-local',
+                    './concurrent/TransmittableThreadLocal',
+                    './concurrent/thread-pool-executor',
+                    './concurrent/Future',
+                    './concurrent/CompletableFuture'
+                ]
+            },{
+                title: '数据结构与算法',
+                collapsable: false,
+                children: [
+                    './algorithms/',
+                    './algorithms/algorithms-think',
+                    './algorithms/binary-tree',
+                    './algorithms/sort',
+                    './algorithms/data-structure',
+                    './algorithms/dynamic-programming',
+                    './algorithms/lru'
+                    // './algorithms/balanced-tree',
+                    // './algorithms/sliding-window',
+                ]
+            }, {
+                title: '面向对象设计模式',
+                collapsable: false,
+                children: [
+                    './design-patterns/',
+                    './design-patterns/factory',
+                    './design-patterns/abstract-factory',
+                    './design-patterns/builder',
+                    './design-patterns/adapter',
+                    './design-patterns/singleton',
+                    './design-patterns/strategy',
+                    './design-patterns/template',
+                    './design-patterns/facade',
+                    './design-patterns/flyweight',
+                    './design-patterns/proxy',
+                    './design-patterns/chain-of-responsibility',
+                    './design-patterns/mediator',
+                    './design-patterns/principle',
+                    './design-patterns/ifelse-1',
+                    './design-patterns/ifelse-2',
+                    './design-patterns/dynamic-proxy'
+                ]
+            }, {
                 title: 'MySQL',
                 collapsable: false,
                 children: [
@@ -103,6 +152,15 @@ module.exports = {
                     './mybatis/mybatis-crud',
                     './mybatis/MyBatis-Plus',
                     './mybatis/DataPermissionHandler',
+                ]
+            }, {
+                title: 'Apache ShardingSphere',
+                collapsable: false,
+                children: [
+                    './shardingsphere/',
+                    './shardingsphere/concept',
+                    './shardingsphere/getting-started',
+                    './shardingsphere/sharding'
                 ]
             }, {
                 title: 'Redis',
@@ -210,12 +268,52 @@ module.exports = {
                 children: [
                     './distributed/'
                 ]
+            },{
+                title: '高性能、高并发、高可用',
+                collapsable: false,
+                children: [
+                    './high/'
+                ]
+            }, {
+                title: '源码分析',
+                collapsable: false,
+                children: [
+                    'source-code-hunter'
+                ]
+            }, {
+                title: 'zhengcheng 开发指南',
+                collapsable: false,
+                children: [
+                    './guide/',
+                    './guide/getting-started',
+                    './guide/web-core',
+                    './guide/mybatis-plus',
+                    './guide/dynamic-datasource',
+                    './guide/cache',
+                    './guide/idempotent',
+                    './guide/feign',
+                    './guide/async',
+                    './guide/mapstruct',
+                    // './guide/apollo',
+                    './guide/nacos',
+                    './guide/socketio',
+                    './guide/nacos-eureka',
+                    './guide/log'
+                ]
             },
             {
                 title: '开发工具',
                 collapsable: false,
                 children: [
                     './maven/'
+                ]
+            },
+            {
+                title: 'DevOps',
+                collapsable: false,
+                children: [
+                    './devops/docker-in-action',
+                    './devops/docker-compose'
                 ]
             },
             {
