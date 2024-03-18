@@ -79,7 +79,6 @@ module.exports = {
                     './concurrent/cas',
                     './concurrent/AQS',
                     './concurrent/thread-local',
-                    './concurrent/TransmittableThreadLocal',
                     './concurrent/thread-pool-executor',
                     './concurrent/Future',
                     './concurrent/CompletableFuture'
@@ -160,7 +159,6 @@ module.exports = {
                     './shardingsphere/',
                     './shardingsphere/concept',
                     './shardingsphere/getting-started',
-                    './shardingsphere/sharding'
                 ]
             }, {
                 title: 'Redis',
@@ -215,8 +213,7 @@ module.exports = {
                     './spring-cloud/ribbon',
                     './spring-cloud/refresh-scope',
                     './spring-cloud/apollo-zuul',
-                    './spring-cloud/Hystrix',
-                    './spring-cloud/gw'
+                    './spring-cloud/Hystrix'
                 ]
             }, {
                 title: 'Elasticsearch',
