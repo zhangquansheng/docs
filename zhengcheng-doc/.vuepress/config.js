@@ -263,6 +263,16 @@ module.exports = {
                 ]
             },
             {
+                title: '系统设计',
+                collapsable: false,
+                children: [
+                    './system-design/auto-cancel',
+                    './system-design/duplicate-pay',
+                    './system-design/sign-auth',
+                    './system-design/seckill'
+                ]
+            },
+            {
                 title: '分布式',
                 collapsable: false,
                 children: [
