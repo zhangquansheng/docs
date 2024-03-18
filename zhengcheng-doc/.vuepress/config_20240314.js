@@ -96,39 +96,6 @@ module.exports = {
                     './mall/sa-token',
                     './mall/product'
                 ]
-            }, {
-                title: '综合话题&源码分析',
-                collapsable: false,
-                children: [
-                    './digging-deeper/docker-in-action',
-                    './digging-deeper/docker-compose',
-                    './digging-deeper/Clean-Code',
-                    './digging-deeper/naming',
-                    './digging-deeper/DateTime',
-                    './digging-deeper/plugin',
-                    './digging-deeper/io',
-                    './digging-deeper/oom',
-                    './digging-deeper/copy-properties',
-                    './digging-deeper/sign-auth',
-                    './digging-deeper/mdc',
-                    './digging-deeper/distributed-lock',
-                    './digging-deeper/http-long-polling',
-                    './digging-deeper/xxl-job',
-                    './digging-deeper/xxl-rpc',
-                    // './digging-deeper/meituan-leaf',
-                    './digging-deeper/cpu100',
-                    './digging-deeper/bitmap',
-                    './digging-deeper/multipart-upload',
-                    './digging-deeper/arthas',
-                    './digging-deeper/distributed-transaction',
-                    './digging-deeper/sequence-diagram',
-                    './digging-deeper/auto-cancel',
-                    './digging-deeper/duplicate-pay',
-                    './digging-deeper/Middle-Platform',
-                    './digging-deeper/visit-incr',
-                    './digging-deeper/seckill',
-                    './digging-deeper/ddd'
-                ]
             },  {
                 title: '微服务框架体系',
                 collapsable: false,
