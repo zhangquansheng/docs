@@ -83,7 +83,7 @@ module.exports = {
                         link: '/spring-boot/'
                     }, {
                         text: 'SpringCloud',
-                        link: '/spring-cloud/'
+                        link: '/spring-cloud/feign/'
                     }, {
                         text: 'MyBatis',
                         link: '/mybatis/'
