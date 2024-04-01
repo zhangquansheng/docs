@@ -36,6 +36,96 @@ module.exports = {
         logo: '/img/logo.png',
         nav: [
             {text: '首页', link: '/'},
+            {
+                text: 'JAVA',
+                items: [
+                    {
+                        text: '基础',
+                        link: '/java/HashMap'
+                    }, {
+                        text: 'JVM',
+                        link: '/jvm/'
+                    }, {
+                        text: '并发',
+                        link: '/concurrent/synchronized'
+                    },
+                ]
+            }, {
+                text: '计算机基础',
+                items: [
+                    {
+                        text: '数据结构与算法',
+                        link: '/algorithms/'
+                    },
+                ]
+            }, {
+                text: '数据库',
+                items: [
+                    {
+                        text: 'MySQL',
+                        link: '/mysql/'
+                    }, {
+                        text: 'Redis',
+                        link: '/redis/'
+                    },{
+                        text: 'Elasticsearch',
+                        link: '/es/'
+                    },
+                ]
+            }, {
+                text: '常用框架',
+                items: [
+                    {
+                        text: 'Spring',
+                        link: '/spring/'
+                    }, {
+                        text: 'SpringBoot',
+                        link: '/spring-boot/'
+                    }, {
+                        text: 'SpringCloud',
+                        link: '/spring-cloud/'
+                    }, {
+                        text: 'MyBatis',
+                        link: '/mybatis/'
+                    }, {
+                        text: 'Apache ShardingSphere',
+                        link: '/shardingsphere/'
+                    },
+                ]
+            }, {
+                text: '系统设计',
+                items: [
+                    {
+                        text: '设计模式',
+                        link: '/design-patterns/'
+                    },
+                    {
+                        text: '秒杀系统',
+                        link: '/system-design/seckill/'
+                    },
+                    {
+                        text: '源码分析',
+                        link: '/source-code-hunter/http-long-polling/'
+                    },
+                ]
+            }, {
+                text: '中间件',
+                items: [
+                    {
+                        text: 'Kafka',
+                        link: '/kafka/'
+                    },
+                    {
+                        text: 'ZooKeeper',
+                        link: '/zk/'
+                    },
+                    {
+                        text: 'RocketMQ',
+                        link: '/rocketmq/'
+                    },
+                ]
+            },
+            {text: 'zhengcheng 开发指南', link: '/guide/'},
             {text: '更新日志', link: '/change-log/'},
             {text: 'GitHub', link: 'https://github.com/zhangquansheng/zhengcheng-parent'},
         ],
@@ -83,7 +173,7 @@ module.exports = {
                     './concurrent/Future',
                     './concurrent/CompletableFuture'
                 ]
-            },{
+            }, {
                 title: '数据结构与算法',
                 collapsable: false,
                 children: [
@@ -236,7 +326,7 @@ module.exports = {
                     './kafka/message-sequencing',
                     './kafka/spring-kafka-retry'
                 ]
-            },{
+            }, {
                 title: 'ZooKeeper',
                 collapsable: false,
                 children: [
