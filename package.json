@@ -15,7 +15,7 @@
   },
   "scripts": {
     "dev": "SET NODE_OPTIONS=--openssl-legacy-provider && vuepress dev zhengcheng-doc",
-    "build": "SET NODE_OPTIONS=--openssl-legacy-provider && vuepress build zhengcheng-doc"
+    "build": "vuepress build zhengcheng-doc"
   },
   "dependencies": {
     "moment": "^2.27.0",
