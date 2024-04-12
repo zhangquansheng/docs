@@ -130,13 +130,13 @@ module.exports = {
             {text: 'GitHub', link: 'https://github.com/zhangquansheng/zhengcheng-parent'},
         ],
         sidebar: [
-            {
-                title: '好站',
-                collapsable: false,
-                children: [
-                    './awesome/'
-                ]
-            },
+            // {
+            //     title: '好站',
+            //     collapsable: false,
+            //     children: [
+            //         './awesome/'
+            //     ]
+            // },
             {
                 title: 'Java',
                 collapsable: false,
