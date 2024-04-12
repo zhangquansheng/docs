@@ -287,6 +287,7 @@ module.exports = {
                 collapsable: false,
                 children: [
                     './spring-boot/',
+                    './spring-boot/configuration',
                     './spring-boot/configuration-properties',
                     './spring-boot/redis-pubsub',
                     './spring-boot/spring-boot-starter',
