@@ -1,4 +1,4 @@
-# Awesome
+# Java 开源项目集合
 
 非常棒的 Java 开源项目集合，我的 Java 开发必备！
 
@@ -9,6 +9,7 @@
 ## 实战项目
 
 - [RuoYi](https://gitee.com/y_project/RuoYi)：RuoYi 一款基于基于 SpringBoot 的权限管理系统 易读易懂、界面简洁美观，直接运行即可用 。
+- [Jeepay](https://gitee.com/jeequan/jeepay)：Jeepay是一套适合互联网企业使用的开源支付系统，支持多渠道服务商和普通商户模式。已对接微信支付，支付宝，云闪付官方接口，支持聚合码支付。
 
 ## JAVA开发
 
