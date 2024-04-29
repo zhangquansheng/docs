@@ -226,6 +226,7 @@ module.exports = {
                     './mysql/update',
                     './mysql/delete',
                     './mysql/count',
+                    './mysql/join',
                     './mysql/sql-execute',
                     './mysql/index-invalid',
                     './mysql/department-highest-salary',
