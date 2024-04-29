@@ -225,12 +225,13 @@ module.exports = {
                     './mysql/datetime',
                     './mysql/update',
                     './mysql/delete',
+                    './mysql/count',
                     './mysql/sql-execute',
                     './mysql/index-invalid',
                     './mysql/department-highest-salary',
                     './mysql/having',
                     './mysql/MySQL-8',
-                    './mysql/limit_order_by'
+                    './mysql/limit_order_by',
                 ]
             }, {
                 title: 'MyBatis',
