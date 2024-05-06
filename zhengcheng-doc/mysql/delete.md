@@ -51,12 +51,12 @@ DROP DATABASE database_name;
 ## TRUNCATE 与 DELETE FROM 区别
 
 1. `TRUNCATE TABLE`在功能上与不带`WHERE`子句的`DELETE`语句相同：二者均删除表中的全部行。但`TRUNCATE TABLE`比`DELETE`速度快，且使用的系统和事务日志资源少。
-2. `DELETE`语句每次删除一行，并在事务日志中为所删除的每行记录一项。`TRUNCATE TABLE`通过释放存储表数据所用的数据页来删除数据，并且只在事务日志中记录页的释放。
+2. **`DELETE`语句每次删除一行，并在事务日志中为所删除的每行记录一项。`TRUNCATE TABLE`通过释放存储表数据所用的数据页来删除数据，并且只在事务日志中记录页的释放。**
 3. `TRUNCATE TABLE`删除表中的所有行，但表结构及其列、约束、索引等保持不变，并且能针对具有自动递增值的字段，做计数重置归零重新计算的作用。
 4. 对于由`FOREIGN KEY`约束引用的表，不能使用`TRUNCATE TABLE`，而应使用不带`WHERE`子句的`DELETE`语句。由于`TRUNCATE TABLE`不记录在日志中，所以它不能激活触发器。
 5. `TRUNCATE TABLE`不能用于参与了索引视图的表。
 6. 对用`TRUNCATE TABLE`删除数据的表上增加数据时，要使用`UPDATE STATISTICS`来维护索引信息。
-7. 如果有`ROLLBACK`语句，`DELETE`操作将被撤销，但`TRUNCATE`不会撤销。
+7. **如果有`ROLLBACK`语句，`DELETE`操作将被撤销，但`TRUNCATE`不会撤销。**
 8. 执行`TRUNCATE TABLE`需要`DROP`权限。
 
 
