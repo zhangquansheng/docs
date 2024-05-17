@@ -67,7 +67,7 @@ module.exports = {
                     }, {
                         text: 'Redis',
                         link: '/redis/'
-                    },{
+                    }, {
                         text: 'Elasticsearch',
                         link: '/es/'
                     },
@@ -172,6 +172,12 @@ module.exports = {
                     './concurrent/thread-pool-executor',
                     './concurrent/Future',
                     './concurrent/CompletableFuture'
+                ]
+            }, {
+                title: '操作系统',
+                collapsable: false,
+                children: [
+                    './algorithms/'
                 ]
             }, {
                 title: '数据结构与算法',
