@@ -113,6 +113,14 @@ module.exports = {
                 collapsable: true,
                 children: [
                     {
+                        title: '操作系统基础',
+                        collapsable: false,
+                        children: [
+                            './operating-system/',
+                            './operating-system/io',
+                        ]
+                    },
+                    {
                         title: '数据结构与算法',
                         collapsable: false,
                         children: [
