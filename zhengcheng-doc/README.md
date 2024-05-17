@@ -1,7 +1,7 @@
 ---
 home: true
 heroImage: /img/logo.png
-heroText: 新征程软件技术平台
+heroText: 新征程架构
 tagline: 简化开发 效率至上
 actionText: 快速上手 →
 actionLink: /guide/
