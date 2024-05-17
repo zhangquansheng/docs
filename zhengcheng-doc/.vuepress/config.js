@@ -299,7 +299,58 @@ module.exports = {
             {
                 title: '分布式',
                 collapsable: true
+            }
+            , {
+                title: '项目实战',
+                collapsable: true,
+                children: [
+                    {
+                        title: '系统设计',
+                        collapsable: false,
+                        children: [
+                            './system-design/auto-cancel',
+                            './system-design/duplicate-pay',
+                            './system-design/sign-auth',
+                            './system-design/seckill'
+                        ]
+                    }, {
+                        title: '源码分析',
+                        collapsable: false,
+                        children: [
+                            './source-code-hunter/xxl-job',
+                            './source-code-hunter/http-long-polling',
+                        ]
+                    }
+                ]
             }, {
+                title: '开发工具',
+                collapsable: true,
+                children: [
+                    {
+                        title: 'Maven',
+                        collapsable: false,
+                        children: [
+                            './dev-tool/maven'
+                        ]
+                    },
+                    {
+                        title: 'Docker',
+                        collapsable: false,
+                        children: [
+                            './devops/docker-in-action',
+                            './devops/docker-compose'
+                        ]
+                    },
+                    {
+                        title: '插件',
+                        collapsable: false,
+                        children: [
+                            './dev-tool/idea-plugin'
+                        ]
+                    }
+                ]
+            }
+            , {
                 title: '技术方法论',
                 collapsable: true
             },
@@ -322,6 +373,13 @@ module.exports = {
                     './guide/socketio',
                     './guide/nacos-eureka',
                     './guide/log'
+                ]
+            },
+            {
+                title: '更新日志',
+                collapsable: false,
+                children: [
+                    './change-log/'
                 ]
             }
         ]

@@ -130,60 +130,7 @@ module.exports = {
             {text: 'GitHub', link: 'https://github.com/zhangquansheng/zhengcheng-parent'},
         ],
         sidebar: [
-            {
-                title: '系统设计',
-                collapsable: false,
-                children: [
-                    './system-design/auto-cancel',
-                    './system-design/duplicate-pay',
-                    './system-design/sign-auth',
-                    './system-design/seckill'
-                ]
-            },
-            // {
-            //     title: '分布式',
-            //     collapsable: false,
-            //     children: [
-            //         './distributed/'
-            //     ]
-            // },{
-            //     title: '高性能、高并发、高可用',
-            //     collapsable: false,
-            //     children: [
-            //         './high/'
-            //     ]
-            // },
-            {
-                title: '源码分析',
-                collapsable: false,
-                children: [
-                    './source-code-hunter/xxl-job',
-                    './source-code-hunter/http-long-polling',
-                ]
-            },
-            {
-                title: '开发工具',
-                collapsable: false,
-                children: [
-                    './dev-tool/maven',
-                    './dev-tool/idea-plugin'
-                ]
-            },
-            {
-                title: 'DevOps',
-                collapsable: false,
-                children: [
-                    './devops/docker-in-action',
-                    './devops/docker-compose'
-                ]
-            },
-            {
-                title: '更新日志',
-                collapsable: false,
-                children: [
-                    './change-log/'
-                ]
-            }
+
         ]
     }
 };
